@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>qml;cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>qrc;rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+    </Filter>
+    <Filter Include="Translation Files">
+      <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
+      <Extensions>ts</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Setting">
+      <UniqueIdentifier>{5d35014e-2851-4218-80be-e89df517c974}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Watcher">
+      <UniqueIdentifier>{b71a943a-3516-4333-89c6-4f1b6ab3d069}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Tools">
+      <UniqueIdentifier>{392374f9-d7ac-4c7e-9c82-ce3b0ce7a146}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Tools\PDF">
+      <UniqueIdentifier>{c0bdf854-728d-41f3-82be-c58a2844d6cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="User Interface">
+      <UniqueIdentifier>{40ad7b07-6dbd-44c0-96a2-5a3ac2c43654}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="User Interface\CustomWidget">
+      <UniqueIdentifier>{81f22e00-220e-47d9-8246-2f9352f332b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager">
+      <UniqueIdentifier>{b28bcb55-66a3-487e-ab5e-e473590e56ca}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="Hugou.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <ClCompile Include="Hugou.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <None Include="Hugou.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <ResourceCompile Include="Hugou.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+    <QtMoc Include="WorkSpace.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="OperationZone.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="FloatingNotePanel.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="FloatingNoteManager.h">
+      <Filter>Manager</Filter>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Setting.cpp">
+      <Filter>Source Files\Setting</Filter>
+    </ClCompile>
+    <ClCompile Include="ThemeSetting.cpp">
+      <Filter>Source Files\Setting</Filter>
+    </ClCompile>
+    <ClCompile Include="ButtonHoverWatcher.cpp">
+      <Filter>Source Files\Watcher</Filter>
+    </ClCompile>
+    <ClCompile Include="FloatingNote.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PDFEdit.cpp">
+      <Filter>Source Files\Tools\PDF</Filter>
+    </ClCompile>
+    <ClCompile Include="ComboboxWheelWatcher.cpp">
+      <Filter>Source Files\Watcher</Filter>
+    </ClCompile>
+    <ClCompile Include="PDFtoWord.cpp">
+      <Filter>Source Files\Tools\PDF</Filter>
+    </ClCompile>
+    <ClCompile Include="FileImportDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PDFParse.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleBar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AsideBar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IconTextButton.cpp">
+      <Filter>User Interface\CustomWidget</Filter>
+    </ClCompile>
+    <ClCompile Include="WorkSpace.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OperationZone.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="File.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FileManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="FloatingNoteManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="FloatingNotePanel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Var.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Const.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Setting.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ThemeSetting.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PDFtoWord.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PDFEdit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PDFParse.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ui_Hugou.h">
+      <Filter>User Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="ui_FloatingNote.h">
+      <Filter>User Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="ui_TitleBar.h">
+      <Filter>User Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="ui_AsideBar.h">
+      <Filter>User Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Theme.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IconTextButton.h">
+      <Filter>User Interface\CustomWidget</Filter>
+    </ClInclude>
+    <ClInclude Include="ui_WorkSpace.h">
+      <Filter>User Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="ui_OperationZone.h">
+      <Filter>User Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="File.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FileManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Var.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ui_FloatingNotePanel.h">
+      <Filter>User Interface</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="ButtonHoverWatcher.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="ComboboxWheelWatcher.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="FloatingNote.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="FileImportDialog.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="TitleBar.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="AsideBar.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="conf.ini">
+      <Filter>Source Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="Hugou.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
+  </ItemGroup>
+</Project>

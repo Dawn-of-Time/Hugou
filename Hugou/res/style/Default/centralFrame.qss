@@ -1,0 +1,11 @@
+/* Ö÷´°Ìå */
+
+QMainWindow#HugouClass {
+    background-color: #329D9C;
+}
+
+QStackedWidget#stackedWidget {
+    margin: 5px;
+    border-radius: 10px;
+    background-color: rgba(255,255,255,200);
+}
