@@ -4,3 +4,4 @@
 
 extern FloatingNoteManager floatingNoteManager;
 extern FileManager fileManager;
+extern bool isMaximum;

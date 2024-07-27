@@ -14,14 +14,10 @@ class TitleBar :
 public:
 	TitleBar(QWidget* parent);
 
-	bool isMaximum = false;
 	QQmlApplicationEngine engine;
-	QWidget* parent;
+	QWidget* mainWindow;
 	FloatingNotePanel* floatingNotePanel;
-	QPoint mousePos;
-
-	void mousePressEvent(QMouseEvent* event);
-	void mouseMoveEvent(QMouseEvent* event);
+	
 
 signals:
 	void SignalRestore();
@@ -31,12 +27,31 @@ signals:
 
 protected slots:
 	void minimize();
-	void scaled();
+	void scale();
 	void slideFloatingNotePoint();
 	void floatFloatingNotePoint();
 	void allocateFloatingNotePoint();
 
 private:
 	Ui_TitleBar ui;
+	QPoint distance;
+	int screenWidth;
+	int screenHeight;
+	QRect generalGeometry;
+	QRect maximumGeometry;
+
+	void mousePressEvent(QMouseEvent* event) override
+	{
+		distance = event->globalPos() - mainWindow->pos();
+		qDebug() << mainWindow->size();
+		qDebug() << this->size();
+	}
+
+	void mouseMoveEvent(QMouseEvent* event) override
+	{
+		if (ui.dragZone->underMouse()) {
+			mainWindow->move(event->globalPos() - distance);
+		}
+	}
 };
 

@@ -11,23 +11,26 @@
 // 窗口
 const int mainWindowWidth = 960;
 const int mainWindowHeight = 640;
+const int edgeWidth = 8;
+const int cornerRadius = 8;
+const int mainMargin = 10;
 
 // 侧边栏
 const int asideFrameWidth = 150;
-const int asideFrameHeight = mainWindowHeight;
+const int asideFrameHeight = mainWindowHeight - 2 * mainMargin;
 const int userLabelWidth = 150;
 const int userLabelHeight = 80;
 const int asideButtonWidth = 135;
 const int asideButtonHeight = 40;
 // 标题栏
-const int titleFrameWidth = mainWindowWidth - asideFrameWidth;
+const int titleFrameWidth = mainWindowWidth - asideFrameWidth - 2 * mainMargin;
 const int titleFrameHeight = 35;
 const int titleButtonWidth = 60;
 const int titleButtonHeight = titleFrameHeight;
 const QSize titleButtonIconSize = QSize(15, 15);
 // 主页
-const int stackedWidgetWidth = mainWindowWidth - asideFrameWidth;
-const int stackedWidgetHeight = mainWindowHeight - titleFrameHeight;
+const int stackedWidgetWidth = titleFrameWidth;
+const int stackedWidgetHeight = asideFrameHeight - titleFrameHeight;
 const int stackedTitleHeight = 50;
 const int functionSubwidgetWidth = stackedWidgetWidth;
 const int functionSubwidgetHeight = stackedWidgetHeight - stackedTitleHeight;
@@ -40,7 +43,7 @@ const int functionDialogHeight = 360;
 // 浮动消息
 const int floatingNoteWidth = 370;
 const QPoint floatingNoteHiddenPos = QPoint(mainWindowWidth, titleFrameHeight);
-const QPoint floatingNoteShownPos = QPoint(mainWindowWidth - floatingNoteWidth - 10, titleFrameHeight);
+const QPoint floatingNoteShownPos = QPoint(mainWindowWidth - floatingNoteWidth - 20, titleFrameHeight);
 const int floatingNoteButtonWidth = 150;
 const int floatingNoteButtonHeight = 35;
 

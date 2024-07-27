@@ -16,10 +16,11 @@ QT_BEGIN_NAMESPACE
 class Ui_HugouClass
 {
 public:
-    QWidget* centralWidget;
+    QHBoxLayout* generalBackgroundLayout;
+    QWidget* generalBackground;
     QHBoxLayout* generalLayout;
-    QWidget* titleAndCenterWidget;
-    QVBoxLayout* titleAndStackedLayout;
+    QWidget* titleBarAndStackedWidget;
+    QVBoxLayout* titleBarAndStackedLayout;
     TitleBar* titleBar;
     AsideBar* asideBar;
     QStackedWidget* stackedWidget;
@@ -46,38 +47,60 @@ public:
     QLineEdit* savePathLineEdit;
     std::map<QString, int> settingItemRowMap;
 
-    void setupUi(QMainWindow* HugouClass)
+    void setupUi(QWidget* HugouClass)
     {
-        if (HugouClass->objectName().isEmpty())
-            HugouClass->setObjectName("HugouClass");
+        // 1 主窗口
+        // --基本属性设置
+        HugouClass->setObjectName("HugouClass");
         HugouClass->setMinimumSize(mainWindowWidth, mainWindowHeight);
 
-        centralWidget = new QWidget(HugouClass);
-        HugouClass->setCentralWidget(centralWidget);
+        // --无边框窗口
+        // 注：使用无边框窗口的一个目标是方便自定义标题栏。事实上，使用Qt::CustomizeWindowHint标志会更方便一些，
+        //    因为Qt::FramelessWindowHint标志将会一并移出窗口边缘的拉伸效果，同时并不自带圆角效果。遗憾的是，
+        //    使用Qt::CustomizeWindowHint标志后，会在窗口的顶端残留白条，并不美观。因此考虑使用
+        //    Qt::FramelessWindowHint标志，其余功能自行实现。
+        HugouClass->setWindowFlags(Qt::FramelessWindowHint);
 
-        generalLayout = new QHBoxLayout(centralWidget);
+        // --透明背景
+        HugouClass->setAttribute(Qt::WA_TranslucentBackground);
+
+
+        // 2 主布局
+        // 注：由于期望将主窗口设置圆角，而在Qt中无法将无父控件的控件通过设置qss的border-radius属性来改变圆角。
+        //    这里将主窗口设置为透明背景，然后叠加一层控件作为主背景。
+        // --主背景
+        // 注：之后的控件在主背景上产生。主背景的四周存在间隙，用于实现拖拽以变更窗口大小的功能。
+        generalBackgroundLayout = new QHBoxLayout(HugouClass);
+        generalBackgroundLayout->setSpacing(0);
+        generalBackgroundLayout->setContentsMargins(0, 0, 0, 0);
+
+        generalBackground = new QWidget(HugouClass);
+        generalBackground->setObjectName("generalBackground");
+
+        generalBackgroundLayout->addWidget(generalBackground);
+
+        // --主布局
+        generalLayout = new QHBoxLayout(generalBackground);
         generalLayout->setSpacing(0);
-        generalLayout->setContentsMargins(0, 0, 0, 0);
-
-        titleAndCenterWidget = new QWidget(HugouClass);
-        titleAndStackedLayout = new QVBoxLayout(titleAndCenterWidget);
-        titleAndStackedLayout->setSpacing(0);
-        titleAndStackedLayout->setContentsMargins(0, 0, 0, 0);
-
-        titleBar = new TitleBar(HugouClass); // 标题栏
-        titleBar->setGeometry(asideFrameWidth, 0, titleFrameWidth, titleFrameHeight);
-        asideBar = new AsideBar(HugouClass); // 侧边栏
-
-        //去除标题栏；支持单击任务栏图标最小化
-        HugouClass->setWindowFlags(Qt::FramelessWindowHint | Qt::WindowSystemMenuHint | Qt::WindowMinMaxButtonsHint); 
-        
-        // WorkSpace界面
-        workSpaceWidget = new WorkSpace(HugouClass);
-
-        // Setting界面
-        settingWidget = new QWidget(HugouClass);
+        generalLayout->setContentsMargins(10, 10, 10, 10);
+        // ----侧边栏
+        asideBar = new AsideBar(generalBackground);
+        // ----标题栏与堆叠控件
+        titleBarAndStackedWidget = new QWidget(generalBackground);
+        titleBarAndStackedLayout = new QVBoxLayout(titleBarAndStackedWidget);
+        titleBarAndStackedLayout->setSpacing(0);
+        titleBarAndStackedLayout->setContentsMargins(0, 0, 0, 0);
+        // ------标题栏
+        titleBar = new TitleBar(titleBarAndStackedWidget);
+        // ------堆叠控件
+        stackedWidget = new QStackedWidget(titleBarAndStackedWidget);
+        stackedWidget->setObjectName("stackedWidget");
+        stackedWidget->setGeometry(0, titleFrameHeight, stackedWidgetWidth, stackedWidgetHeight);
+        // --------堆叠控件：WorkSpace
+        workSpaceWidget = new WorkSpace(stackedWidget);
+        // --------堆叠控件：Setting
+        settingWidget = new QWidget(stackedWidget);
         settingWidget->setObjectName("settingWidget");
-        settingWidget->setFixedSize(stackedWidgetWidth, stackedWidgetHeight);
         settingLabel = new QLabel("Settings", settingWidget); // 界面标题板块
         settingLabel->setObjectName("settingLabel");
         settingLabel->setFixedHeight(stackedTitleHeight);
@@ -135,21 +158,17 @@ public:
         settingContentListWidget->setSelectionRectVisible(false);
         settingContentListWidget->setFixedSize(settingRightWidget->width(), settingRightWidget->height());
 
-        stackedWidget = new QStackedWidget(HugouClass);
-        stackedWidget->setObjectName("stackedWidget");
-        stackedWidget->setGeometry(asideFrameWidth, titleFrameHeight, stackedWidgetWidth, stackedWidgetHeight);
-
         stackedWidget->addWidget(workSpaceWidget);
         stackedWidget->addWidget(settingWidget);
         stackedWidget->setCurrentWidget(workSpaceWidget);
 
-        titleAndStackedLayout->addWidget(titleBar);
-        titleAndStackedLayout->addWidget(stackedWidget);
+        titleBarAndStackedLayout->addWidget(titleBar);
+        titleBarAndStackedLayout->addWidget(stackedWidget);
 
         generalLayout->addWidget(asideBar);
-        generalLayout->addWidget(titleAndCenterWidget);
+        generalLayout->addWidget(titleBarAndStackedWidget);
 
-        QFile styleFile("res/style/Default/centralFrame.qss");
+        QFile styleFile("res/style/Default/general.qss");
         styleFile.open(QIODeviceBase::ReadOnly);
         HugouClass->setStyleSheet(styleFile.readAll());
         styleFile.close();
@@ -370,7 +389,7 @@ public:
     }
 
 
-    void retranslateUi(QMainWindow* HugouClass)
+    void retranslateUi(QWidget* HugouClass)
     {
         HugouClass->setWindowTitle(QCoreApplication::translate("HugouClass", "Hugou", nullptr));
     } 

@@ -55,6 +55,8 @@ public:
 
     void setupUi(QWidget* titleBar)
     {
+        titleBar->setMinimumWidth(titleFrameWidth);
+        titleBar->setFixedHeight(titleFrameHeight);
         titleLayout = new QHBoxLayout(titleBar);
         titleLayout->setContentsMargins(0, 0, 0, 0);
         titleLayout->setSpacing(0);
@@ -108,6 +110,7 @@ public:
         floatingNotePanelButtonHoverWatcher = new ButtonHoverWatcher(floatingNotePanelButtonBackground, "transparent", "rgba(255,255,255,80)", titleBar);
         floatingNotePanelButton->installEventFilter(floatingNotePanelButtonHoverWatcher);
         floatingNotePanelButton->raise();
+        floatingNotePanelButton->setCursor(QCursor(Qt::PointingHandCursor));
 
         // 帮助按钮
         helpButton = new QPushButton(titleBar); 
@@ -115,6 +118,7 @@ public:
         helpButton->setIcon(QIcon("res/ico/help_w.png"));
         helpButton->setIconSize(titleButtonIconSize);
         helpButton->setFixedSize(titleButtonWidth, titleButtonHeight);
+        helpButton->setCursor(QCursor(Qt::PointingHandCursor));
 
         // 最小化按钮
         minimizeButton = new QPushButton(titleBar);
@@ -122,6 +126,7 @@ public:
         minimizeButton->setIcon(QIcon("res/ico/minimize_w.png"));
         minimizeButton->setIconSize(titleButtonIconSize);
         minimizeButton->setFixedSize(titleButtonWidth, titleButtonHeight);
+        minimizeButton->setCursor(QCursor(Qt::PointingHandCursor));
 
         // 最大化/还原按钮
         scaledButton = new QPushButton(titleBar);
@@ -129,6 +134,7 @@ public:
         scaledButton->setIcon(QIcon("res/ico/maximum_w.png"));
         scaledButton->setIconSize(titleButtonIconSize);
         scaledButton->setFixedSize(titleButtonWidth, titleButtonHeight);
+        scaledButton->setCursor(QCursor(Qt::PointingHandCursor));
         /*scaledButtonHoverWatcher = new ButtonHoverWatcher(QString("res/ico/island_b.png"), QString("res/ico/island_w.png"), titleBar);
         scaledButton->installEventFilter(scaledButtonHoverWatcher);*/
 
@@ -138,6 +144,7 @@ public:
         closeButton->setIcon(QIcon("res/ico/close_w.png"));
         closeButton->setIconSize(titleButtonIconSize);
         closeButton->setFixedSize(titleButtonWidth, titleButtonHeight);
+        closeButton->setCursor(QCursor(Qt::PointingHandCursor));
         /*closeButtonHoverWatcher = new ButtonHoverWatcher(QString("res/ico/close_bla.png"), QString("res/ico/close_w.png"), titleBar);
         closeButton->installEventFilter(closeButtonHoverWatcher);*/
 

@@ -1,7 +1,12 @@
 /* Ö÷´°Ìå */
 
-QMainWindow#HugouClass {
+QWidget#HugouClass {
+    background-color: transparent;
+}
+
+QWidget#generalBackground {
     background-color: #329D9C;
+    border-radius: 12px;
 }
 
 QStackedWidget#stackedWidget {

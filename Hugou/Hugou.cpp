@@ -5,79 +5,80 @@
 extern FloatingNoteManager floatingNoteManager;
 
 Hugou::Hugou(Setting* setting, QWidget* parent)
-    : QMainWindow(parent)
+    : QWidget(parent)
 {
+    this->setAttribute(Qt::WA_Hover);
     // Ui
     ui.setupUi(this);
 
     pdfEdit = new PDFEdit("C:/Users/Dawn/Desktop/test.pdf");
 
     // 设置页
-    QString settingWidgetStyleSheet = QString(
-        "QStackedWidget {margin: 0px; padding: 0px; border-bottom-right-radius: 12px}");
-    QString settingLabelStyleSheet = QString(
-        "QLabel {margin-left: 20px}");
-    QString searchButtonStyleSheet = QString(
-        "QPushButton {border: none}");
-    QString searchDeletedButtonStyleSheet = QString(
-        "QPushButton {border: none}");
-    QString settingLeftWidgetStyleSheet = QString(
-        ".QWidget {background-color:white; margin: 0px; padding: 0px; border-top: 2px solid #cccccc; border-right: 2px solid #cccccc}");
-    QString settingTreeFrameStyleSheet = QString(
-        "QFrame {background-color:white; margin: 2px; padding: 0px; border-bottom-right-radius: 12px}");
-    QString settingRightWidgetStyleSheet = QString(
-        ".QWidget {margin: 0px; padding: 0px; border-top: 2px solid #cccccc; background-color:white; border-bottom-right-radius: 12px}");
-    QString settingContentListWidgetStyleSheet = QString(
-        "QListWidget {background-color:white; border-bottom-right-radius: 12px; outline: none; margin-left: 20px; margin-right: 12px; margin-top: 2px; margin-bottom: 2px}"
-        "QListWidget::item:hover{background-color:none; border-bottom-right-radius: 12px}");
-    ui.settingWidget->setStyleSheet(settingWidgetStyleSheet);
-    ui.settingLabel->setStyleSheet(settingLabelStyleSheet);
-    ui.searchButton->setStyleSheet(searchButtonStyleSheet);
-    ui.settingLeftWidget->setStyleSheet(settingLeftWidgetStyleSheet);
-    ui.settingTreeFrame->setStyleSheet(settingTreeFrameStyleSheet);
-    ui.settingRightWidget->setStyleSheet(settingRightWidgetStyleSheet);
-    ui.settingContentListWidget->setStyleSheet(settingContentListWidgetStyleSheet);
+    //QString settingWidgetStyleSheet = QString(
+    //    "QStackedWidget {margin: 0px; padding: 0px; border-bottom-right-radius: 12px}");
+    //QString settingLabelStyleSheet = QString(
+    //    "QLabel {margin-left: 20px}");
+    //QString searchButtonStyleSheet = QString(
+    //    "QPushButton {border: none}");
+    //QString searchDeletedButtonStyleSheet = QString(
+    //    "QPushButton {border: none}");
+    //QString settingLeftWidgetStyleSheet = QString(
+    //    ".QWidget {background-color:white; margin: 0px; padding: 0px; border-top: 2px solid #cccccc; border-right: 2px solid #cccccc}");
+    //QString settingTreeFrameStyleSheet = QString(
+    //    "QFrame {background-color:white; margin: 2px; padding: 0px; border-bottom-right-radius: 12px}");
+    //QString settingRightWidgetStyleSheet = QString(
+    //    ".QWidget {margin: 0px; padding: 0px; border-top: 2px solid #cccccc; background-color:white; border-bottom-right-radius: 12px}");
+    //QString settingContentListWidgetStyleSheet = QString(
+    //    "QListWidget {background-color:white; border-bottom-right-radius: 12px; outline: none; margin-left: 20px; margin-right: 12px; margin-top: 2px; margin-bottom: 2px}"
+    //    "QListWidget::item:hover{background-color:none; border-bottom-right-radius: 12px}");
+    //ui.settingWidget->setStyleSheet(settingWidgetStyleSheet);
+    //ui.settingLabel->setStyleSheet(settingLabelStyleSheet);
+    //ui.searchButton->setStyleSheet(searchButtonStyleSheet);
+    //ui.settingLeftWidget->setStyleSheet(settingLeftWidgetStyleSheet);
+    //ui.settingTreeFrame->setStyleSheet(settingTreeFrameStyleSheet);
+    //ui.settingRightWidget->setStyleSheet(settingRightWidgetStyleSheet);
+    //ui.settingContentListWidget->setStyleSheet(settingContentListWidgetStyleSheet);
 
-    // 设置模糊
-    blurEffect = new QGraphicsBlurEffect;
-    blurEffect->setBlurRadius(0);
-    blurTimer.setInterval(5);
-    ui.stackedWidget->setGraphicsEffect(blurEffect);
-    // 配置读取和应用
-    receiveSetting = setting;
-    if (!receiveSetting->readSetting()) // 读取设置并保存到所有settingMap中。一旦有任何错误，立即引发错误提示，并暂时采用默认设定
-    {
-        raiseReadingSettingError();
-        settingCommonMap = defaultCommonMap;
-        settingExportMap = defaultExportMap;
-    }
+    //// 设置模糊
+    //blurEffect = new QGraphicsBlurEffect;
+    //blurEffect->setBlurRadius(0);
+    //blurTimer.setInterval(5);
+    //ui.stackedWidget->setGraphicsEffect(blurEffect);
+    //// 配置读取和应用
+    //receiveSetting = setting;
+    //if (!receiveSetting->readSetting()) // 读取设置并保存到所有settingMap中。一旦有任何错误，立即引发错误提示，并暂时采用默认设定
+    //{
+    //    raiseReadingSettingError();
+    //    settingCommonMap = defaultCommonMap;
+    //    settingExportMap = defaultExportMap;
+    //}
     // 实际应用
     //receiveSetting->themeSetting->initTheme(this);
     //receiveSetting->applySetting(this);
     // ui应用
-    if (themeList.contains(settingCommonMap["theme"]))
-        ui.themeBox->setCurrentIndex(themeList.indexOf(settingCommonMap["theme"]));
-    if (languageList.contains(settingCommonMap["language"]))
-        ui.languageBox->setCurrentIndex(languageList.indexOf(settingCommonMap["language"]));
+    //if (themeList.contains(settingCommonMap["theme"]))
+    //    ui.themeBox->setCurrentIndex(themeList.indexOf(settingCommonMap["theme"]));
+    //if (languageList.contains(settingCommonMap["language"]))
+    //    ui.languageBox->setCurrentIndex(languageList.indexOf(settingCommonMap["language"]));
 
     // 信号与槽
     connect(ui.titleBar, &TitleBar::SignalBlurStackedWidget, this, &Hugou::blurStackedWidget);
     connect(ui.titleBar, &TitleBar::SignalClearStackedWidget, this, &Hugou::clearStackedWidget);
     connect(ui.asideBar, &AsideBar::SignalChangeStackedWidget, this, &Hugou::changeStackedWidget);
-    connect(ui.searchLineEdit, &QLineEdit::textChanged, this, &Hugou::checkIsLineEditNull);
-    connect(ui.searchButton, &QPushButton::clicked, this, &Hugou::search);
-    connect(ui.settingTreeWidget, &QTreeWidget::itemClicked, [&](QTreeWidgetItem* item, int column) {item->setExpanded(!item->isExpanded()); });
-    connect(ui.settingTreeWidget, &QTreeWidget::itemDoubleClicked, [&](QTreeWidgetItem* item, int column)
-        {
-            int row = ui.settingItemRowMap[item->text(column)];
-            ui.settingContentListWidget->scrollToItem(ui.settingContentListWidget->item(row), QAbstractItemView::PositionAtTop);
-        });
-    connect(ui.themeBox, &QComboBox::currentIndexChanged, [&](int index)
-        {
-            QString oldsetting = settingCommonMap["theme"];
-            settingCommonMap["theme"] = ui.themeBox->currentText();
-            //if (!setting->applySetting(this, "themeBox", oldsetting)) raiseSavingSettingError();
-        });
+    //connect(ui.searchLineEdit, &QLineEdit::textChanged, this, &Hugou::checkIsLineEditNull);
+    //connect(ui.searchButton, &QPushButton::clicked, this, &Hugou::search);
+    //connect(ui.settingTreeWidget, &QTreeWidget::itemClicked, [&](QTreeWidgetItem* item, int column) {item->setExpanded(!item->isExpanded()); });
+    //connect(ui.settingTreeWidget, &QTreeWidget::itemDoubleClicked, [&](QTreeWidgetItem* item, int column)
+    //    {
+    //        int row = ui.settingItemRowMap[item->text(column)];
+    //        ui.settingContentListWidget->scrollToItem(ui.settingContentListWidget->item(row), QAbstractItemView::PositionAtTop);
+    //    });
+    //connect(ui.themeBox, &QComboBox::currentIndexChanged, [&](int index)
+    //    {
+    //        QString oldsetting = settingCommonMap["theme"];
+    //        settingCommonMap["theme"] = ui.themeBox->currentText();
+    //        //if (!setting->applySetting(this, "themeBox", oldsetting)) raiseSavingSettingError();
+    //    });
 }
 
 Hugou::~Hugou()
@@ -99,6 +100,141 @@ void Hugou::checkIsLineEditNull()
     else switchOverSearchButton(0);
 }
 
+Hugou::Edge Hugou::getEdge(QPoint mousePos)
+{
+    currentMainWindowGeometry = this->geometry();
+    if (mousePos.y() >= 0 && mousePos.y() < edgeWidth)
+    { 
+        if (mousePos.x() >= 0 && mousePos.x() < cornerRadius) { return TOPLEFT; }
+        else if (mousePos.x() >= cornerRadius && mousePos.x() <= (currentMainWindowGeometry.width() - cornerRadius)) { return TOP; }
+        else if (mousePos.x() > (currentMainWindowGeometry.width() - cornerRadius) && mousePos.x() <= currentMainWindowGeometry.width()) { return TOPRIGHT; }
+        else { return NOTEDGE; }
+    }
+    else if (mousePos.y() >= edgeWidth && mousePos.y() <= (currentMainWindowGeometry.height() - edgeWidth))
+    {
+        if (mousePos.x() >= 0 && mousePos.x() < cornerRadius) { return LEFT; }
+        else if (mousePos.x() > (currentMainWindowGeometry.width() - cornerRadius) && mousePos.x() <= currentMainWindowGeometry.width()) { return RIGHT; }
+        else { return NOTEDGE; }
+    }
+    else if (mousePos.y() > (currentMainWindowGeometry.height() - edgeWidth) && mousePos.y() < currentMainWindowGeometry.height())
+    {
+        if (mousePos.x() >= 0 && mousePos.x() < cornerRadius) { return BOTTOMLEFT; }
+        else if (mousePos.x() >= cornerRadius && mousePos.x() <= (currentMainWindowGeometry.width() - cornerRadius)) { return BOTTOM; }
+        else if (mousePos.x() > (currentMainWindowGeometry.width() - cornerRadius) && mousePos.x() <= currentMainWindowGeometry.width()) { return BOTTOMRIGHT; }
+        else { return NOTEDGE; }
+    }
+    else
+    {
+        return NOTEDGE;
+    }
+}
+
+QRect Hugou::customScale(Edge edge, QRect currentMainWindowGeometry, QPoint change)
+{
+    QRect tempMainWindowGeometry = currentMainWindowGeometry;
+    QRect newMainWindowGeometry = currentMainWindowGeometry;
+    switch (edge)
+    {
+    case TOPLEFT:
+    {
+        tempMainWindowGeometry.setTopLeft(currentMainWindowGeometry.topLeft() + change);
+        if (tempMainWindowGeometry.height() < mainWindowHeight)
+        {
+            tempMainWindowGeometry.setTop(tempMainWindowGeometry.top() - change.y());
+        }
+        if (tempMainWindowGeometry.width() < mainWindowWidth)
+        {
+            tempMainWindowGeometry.setLeft(tempMainWindowGeometry.left() - change.x());
+        }
+        break;
+    }
+    case TOP:
+    {
+        tempMainWindowGeometry.setTop(currentMainWindowGeometry.top() + change.y());
+        if (tempMainWindowGeometry.height() < mainWindowHeight)
+        {
+            tempMainWindowGeometry.setTop(tempMainWindowGeometry.top() - change.y());
+        }
+        break;
+    }
+    case TOPRIGHT:
+    {
+        tempMainWindowGeometry.setTopRight(currentMainWindowGeometry.topRight() + change);
+        if (tempMainWindowGeometry.height() < mainWindowHeight)
+        {
+            tempMainWindowGeometry.setTop(tempMainWindowGeometry.top() - change.y());
+        }
+        if (tempMainWindowGeometry.width() < mainWindowWidth)
+        {
+            tempMainWindowGeometry.setRight(tempMainWindowGeometry.right() - change.x());
+        }
+        break;
+    }
+    case LEFT:
+    {
+        tempMainWindowGeometry.setLeft(currentMainWindowGeometry.left() + change.x());
+        if (tempMainWindowGeometry.width() < mainWindowWidth)
+        {
+            tempMainWindowGeometry.setLeft(tempMainWindowGeometry.left() - change.x());
+        }
+        break;
+    }
+    case RIGHT:
+    {
+        tempMainWindowGeometry.setRight(currentMainWindowGeometry.right() + change.x());
+        if (tempMainWindowGeometry.width() < mainWindowWidth)
+        {
+            tempMainWindowGeometry.setRight(tempMainWindowGeometry.right() - change.x());
+        }
+        break;
+    }
+    case BOTTOMLEFT:
+    {
+        tempMainWindowGeometry.setBottomLeft(currentMainWindowGeometry.bottomLeft() + change);
+        if (tempMainWindowGeometry.height() < mainWindowHeight)
+        {
+            tempMainWindowGeometry.setBottom(tempMainWindowGeometry.bottom() - change.y());
+        }
+        if (tempMainWindowGeometry.width() < mainWindowWidth)
+        {
+            tempMainWindowGeometry.setLeft(tempMainWindowGeometry.left() - change.x());
+        }
+        break;
+    }
+    case BOTTOM:
+    {
+        tempMainWindowGeometry.setBottom(currentMainWindowGeometry.bottom() + change.y());
+        if (tempMainWindowGeometry.height() < mainWindowHeight)
+        {
+            tempMainWindowGeometry.setBottom(tempMainWindowGeometry.bottom() - change.y());
+        }
+        break;
+    }
+    case BOTTOMRIGHT:
+    {
+        tempMainWindowGeometry.setBottomRight(currentMainWindowGeometry.bottomRight() + change);
+        if (tempMainWindowGeometry.height() < mainWindowHeight)
+        {
+            tempMainWindowGeometry.setBottom(tempMainWindowGeometry.bottom() - change.y());
+        }
+        if (tempMainWindowGeometry.width() < mainWindowWidth)
+        {
+            tempMainWindowGeometry.setRight(tempMainWindowGeometry.right() - change.x());
+        }
+        break;
+    }
+    case NOTEDGE:
+    {
+        break;
+    }
+    default:
+    {
+        break;
+    }
+    }
+    newMainWindowGeometry = tempMainWindowGeometry;
+    return newMainWindowGeometry;
+}
 // 槽函数
 void Hugou::switchOverSearchButton(bool msg)
 {

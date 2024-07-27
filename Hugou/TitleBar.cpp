@@ -8,48 +8,34 @@ TitleBar::TitleBar(QWidget* parent) :
 	QWidget(parent)
 {
 	ui.setupUi(this);
-    this->parent = parent;
-    const int screenWidth = QApplication::primaryScreen()->availableGeometry().size().width();
-    const int screenHeight = QApplication::primaryScreen()->availableGeometry().size().height();
-    const QRect generalGeometry = QRect((screenWidth - mainWindowWidth) / 2, (screenHeight - mainWindowHeight) / 2, mainWindowWidth, mainWindowHeight);
-    const QRect maximumGeometry = QRect(0, 0, screenWidth, screenHeight);
-    engine.rootContext()->setContextProperty("mainWindow", parent);
+    // 父子关系（由子至父）：TitleBar->titleBarAndStackedWidget->generalBackground->HugouClass
+    this->mainWindow = parent->parentWidget()->parentWidget();
+    screenWidth = QApplication::primaryScreen()->availableGeometry().size().width();
+    screenHeight = QApplication::primaryScreen()->availableGeometry().size().height();
+    QRect generalGeometry = QRect((screenWidth - mainWindowWidth) / 2, (screenHeight - mainWindowHeight) / 2, mainWindowWidth, mainWindowHeight);
+    QRect maximumGeometry = QRect(0, 0, screenWidth, screenHeight);
+    engine.rootContext()->setContextProperty("mainWindow", mainWindow);
     engine.rootContext()->setContextProperty("generalGeometry", generalGeometry);
     engine.rootContext()->setContextProperty("maximumGeometry", maximumGeometry);
     engine.load(QUrl("res/qml/scaledAnimation.qml"));
-    floatingNotePanel = new FloatingNotePanel(parent);
+    floatingNotePanel = new FloatingNotePanel(mainWindow);
 	connect(ui.floatingNotePanelButton, &QPushButton::clicked, floatingNotePanel, &FloatingNotePanel::showPanel);
 	connect(ui.minimizeButton, &QPushButton::clicked, this, &TitleBar::minimize);
-    connect(ui.scaledButton, &QPushButton::clicked, this, &TitleBar::scaled);
-	connect(ui.closeButton, &QPushButton::clicked, parent, &QWidget::close);
+    connect(ui.scaledButton, &QPushButton::clicked, this, &TitleBar::scale);
+	connect(ui.closeButton, &QPushButton::clicked, mainWindow, &QWidget::close);
     connect(&floatingNoteManager, &FloatingNoteManager::SignalAnimationFinishedToTitleBar, this, &TitleBar::slideFloatingNotePoint);
     connect(floatingNotePanel, &FloatingNotePanel::blurBackground, this, [&]() {emit SignalBlurStackedWidget(); });
     connect(floatingNotePanel, &FloatingNotePanel::clearBackground, this, [&]() {emit SignalClearStackedWidget(); });
 }
 
-void TitleBar::mousePressEvent(QMouseEvent* event)
-{
-    mousePos = event->globalPos() - this->parent->pos();
-}
-
-void TitleBar::mouseMoveEvent(QMouseEvent* event)
-{
-    if (ui.dragZone->underMouse()) {
-        this->parent->move(event->globalPos() - mousePos);
-    }
-}
-
 // 槽函数
 void TitleBar::minimize()
 {
-    parent->showMinimized();
+    mainWindow->showMinimized();
 }
 
-void TitleBar::scaled()
+void TitleBar::scale()
 {
-    const int screenWidth = QApplication::primaryScreen()->availableGeometry().size().width();
-    const int screenHeight = QApplication::primaryScreen()->availableGeometry().size().height();
-    const QRect generalGeometry = QRect((screenWidth - mainWindowWidth) / 2, (screenHeight - mainWindowHeight) / 2, mainWindowWidth, mainWindowHeight);
     if (isMaximum)
     {
         emit SignalRestore();

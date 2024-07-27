@@ -37,7 +37,7 @@ public:
         palette.setColor(QPalette::Window, Qt::white);
         operationVideoWidget->setAutoFillBackground(true);
         operationVideoWidget->setPalette(palette);
-        //operationVideoWidget->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        operationVideoWidget->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
         operationVideoWidget->setAttribute(Qt::WA_TransparentForMouseEvents);
         // Ë«»º³å
         //operationVideoWidget->setAttribute(Qt::WA_PaintOnScreen, false);
