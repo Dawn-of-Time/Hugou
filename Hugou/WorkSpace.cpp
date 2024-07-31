@@ -4,6 +4,12 @@ WorkSpace::WorkSpace(QWidget* parent) :
 	QWidget(parent)
 {
 	ui.setupUi(this);
+
+    QTime currentTime = QTime::currentTime();
+    if (currentTime.hour() >= 0 && currentTime.hour() < 12) { ui.workSpaceLabel->setText("Good Morning!"); }
+    else if (currentTime.hour() >= 12 && currentTime.hour() < 18) { ui.workSpaceLabel->setText("Good Afternoon!"); }
+    else { ui.workSpaceLabel->setText("Good Evening!"); }
+
     connect(ui.operationZone, &OperationZone::signalAdd, this, &WorkSpace::slotAdd);
 }
 

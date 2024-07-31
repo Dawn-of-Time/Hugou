@@ -3,24 +3,26 @@
 
 extern FloatingNoteManager floatingNoteManager;
 
-
 TitleBar::TitleBar(QWidget* parent) :
 	QWidget(parent)
 {
 	ui.setupUi(this);
-    // 父子关系（由子至父）：TitleBar->titleBarAndStackedWidget->generalBackground->HugouClass
-    this->mainWindow = parent->parentWidget()->parentWidget();
-    screenWidth = QApplication::primaryScreen()->availableGeometry().size().width();
-    screenHeight = QApplication::primaryScreen()->availableGeometry().size().height();
-    QRect generalGeometry = QRect((screenWidth - mainWindowWidth) / 2, (screenHeight - mainWindowHeight) / 2, mainWindowWidth, mainWindowHeight);
-    QRect maximumGeometry = QRect(0, 0, screenWidth, screenHeight);
-    engine.rootContext()->setContextProperty("mainWindow", mainWindow);
-    engine.rootContext()->setContextProperty("generalGeometry", generalGeometry);
-    engine.rootContext()->setContextProperty("maximumGeometry", maximumGeometry);
-    engine.load(QUrl("res/qml/scaledAnimation.qml"));
+    // 父子关系（由子至父）：TitleBar->titleBarAndStackedWidget->HugouClass
+    this->mainWindow = parent->parentWidget();
+
+    //screenWidth = QApplication::primaryScreen()->availableGeometry().size().width();
+    //screenHeight = QApplication::primaryScreen()->availableGeometry().size().height();
+    //QRect generalGeometry = QRect((screenWidth - mainWindowWidth) / 2, (screenHeight - mainWindowHeight) / 2, mainWindowWidth, mainWindowHeight);
+    //QRect maximumGeometry = QRect(0, 0, screenWidth, screenHeight);
+    //engine.rootContext()->setContextProperty("mainWindow", mainWindow);
+    //engine.rootContext()->setContextProperty("generalGeometry", generalGeometry);
+    //engine.rootContext()->setContextProperty("maximumGeometry", maximumGeometry);
+    //engine.load(QUrl("res/qml/scaledAnimation.qml"));
+
     floatingNotePanel = new FloatingNotePanel(mainWindow);
+
 	connect(ui.floatingNotePanelButton, &QPushButton::clicked, floatingNotePanel, &FloatingNotePanel::showPanel);
-	connect(ui.minimizeButton, &QPushButton::clicked, this, &TitleBar::minimize);
+	connect(ui.minimizeButton, &QPushButton::clicked, mainWindow, &QWidget::showMinimized);
     connect(ui.scaledButton, &QPushButton::clicked, this, &TitleBar::scale);
 	connect(ui.closeButton, &QPushButton::clicked, mainWindow, &QWidget::close);
     connect(&floatingNoteManager, &FloatingNoteManager::SignalAnimationFinishedToTitleBar, this, &TitleBar::slideFloatingNotePoint);
@@ -29,29 +31,36 @@ TitleBar::TitleBar(QWidget* parent) :
 }
 
 // 槽函数
-void TitleBar::minimize()
-{
-    mainWindow->showMinimized();
-}
-
 void TitleBar::scale()
 {
-    if (isMaximum)
+    if (mainWindow->isMaximized())
     {
-        emit SignalRestore();
-        QMetaObject::invokeMethod(engine.rootObjects().value(0), "startRestoreAnimation");
-        ui.scaledButton->setIcon(QIcon("res/ico/maximum_w.png"));
-        isMaximum = false;
+        mainWindow->showNormal();
     }
     else
     {
-        emit SignalMaximize();
-        QMetaObject::invokeMethod(engine.rootObjects().value(0), "startMaximumAnimation");
-        ui.scaledButton->setIcon(QIcon("res/ico/restore_w.png"));
-        isMaximum = true;
+        mainWindow->showMaximized();
     }
-    ui.scaledButton->setIconSize(titleButtonIconSize);
 }
+
+//void TitleBar::scale()
+//{
+//    if (isMaximum)
+//    {
+//        emit SignalRestore();
+//        QMetaObject::invokeMethod(engine.rootObjects().value(0), "startRestoreAnimation");
+//        ui.scaledButton->setIcon(QIcon("res/ico/maximum_w.png"));
+//        isMaximum = false;
+//    }
+//    else
+//    {
+//        emit SignalMaximize();
+//        QMetaObject::invokeMethod(engine.rootObjects().value(0), "startMaximumAnimation");
+//        ui.scaledButton->setIcon(QIcon("res/ico/restore_w.png"));
+//        isMaximum = true;
+//    }
+//    ui.scaledButton->setIconSize(titleButtonIconSize);
+//}
 
 void TitleBar::slideFloatingNotePoint()
 {
@@ -72,7 +81,7 @@ void TitleBar::floatFloatingNotePoint()
 {
     QPropertyAnimation* animation0 = new QPropertyAnimation(ui.notePointQueue[4], "pos", ui.floatingNoteQueue);
     // 设置消息点必须在移动动画之后
-    ui.notePointQueue[4]->setPixmap(ui.typePixmap[floatingNoteManager.floatingNoteHiddenList.back()->type]);
+    ui.notePointQueue[4]->setPixmap(ui.typePixmap[floatingNoteManager.getLatestHiddenFloatingNote()->type]);
     animation0->setDuration(100);
     animation0->setStartValue(QPoint(5, 15));
     animation0->setEndValue(QPoint(5, 0));
@@ -87,5 +96,15 @@ void TitleBar::allocateFloatingNotePoint()
     ui.notePointQueue.pop_back();
     for (int i = 0; i < 5; ++i) ui.queueLayout->removeWidget(ui.notePointQueue[i]);
     for (int i = 0; i < 5; ++i) ui.queueLayout->addWidget(ui.notePointQueue[i]);
-    floatingNoteManager.checkCreateQueue();
+    floatingNoteManager.checkPopupQueue();
+}
+
+bool TitleBar::isOnMaxButton(QPoint windowPos)
+{
+    return QRect(ui.scaledButton->mapTo(mainWindow, QPoint(0, 0)), ui.scaledButton->size()).contains(windowPos);
+}
+
+bool TitleBar::isOnDragZone(QPoint windowPos)
+{
+    return QRect(ui.dragZone->mapTo(mainWindow, QPoint(0, 0)), ui.dragZone->size()).contains(windowPos);
 }

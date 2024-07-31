@@ -54,7 +54,6 @@ public:
 	{
 		// 主体
 		FloatingNote->setFixedWidth(floatingNoteWidth);
-		FloatingNote->move(floatingNoteHiddenPos); // 初始位置
 		floatingNoteFrame = new QFrame(FloatingNote);
 		floatingNoteFrame->setObjectName("floatingNoteFrame");
 		floatingNoteLayout = new QVBoxLayout(FloatingNote);
@@ -80,10 +79,9 @@ public:
 		// 时长标签
 		timekeepingLabel = new QLabel("Now", FloatingNote);
 		timekeepingLabel->setObjectName("timekeepingLabel");
-		timekeepingLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 		timekeepingLabel->setFont(timekeepingLabelFont);
 		signLayout->addWidget(sign);
-		signLayout->addWidget(timekeepingLabel);
+		signLayout->addWidget(timekeepingLabel, Qt::AlignLeft | Qt::AlignVCenter);
 		signLayout->addStretch();
 
 		// 内容域
@@ -91,7 +89,6 @@ public:
 		contentZone->setObjectName("contentZone");
 		contentZone->setFont(contentFont);
 		contentZone->setWordWrap(true);
-		contentZone->setAlignment(Qt::AlignTop | Qt::AlignLeft);
 
 		// 按钮域
 		buttonZone = new QFrame(FloatingNote);
@@ -133,7 +130,7 @@ public:
 		buttonLayout->addWidget(dealLaterButton);
 		// 框架布局
 		frameLayout->addWidget(signZone);
-		frameLayout->addWidget(contentZone);
+		frameLayout->addWidget(contentZone, Qt::AlignTop | Qt::AlignLeft);
 		frameLayout->addWidget(buttonZone);
 		// 整体布局
 		floatingNoteLayout->setSpacing(0);

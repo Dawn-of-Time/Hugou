@@ -29,7 +29,6 @@ public:
         asideFrameLayout = new QVBoxLayout(asideFrame);
         asideFrameLayout->setContentsMargins(5, 0, 5, 0);
         asideFrameLayout->setSpacing(5);
-        asideFrameLayout->setAlignment(Qt::AlignLeft);
         userLabel = new QLabel(asideBar);
         userLabel->setObjectName("userLabel");
         userLabel->setFixedSize(userLabelWidth, userLabelHeight);
@@ -40,9 +39,9 @@ public:
         settingButton = new IconTextButton(QPixmap("res/ico/setting_w.png"), "Settings", asideBar);
         settingButton->setObjectName("settingButton");
         settingButton->setFixedSize(asideButtonWidth, asideButtonHeight);
-        asideFrameLayout->addWidget(userLabel);
-        asideFrameLayout->addWidget(workSpaceButton);
-        asideFrameLayout->addWidget(settingButton);
+        asideFrameLayout->addWidget(userLabel, Qt::AlignLeft);
+        asideFrameLayout->addWidget(workSpaceButton, Qt::AlignLeft);
+        asideFrameLayout->addWidget(settingButton, Qt::AlignLeft);
         asideFrameLayout->addStretch();
 
         workSpaceButton->setProperty("status", "current");

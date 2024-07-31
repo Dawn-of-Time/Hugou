@@ -7,21 +7,23 @@ QLabel#dragZone
 
 /* 消息中心 */
 QPushButton#floatingNotePanelButton {
+	border: none;
 	background-color: transparent;
 }
+	QPushButton#floatingNotePanelButton:hover {
+		border: none;
+		background-color: rgba(255, 255, 255, 0.2)
+	}
 
 QPushButton#floatingNotePanelIcon {
 	background-color: transparent;
 	border: none;
 }
 
-QLabel#floatingNotePanelQueue {
+QLabel#floatingNoteQueue {
 	background-color: transparent;
 }
 
-	QLabel#floatingNotePanelQueue > QLabel {
-		background-color: transparent
-	}
 
 /* 帮助按钮 */
 QPushButton#helpButton {
@@ -31,7 +33,7 @@ QPushButton#helpButton {
 
 	QPushButton#helpButton:hover {
 		border: none;
-		background-color: rgba(255,255,255,80);
+		background-color: rgba(255, 255, 255, 0.2)
 	}
 
 /* 最小化按钮 */
@@ -42,7 +44,7 @@ QPushButton#minimizeButton {
 
 	QPushButton#minimizeButton:hover {
 		border: none;
-		background-color: rgba(255,255,255,80);
+		background-color: rgba(255, 255, 255, 0.2)
 	}
 
 /* 最大化/还原按钮 */
@@ -53,7 +55,7 @@ QPushButton#scaledButton {
 
 	QPushButton#scaledButton:hover {
 		border: none;
-		background-color: rgba(255,255,255,80);
+		background-color: rgba(255, 255, 255, 0.2)
 	}
 
 /* 关闭按钮 */
@@ -64,5 +66,5 @@ QPushButton#closeButton {
 
 	QPushButton#closeButton:hover {
 		border: none;
-		background-color: rgba(255,255,255,80);
+		background-color: rgba(255, 255, 255, 0.2)
 	}

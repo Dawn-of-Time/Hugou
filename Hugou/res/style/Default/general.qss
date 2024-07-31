@@ -1,16 +1,10 @@
 /* Ö÷´°Ìå */
 
 QWidget#HugouClass {
-    background-color: transparent;
-}
-
-QWidget#generalBackground {
     background-color: #329D9C;
-    border-radius: 12px;
 }
 
 QStackedWidget#stackedWidget {
-    margin: 5px;
     border-radius: 10px;
     background-color: rgba(255,255,255,200);
 }

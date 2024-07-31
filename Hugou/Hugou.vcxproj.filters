@@ -68,6 +68,9 @@
     <QtMoc Include="FloatingNoteManager.h">
       <Filter>Manager</Filter>
     </QtMoc>
+    <QtMoc Include="Settings.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -128,6 +131,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Var.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ui_Settings.h">
+      <Filter>User Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="Settings.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

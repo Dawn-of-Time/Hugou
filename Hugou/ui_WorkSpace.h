@@ -8,8 +8,7 @@
 #include <QFrame>
 #include <QFile>
 #include <QTime>
-#include <QMediaPlayer>
-#include <QVideoWidget>
+#include <QHeaderView>
 #include "OperationZone.h"
 #include "ButtonHoverWatcher.h"
 #include "Const.h"
@@ -37,10 +36,7 @@ public:
         workSpaceLabel = new QLabel(workSpace); // 界面标题板块
         workSpaceLabel->setObjectName("workSpaceLabel");
         workSpaceLabel->setFixedHeight(stackedTitleHeight);
-        QTime currentTime = QTime::currentTime();
-        if (currentTime.hour() >= 0 && currentTime.hour() < 12) { workSpaceLabel->setText("Good Morning!"); }
-        else if (currentTime.hour() >= 12 && currentTime.hour() < 18) { workSpaceLabel->setText("Good Afternoon!"); }
-        else { workSpaceLabel->setText("Good Evening!"); }
+        
         workSpaceLabel->setFont(title1);
         
         // 操作域
@@ -55,7 +51,7 @@ public:
         recentlyAddedLabel = new QLabel("Recently Added", recentlyAddedZone);
         recentlyAddedLabel->setObjectName("recentlyAddedLabel");
         recentlyAddedLabel->setFont(title2);
-        recentlyAddedLabel->setFixedSize(500, 40);
+        recentlyAddedLabel->setFixedHeight(40);
 
         recentlyAddedZoneLabel = new QLabel("Looking forward to adding your first PDF file!");
         recentlyAddedZoneLabel->setFont(title2);

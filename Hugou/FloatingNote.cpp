@@ -4,6 +4,10 @@ FloatingNote::FloatingNote(QWidget* HugouClass) :
 	QWidget(HugouClass)
 {
 	ui.setupUi(this);
+	floatingNoteHiddenPos = QPoint(HugouClass->width(), titleFrameHeight);
+	floatingNoteShownPos = QPoint(HugouClass->width() - floatingNoteWidth - 20, titleFrameHeight);
+	this->move(floatingNoteHiddenPos); // 初始位置
+
 	// 时长标签
 	timer = new QElapsedTimer();
 	timer->start();
@@ -47,24 +51,35 @@ void FloatingNote::setType(Type type) { this->type = type;}
 
 void FloatingNote::setContent(QString content) { this->content = content; }
 
+QPropertyAnimation* FloatingNote::moveNote(QPoint startValue, QPoint endValue)
+{
+	this->setEnabled(false); // 动画执行期间，不允许点击
+	QPropertyAnimation* animation = new QPropertyAnimation(this, "pos");
+	double distance = sqrt(QPoint::dotProduct(endValue - startValue, endValue - startValue));
+	animation->setDuration(distance / 100);
+	animation->setStartValue(startValue);
+	animation->setEndValue(endValue);
+	return animation;
+}
+
 QPropertyAnimation* FloatingNote::raiseNote()
 {
 	this->setEnabled(false); // 动画执行期间，不允许点击
 	QPropertyAnimation* animation = new QPropertyAnimation(this, "pos");
 	animation->setDuration(1000);
-	animation->setStartValue(floatingNoteHiddenPos);
+	animation->setStartValue(pos());
 	animation->setEndValue(floatingNoteShownPos);
 	animation->setEasingCurve(QEasingCurve::OutQuint);
 	return animation;
 }
 
-QPropertyAnimation* FloatingNote::dropNote(QPoint startValue, QPoint endValue)
+QPropertyAnimation* FloatingNote::dropNote()
 {
 	this->setEnabled(false);
 	QPropertyAnimation* animation = new QPropertyAnimation(this, "pos");
 	animation->setDuration(1000);
-	animation->setStartValue(startValue);
-	animation->setEndValue(endValue);
+	animation->setStartValue(pos());
+	animation->setEndValue(floatingNoteHiddenPos);
 	animation->setEasingCurve(QEasingCurve::OutQuint);
 	return animation;
 }
@@ -86,6 +101,6 @@ void FloatingNote::SlotButtonClicked(Feedback feedback)
 	else
 	{
 		emit SignalDealNow(this);
-		emit SignalButtonClicked(feedback); // 二次分类：是/否
+		//emit SignalButtonClicked(feedback); // 二次分类：是/否
 	}
 }

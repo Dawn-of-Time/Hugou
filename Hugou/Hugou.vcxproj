@@ -38,7 +38,7 @@
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
     <QtInstall>6.7.0</QtInstall>
-    <QtModules>core;gui;qml;widgets;multimedia;multimediawidgets;printsupport</QtModules>
+    <QtModules>core;gui;qml;widgets;multimedia;multimediawidgets;printsupport;quickwidgets</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
@@ -68,17 +68,22 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Link>
       <AdditionalLibraryDirectories>D:\Qt\6.7.0\msvc2019_64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Qt6Pdf.lib;Qt6Pdfd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Dwmapi.lib;Qt6Pdf.lib;Qt6Pdfd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <ClCompile>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <PreprocessorDefinitions>$(Qt_DEFINES_);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DisableSpecificWarnings>4828</DisableSpecificWarnings>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Link>
       <AdditionalLibraryDirectories>D:\Qt\6.7.0\msvc2019_64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Qt6Pdf.lib;Qt6Pdfd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Dwmapi.lib;Qt6Pdf.lib;Qt6Pdfd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <ClCompile>
+      <DisableSpecificWarnings>4828</DisableSpecificWarnings>
+    </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
     <ClCompile>
@@ -120,8 +125,10 @@
     <ClCompile Include="PDFParse.cpp" />
     <ClCompile Include="PDFtoWord.cpp" />
     <ClCompile Include="Setting.cpp" />
+    <ClCompile Include="Settings.cpp" />
     <ClCompile Include="ThemeSetting.cpp" />
     <ClCompile Include="TitleBar.cpp" />
+    <ClCompile Include="ui_Settings.h" />
     <ClCompile Include="Var.cpp" />
     <ClCompile Include="WorkSpace.cpp" />
     <QtRcc Include="Hugou.qrc" />
@@ -137,6 +144,7 @@
     <ClInclude Include="File.h" />
     <ClInclude Include="FileManager.h" />
     <QtMoc Include="FloatingNotePanel.h" />
+    <QtMoc Include="Settings.h" />
     <ClInclude Include="Var.h" />
     <ClInclude Include="ui_FloatingNotePanel.h" />
     <ClInclude Include="ui_OperationZone.h" />

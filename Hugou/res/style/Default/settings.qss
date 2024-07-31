@@ -1,4 +1,16 @@
-/* 主页 */
+/* 设置页 */
+QWidget#settingsLeftWidget {
+    background-color: transparent;
+    margin: 0px;
+    padding: 0px;
+    border-top: 2px solid #cccccc;
+    border-right: 2px solid #cccccc
+}
 
-
-/* 浮动消息 */
+QWidget#settingsRightWidget {
+    margin: 0px;
+    padding: 0px;
+    border-top: 2px solid #cccccc;
+    background-color: transparent;
+    border-bottom-right-radius: 12px
+}

@@ -5,7 +5,10 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QMouseEvent>
+#include <Windows.h>
 #include "ui_TitleBar.h"
+
+class Hugou;
 
 class TitleBar :
 	public QWidget
@@ -18,15 +21,16 @@ public:
 	QWidget* mainWindow;
 	FloatingNotePanel* floatingNotePanel;
 	
+	bool isOnMaxButton(QPoint windowPos);
+	bool isOnDragZone(QPoint windowPos);
 
 signals:
-	void SignalRestore();
-	void SignalMaximize();
+	//void SignalRestore();
+	//void SignalMaximize();
 	void SignalBlurStackedWidget();
 	void SignalClearStackedWidget();
 
 protected slots:
-	void minimize();
 	void scale();
 	void slideFloatingNotePoint();
 	void floatFloatingNotePoint();
@@ -39,19 +43,8 @@ private:
 	int screenHeight;
 	QRect generalGeometry;
 	QRect maximumGeometry;
+	friend class Hugou;
 
-	void mousePressEvent(QMouseEvent* event) override
-	{
-		distance = event->globalPos() - mainWindow->pos();
-		qDebug() << mainWindow->size();
-		qDebug() << this->size();
-	}
-
-	void mouseMoveEvent(QMouseEvent* event) override
-	{
-		if (ui.dragZone->underMouse()) {
-			mainWindow->move(event->globalPos() - distance);
-		}
-	}
+	void mouseDoubleClickEvent(QMouseEvent* event) { scale(); }
 };
 

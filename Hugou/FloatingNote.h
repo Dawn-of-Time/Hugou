@@ -2,13 +2,15 @@
 
 #include <map>
 #include <QObject>
-#include <QMainWindow>
 #include <QPropertyAnimation>
+#include <QParallelAnimationGroup>
 #include <QElapsedTimer>
 #include <QTimer>
 #include "ui_FloatingNote.h"
 
 QT_BEGIN_NAMESPACE
+
+class Hugou;
 
 class FloatingNote :
     public QWidget
@@ -16,7 +18,7 @@ class FloatingNote :
     Q_OBJECT
 
 public:
-    enum class Type
+    enum Type
     {
         Success,
         Information,
@@ -25,15 +27,16 @@ public:
         Error
     };
 
-    enum class Feedback
+    enum Feedback
     {
         Yes,
         No,
         DealLater
     };
 
-    bool isShown = true;
-    Type type = Type::Success;
+    QPoint floatingNoteHiddenPos;
+    QPoint floatingNoteShownPos;
+    Type type = Success;
 
     FloatingNote(QWidget* HugouClass);
     ~FloatingNote();
@@ -41,8 +44,11 @@ public:
     void updateUI();
     void setType(Type type);
     void setContent(QString content);
+    inline void setHiddenPos(QPoint hiddenPos) { floatingNoteHiddenPos = hiddenPos; }
+    inline void setShownPos(QPoint shownPos) { floatingNoteShownPos = shownPos; }
+    QPropertyAnimation* moveNote(QPoint startValue, QPoint endValue);
     QPropertyAnimation* raiseNote();
-    QPropertyAnimation* dropNote(QPoint startValue, QPoint endValue); // 因移出动画并不总是唯一的，所以要设置初始值和结束值
+    QPropertyAnimation* dropNote();
 
 signals:
     void SignalButtonClicked(Feedback feedback);
@@ -61,20 +67,20 @@ private:
 
     const std::map<Type, QIcon> typeIcon =
     {
-        {Type::Success, QIcon("res/ico/success.png")},
-        {Type::Information, QIcon("res/ico/information.png")},
-        {Type::Dialog, QIcon("res/ico/dialog.png")},
-        {Type::Warning, QIcon("res/ico/warning.png")},
-        {Type::Error, QIcon("res/ico/error.png")}
+        {Success, QIcon("res/ico/success.png")},
+        {Information, QIcon("res/ico/information.png")},
+        {Dialog, QIcon("res/ico/dialog.png")},
+        {Warning, QIcon("res/ico/warning.png")},
+        {Error, QIcon("res/ico/error.png")}
     };
 
     const std::map<Type, QString> typeText =
     {
-        {Type::Success, "SUCCESS"},
-        {Type::Information, "INFORMATION"},
-        {Type::Dialog, "DIALOG"},
-        {Type::Warning, "WARNING"},
-        {Type::Error, "ERROR"}
+        {Success, "SUCCESS"},
+        {Information, "INFORMATION"},
+        {Dialog, "DIALOG"},
+        {Warning, "WARNING"},
+        {Error, "ERROR"}
     };
 };
 

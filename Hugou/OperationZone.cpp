@@ -18,3 +18,36 @@ void OperationZone::searchFromExplorer()
         emit signalAdd(fileName);
     }
 }
+
+// ÖØÐ´¸¸Ààº¯Êý
+void OperationZone::dragEnterEvent(QDragEnterEvent* event)
+{
+    if (!event->mimeData()->urls()[0].fileName().right(3).compare("pdf"))
+        event->acceptProposedAction();
+    else
+        event->ignore();
+}
+
+void OperationZone::dropEvent(QDropEvent* event)
+{
+    const QList<QUrl> urls = event->mimeData()->urls();
+    //if (urls.size() > 1);
+    QString filePath = urls.at(0).toLocalFile();
+    if (!filePath.isEmpty())
+    {
+        emit signalAdd(filePath);
+    }
+}
+
+void OperationZone::mousePressEvent(QMouseEvent* event)
+{
+    emit clicked();
+}
+
+void OperationZone::paintEvent(QPaintEvent*)
+{
+    QStyleOption opt;
+    opt.initFrom(this);
+    QPainter painter(this);
+    style()->drawPrimitive(QStyle::PE_Widget, &opt, &painter, this);
+}

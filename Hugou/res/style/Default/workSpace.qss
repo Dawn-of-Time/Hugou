@@ -13,10 +13,6 @@ OperationZone#operationZone {
     background-color: white;
 }
 
-QVideoWidget#operationVideoWidget {
-    background-color: white;
-}
-
 QWidget#recentlyAddedZone {
     margin: 0px;
     padding: 0px;

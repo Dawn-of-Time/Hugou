@@ -70,6 +70,7 @@
         <file>res/ico/success_status.png</file>
         <file>res/ico/restore_w.png</file>
         <file>res/ico/maximum_w.png</file>
-        <file>res/qml/scaledAnimation.qml</file>
+        <file>res/qml/operationZoneMedia.qml</file>
+        <file>res/conf.ini</file>
     </qresource>
 </RCC>

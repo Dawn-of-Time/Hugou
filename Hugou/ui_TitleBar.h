@@ -107,8 +107,8 @@ public:
         floatingNotePanelButton = new QPushButton(floatingNotePanelLabel);
         floatingNotePanelButton->setObjectName("floatingNotePanelButton");
         floatingNotePanelButton->setFixedSize(titleButtonWidth, titleButtonHeight);
-        floatingNotePanelButtonHoverWatcher = new ButtonHoverWatcher(floatingNotePanelButtonBackground, "transparent", "rgba(255,255,255,80)", titleBar);
-        floatingNotePanelButton->installEventFilter(floatingNotePanelButtonHoverWatcher);
+        /*floatingNotePanelButtonHoverWatcher = new ButtonHoverWatcher(floatingNotePanelButtonBackground, "transparent", "background: qradialgradient(cx:0.5, cy:0.5, fx:0.5, fy:0.5, radius:0.65, stop:0 rgba(255, 255, 255, 0.5), stop:0.8 rgba(255, 255, 255, 0), stop:1 rgba(255, 255, 255, 0));", titleBar);
+        floatingNotePanelButton->installEventFilter(floatingNotePanelButtonHoverWatcher);*/
         floatingNotePanelButton->raise();
         floatingNotePanelButton->setCursor(QCursor(Qt::PointingHandCursor));
 

@@ -1,50 +1,31 @@
 ﻿#include "Hugou.h"
-#include "Var.h"
-
-
-extern FloatingNoteManager floatingNoteManager;
 
 Hugou::Hugou(Setting* setting, QWidget* parent)
     : QWidget(parent)
 {
-    this->setAttribute(Qt::WA_Hover);
+    this->setWindowFlags(Qt::Window | Qt::WindowMaximizeButtonHint | Qt::WindowMinimizeButtonHint | Qt::FramelessWindowHint);
+    floatingNoteDelayTimer = new QTimer(this);
     // Ui
     ui.setupUi(this);
+    HWND hWnd = (HWND)winId();
+    LONG_PTR style = GetWindowLongPtrW(hWnd, GWL_STYLE);
+    SetWindowLongPtr(
+        hWnd,
+        GWL_STYLE,
+        style
+        | WS_MINIMIZEBOX
+        | WS_MAXIMIZEBOX
+        | WS_CAPTION
+        | CS_DBLCLKS
+        | WS_THICKFRAME
+    );
 
-    pdfEdit = new PDFEdit("C:/Users/Dawn/Desktop/test.pdf");
-
-    // 设置页
-    //QString settingWidgetStyleSheet = QString(
-    //    "QStackedWidget {margin: 0px; padding: 0px; border-bottom-right-radius: 12px}");
-    //QString settingLabelStyleSheet = QString(
-    //    "QLabel {margin-left: 20px}");
-    //QString searchButtonStyleSheet = QString(
-    //    "QPushButton {border: none}");
-    //QString searchDeletedButtonStyleSheet = QString(
-    //    "QPushButton {border: none}");
-    //QString settingLeftWidgetStyleSheet = QString(
-    //    ".QWidget {background-color:white; margin: 0px; padding: 0px; border-top: 2px solid #cccccc; border-right: 2px solid #cccccc}");
-    //QString settingTreeFrameStyleSheet = QString(
-    //    "QFrame {background-color:white; margin: 2px; padding: 0px; border-bottom-right-radius: 12px}");
-    //QString settingRightWidgetStyleSheet = QString(
-    //    ".QWidget {margin: 0px; padding: 0px; border-top: 2px solid #cccccc; background-color:white; border-bottom-right-radius: 12px}");
-    //QString settingContentListWidgetStyleSheet = QString(
-    //    "QListWidget {background-color:white; border-bottom-right-radius: 12px; outline: none; margin-left: 20px; margin-right: 12px; margin-top: 2px; margin-bottom: 2px}"
-    //    "QListWidget::item:hover{background-color:none; border-bottom-right-radius: 12px}");
-    //ui.settingWidget->setStyleSheet(settingWidgetStyleSheet);
-    //ui.settingLabel->setStyleSheet(settingLabelStyleSheet);
-    //ui.searchButton->setStyleSheet(searchButtonStyleSheet);
-    //ui.settingLeftWidget->setStyleSheet(settingLeftWidgetStyleSheet);
-    //ui.settingTreeFrame->setStyleSheet(settingTreeFrameStyleSheet);
-    //ui.settingRightWidget->setStyleSheet(settingRightWidgetStyleSheet);
-    //ui.settingContentListWidget->setStyleSheet(settingContentListWidgetStyleSheet);
-
-    //// 设置模糊
-    //blurEffect = new QGraphicsBlurEffect;
-    //blurEffect->setBlurRadius(0);
-    //blurTimer.setInterval(5);
-    //ui.stackedWidget->setGraphicsEffect(blurEffect);
-    //// 配置读取和应用
+    // 设置模糊
+    blurEffect = new QGraphicsBlurEffect;
+    blurEffect->setBlurRadius(0);
+    blurTimer.setInterval(5);
+    ui.stackedWidget->setGraphicsEffect(blurEffect);
+    
     //receiveSetting = setting;
     //if (!receiveSetting->readSetting()) // 读取设置并保存到所有settingMap中。一旦有任何错误，立即引发错误提示，并暂时采用默认设定
     //{
@@ -62,6 +43,7 @@ Hugou::Hugou(Setting* setting, QWidget* parent)
     //    ui.languageBox->setCurrentIndex(languageList.indexOf(settingCommonMap["language"]));
 
     // 信号与槽
+    //connect(floatingNoteDelayTimer, &QTimer::timeout, [=]() {floatingNoteDelayFinished(this); });
     connect(ui.titleBar, &TitleBar::SignalBlurStackedWidget, this, &Hugou::blurStackedWidget);
     connect(ui.titleBar, &TitleBar::SignalClearStackedWidget, this, &Hugou::clearStackedWidget);
     connect(ui.asideBar, &AsideBar::SignalChangeStackedWidget, this, &Hugou::changeStackedWidget);
@@ -89,192 +71,151 @@ void Hugou::changeStackedWidget(int index)
     ui.stackedWidget->setCurrentIndex(index);
 }
 
-void Hugou::raiseReadingSettingError() { floatingNoteManager.raiseFloatingNote(this, FloatingNote::Type::Error, readingSettingErrorHint);}
+void Hugou::raiseReadingSettingError() { floatingNoteManager.raiseFloatingNote(this, FloatingNote::Error, readingSettingErrorHint);}
 
-void Hugou::raiseSavingSettingError() { floatingNoteManager.raiseFloatingNote(this, FloatingNote::Type::Error, savingSettingErrorHint); }
+void Hugou::raiseSavingSettingError() { floatingNoteManager.raiseFloatingNote(this, FloatingNote::Error, savingSettingErrorHint); }
 
-void Hugou::checkIsLineEditNull()
-{
-    QString text = ui.searchLineEdit->text().trimmed();
-    if (text.length()) switchOverSearchButton(1);
-    else switchOverSearchButton(0);
-}
+//void Hugou::checkIsLineEditNull()
+//{
+//    QString text = ui.searchLineEdit->text().trimmed();
+//    if (text.length()) switchOverSearchButton(1);
+//    else switchOverSearchButton(0);
+//}
 
-Hugou::Edge Hugou::getEdge(QPoint mousePos)
+Hugou::Area Hugou::getArea(QPoint mousePos)
 {
     currentMainWindowGeometry = this->geometry();
     if (mousePos.y() >= 0 && mousePos.y() < edgeWidth)
     { 
-        if (mousePos.x() >= 0 && mousePos.x() < cornerRadius) { return TOPLEFT; }
-        else if (mousePos.x() >= cornerRadius && mousePos.x() <= (currentMainWindowGeometry.width() - cornerRadius)) { return TOP; }
-        else if (mousePos.x() > (currentMainWindowGeometry.width() - cornerRadius) && mousePos.x() <= currentMainWindowGeometry.width()) { return TOPRIGHT; }
-        else { return NOTEDGE; }
+        if (mousePos.x() >= 0 && mousePos.x() < edgeWidth) { return TOPLEFT; }
+        else if (mousePos.x() >= edgeWidth && mousePos.x() <= (currentMainWindowGeometry.width() - edgeWidth)) { return TOP; }
+        else if (mousePos.x() > (currentMainWindowGeometry.width() - edgeWidth) && mousePos.x() <= currentMainWindowGeometry.width()) { return TOPRIGHT; }
     }
     else if (mousePos.y() >= edgeWidth && mousePos.y() <= (currentMainWindowGeometry.height() - edgeWidth))
     {
-        if (mousePos.x() >= 0 && mousePos.x() < cornerRadius) { return LEFT; }
-        else if (mousePos.x() > (currentMainWindowGeometry.width() - cornerRadius) && mousePos.x() <= currentMainWindowGeometry.width()) { return RIGHT; }
-        else { return NOTEDGE; }
+        if (mousePos.x() >= 0 && mousePos.x() < edgeWidth) { return LEFT; }
+        else if (mousePos.x() > (currentMainWindowGeometry.width() - edgeWidth) && mousePos.x() <= currentMainWindowGeometry.width()) { return RIGHT; }
     }
     else if (mousePos.y() > (currentMainWindowGeometry.height() - edgeWidth) && mousePos.y() < currentMainWindowGeometry.height())
     {
-        if (mousePos.x() >= 0 && mousePos.x() < cornerRadius) { return BOTTOMLEFT; }
-        else if (mousePos.x() >= cornerRadius && mousePos.x() <= (currentMainWindowGeometry.width() - cornerRadius)) { return BOTTOM; }
-        else if (mousePos.x() > (currentMainWindowGeometry.width() - cornerRadius) && mousePos.x() <= currentMainWindowGeometry.width()) { return BOTTOMRIGHT; }
-        else { return NOTEDGE; }
+        if (mousePos.x() >= 0 && mousePos.x() < edgeWidth) { return BOTTOMLEFT; }
+        else if (mousePos.x() >= edgeWidth && mousePos.x() <= (currentMainWindowGeometry.width() - edgeWidth)) { return BOTTOM; }
+        else if (mousePos.x() > (currentMainWindowGeometry.width() - edgeWidth) && mousePos.x() <= currentMainWindowGeometry.width()) { return BOTTOMRIGHT; }
     }
-    else
+    if (ui.titleBar->isOnDragZone(mousePos))
     {
-        return NOTEDGE;
+        return DRAGZONE;
     }
+    return NOTAREA;
 }
 
-QRect Hugou::customScale(Edge edge, QRect currentMainWindowGeometry, QPoint change)
+QRect Hugou::customScale(Area area, QRect currentMainWindowGeometry, QPoint change)
 {
     QRect tempMainWindowGeometry = currentMainWindowGeometry;
     QRect newMainWindowGeometry = currentMainWindowGeometry;
-    switch (edge)
+    bool widthInvalid = (tempMainWindowGeometry.width() < mainWindowWidth);
+    bool heightInvalid = (tempMainWindowGeometry.height() < mainWindowHeight);
+    switch (area)
     {
     case TOPLEFT:
     {
         tempMainWindowGeometry.setTopLeft(currentMainWindowGeometry.topLeft() + change);
-        if (tempMainWindowGeometry.height() < mainWindowHeight)
-        {
-            tempMainWindowGeometry.setTop(tempMainWindowGeometry.top() - change.y());
-        }
-        if (tempMainWindowGeometry.width() < mainWindowWidth)
-        {
-            tempMainWindowGeometry.setLeft(tempMainWindowGeometry.left() - change.x());
-        }
+        if (heightInvalid) tempMainWindowGeometry.setTop(tempMainWindowGeometry.top() - change.y());
+        if (widthInvalid) tempMainWindowGeometry.setLeft(tempMainWindowGeometry.left() - change.x());
         break;
     }
     case TOP:
     {
         tempMainWindowGeometry.setTop(currentMainWindowGeometry.top() + change.y());
-        if (tempMainWindowGeometry.height() < mainWindowHeight)
-        {
-            tempMainWindowGeometry.setTop(tempMainWindowGeometry.top() - change.y());
-        }
+        if (heightInvalid) tempMainWindowGeometry.setTop(tempMainWindowGeometry.top() - change.y());
         break;
     }
     case TOPRIGHT:
     {
         tempMainWindowGeometry.setTopRight(currentMainWindowGeometry.topRight() + change);
-        if (tempMainWindowGeometry.height() < mainWindowHeight)
-        {
-            tempMainWindowGeometry.setTop(tempMainWindowGeometry.top() - change.y());
-        }
-        if (tempMainWindowGeometry.width() < mainWindowWidth)
-        {
-            tempMainWindowGeometry.setRight(tempMainWindowGeometry.right() - change.x());
-        }
+        if (heightInvalid) tempMainWindowGeometry.setTop(tempMainWindowGeometry.top() - change.y());
+        if (widthInvalid) tempMainWindowGeometry.setRight(tempMainWindowGeometry.right() - change.x());
         break;
     }
     case LEFT:
     {
         tempMainWindowGeometry.setLeft(currentMainWindowGeometry.left() + change.x());
-        if (tempMainWindowGeometry.width() < mainWindowWidth)
-        {
-            tempMainWindowGeometry.setLeft(tempMainWindowGeometry.left() - change.x());
-        }
+        if (widthInvalid) tempMainWindowGeometry.setLeft(tempMainWindowGeometry.left() - change.x());
         break;
     }
     case RIGHT:
     {
         tempMainWindowGeometry.setRight(currentMainWindowGeometry.right() + change.x());
-        if (tempMainWindowGeometry.width() < mainWindowWidth)
-        {
-            tempMainWindowGeometry.setRight(tempMainWindowGeometry.right() - change.x());
-        }
+        if (widthInvalid) tempMainWindowGeometry.setRight(tempMainWindowGeometry.right() - change.x());
         break;
     }
     case BOTTOMLEFT:
     {
         tempMainWindowGeometry.setBottomLeft(currentMainWindowGeometry.bottomLeft() + change);
-        if (tempMainWindowGeometry.height() < mainWindowHeight)
-        {
-            tempMainWindowGeometry.setBottom(tempMainWindowGeometry.bottom() - change.y());
-        }
-        if (tempMainWindowGeometry.width() < mainWindowWidth)
-        {
-            tempMainWindowGeometry.setLeft(tempMainWindowGeometry.left() - change.x());
-        }
+        if (heightInvalid) tempMainWindowGeometry.setBottom(tempMainWindowGeometry.bottom() - change.y());
+        if (widthInvalid) tempMainWindowGeometry.setLeft(tempMainWindowGeometry.left() - change.x());
         break;
     }
     case BOTTOM:
     {
         tempMainWindowGeometry.setBottom(currentMainWindowGeometry.bottom() + change.y());
-        if (tempMainWindowGeometry.height() < mainWindowHeight)
-        {
-            tempMainWindowGeometry.setBottom(tempMainWindowGeometry.bottom() - change.y());
-        }
+        if (heightInvalid) tempMainWindowGeometry.setBottom(tempMainWindowGeometry.bottom() - change.y());
         break;
     }
     case BOTTOMRIGHT:
     {
         tempMainWindowGeometry.setBottomRight(currentMainWindowGeometry.bottomRight() + change);
-        if (tempMainWindowGeometry.height() < mainWindowHeight)
-        {
-            tempMainWindowGeometry.setBottom(tempMainWindowGeometry.bottom() - change.y());
-        }
-        if (tempMainWindowGeometry.width() < mainWindowWidth)
-        {
-            tempMainWindowGeometry.setRight(tempMainWindowGeometry.right() - change.x());
-        }
+        if (heightInvalid) tempMainWindowGeometry.setBottom(tempMainWindowGeometry.bottom() - change.y());
+        if (widthInvalid) tempMainWindowGeometry.setRight(tempMainWindowGeometry.right() - change.x());
         break;
     }
-    case NOTEDGE:
-    {
-        break;
-    }
-    default:
-    {
-        break;
-    }
+    case NOTAREA: {break; }
+    default: {break; }
     }
     newMainWindowGeometry = tempMainWindowGeometry;
     return newMainWindowGeometry;
 }
 // 槽函数
-void Hugou::switchOverSearchButton(bool msg)
-{
-    if (msg)
-    {
-        ui.searchButton->setIcon(QIcon("res/close_bla.png"));
-        ui.searchButtonHoverWatcher->setResource(QString("res/close_bla.png"), QString("res/close_blu.png"));
-        ui.searchButton->disconnect();
-        connect(ui.searchButton, &QPushButton::clicked, this, &Hugou::deleteSearchText);
-        search(); // 一旦有文字输入，总是自动开始寻找匹配项
-    }
-    else
-    {
-        ui.searchButton->setIcon(QIcon("res/search_bla.png"));
-        ui.searchButtonHoverWatcher->setResource(QString("res/search_bla.png"), QString("res/search_blu.png"));
-        ui.searchButton->disconnect();
-        connect(ui.searchButton, &QPushButton::clicked, this, &Hugou::search);
-        receiveSetting->showSetting(ui.settingTreeWidget, ui.settingTreeWidget->invisibleRootItem()); // 一旦为空，则显示所有项
-        ui.settingTreeWidget->setVisible(true);
-        ui.searchSettingNullLabel->setVisible(false);
-        receiveSetting->notExpandSetting(ui.settingTreeWidget);
-    }
-}
 
-void Hugou::deleteSearchText()
-{
-    ui.searchLineEdit->clear();
-}
-
-void Hugou::search()
-{
-    QString searchText = ui.searchLineEdit->text().trimmed();
-    receiveSetting->notExpandSetting(ui.settingTreeWidget);
-    if (searchText.length())
-    {
-        int searchNum = receiveSetting->searchSetting(ui.settingTreeWidget, ui.settingTreeWidget->invisibleRootItem(), searchText);
-        ui.settingTreeWidget->setVisible(searchNum);
-        ui.searchSettingNullLabel->setVisible(!searchNum);
-    }
-}
+//void Hugou::switchOverSearchButton(bool msg)
+//{
+//    if (msg)
+//    {
+//        ui.searchButton->setIcon(QIcon("res/close_bla.png"));
+//        ui.searchButtonHoverWatcher->setResource(QString("res/close_bla.png"), QString("res/close_blu.png"));
+//        ui.searchButton->disconnect();
+//        connect(ui.searchButton, &QPushButton::clicked, this, &Hugou::deleteSearchText);
+//        search(); // 一旦有文字输入，总是自动开始寻找匹配项
+//    }
+//    else
+//    {
+//        ui.searchButton->setIcon(QIcon("res/search_bla.png"));
+//        ui.searchButtonHoverWatcher->setResource(QString("res/search_bla.png"), QString("res/search_blu.png"));
+//        ui.searchButton->disconnect();
+//        connect(ui.searchButton, &QPushButton::clicked, this, &Hugou::search);
+//        receiveSetting->showSetting(ui.settingTreeWidget, ui.settingTreeWidget->invisibleRootItem()); // 一旦为空，则显示所有项
+//        ui.settingTreeWidget->setVisible(true);
+//        ui.searchSettingNullLabel->setVisible(false);
+//        receiveSetting->notExpandSetting(ui.settingTreeWidget);
+//    }
+//}
+//
+//void Hugou::deleteSearchText()
+//{
+//    ui.searchLineEdit->clear();
+//}
+//
+//void Hugou::search()
+//{
+//    QString searchText = ui.searchLineEdit->text().trimmed();
+//    receiveSetting->notExpandSetting(ui.settingTreeWidget);
+//    if (searchText.length())
+//    {
+//        int searchNum = receiveSetting->searchSetting(ui.settingTreeWidget, ui.settingTreeWidget->invisibleRootItem(), searchText);
+//        ui.settingTreeWidget->setVisible(searchNum);
+//        ui.searchSettingNullLabel->setVisible(!searchNum);
+//    }
+//}
 
 void Hugou::openPDFEditFunction()
 {
@@ -313,4 +254,141 @@ void Hugou::clearStackedWidget()
             else blurTimer.stop();
         });
     blurTimer.start();
+}
+
+// 父类函数重写
+bool Hugou::nativeEvent(const QByteArray& eventType, void* message, qintptr* result)
+{
+    MSG* msg = static_cast<MSG*>(message);
+    switch (msg->message)
+    {
+        // 注：拦截WM_NCCALCSIZE消息，以防后续坐标计算错位。
+    case WM_NCCALCSIZE:
+    {
+        *result = HTNOWHERE;
+        return true;
+    }
+    case WM_ACTIVATE:
+    {
+        MARGINS margins = { 0, 1, 0, 1 };
+        HRESULT hr = DwmExtendFrameIntoClientArea(msg->hwnd, &margins);
+        *result = hr;
+        return true;
+    }
+    case WM_NCHITTEST:
+    {
+        *result = HTCLIENT;
+        // 为了获取到正确的全局鼠标位置，应将GET_X_LPARAM和GET_Y_LPARAM得到的结果除以缩放倍数。
+        double scale = getScale();
+        QPoint globalPos = QPoint(GET_X_LPARAM(msg->lParam), GET_Y_LPARAM(msg->lParam)) / scale;
+        QPoint windowPos = globalPos - this->pos();
+
+        Area area = getArea(windowPos);
+        switch (area)
+        {
+        case TOPLEFT: {*result = HTTOPLEFT; break; }
+        case TOP: { *result = HTTOP; break; }
+        case TOPRIGHT: {*result = HTTOPRIGHT; break; }
+        case LEFT: {*result = HTLEFT; break; }
+        case RIGHT: {*result = HTRIGHT; break; }
+        case BOTTOMLEFT: {*result = HTBOTTOMLEFT; break; }
+        case BOTTOM: {*result = HTBOTTOM; break; }
+        case BOTTOMRIGHT: {*result = HTBOTTOMRIGHT; break; }
+        case DRAGZONE: {*result = HTCAPTION; break; }
+        case NOTAREA: {*result = HTCLIENT; break; }
+        default: {break; }
+        }
+
+        QPushButton* button = ui.titleBar->ui.scaledButton;
+        QPoint localPos = button->mapFromGlobal(globalPos);
+        if (ui.titleBar->isOnMaxButton(windowPos))
+        {
+            // 这里的触发机制如下：
+            // 当控件未接受到Enter事件时，undermouse()返回false。因此，在鼠标首次悬浮于最大化按钮之上时（undermouse()为false），
+            // 发送Enter事件，此后当鼠标在最大化按钮区域内移动时，undermouse()为true。
+            setCursor(QCursor(Qt::PointingHandCursor));
+            QMouseEvent mouseEvent = QMouseEvent(button->underMouse() ? QEvent::MouseMove : QEvent::Enter, localPos, globalPos, Qt::NoButton, Qt::NoButton, Qt::NoModifier);
+            QCoreApplication::sendEvent(button, &mouseEvent);
+            button->update();
+            *result = HTMAXBUTTON;
+            return true;
+        }
+        else
+        {
+            if (button->underMouse())
+            {
+                // 同样的，只有接受到Leave事件后，undermouse()才返回false。
+                setCursor(QCursor(Qt::ArrowCursor));
+                QMouseEvent mouseEvent = QMouseEvent(QEvent::Leave, localPos, globalPos, Qt::NoButton, Qt::NoButton, Qt::NoModifier);
+                QCoreApplication::sendEvent(button, &mouseEvent);
+                button->update();
+                return true;
+            }
+        }
+        if (*result != HTCLIENT) return true;
+        return false;
+    }
+    case WM_NCLBUTTONDOWN:
+    {
+        if (msg->wParam == HTMAXBUTTON) {
+            QPushButton* button = ui.titleBar->ui.scaledButton;
+            QMouseEvent mouseEvent = QMouseEvent(QEvent::MouseButtonPress, QPoint(), QPoint(), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
+            QCoreApplication::sendEvent(button, &mouseEvent);
+            *result = HTNOWHERE;
+            return true;
+        }
+        break;
+    }
+    case WM_NCLBUTTONUP:
+    {
+        if (msg->wParam == HTMAXBUTTON) {
+            QPushButton* button = ui.titleBar->ui.scaledButton;
+            QMouseEvent mouseEvent = QMouseEvent(QEvent::MouseButtonRelease, QPoint(), QPoint(), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
+            QCoreApplication::sendEvent(button, &mouseEvent);
+            return true;
+        }
+        break;
+    }
+    case WM_NCMOUSEHOVER:
+    case WM_NCMOUSELEAVE:
+    case WM_NCMOUSEMOVE:
+    {
+        if (msg->wParam == HTMAXBUTTON)
+        {
+            *result = HTNOWHERE;
+            return true;
+        }
+    }
+    }
+    return QWidget::nativeEvent(eventType, message, result);
+}
+
+void Hugou::changeEvent(QEvent* event) {
+    if (event->type() == QEvent::WindowStateChange) {
+        switch (windowState()) {
+        case Qt::WindowMaximized: {
+            ui.titleBar->ui.scaledButton->setIcon(QIcon("res/ico/restore_w.png"));
+            int border = GetSystemMetrics(SM_CXSIZEFRAME);
+            setContentsMargins(border, border, border, border);
+            break;
+        }
+        case Qt::WindowNoState:
+            ui.titleBar->ui.scaledButton->setIcon(QIcon("res/ico/maximum_w.png"));
+            setContentsMargins(0, 0, 0, 0);
+            break;
+        default:
+            break;
+        }
+    }
+    QWidget::changeEvent(event);
+}
+
+void Hugou::resizeEvent(QResizeEvent* event)
+{
+    QWidget::resizeEvent(event);
+    if (floatingNoteManager.isAnimating || (floatingNoteManager.getShownFloatingNote()))
+    {
+        //qDebug() << "***Start adjusting***";
+        floatingNoteManager.adjustFloatingNote(this);
+    }
 }
