@@ -24,15 +24,11 @@ public:
     // Ä£ºýÐ§¹û
     QGraphicsBlurEffect* blurEffect;
     QTimer blurTimer;
-    void switchOverSearchButton(bool msg);
-    void search();
     void raiseReadingSettingError();
     void raiseSavingSettingError();
 
 protected slots:
     void changeStackedWidget(int index);
-    //void checkIsLineEditNull();
-    //void deleteSearchText();
     void openPDFEditFunction();
     void blurStackedWidget();
     void clearStackedWidget();

@@ -72,5 +72,6 @@
         <file>res/ico/maximum_w.png</file>
         <file>res/qml/operationZoneMedia.qml</file>
         <file>res/conf.ini</file>
+        <file>res/ico/down_bla.png</file>
     </qresource>
 </RCC>

@@ -48,7 +48,7 @@ public:
         // ×óÀ¸
         settingsLeftWidget = new QWidget(settings);
         settingsLeftWidget->setObjectName("settingsLeftWidget");
-        settingsLeftWidget->setFixedWidth(100);
+        settingsLeftWidget->setFixedWidth(200);
         settingsLeftLayout = new QVBoxLayout(settingsLeftWidget);
         settingsLeftLayout->setObjectName("settingsLeftLayout");
         settingsLeftLayout->setSpacing(0);
@@ -64,13 +64,13 @@ public:
         searchPalette.setColor(searchPalette.PlaceholderText, QColor("#cccccc"));
         searchButton = new QPushButton(searchLineEdit);
         searchButton->setObjectName("searchButton");
-        searchButton->setIcon(QIcon("res/search_bla.png"));
+        searchButton->setIcon(QIcon("res/ico/search_bla.png"));
         searchButton->setCursor(Qt::ArrowCursor);
         QWidgetAction* searchAction = new QWidgetAction(searchLineEdit);
         searchAction->setDefaultWidget(searchButton);
         searchLineEdit->addAction(searchAction, QLineEdit::TrailingPosition);
-        //searchButtonHoverWatcher = new ButtonHoverWatcher(QString("res/search_bla.png"), QString("res/search_blu.png"), HugouClass);
-        //searchButton->installEventFilter(searchButtonHoverWatcher);
+        searchButtonHoverWatcher = new ButtonHoverWatcher(QString("res/ico/search_bla.png"), QString("res/ico/search_blu.png"), settings);
+        searchButton->installEventFilter(searchButtonHoverWatcher);
 
         // Ä¿Â¼
         settingsTreeStackedWidget = new QStackedWidget(settingsLeftWidget);
@@ -81,12 +81,12 @@ public:
         searchsettingsNullLabel = new QLabel("No matches were found.", settingsTreeStackedWidget);
         searchsettingsNullLabel->setVisible(false); // Ä¬ÈÏ²»ÏÔÊ¾¡°Î´ÕÒµ½Æ¥ÅäÏî¡±
         searchsettingsNullLabel->setFont(QFont("Hind Siliguri", 13));
+        searchsettingsNullLabel->setAlignment(Qt::AlignTop);
         settingsTreeStackedWidget->addWidget(settingsTreeWidget);
         settingsTreeStackedWidget->addWidget(searchsettingsNullLabel);
         settingsTreeStackedWidget->setCurrentIndex(0);
 
         settingsLeftLayout->addWidget(searchLineEdit);
-        //settingsLeftLayout->addStretch(1);
         settingsLeftLayout->addWidget(settingsTreeStackedWidget);
 
         // ÓÒÀ¸
@@ -95,7 +95,7 @@ public:
         settingsRightLayout = new QVBoxLayout(settingsRightWidget);
         settingsRightLayout->setObjectName("settingsRightLayout");
         settingsRightLayout->setSpacing(0);
-        settingsRightLayout->setContentsMargins(0, 0, 0, 0);
+        settingsRightLayout->setContentsMargins(10, 0, 0, 0);
 
         settingsContentListWidget = new QListWidget(settingsRightWidget);
         settingsContentListWidget = formContentList(settingsContentListWidget);
@@ -104,31 +104,6 @@ public:
 
         settingsLayout->addWidget(settingsLeftWidget);
         settingsLayout->addWidget(settingsRightWidget);
-
-        // ÉèÖÃÒ³
-        //QString settingstyleSheet = QString(
-        //    "QWidget#settings {margin: 0px; padding: 0px; border-bottom-right-radius: 12px; background-color:red}");
-        //QString settingsLabelStyleSheet = QString(
-        //    "QLabel {margin-left: 20px}");
-        //QString searchButtonStyleSheet = QString(
-        //    "QPushButton {border: none}");
-        //QString searchDeletedButtonStyleSheet = QString(
-        //    "QPushButton {border: none}");
-        //QString settingsLeftWidgetStyleSheet = QString(
-        //    "QWidget#settingsLeftWidget {background-color:green; margin: 0px; padding: 0px; border-top: 2px solid #cccccc; border-right: 2px solid #cccccc}");
-        //QString settingsTreeFrameStyleSheet = QString(
-        //    "QFrame {background-color:white; margin: 2px; padding: 0px; border-bottom-right-radius: 12px}");
-        //QString settingsRightWidgetStyleSheet = QString(
-        //    "QWidget#settingsRightWidget {margin: 0px; padding: 0px; border-top: 2px solid #cccccc; background-color:red; border-bottom-right-radius: 12px}");
-        //QString settingsContentListWidgetStyleSheet = QString(
-        //    "QListWidget {background-color:white; border-bottom-right-radius: 12px; outline: none; margin-left: 20px; margin-right: 12px; margin-top: 2px; margin-bottom: 2px}"
-        //    "QListWidget::item:hover{background-color:none; border-bottom-right-radius: 12px}");
-        //settings->setStyleSheet(settingstyleSheet);
-        //searchButton->setStyleSheet(searchButtonStyleSheet);
-        //settingsLeftWidget->setStyleSheet(settingsLeftWidgetStyleSheet);
-        //settingsTreeFrame->setStyleSheet(settingsTreeFrameStyleSheet);
-        //settingsRightWidget->setStyleSheet(settingsRightWidgetStyleSheet);
-        //settingsContentListWidget->setStyleSheet(settingsContentListWidgetStyleSheet);
 
         QFile styleFile("res/style/Default/settings.qss");
         styleFile.open(QIODeviceBase::ReadOnly);
@@ -159,118 +134,12 @@ public:
         return settingsTreeWidget;
     }
 
-    void firstNodesettingsItem(QListWidgetItem* item, QString settingsName)
-    {
-        QString firstNodeStyleSheet = "QLabel {border-width: 0 0 0 5px; border-style: solid; border-color: black; padding-left: 2px}";
-        QSize firstNodeSizeHint = QSize(settingsContentListWidget->width(), 40);
-        QFont firstNodeFont = QFont("Hind Siliguri", 22);
-        QLabel* label = new QLabel(settingsContentListWidget);
-        label->setText(settingsName);
-        label->setFont(firstNodeFont);
-        label->setStyleSheet(firstNodeStyleSheet);
-        item->setSizeHint(firstNodeSizeHint);
-        settingsContentListWidget->setItemWidget(item, label);
-        settingsItemRowMap.insert({ settingsName, settingsContentListWidget->indexFromItem(item).row() });
-    }
-
-    void secondNodesettingsItem(QListWidgetItem* item, QString settingsName)
-    {
-        QString secondNodeStyleSheet = "QLabel {margin-left: 15px}";
-        QFont secondNodeFont = QFont("Hind Siliguri", 16);
-        QLabel* label = new QLabel(settingsContentListWidget);
-        label->setText(settingsName);
-        label->setFont(secondNodeFont);
-        label->setStyleSheet(secondNodeStyleSheet);
-        label->setAlignment(Qt::AlignBottom);
-        item->setSizeHint(QSize(settingsContentListWidget->width(), 40));
-        settingsContentListWidget->setItemWidget(item, label);
-        settingsItemRowMap.insert({ settingsName, settingsContentListWidget->indexFromItem(item).row() });
-    }
-
-    void thirdNodesettingsItem(QListWidgetItem* item, QString settingsName)
-    {
-        QString thirdNodeStyleSheet = "QLabel {margin-left: 20px}";
-        QFont thirdNodeFont = QFont("Hind Siliguri Light", 14);
-        QLabel* label = new QLabel(settingsContentListWidget);
-        label->setText(settingsName);
-        label->setFont(thirdNodeFont);
-        label->setStyleSheet(thirdNodeStyleSheet);
-        label->setAlignment(Qt::AlignBottom);
-        item->setSizeHint(QSize(settingsContentListWidget->width(), 30));
-        settingsContentListWidget->setItemWidget(item, label);
-        settingsItemRowMap.insert({ settingsName, settingsContentListWidget->indexFromItem(item).row() });
-    }
-
-    QComboBox* contentNodeComboboxsettingsItem(QListWidgetItem* item, QString objectName, QStringList comboboxList)
-    {
-        QString contentStyleSheet = "QLabel {margin-left: 20px}";
-        QString contentComboBoxStyleSheet = ".QComboBox {margin-left: 15px}";
-        QFont contentFont = QFont("Hind Siliguri Light", 12);
-        QLabel* label = new QLabel(settingsContentListWidget);
-        label->setStyleSheet(contentStyleSheet);
-        QComboBox* comboBox = new QComboBox(label);
-        comboBox->setObjectName(objectName);
-        comboBox->move(20, 0);
-        comboBox->addItems(comboboxList);
-        comboBox->setFont(contentFont);
-        comboBox->setFixedSize(200, 30);
-        //ComboboxWheelWatcher* comboBoxWheelWatcher = new ComboboxWheelWatcher(item->listWidget());
-        //comboBox->installEventFilter(comboBoxWheelWatcher);
-        item->setSizeHint(QSize(settingsContentListWidget->width(), 30));
-        settingsContentListWidget->setItemWidget(item, label);
-        return comboBox;
-    }
-
-    QLineEdit* contentNodeLineEditsettingsItem(QListWidgetItem* item)
-    {
-        QString contentStyleSheet = "QLabel {margin-left: 20px}";
-        QString contentLineEditStyleSheet = ".QLineEdit {margin-left: 15px; border: none }";
-        QFont contentFont = QFont("Hind Siliguri Light", 12);
-        QLabel* label = new QLabel(settingsContentListWidget);
-        label->setStyleSheet(contentStyleSheet);
-        QLineEdit* lineEdit = new QLineEdit(label);
-        lineEdit->move(20, 0);
-        lineEdit->setFont(contentFont);
-        lineEdit->setFixedSize(400, 30);
-        item->setSizeHint(QSize(settingsContentListWidget->width(), 30));
-        settingsContentListWidget->setItemWidget(item, label);
-        return lineEdit;
-    }
-
-    void hintsettingsItem(QListWidgetItem* item, QString hint)
-    {
-        QString hintStyleSheet = "QLabel {margin-left: 20px; color: #696969}";
-        QFont hintFont = QFont("Hind Siliguri Light", 12);
-        QLabel* label = new QLabel(settingsContentListWidget);
-        label->setFixedWidth(600);
-        label->setFont(hintFont);
-        label->setStyleSheet(hintStyleSheet);
-        label->setWordWrap(true);
-        label->setText(hint);
-        label->adjustSize();
-        item->setSizeHint(QSize(600, label->height()));
-        settingsContentListWidget->setItemWidget(item, label);
-    }
-
-    void chapterSpaceItem(QListWidgetItem* item)
-    {
-        QLabel* space = new QLabel(settingsContentListWidget);
-        item->setSizeHint(QSize(settingsContentListWidget->width(), 40));
-        settingsContentListWidget->setItemWidget(item, space);
-    }
-
-    void sectionSpaceItem(QListWidgetItem* item)
-    {
-        QLabel* space = new QLabel(settingsContentListWidget);
-        item->setSizeHint(QSize(settingsContentListWidget->width(), 15));
-        settingsContentListWidget->setItemWidget(item, space);
-    }
-
     QListWidget* formContentList(QListWidget* settingsContentListWidget)
     {
         // HeadSpace
         QListWidgetItem* headSpaceItem = new QListWidgetItem(settingsContentListWidget);
         QLabel* headSpace = new QLabel(settingsContentListWidget);
+        
         headSpaceItem->setSizeHint(QSize(settingsContentListWidget->width(), 10));
         settingsContentListWidget->setItemWidget(headSpaceItem, headSpace);
 
@@ -325,12 +194,12 @@ public:
         savePathLineEdit = contentNodeLineEditsettingsItem(item2_1_1_1);
         savePathButton = new QPushButton(savePathLineEdit);
         savePathButton->setObjectName("savePathButton");
-        savePathButton->setIcon(QIcon("res/browse_bla.png"));
+        savePathButton->setIcon(QIcon("res/ico/browse_bla.png"));
         savePathButton->setCursor(Qt::ArrowCursor);
         QWidgetAction* savePathAction = new QWidgetAction(savePathLineEdit);
         savePathAction->setDefaultWidget(savePathButton);
         savePathLineEdit->addAction(savePathAction, QLineEdit::TrailingPosition);
-        ButtonHoverWatcher* savePathButtonHoverWatcher = new ButtonHoverWatcher(QString("res/browse_bla.png"), QString("res/browse_blu.png"));
+        ButtonHoverWatcher* savePathButtonHoverWatcher = new ButtonHoverWatcher(QString("res/ico/browse_bla.png"), QString("res/ico/browse_blu.png"));
         savePathButton->installEventFilter(savePathButtonHoverWatcher);
 
         // TailSpace
@@ -346,5 +215,104 @@ public:
             item->setFlags(item->flags() & ~Qt::ItemIsSelectable);
         }
         return settingsContentListWidget;
+    }
+
+    void firstNodesettingsItem(QListWidgetItem* item, QString settingsName)
+    {
+        QString firstNodeStyleSheet = "QLabel {border-width: 0 0 0 5px; border-style: solid; border-color: black; padding-left: 2px}";
+        QFont firstNodeFont = QFont("Hind Siliguri", 22);
+        QLabel* label = new QLabel(settingsName, settingsContentListWidget);
+        label->setFont(firstNodeFont);
+        label->setStyleSheet(firstNodeStyleSheet);
+        item->setSizeHint(label->sizeHint());
+        settingsContentListWidget->setItemWidget(item, label);
+        settingsItemRowMap.insert({ settingsName, settingsContentListWidget->indexFromItem(item).row() });
+    }
+
+    void secondNodesettingsItem(QListWidgetItem* item, QString settingsName)
+    {
+        QString secondNodeStyleSheet = "QLabel {margin-left: 15px}";
+        QFont secondNodeFont = QFont("Hind Siliguri", 16);
+        QLabel* label = new QLabel(settingsName, settingsContentListWidget);
+        label->setFont(secondNodeFont);
+        label->setStyleSheet(secondNodeStyleSheet);
+        item->setSizeHint(label->sizeHint());
+        settingsContentListWidget->setItemWidget(item, label);
+        settingsItemRowMap.insert({ settingsName, settingsContentListWidget->indexFromItem(item).row() });
+    }
+
+    void thirdNodesettingsItem(QListWidgetItem* item, QString settingsName)
+    {
+        QString thirdNodeStyleSheet = "QLabel {margin-left: 20px}";
+        QFont thirdNodeFont = QFont("Hind Siliguri Light", 14);
+        QLabel* label = new QLabel(settingsName, settingsContentListWidget);
+        label->setFont(thirdNodeFont);
+        label->setStyleSheet(thirdNodeStyleSheet);
+        item->setSizeHint(label->sizeHint());
+        settingsContentListWidget->setItemWidget(item, label);
+        settingsItemRowMap.insert({ settingsName, settingsContentListWidget->indexFromItem(item).row() });
+    }
+
+    QComboBox* contentNodeComboboxsettingsItem(QListWidgetItem* item, QString objectName, QStringList comboboxList)
+    {
+        QString contentStyleSheet = "QLabel {margin-left: 20px}";
+        QString contentComboBoxStyleSheet = ".QComboBox {margin-left: 15px}";
+        QFont contentFont = QFont("Hind Siliguri Light", 12);
+        QLabel* label = new QLabel(settingsContentListWidget);
+        label->setStyleSheet(contentStyleSheet);
+        QComboBox* comboBox = new QComboBox(label);
+        comboBox->setObjectName(objectName);
+        comboBox->move(20, 0);
+        comboBox->addItems(comboboxList);
+        comboBox->setFont(contentFont);
+        comboBox->setFixedSize(200, 30);
+        //ComboboxWheelWatcher* comboBoxWheelWatcher = new ComboboxWheelWatcher(item->listWidget());
+        //comboBox->installEventFilter(comboBoxWheelWatcher);
+        item->setSizeHint(QSize(settingsContentListWidget->width(), 30));
+        settingsContentListWidget->setItemWidget(item, label);
+        return comboBox;
+    }
+
+    QLineEdit* contentNodeLineEditsettingsItem(QListWidgetItem* item)
+    {
+        QString contentStyleSheet = "QLabel {margin-left: 20px}";
+        QString contentLineEditStyleSheet = ".QLineEdit {margin-left: 15px; border: none }";
+        QFont contentFont = QFont("Hind Siliguri Light", 12);
+        QLabel* label = new QLabel(settingsContentListWidget);
+        label->setStyleSheet(contentStyleSheet);
+        QLineEdit* lineEdit = new QLineEdit(label);
+        lineEdit->move(20, 0);
+        lineEdit->setFont(contentFont);
+        lineEdit->setFixedHeight(30);
+        item->setSizeHint(QSize(settingsContentListWidget->width(), 30));
+        settingsContentListWidget->setItemWidget(item, label);
+        return lineEdit;
+    }
+
+    void hintsettingsItem(QListWidgetItem* item, QString hint)
+    {
+        QString hintStyleSheet = "QLabel {margin-left: 20px; color: #696969; padding: 0px}";
+        QFont hintFont = QFont("Hind Siliguri Light", 12);
+        QLabel* label = new QLabel(hint, settingsContentListWidget);
+        label->setFont(hintFont);
+        label->setStyleSheet(hintStyleSheet);
+        label->setWordWrap(true);
+        label->adjustSize();
+        item->setSizeHint(QSize(label->sizeHint().width(), label->sizeHint().height() - 20));
+        settingsContentListWidget->setItemWidget(item, label);
+    }
+
+    void chapterSpaceItem(QListWidgetItem* item)
+    {
+        QLabel* space = new QLabel(settingsContentListWidget);
+        item->setSizeHint(QSize(settingsContentListWidget->width(), 40));
+        settingsContentListWidget->setItemWidget(item, space);
+    }
+
+    void sectionSpaceItem(QListWidgetItem* item)
+    {
+        QLabel* space = new QLabel(settingsContentListWidget);
+        item->setSizeHint(QSize(settingsContentListWidget->width(), 15));
+        settingsContentListWidget->setItemWidget(item, space);
     }
 };

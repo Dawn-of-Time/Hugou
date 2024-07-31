@@ -42,6 +42,9 @@
     <Filter Include="Manager">
       <UniqueIdentifier>{b28bcb55-66a3-487e-ab5e-e473590e56ca}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Delegate">
+      <UniqueIdentifier>{6f026344-954e-4288-89b7-dbdb3fd80b7f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Hugou.h">

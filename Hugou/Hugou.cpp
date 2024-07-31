@@ -43,24 +43,9 @@ Hugou::Hugou(Setting* setting, QWidget* parent)
     //    ui.languageBox->setCurrentIndex(languageList.indexOf(settingCommonMap["language"]));
 
     // 信号与槽
-    //connect(floatingNoteDelayTimer, &QTimer::timeout, [=]() {floatingNoteDelayFinished(this); });
     connect(ui.titleBar, &TitleBar::SignalBlurStackedWidget, this, &Hugou::blurStackedWidget);
     connect(ui.titleBar, &TitleBar::SignalClearStackedWidget, this, &Hugou::clearStackedWidget);
     connect(ui.asideBar, &AsideBar::SignalChangeStackedWidget, this, &Hugou::changeStackedWidget);
-    //connect(ui.searchLineEdit, &QLineEdit::textChanged, this, &Hugou::checkIsLineEditNull);
-    //connect(ui.searchButton, &QPushButton::clicked, this, &Hugou::search);
-    //connect(ui.settingTreeWidget, &QTreeWidget::itemClicked, [&](QTreeWidgetItem* item, int column) {item->setExpanded(!item->isExpanded()); });
-    //connect(ui.settingTreeWidget, &QTreeWidget::itemDoubleClicked, [&](QTreeWidgetItem* item, int column)
-    //    {
-    //        int row = ui.settingItemRowMap[item->text(column)];
-    //        ui.settingContentListWidget->scrollToItem(ui.settingContentListWidget->item(row), QAbstractItemView::PositionAtTop);
-    //    });
-    //connect(ui.themeBox, &QComboBox::currentIndexChanged, [&](int index)
-    //    {
-    //        QString oldsetting = settingCommonMap["theme"];
-    //        settingCommonMap["theme"] = ui.themeBox->currentText();
-    //        //if (!setting->applySetting(this, "themeBox", oldsetting)) raiseSavingSettingError();
-    //    });
 }
 
 Hugou::~Hugou()
@@ -74,13 +59,6 @@ void Hugou::changeStackedWidget(int index)
 void Hugou::raiseReadingSettingError() { floatingNoteManager.raiseFloatingNote(this, FloatingNote::Error, readingSettingErrorHint);}
 
 void Hugou::raiseSavingSettingError() { floatingNoteManager.raiseFloatingNote(this, FloatingNote::Error, savingSettingErrorHint); }
-
-//void Hugou::checkIsLineEditNull()
-//{
-//    QString text = ui.searchLineEdit->text().trimmed();
-//    if (text.length()) switchOverSearchButton(1);
-//    else switchOverSearchButton(0);
-//}
 
 Hugou::Area Hugou::getArea(QPoint mousePos)
 {
@@ -176,47 +154,6 @@ QRect Hugou::customScale(Area area, QRect currentMainWindowGeometry, QPoint chan
     return newMainWindowGeometry;
 }
 // 槽函数
-
-//void Hugou::switchOverSearchButton(bool msg)
-//{
-//    if (msg)
-//    {
-//        ui.searchButton->setIcon(QIcon("res/close_bla.png"));
-//        ui.searchButtonHoverWatcher->setResource(QString("res/close_bla.png"), QString("res/close_blu.png"));
-//        ui.searchButton->disconnect();
-//        connect(ui.searchButton, &QPushButton::clicked, this, &Hugou::deleteSearchText);
-//        search(); // 一旦有文字输入，总是自动开始寻找匹配项
-//    }
-//    else
-//    {
-//        ui.searchButton->setIcon(QIcon("res/search_bla.png"));
-//        ui.searchButtonHoverWatcher->setResource(QString("res/search_bla.png"), QString("res/search_blu.png"));
-//        ui.searchButton->disconnect();
-//        connect(ui.searchButton, &QPushButton::clicked, this, &Hugou::search);
-//        receiveSetting->showSetting(ui.settingTreeWidget, ui.settingTreeWidget->invisibleRootItem()); // 一旦为空，则显示所有项
-//        ui.settingTreeWidget->setVisible(true);
-//        ui.searchSettingNullLabel->setVisible(false);
-//        receiveSetting->notExpandSetting(ui.settingTreeWidget);
-//    }
-//}
-//
-//void Hugou::deleteSearchText()
-//{
-//    ui.searchLineEdit->clear();
-//}
-//
-//void Hugou::search()
-//{
-//    QString searchText = ui.searchLineEdit->text().trimmed();
-//    receiveSetting->notExpandSetting(ui.settingTreeWidget);
-//    if (searchText.length())
-//    {
-//        int searchNum = receiveSetting->searchSetting(ui.settingTreeWidget, ui.settingTreeWidget->invisibleRootItem(), searchText);
-//        ui.settingTreeWidget->setVisible(searchNum);
-//        ui.searchSettingNullLabel->setVisible(!searchNum);
-//    }
-//}
-
 void Hugou::openPDFEditFunction()
 {
     //FileImportDialog* fileImportDialog = new FileImportDialog(this);

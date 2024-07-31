@@ -1,16 +1,52 @@
 /* …Ë÷√“≥ */
-QWidget#settingsLeftWidget {
+QStackedWidget {
     background-color: transparent;
-    margin: 0px;
-    padding: 0px;
-    border-top: 2px solid #cccccc;
-    border-right: 2px solid #cccccc
+    border: none
 }
 
-QWidget#settingsRightWidget {
-    margin: 0px;
-    padding: 0px;
-    border-top: 2px solid #cccccc;
+QTreeWidget {
     background-color: transparent;
-    border-bottom-right-radius: 12px
+    border: none
 }
+ 
+
+QListWidget {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    margin-left: 20px;
+    margin-right: 12px;
+    margin-top: 2px;
+    margin-bottom: 2px
+}
+
+    QListWidget::item:hover {
+        background-color: transparent
+    }
+
+QPushButton {
+    border: none
+}
+
+QComboBox {
+    border: none;
+    padding: 3px;
+    background-color: #9cdece; /* ±≥æ∞—’…´ */
+}
+
+    QComboBox:hover {
+        background-color: #8dc4b7;
+    }
+
+    QComboBox QAbstractItemView {
+        background-color: #83dbc5;
+    }
+
+    QComboBox::down-arrow {
+        image: url(":/Hugou/res/ico/down_bla.png");
+        width: 20px;
+    }  
+
+    QComboBox::drop-down {
+        border: none;
+    }
