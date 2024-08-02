@@ -19,9 +19,10 @@ QPushButton[status="default"] {
 	background-color: transparent;
 }
 
-QPushButton[status="default"] > QLabel {
-	color: white;
-}
+	QPushButton[status="default"] > QLabel {
+		color: white;
+		background-color: transparent;
+	}
 
 QPushButton[status="default"]:hover {
 	background-color: rgba(255,255,255,80);
@@ -31,10 +32,11 @@ QPushButton[status="current"] {
 	border-radius: 10px;
 	padding-top: 10px;
 	padding-bottom: 10px;
-	color: #329D9C;
+	color: #EA5514;
 	background-color: white;
 }
 
 	QPushButton[status="current"] > QLabel {
-		color: #329D9C;
+		color: #EA5514;
+		background-color: transparent;
 	}

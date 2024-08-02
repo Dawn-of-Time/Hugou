@@ -34,7 +34,7 @@ void AsideBar::switchOverStackedWidget()
             ui.settingButton->setIcon(QPixmap("res/ico/setting_w.png"));
             ui.workSpaceButton->setProperty("status", "current");
             ui.settingButton->setProperty("status", "default");
-            ui.updateUi(this);
+            this->setStyleSheet(this->styleSheet());
             emit SignalChangeStackedWidget(0);
         }
 
@@ -45,7 +45,7 @@ void AsideBar::switchOverStackedWidget()
             ui.settingButton->setIcon(QPixmap("res/ico/setting_b.png"));
             ui.workSpaceButton->setProperty("status", "default");
             ui.settingButton->setProperty("status", "current");
-            ui.updateUi(this);
+            this->setStyleSheet(this->styleSheet());
             emit SignalChangeStackedWidget(1);
         }
     }

@@ -17,10 +17,8 @@ int main(int argc, char* argv[])
         QString filePath = dir.absoluteFilePath(fileName);
         QFontDatabase::addApplicationFont(filePath);
     }
-    // 设置读取与应用
-    Setting* setting = new Setting();
     // 主构建
-    Hugou w(setting);
+    Hugou w;
     w.show();
     return a.exec();
 }

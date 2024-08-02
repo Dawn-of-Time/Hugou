@@ -21,3 +21,8 @@ void FloatingNotePanel::showPanel()
         isPanelShown = false;
     }
 }
+
+void FloatingNotePanel::updateUi(QWidget* Hugou)
+{
+    this->setGeometry(0, titleFrameHeight, Hugou->width(), Hugou->height() - titleFrameHeight);
+}

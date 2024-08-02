@@ -11,6 +11,7 @@ class FloatingNotePanel :
 public:
     bool isPanelShown = false;
     FloatingNotePanel(QWidget* parent);
+    void updateUi(QWidget* Hugou);
 
 signals:
     void blurBackground();

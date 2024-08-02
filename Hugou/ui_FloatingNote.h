@@ -136,7 +136,7 @@ public:
 		floatingNoteLayout->setSpacing(0);
 		floatingNoteLayout->addWidget(floatingNoteFrame);
 		// 样式表设置
-		QFile styleFile("res/style/Default/floatingNote.qss");
+		QFile styleFile("res/theme/Global/floatingNote.qss");
 		styleFile.open(QIODeviceBase::ReadOnly);
 		FloatingNote->setStyleSheet(styleFile.readAll());
 		styleFile.close();

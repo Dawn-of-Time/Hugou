@@ -8,8 +8,8 @@
 #include <dwmapi.h>
 #include "Var.h"
 #include "ui_Hugou.h"
-#include "PDFEdit.h"
 #include "Setting.h"
+#include "SettingsHelper.h"
 
 extern FloatingNoteManager floatingNoteManager;
 
@@ -19,19 +19,22 @@ class Hugou : public QWidget
     Q_OBJECT
 
 public:
-    Hugou(Setting* setting, QWidget* parent = nullptr);
+    Hugou(QWidget* parent = nullptr);
     ~Hugou();
     // 模糊效果
-    QGraphicsBlurEffect* blurEffect;
+    QGraphicsBlurEffect* leftBlurEffect;
+    QGraphicsBlurEffect* rightBlurEffect;
     QTimer blurTimer;
+
     void raiseReadingSettingError();
     void raiseSavingSettingError();
+    void applyTheme(QString theme = "");
 
 protected slots:
     void changeStackedWidget(int index);
     void openPDFEditFunction();
-    void blurStackedWidget();
-    void clearStackedWidget();
+    void blur();
+    void clearBlur();
 
 private:
     int blurRadius = 0;
@@ -69,6 +72,8 @@ private:
     bool nativeEvent(const QByteArray& eventType, void* message, qintptr* result) override;
     void changeEvent(QEvent* event) override;
     void resizeEvent(QResizeEvent* event) override;
+
+    //void showEvent(QShowEvent* event) override;
 
     // 完全由qt实现的窗口边缘拉伸办法。
     //bool event(QEvent* event)

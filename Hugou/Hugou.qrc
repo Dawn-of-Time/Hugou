@@ -47,12 +47,6 @@
         <file>res/ico/yes_b.png</file>
         <file>res/ico/yes_g.png</file>
         <file>res/ico/yes_w.png</file>
-        <file>res/style/Default/asideBar.qss</file>
-        <file>res/style/Default/floatingNote.qss</file>
-        <file>res/style/Default/floatingNotePanel.qss</file>
-        <file>res/style/Default/settings.qss</file>
-        <file>res/style/Default/titleBar.qss</file>
-        <file>res/style/Default/workSpace.qss</file>
         <file>res/font/Roboto-Black.ttf</file>
         <file>res/font/Roboto-BlackItalic.ttf</file>
         <file>res/font/Roboto-Bold.ttf</file>
@@ -71,7 +65,15 @@
         <file>res/ico/restore_w.png</file>
         <file>res/ico/maximum_w.png</file>
         <file>res/qml/operationZoneMedia.qml</file>
-        <file>res/conf.ini</file>
         <file>res/ico/down_bla.png</file>
+        <file>res/theme/Global/floatingNote.qss</file>
+        <file>res/theme/Global/floatingNotePanel.qss</file>
+        <file>res/theme/Global/titleBar.qss</file>
+        <file>res/theme/Global/workSpace.qss</file>
+        <file>res/conf.ini</file>
+        <file>res/errorCode.ini</file>
+        <file>res/theme/Spring/asideBar.qss</file>
+        <file>res/theme/Spring/general.qss</file>
+        <file>res/theme/Spring/settings.qss</file>
     </qresource>
 </RCC>

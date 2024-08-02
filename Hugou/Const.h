@@ -2,9 +2,9 @@
 
 #include <QString>
 #include <QFont>
+#include <QSize>
 #include <QPoint>
-#include <QApplication>
-#include <QScreen>
+#include <map>
 
 
 // 几何参数
@@ -71,24 +71,36 @@ const QString savingSettingErrorHint = QString(
 //"● Settings - Restore:<br> "
 //"&nbsp;&nbsp; Restore the configuration to restore point.<br>"
 
-// 设置项
-const QStringList settingCatalogueList = {
-		"Common",
-			"Appearance",
-				"Theme",
-			"Country/Region",
-				"Language",
-		"Export",
-			"Save",
-				"Default Save Path" };
-const QStringList settingGroupList = {
-		"Common",
-		"Export" };
-const QStringList themeList = {
-		"Default",
-		"Spring",
-		"Summer",
-		"Autumn",
-		"Winter" };
-const QStringList languageList = {
-		"English" };
+// 设置项。
+//const QStringList settingCatalogueList = {
+//		"Common",
+//			"Appearance",
+//				"Theme",
+//			"Country/Region",
+//				"Language",
+//		"Export",
+//			"Save",
+//				"Default Save Path" };
+
+const QStringList settingsGroupList = {
+	"Common",
+	"Export"
+};
+
+const QStringList settingsKeyList = {
+	{"theme", "language", "defaultSavePath"}
+};
+
+// "invalid"不能是值。
+const std::map<QString, QStringList> settingValueMap = {
+	{"theme", {"Default", "Spring", "Summer", "Autumn", "Winter"}},
+	{"language", {"English"}}
+};
+
+//std::map<QString, QString> settingsCommonMap = {
+//	{"theme", "Default"},
+//	{"language", "English"}
+//};
+//std::map<QString, QString> settingsExportMap = {
+//	{"defaultSavePath", ""}
+//};

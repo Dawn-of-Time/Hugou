@@ -119,6 +119,7 @@
     <ClCompile Include="FloatingNote.cpp" />
     <ClCompile Include="FloatingNoteManager.cpp" />
     <ClCompile Include="FloatingNotePanel.cpp" />
+    <ClCompile Include="GlobalTop.cpp" />
     <ClCompile Include="IconTextButton.cpp" />
     <ClCompile Include="OperationZone.cpp" />
     <ClCompile Include="PDFEdit.cpp" />
@@ -126,6 +127,7 @@
     <ClCompile Include="PDFtoWord.cpp" />
     <ClCompile Include="Setting.cpp" />
     <ClCompile Include="Settings.cpp" />
+    <ClCompile Include="SettingsHelper.cpp" />
     <ClCompile Include="ThemeSetting.cpp" />
     <ClCompile Include="TitleBar.cpp" />
     <ClCompile Include="ui_Settings.h" />
@@ -145,6 +147,9 @@
     <ClInclude Include="FileManager.h" />
     <QtMoc Include="FloatingNotePanel.h" />
     <QtMoc Include="Settings.h" />
+    <QtMoc Include="SettingsHelper.h" />
+    <QtMoc Include="GlobalTop.h" />
+    <ClInclude Include="ui_GlobalTop.h" />
     <ClInclude Include="Var.h" />
     <ClInclude Include="ui_FloatingNotePanel.h" />
     <ClInclude Include="ui_OperationZone.h" />

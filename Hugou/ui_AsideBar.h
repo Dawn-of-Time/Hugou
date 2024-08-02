@@ -46,14 +46,5 @@ public:
 
         workSpaceButton->setProperty("status", "current");
         settingButton->setProperty("status", "default");
-        updateUi(asideBar);
-    }
-
-    void updateUi(QWidget* asideBar)
-    {
-        QFile styleFile("res/style/Default/asideBar.qss");
-        styleFile.open(QIODeviceBase::ReadOnly);
-        asideBar->setStyleSheet(styleFile.readAll());
-        styleFile.close();
     }
 };

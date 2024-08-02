@@ -10,13 +10,13 @@ public:
     {
         floatingNotePanel->setText("TO BE DEVELOPED");
         floatingNotePanel->setObjectName("notePanel");
-        floatingNotePanel->setGeometry(asideFrameWidth, titleFrameHeight, mainWindowWidth - asideFrameWidth, mainWindowHeight - titleFrameHeight);
+        floatingNotePanel->setGeometry(0, titleFrameHeight, mainWindowWidth, mainWindowHeight - titleFrameHeight);
         floatingNotePanel->setFont(QFont("Hind", 30));
         floatingNotePanel->setAlignment(Qt::AlignCenter);
         floatingNotePanel->setHidden(true);
 
         // 样式表设置
-        QFile styleFile("res/style/Default/floatingNotePanel.qss");
+        QFile styleFile("res/theme/Global/floatingNotePanel.qss");
         styleFile.open(QIODeviceBase::ReadOnly);
         floatingNotePanel->setStyleSheet(styleFile.readAll());
         styleFile.close();

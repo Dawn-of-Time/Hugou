@@ -26,8 +26,8 @@ TitleBar::TitleBar(QWidget* parent) :
     connect(ui.scaledButton, &QPushButton::clicked, this, &TitleBar::scale);
 	connect(ui.closeButton, &QPushButton::clicked, mainWindow, &QWidget::close);
     connect(&floatingNoteManager, &FloatingNoteManager::SignalAnimationFinishedToTitleBar, this, &TitleBar::slideFloatingNotePoint);
-    connect(floatingNotePanel, &FloatingNotePanel::blurBackground, this, [&]() {emit SignalBlurStackedWidget(); });
-    connect(floatingNotePanel, &FloatingNotePanel::clearBackground, this, [&]() {emit SignalClearStackedWidget(); });
+    connect(floatingNotePanel, &FloatingNotePanel::blurBackground, this, [&]() {emit SignalBlur(); });
+    connect(floatingNotePanel, &FloatingNotePanel::clearBackground, this, [&]() {emit SignalClearBlur(); });
 }
 
 // ²Ûº¯Êý

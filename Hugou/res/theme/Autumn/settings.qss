@@ -30,17 +30,35 @@ QPushButton {
 
 QComboBox {
     border: none;
+    border-radius: 5px;
     padding: 3px;
-    background-color: #9cdece; /* ±³¾°ÑÕÉ« */
+    background-color: #FDE4AF;
 }
 
     QComboBox:hover {
-        background-color: #8dc4b7;
+        background-color: #F9BD6F;
     }
 
     QComboBox QAbstractItemView {
-        background-color: #83dbc5;
+        outline: none;
+        margin-top: 5px;
+        border-radius: 5px;
+        background-color: #FDE4AF;
     }
+
+        QComboBox QAbstractItemView::item:hover {
+            padding: 3px;
+            color: black;
+            border-radius: 5px;
+            background-color: #F9BD6F;
+        }
+
+        QComboBox QAbstractItemView::item:selected {
+            padding: 3px;
+            color: white;
+            border-radius: 5px;
+            background-color: #F9BD6F;
+        }
 
     QComboBox::down-arrow {
         image: url(":/Hugou/res/ico/down_bla.png");

@@ -42,8 +42,17 @@
     <Filter Include="Manager">
       <UniqueIdentifier>{b28bcb55-66a3-487e-ab5e-e473590e56ca}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Delegate">
-      <UniqueIdentifier>{6f026344-954e-4288-89b7-dbdb3fd80b7f}</UniqueIdentifier>
+    <Filter Include="Source Files\Global">
+      <UniqueIdentifier>{7c7bcbe7-8073-4d38-98d3-1a397a2fe1db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Helper">
+      <UniqueIdentifier>{49015d45-6a4b-4216-8f0a-d481fc247d7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Helper\FileHelper">
+      <UniqueIdentifier>{80f526db-cab9-4ca2-88ce-cca942d5a86e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Helper\SettingsHelper">
+      <UniqueIdentifier>{da429ba4-eeb6-43c2-b98d-adbb290ba99b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -74,6 +83,12 @@
     <QtMoc Include="Settings.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="SettingsHelper.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="GlobalTop.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -100,12 +115,6 @@
     <ClCompile Include="PDFtoWord.cpp">
       <Filter>Source Files\Tools\PDF</Filter>
     </ClCompile>
-    <ClCompile Include="FileImportDialog.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PDFParse.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TitleBar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -121,9 +130,6 @@
     <ClCompile Include="OperationZone.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="File.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="FileManager.cpp">
       <Filter>Manager</Filter>
     </ClCompile>
@@ -133,13 +139,28 @@
     <ClCompile Include="FloatingNotePanel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Var.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ui_Settings.h">
       <Filter>User Interface</Filter>
     </ClCompile>
     <ClCompile Include="Settings.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PDFParse.cpp">
+      <Filter>Source Files\Tools\PDF</Filter>
+    </ClCompile>
+    <ClCompile Include="Var.cpp">
+      <Filter>Source Files\Global</Filter>
+    </ClCompile>
+    <ClCompile Include="File.cpp">
+      <Filter>Source Files\Helper\FileHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="FileImportDialog.cpp">
+      <Filter>Source Files\Helper\FileHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="SettingsHelper.cpp">
+      <Filter>Source Files\Helper\SettingsHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="GlobalTop.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -196,6 +217,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ui_FloatingNotePanel.h">
+      <Filter>User Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="ui_GlobalTop.h">
       <Filter>User Interface</Filter>
     </ClInclude>
   </ItemGroup>

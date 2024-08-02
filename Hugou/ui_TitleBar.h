@@ -156,7 +156,7 @@ public:
         titleLayout->addWidget(closeButton);
 
         // 样式表设置
-        QFile styleFile("res/style/Default/titleBar.qss");
+        QFile styleFile("res/theme/Global/titleBar.qss");
         styleFile.open(QIODeviceBase::ReadOnly);
         titleBar->setStyleSheet(styleFile.readAll());
         styleFile.close();

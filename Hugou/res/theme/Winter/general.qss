@@ -1,0 +1,10 @@
+/* Ö÷´°Ìå */
+
+QWidget#HugouClass {
+    background-color: #5E7FA3;
+}
+
+QStackedWidget#stackedWidget {
+    border-radius: 10px;
+    background-color: rgba(255,255,255,0.8);
+}

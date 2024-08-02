@@ -4,6 +4,7 @@
 #include <QPainter>
 #include "ui_Settings.h"
 #include "Const.h"
+#include "SettingsHelper.h"
 
 const std::map<QString, QString> defaultCommonMap = {
             {"theme", "Default"},
@@ -19,7 +20,11 @@ class Settings :
 
 public:
     Settings(QWidget* parent);
+    void adjustSizeHint();
     /*~Settings();*/
+
+signals:
+    void SignalApplyTheme(QString theme = "");
 
 protected slots:
     void checkIsLineEditNull();
@@ -27,19 +32,10 @@ protected slots:
 
 private:
     Ui_Settings ui;
-    bool searchSetting(QTreeWidget* treeWidget, QTreeWidgetItem* item, QString text);
-    void showSetting(QTreeWidget* treeWidget, QTreeWidgetItem* item);
-    void notExpandSetting(QTreeWidget* treeWidget);
+    void showSettings(QTreeWidget* treeWidget, QTreeWidgetItem* item);
+    void notExpandSettings(QTreeWidget* treeWidget);
     void switchOverSearchButton(bool msg);
-    void search();
-
-    std::map<QString, QString> settingsCommonMap = {
-        {"theme", "Default"},
-        {"language", "English"}
-    };
-
-    std::map<QString, QString> settingsExportMap = {
-        {"defaultSavePath", ""}
-    };
+    void searchSettings();
+    void showEvent(QShowEvent* event) override;
 };
 

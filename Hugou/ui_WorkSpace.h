@@ -74,7 +74,7 @@ public:
         workSpaceLayout->addWidget(recentlyAddedLabel);
         workSpaceLayout->addWidget(recentlyAddedZone);
 
-        QFile styleFile("res/style/Default/workSpace.qss");
+        QFile styleFile("res/theme/Global/workSpace.qss");
         styleFile.open(QIODeviceBase::ReadOnly);
         workSpace->setStyleSheet(styleFile.readAll());
         styleFile.close();

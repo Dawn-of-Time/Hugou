@@ -25,10 +25,8 @@ public:
 	bool isOnDragZone(QPoint windowPos);
 
 signals:
-	//void SignalRestore();
-	//void SignalMaximize();
-	void SignalBlurStackedWidget();
-	void SignalClearStackedWidget();
+	void SignalBlur();
+	void SignalClearBlur();
 
 protected slots:
 	void scale();

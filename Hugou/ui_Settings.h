@@ -37,6 +37,7 @@ public:
     QPushButton* savePathButton;
     QLineEdit* savePathLineEdit;
     std::map<QString, int> settingsItemRowMap;
+    std::map<QListWidgetItem*, QLabel*> hintItemLabelMap;
 
     void setupUi(QWidget* settings)
     {
@@ -104,11 +105,6 @@ public:
 
         settingsLayout->addWidget(settingsLeftWidget);
         settingsLayout->addWidget(settingsRightWidget);
-
-        QFile styleFile("res/style/Default/settings.qss");
-        styleFile.open(QIODeviceBase::ReadOnly);
-        settings->setStyleSheet(styleFile.readAll());
-        styleFile.close();
     }
 
     QTreeWidget* formTree(QTreeWidget* settingsTreeWidget)
@@ -157,7 +153,7 @@ public:
         hintsettingsItem(hint1, "I will be launching the theme preview feature in the near future.");
         // 1.1.1.1-themeBox
         QListWidgetItem* item1_1_1_1 = new QListWidgetItem(settingsContentListWidget);
-        themeBox = contentNodeComboboxsettingsItem(item1_1_1_1, "themeBox", themeList);
+        themeBox = contentNodeComboboxsettingsItem(item1_1_1_1, "themeBox", settingValueMap.find("theme")->second);
         // Space1
         QListWidgetItem* spaceItem1 = new QListWidgetItem(settingsContentListWidget);
         sectionSpaceItem(spaceItem1);
@@ -172,7 +168,7 @@ public:
         hintsettingsItem(hint2, "More and more languages are getting support. The language currently in the pipeline is: Chinese.");
         // 1.2.1.1-languageBox
         QListWidgetItem* item1_2_1_1 = new QListWidgetItem(settingsContentListWidget);
-        languageBox = contentNodeComboboxsettingsItem(item1_2_1_1, "languageBox", languageList);
+        languageBox = contentNodeComboboxsettingsItem(item1_2_1_1, "languageBox", settingValueMap.find("language")->second);
         // Space2
         QListWidgetItem* spaceItem2 = new QListWidgetItem(settingsContentListWidget);
         chapterSpaceItem(spaceItem2);
@@ -220,11 +216,11 @@ public:
     void firstNodesettingsItem(QListWidgetItem* item, QString settingsName)
     {
         QString firstNodeStyleSheet = "QLabel {border-width: 0 0 0 5px; border-style: solid; border-color: black; padding-left: 2px}";
-        QFont firstNodeFont = QFont("Hind Siliguri", 22);
+        QFont firstNodeFont = QFont("Hind", 22);
         QLabel* label = new QLabel(settingsName, settingsContentListWidget);
         label->setFont(firstNodeFont);
         label->setStyleSheet(firstNodeStyleSheet);
-        item->setSizeHint(label->sizeHint());
+        item->setSizeHint(QSize(label->sizeHint().width(), label->sizeHint().height() - 10));
         settingsContentListWidget->setItemWidget(item, label);
         settingsItemRowMap.insert({ settingsName, settingsContentListWidget->indexFromItem(item).row() });
     }
@@ -291,15 +287,22 @@ public:
 
     void hintsettingsItem(QListWidgetItem* item, QString hint)
     {
-        QString hintStyleSheet = "QLabel {margin-left: 20px; color: #696969; padding: 0px}";
+        QString hintStyleSheet = "QLabel {color: #696969; background-color: transparent}";
         QFont hintFont = QFont("Hind Siliguri Light", 12);
-        QLabel* label = new QLabel(hint, settingsContentListWidget);
+        QWidget* widget = new QWidget(settingsContentListWidget);
+        QHBoxLayout* layout = new QHBoxLayout(widget);
+        layout->setSpacing(0);
+        layout->setContentsMargins(20, 0, 0, 0);
+        QLabel* label = new QLabel(hint, widget);
         label->setFont(hintFont);
         label->setStyleSheet(hintStyleSheet);
         label->setWordWrap(true);
-        label->adjustSize();
-        item->setSizeHint(QSize(label->sizeHint().width(), label->sizeHint().height() - 20));
-        settingsContentListWidget->setItemWidget(item, label);
+        label->setAlignment(Qt::AlignTop);
+        label->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
+        layout->addWidget(label);
+        item->setSizeHint(widget->size());        
+        settingsContentListWidget->setItemWidget(item, widget);
+        hintItemLabelMap.insert({ item, label });
     }
 
     void chapterSpaceItem(QListWidgetItem* item)

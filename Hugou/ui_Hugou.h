@@ -27,6 +27,7 @@ public:
     QHBoxLayout* stackedWidgetLayout;
     WorkSpace* workSpaceWidget;
     Settings* settingsWidget;
+    
 
     void setupUi(QWidget* HugouClass)
     {
@@ -83,11 +84,9 @@ public:
         generalLayout->addWidget(asideBar);
         generalLayout->addWidget(titleBarAndStackedWidget);
 
-        QFile styleFile("res/style/Default/general.qss");
-        styleFile.open(QIODeviceBase::ReadOnly);
-        HugouClass->setStyleSheet(styleFile.readAll());
-        styleFile.close();
 
+        // 全局控件
+        top
         retranslateUi(HugouClass);
     } // setupUi
 
