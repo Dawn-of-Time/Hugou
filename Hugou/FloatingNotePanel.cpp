@@ -6,17 +6,27 @@ FloatingNotePanel::FloatingNotePanel(QWidget* parent) :
 	ui.setupUi(this);
 }
 
-void FloatingNotePanel::showPanel()
+void FloatingNotePanel::blurOrClearBlurRequest()
 {
     if (!isPanelShown)
     {
         emit blurBackground();
+    }
+    else
+    {
+        emit clearBackground();
+    }
+}
+
+void FloatingNotePanel::switchPanel()
+{
+    if (!isPanelShown)
+    {
         this->setHidden(false);
         isPanelShown = true;
     }
     else
     {
-        emit clearBackground();
         this->setHidden(true);
         isPanelShown = false;
     }

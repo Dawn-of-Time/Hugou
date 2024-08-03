@@ -6,26 +6,25 @@
 #include <QPoint>
 #include <map>
 
-
 // 几何参数
 // 窗口
 const int mainWindowWidth = 750;
 const int mainWindowHeight = 500;
 const int edgeWidth = 5;
 
-// 侧边栏
-const int asideFrameWidth = 150;
-const int asideFrameHeight = mainWindowHeight;
-const int userLabelWidth = 150;
-const int userLabelHeight = 80;
-const int asideButtonWidth = 135;
-const int asideButtonHeight = 40;
 // 标题栏
-const int titleFrameWidth = mainWindowWidth - asideFrameWidth;
+const int titleFrameWidth = mainWindowWidth;
 const int titleFrameHeight = 35;
 const int titleButtonWidth = 60;
 const int titleButtonHeight = titleFrameHeight;
 const QSize titleButtonIconSize = QSize(15, 15);
+// 侧边栏
+const int asideFrameWidth = 150;
+const int asideFrameHeight = mainWindowHeight - titleFrameHeight;
+const int userLabelWidth = 150;
+const int userLabelHeight = 80;
+const int asideButtonWidth = 135;
+const int asideButtonHeight = 40;
 // 主页
 const int stackedWidgetWidth = titleFrameWidth;
 const int stackedWidgetHeight = asideFrameHeight - titleFrameHeight;
@@ -57,6 +56,8 @@ const QFont tableSubcontentFont = QFont("Roboto", 10);
 const QFont asideFont = QFont("Roboto", 12, QFont::Medium);
 // 浮动消息
 const QFont timekeepingLabelFont = QFont("Hind Siliguri", 10);
+// 全局顶层
+const QFont hintFont = QFont("Roboto", 24);
 
 // 提示性文字
 const QString operationText = QString(

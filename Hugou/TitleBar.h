@@ -19,14 +19,9 @@ public:
 
 	QQmlApplicationEngine engine;
 	QWidget* mainWindow;
-	FloatingNotePanel* floatingNotePanel;
 	
 	bool isOnMaxButton(QPoint windowPos);
 	bool isOnDragZone(QPoint windowPos);
-
-signals:
-	void SignalBlur();
-	void SignalClearBlur();
 
 protected slots:
 	void scale();

@@ -4,6 +4,10 @@ QWidget#HugouClass {
     background-color: #F7A049;
 }
 
+QWidget#asideBarAndStackedWidget {
+    background-color: #F7A049;
+}
+
 QStackedWidget#stackedWidget {
     border-radius: 10px;
     background-color: rgba(255,255,255,0.8);

@@ -2,7 +2,6 @@
 
 QWidget#notePanel
 {
-	border-bottom-right-radius: 12px; 
 	margin: 0px;
 	padding: 10px;
 	background-color: transparent

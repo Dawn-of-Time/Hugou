@@ -6,7 +6,6 @@
 #include <QFile>
 #include "Const.h"
 #include "FloatingNote.h"
-#include "FloatingNotePanel.h"
 #include "ButtonHoverWatcher.h"
 
 

@@ -4,10 +4,8 @@ Hugou::Hugou(QWidget* parent)
     : QWidget(parent)
 {
     this->setWindowFlags(Qt::Window | Qt::WindowMaximizeButtonHint | Qt::WindowMinimizeButtonHint | Qt::FramelessWindowHint);
-    floatingNoteDelayTimer = new QTimer(this);
     // Ui
     ui.setupUi(this);
-    applyTheme();
     HWND hWnd = (HWND)winId();
     LONG_PTR style = GetWindowLongPtrW(hWnd, GWL_STYLE);
     SetWindowLongPtr(
@@ -22,35 +20,22 @@ Hugou::Hugou(QWidget* parent)
     );
 
     // 设置模糊
-    rightBlurEffect = new QGraphicsBlurEffect(this);
-    rightBlurEffect->setBlurRadius(0);
-    blurTimer.setInterval(5);
-    ui.stackedWidget->setGraphicsEffect(rightBlurEffect);
-    leftBlurEffect = new QGraphicsBlurEffect(this);
-    leftBlurEffect->setBlurRadius(0);
-    ui.asideBar->setGraphicsEffect(leftBlurEffect);
-    
-    //receiveSetting = setting;
-    //if (!receiveSetting->readSetting()) // 读取设置并保存到所有settingMap中。一旦有任何错误，立即引发错误提示，并暂时采用默认设定
-    //{
-    //    raiseReadingSettingError();
-    //    settingCommonMap = defaultCommonMap;
-    //    settingExportMap = defaultExportMap;
-    //}
-    // 实际应用
-    //receiveSetting->themeSetting->initTheme(this);
-    //receiveSetting->applySetting(this);
-    // ui应用
-    //if (themeList.contains(settingCommonMap["theme"]))
-    //    ui.themeBox->setCurrentIndex(themeList.indexOf(settingCommonMap["theme"]));
-    //if (languageList.contains(settingCommonMap["language"]))
-    //    ui.languageBox->setCurrentIndex(languageList.indexOf(settingCommonMap["language"]));
+    blurEffect = new QGraphicsBlurEffect(this);
+    blurEffect->setBlurRadius(0);
+    blurEffect->setBlurHints(QGraphicsBlurEffect::QualityHint);
+    blurTimer.setInterval(100);
+    ui.blurWidget->setGraphicsEffect(blurEffect);
 
     // 信号与槽
-    connect(ui.titleBar, &TitleBar::SignalBlur, this, &Hugou::blur);
-    connect(ui.titleBar, &TitleBar::SignalClearBlur, this, &Hugou::clearBlur);
+    connect(ui.titleBar->ui.floatingNotePanelButton, &QPushButton::clicked, ui.floatingNotePanel, &FloatingNotePanel::blurOrClearBlurRequest);
+    connect(ui.floatingNotePanel, &FloatingNotePanel::blurBackground, this, &Hugou::blur);
+    connect(ui.floatingNotePanel, &FloatingNotePanel::clearBackground, this, &Hugou::clearBlur);
+    connect(ui.globalTop, &GlobalTop::blurBackground, this, &Hugou::blur);
+    connect(ui.globalTop, &GlobalTop::clearBackground, this, &Hugou::clearBlur);
     connect(ui.asideBar, &AsideBar::SignalChangeStackedWidget, this, &Hugou::changeStackedWidget);
     connect(ui.settingsWidget, &Settings::SignalApplyTheme, this, &Hugou::applyTheme);
+
+    applyTheme();
 }
 
 Hugou::~Hugou()
@@ -64,40 +49,35 @@ void Hugou::applyTheme(QString theme)
         if (helper.verifySettings())
         {
             theme = helper.readSettings("theme");
-            qDebug() << theme;
             if (theme == "notExist") theme = "Default";
             if (theme == "invalid")
             {
                 // 硬编码Default主题
-                emit helper.triggerError(10101);
+                emit helper.triggerError(10102);
                 theme = "Default";
             }
         }
     }
-    QFile generalStyleFile(QString("res/theme/%1/general.qss").arg(theme));
-    QFile asideBarStyleFile(QString("res/theme/%1/asideBar.qss").arg(theme));
-    QFile settingsStyleFile(QString("res/theme/%1/settings.qss").arg(theme));
-    if (!generalStyleFile.exists() || !asideBarStyleFile.exists() || !settingsStyleFile.exists())
-    {
-        // 硬编码Default主题
-        SettingsHelper helper(this);
-        emit helper.triggerError(10100);
-        theme = "Default";
-    }
-    generalStyleFile.open(QIODeviceBase::ReadOnly);
-    asideBarStyleFile.open(QIODeviceBase::ReadOnly);
-    settingsStyleFile.open(QIODeviceBase::ReadOnly);
-    this->setStyleSheet(generalStyleFile.readAll());
-    ui.asideBar->setStyleSheet(asideBarStyleFile.readAll());
-    ui.settingsWidget->setStyleSheet(settingsStyleFile.readAll());
-    generalStyleFile.close();
-    asideBarStyleFile.close();
-    settingsStyleFile.close();
+    ui.globalTop->setSource(QUrl("res/qml/themeApplyMedia.qml"));
+    ui.globalTop->setHint("Painting theme: " + theme);
+    ui.globalTop->blurOrClearBlurRequest();
+    loader = new ThemeLoadThread(theme);
+    connect(loader, &ThemeLoadThread::themeResourcePrepared, this, &Hugou::applyStyleSheet);
+    loader->start();
+}
+
+void Hugou::applyStyleSheet(QString generalStyleFile, QString asideBarStyleFile, QString settingsStyleFile)
+{
+    this->setStyleSheet(generalStyleFile);
+    ui.asideBar->setStyleSheet(asideBarStyleFile);
+    ui.settingsWidget->setStyleSheet(settingsStyleFile);
+    ui.globalTop->blurOrClearBlurRequest();
 }
 
 void Hugou::changeStackedWidget(int index)
 {
     ui.stackedWidget->setCurrentIndex(index);
+    //raiseReadingSettingError();
 }
 
 void Hugou::raiseReadingSettingError() { floatingNoteManager.raiseFloatingNote(this, FloatingNote::Error, readingSettingErrorHint);}
@@ -210,33 +190,37 @@ void Hugou::openPDFEditFunction()
 
 void Hugou::blur()
 {
-    blurTimer.disconnect();
-    connect(&blurTimer, &QTimer::timeout, [&]()
-        {
-            if (blurRadius < 60)
-            {
-                blurRadius += 6;
-                rightBlurEffect->setBlurRadius(blurRadius);
-                leftBlurEffect->setBlurRadius(blurRadius);
-            }
-            else blurTimer.stop();
-        });
-    blurTimer.start();
+    screenShot = QPixmap(ui.asideBarAndStackedWidget->size());
+    ui.blurWidget->setHidden(false);
+    ui.asideBarAndStackedWidget->render(&screenShot);
+    QPalette palette;
+    palette.setBrush(ui.blurWidget->backgroundRole(), QBrush(screenShot));
+    ui.blurWidget->setPalette(palette);
+    ui.blurWidget->setAutoFillBackground(true);
+    QPropertyAnimation* blurAnimation = new QPropertyAnimation(blurEffect, "blurRadius");
+    blurAnimation->setDuration(100);
+    blurAnimation->setStartValue(blurEffect->blurRadius());
+    blurAnimation->setEndValue(30);
+    if (sender()->objectName() == "notePanel") connect(blurAnimation, &QPropertyAnimation::finished, [&]() {ui.floatingNotePanel->switchPanel(); });
+    if (sender()->objectName() == "globalTop") connect(blurAnimation, &QPropertyAnimation::finished, [&]() {ui.globalTop->switchTop(); });
+    blurAnimation->start(QPropertyAnimation::DeleteWhenStopped); 
 }
 
 void Hugou::clearBlur()
 {
-    blurTimer.disconnect();
-    connect(&blurTimer, &QTimer::timeout, [&]()
-        {
-            if (blurRadius > 0) {
-                blurRadius -= 10;
-                rightBlurEffect->setBlurRadius(blurRadius);
-                leftBlurEffect->setBlurRadius(blurRadius);
-            }
-            else blurTimer.stop();
-        });
-    blurTimer.start();
+    screenShot = QPixmap(ui.asideBarAndStackedWidget->size());
+    ui.asideBarAndStackedWidget->render(&screenShot);
+    QPalette palette;
+    palette.setBrush(ui.blurWidget->backgroundRole(), QBrush(screenShot));
+    ui.blurWidget->setPalette(palette);
+    ui.blurWidget->setAutoFillBackground(true);
+    QPropertyAnimation* blurAnimation = new QPropertyAnimation(blurEffect, "blurRadius");
+    blurAnimation->setDuration(100); 
+    blurAnimation->setStartValue(blurEffect->blurRadius());
+    blurAnimation->setEndValue(0);
+    if (sender()->objectName() == "notePanel") connect(blurAnimation, &QPropertyAnimation::finished, [&]() {ui.blurWidget->setHidden(true); ui.floatingNotePanel->switchPanel(); });
+    if (sender()->objectName() == "globalTop") connect(blurAnimation, &QPropertyAnimation::finished, [&]() {ui.blurWidget->setHidden(true); ui.globalTop->switchTop(); ui.globalTop->removeSource(); });
+    blurAnimation->start(QPropertyAnimation::DeleteWhenStopped);
 }
 
 // 父类函数重写
@@ -378,5 +362,7 @@ void Hugou::resizeEvent(QResizeEvent* event)
 
     // 设置页表单
     ui.settingsWidget->adjustSizeHint();
-    ui.titleBar->floatingNotePanel->updateUi(this);
+    ui.floatingNotePanel->updateUi(this);
+    ui.blurWidget->resize(this->width(), this->height() - titleFrameHeight);
+    ui.globalTop->updateUi(this);
 }

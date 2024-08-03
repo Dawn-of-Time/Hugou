@@ -12,13 +12,14 @@ public:
     bool isPanelShown = false;
     FloatingNotePanel(QWidget* parent);
     void updateUi(QWidget* Hugou);
+    void switchPanel();
 
 signals:
     void blurBackground();
     void clearBackground();
 
 public slots:
-    void showPanel();
+    void blurOrClearBlurRequest();
 
 private:
     Ui_FloatingNotePanel ui;

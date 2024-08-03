@@ -27,13 +27,11 @@ public:
     QPoint startPos;
     QPoint endPos;
     Direction direction;
-    QPushButton* button;
     QString gifResource;
     ButtonHoverWatcher(QString default_res, QString hover_res, QObject* parent = Q_NULLPTR);
     ButtonHoverWatcher(QLabel* backgroundLabel, QString default_color, QString hover_color, QObject* parent = Q_NULLPTR);
     ButtonHoverWatcher(QString default_res, QString hover_res, QLabel* backgroundLabel, QString default_color, QString hover_color, QObject* parent = Q_NULLPTR);
     ButtonHoverWatcher(QPoint startPos, QPoint endPos, Direction direction, QObject* parent = Q_NULLPTR);
-    ButtonHoverWatcher(QPushButton* button, QString gifResource, QObject* parent = Q_NULLPTR);
     ~ButtonHoverWatcher();
     virtual bool eventFilter(QObject* watched, QEvent* event) Q_DECL_OVERRIDE;
     void setResource(QString default_res, QString hover_res);

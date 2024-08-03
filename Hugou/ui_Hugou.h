@@ -11,15 +11,17 @@
 #include "ComboboxWheelWatcher.h"
 #include "WorkSpace.h"
 #include "Settings.h"
+#include "FloatingNotePanel.h"
+#include "GlobalTop.h"
 
 QT_BEGIN_NAMESPACE
 
 class Ui_HugouClass
 {
 public:
-    QHBoxLayout* generalLayout;
-    QWidget* titleBarAndStackedWidget;
-    QVBoxLayout* titleBarAndStackedLayout;
+    QVBoxLayout* generalLayout;
+    QWidget* asideBarAndStackedWidget;
+    QHBoxLayout* asideBarAndStackedLayout;
     TitleBar* titleBar;
     AsideBar* asideBar;
     QWidget* stackedWidgetContainer;
@@ -27,7 +29,9 @@ public:
     QHBoxLayout* stackedWidgetLayout;
     WorkSpace* workSpaceWidget;
     Settings* settingsWidget;
-    
+    QWidget* blurWidget;
+    FloatingNotePanel* floatingNotePanel;
+    GlobalTop* globalTop;
 
     void setupUi(QWidget* HugouClass)
     {
@@ -47,20 +51,21 @@ public:
 
 
         // 2 主布局
-        generalLayout = new QHBoxLayout(HugouClass);
+        generalLayout = new QVBoxLayout(HugouClass);
         generalLayout->setSpacing(0);
         generalLayout->setContentsMargins(0, 0, 0, 0);
-        // ----侧边栏
-        asideBar = new AsideBar(HugouClass);
-        // ----标题栏与堆叠控件
-        titleBarAndStackedWidget = new QWidget(HugouClass);
-        titleBarAndStackedLayout = new QVBoxLayout(titleBarAndStackedWidget);
-        titleBarAndStackedLayout->setSpacing(0);
-        titleBarAndStackedLayout->setContentsMargins(0, 0, 0, 0);
         // ------标题栏
-        titleBar = new TitleBar(titleBarAndStackedWidget);
+        titleBar = new TitleBar(HugouClass);
+        // ----侧边栏与堆叠控件
+        asideBarAndStackedWidget = new QWidget(HugouClass);
+        asideBarAndStackedWidget->setObjectName("asideBarAndStackedWidget");
+        asideBarAndStackedLayout = new QHBoxLayout(asideBarAndStackedWidget);
+        asideBarAndStackedLayout->setSpacing(0);
+        asideBarAndStackedLayout->setContentsMargins(0, 0, 0, 0);
+        // ----侧边栏
+        asideBar = new AsideBar(asideBarAndStackedWidget);
         // ------堆叠控件
-        stackedWidgetContainer = new QWidget(titleBarAndStackedWidget);
+        stackedWidgetContainer = new QWidget(asideBarAndStackedWidget);
         stackedWidgetLayout = new QHBoxLayout(stackedWidgetContainer);
         stackedWidgetLayout->setSpacing(0);
         stackedWidgetLayout->setContentsMargins(5, 0, 5, 5);
@@ -78,15 +83,21 @@ public:
 
         stackedWidgetLayout->addWidget(stackedWidget);
 
-        titleBarAndStackedLayout->addWidget(titleBar);
-        titleBarAndStackedLayout->addWidget(stackedWidgetContainer);
+        asideBarAndStackedLayout->addWidget(asideBar);
+        asideBarAndStackedLayout->addWidget(stackedWidgetContainer);
 
-        generalLayout->addWidget(asideBar);
-        generalLayout->addWidget(titleBarAndStackedWidget);
+        generalLayout->addWidget(titleBar);
+        generalLayout->addWidget(asideBarAndStackedWidget);
 
 
         // 全局控件
-        top
+        blurWidget = new QWidget(HugouClass);
+        blurWidget->setObjectName("blurWidget");
+        blurWidget->setGeometry(0, titleFrameHeight, mainWindowWidth, mainWindowHeight);
+        blurWidget->setHidden(true);
+        floatingNotePanel = new FloatingNotePanel(HugouClass);
+        globalTop = new GlobalTop(HugouClass);
+        //top
         retranslateUi(HugouClass);
     } // setupUi
 

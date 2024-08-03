@@ -24,7 +24,6 @@ void AsideBar::showEvent(QShowEvent* event)
 
 void AsideBar::switchOverStackedWidget()
 {
-    //floatingNoteManager.raiseFloatingNote(QApplication::activeWindow(), FloatingNote::Type::Error, readingSettingErrorHint);
     QObject* sender = QObject::sender();
     if (sender) {
         if (sender->objectName() == "workSpaceButton") {
@@ -37,7 +36,6 @@ void AsideBar::switchOverStackedWidget()
             this->setStyleSheet(this->styleSheet());
             emit SignalChangeStackedWidget(0);
         }
-
         if (sender->objectName() == "settingButton") {
             ui.workSpaceButton->setEnabled(true);
             ui.settingButton->setEnabled(false);

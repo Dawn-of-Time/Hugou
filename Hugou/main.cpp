@@ -1,5 +1,4 @@
 ﻿#include "Hugou.h"
-#include "Setting.h"
 #include <QtWidgets/QApplication>
 #include <QQmlEngine>
 

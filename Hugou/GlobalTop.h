@@ -8,8 +8,12 @@ class GlobalTop
 	Q_OBJECT
 
 public:
-	bool isShown = false;
+	bool isTopShown = false;
 	GlobalTop(QWidget* parent);
+	void blurOrClearBlurRequest();
+	void setSource(QUrl url);
+	void setHint(QString hint);
+	void removeSource();
 	void updateUi(QWidget* Hugou);
 
 signals:
@@ -17,7 +21,7 @@ signals:
 	void clearBackground();
 
 public slots:
-	void showTop();
+	void switchTop();
 
 private:
 	Ui_GlobalTop ui;

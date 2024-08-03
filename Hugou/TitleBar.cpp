@@ -8,7 +8,7 @@ TitleBar::TitleBar(QWidget* parent) :
 {
 	ui.setupUi(this);
     // 父子关系（由子至父）：TitleBar->titleBarAndStackedWidget->HugouClass
-    this->mainWindow = parent->parentWidget();
+    this->mainWindow = parent;
 
     //screenWidth = QApplication::primaryScreen()->availableGeometry().size().width();
     //screenHeight = QApplication::primaryScreen()->availableGeometry().size().height();
@@ -19,15 +19,10 @@ TitleBar::TitleBar(QWidget* parent) :
     //engine.rootContext()->setContextProperty("maximumGeometry", maximumGeometry);
     //engine.load(QUrl("res/qml/scaledAnimation.qml"));
 
-    floatingNotePanel = new FloatingNotePanel(mainWindow);
-
-	connect(ui.floatingNotePanelButton, &QPushButton::clicked, floatingNotePanel, &FloatingNotePanel::showPanel);
 	connect(ui.minimizeButton, &QPushButton::clicked, mainWindow, &QWidget::showMinimized);
     connect(ui.scaledButton, &QPushButton::clicked, this, &TitleBar::scale);
 	connect(ui.closeButton, &QPushButton::clicked, mainWindow, &QWidget::close);
     connect(&floatingNoteManager, &FloatingNoteManager::SignalAnimationFinishedToTitleBar, this, &TitleBar::slideFloatingNotePoint);
-    connect(floatingNotePanel, &FloatingNotePanel::blurBackground, this, [&]() {emit SignalBlur(); });
-    connect(floatingNotePanel, &FloatingNotePanel::clearBackground, this, [&]() {emit SignalClearBlur(); });
 }
 
 // 槽函数

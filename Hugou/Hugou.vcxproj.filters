@@ -54,6 +54,9 @@
     <Filter Include="Source Files\Helper\SettingsHelper">
       <UniqueIdentifier>{da429ba4-eeb6-43c2-b98d-adbb290ba99b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Thread">
+      <UniqueIdentifier>{289b24e3-f7b3-4b28-8b92-dd05ae4cc9c9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Hugou.h">
@@ -89,13 +92,13 @@
     <QtMoc Include="GlobalTop.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="ThemeLoadThread.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Setting.cpp">
-      <Filter>Source Files\Setting</Filter>
     </ClCompile>
     <ClCompile Include="ThemeSetting.cpp">
       <Filter>Source Files\Setting</Filter>
@@ -163,12 +166,12 @@
     <ClCompile Include="GlobalTop.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ThemeLoadThread.cpp">
+      <Filter>Source Files\Thread</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Const.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Setting.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ThemeSetting.h">

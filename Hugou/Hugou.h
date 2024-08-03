@@ -8,10 +8,12 @@
 #include <dwmapi.h>
 #include "Var.h"
 #include "ui_Hugou.h"
-#include "Setting.h"
 #include "SettingsHelper.h"
+#include "ThemeLoadThread.h"
 
 extern FloatingNoteManager floatingNoteManager;
+
+class ThemeLoadThread;
 
 class Hugou : public QWidget
 {
@@ -22,15 +24,16 @@ public:
     Hugou(QWidget* parent = nullptr);
     ~Hugou();
     // Ä£ºýÐ§¹û
-    QGraphicsBlurEffect* leftBlurEffect;
-    QGraphicsBlurEffect* rightBlurEffect;
+    QGraphicsBlurEffect* blurEffect;
     QTimer blurTimer;
+    QPixmap screenShot;
 
     void raiseReadingSettingError();
     void raiseSavingSettingError();
     void applyTheme(QString theme = "");
 
 protected slots:
+    void applyStyleSheet(QString generalStyleFile, QString asideBarStyleFile, QString settingsStyleFile);
     void changeStackedWidget(int index);
     void openPDFEditFunction();
     void blur();
@@ -44,7 +47,7 @@ private:
     Ui_HugouClass ui;
     QSettings settings;
     QPoint pressPos;
-    QTimer* floatingNoteDelayTimer;
+    ThemeLoadThread* loader;
     enum Area
     {
         TOPLEFT,

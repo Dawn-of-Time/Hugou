@@ -125,9 +125,14 @@
     <ClCompile Include="PDFEdit.cpp" />
     <ClCompile Include="PDFParse.cpp" />
     <ClCompile Include="PDFtoWord.cpp" />
-    <ClCompile Include="Setting.cpp" />
     <ClCompile Include="Settings.cpp" />
     <ClCompile Include="SettingsHelper.cpp" />
+    <ClCompile Include="ThemeLoadThread.cpp">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">input</DynamicSource>
+      <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).moc</QtMocFileName>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">input</DynamicSource>
+      <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).moc</QtMocFileName>
+    </ClCompile>
     <ClCompile Include="ThemeSetting.cpp" />
     <ClCompile Include="TitleBar.cpp" />
     <ClCompile Include="ui_Settings.h" />
@@ -149,6 +154,7 @@
     <QtMoc Include="Settings.h" />
     <QtMoc Include="SettingsHelper.h" />
     <QtMoc Include="GlobalTop.h" />
+    <QtMoc Include="ThemeLoadThread.h" />
     <ClInclude Include="ui_GlobalTop.h" />
     <ClInclude Include="Var.h" />
     <ClInclude Include="ui_FloatingNotePanel.h" />
@@ -172,7 +178,6 @@
     <ClInclude Include="PDFEdit.h" />
     <ClInclude Include="PDFParse.h" />
     <ClInclude Include="PDFtoWord.h" />
-    <ClInclude Include="Setting.h" />
     <ClInclude Include="ThemeSetting.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
