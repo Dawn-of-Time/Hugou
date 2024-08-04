@@ -30,8 +30,6 @@ Hugou::Hugou(QWidget* parent)
     connect(ui.titleBar->ui.floatingNotePanelButton, &QPushButton::clicked, ui.floatingNotePanel, &FloatingNotePanel::blurOrClearBlurRequest);
     connect(ui.floatingNotePanel, &FloatingNotePanel::blurBackground, this, &Hugou::blur);
     connect(ui.floatingNotePanel, &FloatingNotePanel::clearBackground, this, &Hugou::clearBlur);
-    connect(ui.globalTop, &GlobalTop::blurBackground, this, &Hugou::blur);
-    connect(ui.globalTop, &GlobalTop::clearBackground, this, &Hugou::clearBlur);
     connect(ui.asideBar, &AsideBar::SignalChangeStackedWidget, this, &Hugou::changeStackedWidget);
     connect(ui.settingsWidget, &Settings::SignalApplyTheme, this, &Hugou::applyTheme);
 
@@ -58,9 +56,10 @@ void Hugou::applyTheme(QString theme)
             }
         }
     }
-    ui.globalTop->setSource(QUrl("res/qml/themeApplyMedia.qml"));
-    ui.globalTop->setHint("Painting theme: " + theme);
-    ui.globalTop->blurOrClearBlurRequest();
+
+    ui.globalTop->setSource("res/qml/themeApplyMedia.qml");
+    ui.globalTop->setHint("Upcoming theme: " + theme);
+    ui.globalTop->fadeIn();
     loader = new ThemeLoadThread(theme);
     connect(loader, &ThemeLoadThread::themeResourcePrepared, this, &Hugou::applyStyleSheet);
     loader->start();
@@ -71,7 +70,7 @@ void Hugou::applyStyleSheet(QString generalStyleFile, QString asideBarStyleFile,
     this->setStyleSheet(generalStyleFile);
     ui.asideBar->setStyleSheet(asideBarStyleFile);
     ui.settingsWidget->setStyleSheet(settingsStyleFile);
-    ui.globalTop->blurOrClearBlurRequest();
+    ui.globalTop->fadeOut();
 }
 
 void Hugou::changeStackedWidget(int index)
@@ -202,7 +201,6 @@ void Hugou::blur()
     blurAnimation->setStartValue(blurEffect->blurRadius());
     blurAnimation->setEndValue(30);
     if (sender()->objectName() == "notePanel") connect(blurAnimation, &QPropertyAnimation::finished, [&]() {ui.floatingNotePanel->switchPanel(); });
-    if (sender()->objectName() == "globalTop") connect(blurAnimation, &QPropertyAnimation::finished, [&]() {ui.globalTop->switchTop(); });
     blurAnimation->start(QPropertyAnimation::DeleteWhenStopped); 
 }
 
@@ -365,4 +363,14 @@ void Hugou::resizeEvent(QResizeEvent* event)
     ui.floatingNotePanel->updateUi(this);
     ui.blurWidget->resize(this->width(), this->height() - titleFrameHeight);
     ui.globalTop->updateUi(this);
+
+    if (!ui.blurWidget->isHidden())
+    {
+        screenShot = QPixmap(ui.asideBarAndStackedWidget->size());
+        ui.asideBarAndStackedWidget->render(&screenShot);
+        QPalette palette;
+        palette.setBrush(ui.blurWidget->backgroundRole(), QBrush(screenShot));
+        ui.blurWidget->setPalette(palette);
+        ui.blurWidget->setAutoFillBackground(true);
+    }
 }

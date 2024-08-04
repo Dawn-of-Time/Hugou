@@ -17,13 +17,20 @@ public:
         globalTop->setObjectName("globalTop");
         globalTop->setGeometry(0, 0, mainWindowWidth, mainWindowHeight);
         globalTopLayout = new QVBoxLayout(globalTop);
-        globalTopLayout->setSpacing(10);
+        globalTopLayout->setSpacing(30);
         globalTopQuickWidget = new QQuickWidget(globalTop);
         globalTopQuickWidget->setObjectName("globalTopQuickWidget");
         globalTopQuickWidget->setFixedSize(240, 240);
+        QSizePolicy globalTopQuickWidgetSizePolicy = globalTopQuickWidget->sizePolicy();
+        globalTopQuickWidgetSizePolicy.setRetainSizeWhenHidden(true);
+        globalTopQuickWidget->setSizePolicy(globalTopQuickWidgetSizePolicy);
+
         globalTopHint = new QLabel(globalTop);
         globalTopHint->setFont(hintFont);
         globalTopHint->setAlignment(Qt::AlignCenter);
+        QSizePolicy globalTopHintSizePolicy = globalTopHint->sizePolicy();
+        globalTopHintSizePolicy.setRetainSizeWhenHidden(true);
+        globalTopHint->setSizePolicy(globalTopHintSizePolicy);
 
         globalTopLayout->addStretch(1);
         globalTopLayout->addWidget(globalTopQuickWidget, 0, Qt::AlignHCenter);
@@ -31,11 +38,5 @@ public:
         globalTopLayout->addStretch(1);
 
         globalTop->setHidden(true);
-
-        // 样式表设置
-        //QFile styleFile("res/theme/Global/globalTop.qss");
-        //styleFile.open(QIODeviceBase::ReadOnly);
-        //globalTop->setStyleSheet(styleFile.readAll());
-        //styleFile.close();
     }
 };

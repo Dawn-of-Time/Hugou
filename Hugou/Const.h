@@ -57,7 +57,7 @@ const QFont asideFont = QFont("Roboto", 12, QFont::Medium);
 // 浮动消息
 const QFont timekeepingLabelFont = QFont("Hind Siliguri", 10);
 // 全局顶层
-const QFont hintFont = QFont("Roboto", 24);
+const QFont hintFont = QFont("Roboto", 18, QFont::Thin);
 
 // 提示性文字
 const QString operationText = QString(

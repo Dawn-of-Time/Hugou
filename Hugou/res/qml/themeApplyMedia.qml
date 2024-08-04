@@ -8,7 +8,7 @@ Item {
 
     MediaPlayer {
         id: mediaPlayer
-        source: "../mp4/applyTheme.webm"
+        source: "../mp4/applyTheme.mp4"
         autoPlay: true
         loops: -1
         videoOutput: videoOutput

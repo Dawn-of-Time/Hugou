@@ -1,5 +1,9 @@
 #pragma once
 #include <QWidget>
+#include <QMovie>
+#include <QStyleOption>
+#include <QPainter>
+#include <QTimer>
 #include "ui_GlobalTop.h"
 
 class GlobalTop
@@ -10,8 +14,9 @@ class GlobalTop
 public:
 	bool isTopShown = false;
 	GlobalTop(QWidget* parent);
-	void blurOrClearBlurRequest();
-	void setSource(QUrl url);
+	void fadeIn();
+	void fadeOut();
+	void setSource(QString filename);
 	void setHint(QString hint);
 	void removeSource();
 	void updateUi(QWidget* Hugou);
@@ -25,5 +30,14 @@ public slots:
 
 private:
 	Ui_GlobalTop ui;
+	QMovie* movie;
+	QWidget* mainWindow;
+	QColor color = QColor(240, 242, 243, 0);
+	QTimer* timer;
+	void paintEvent(QPaintEvent* event) {
+		QWidget::paintEvent(event);
+		QPainter painter(this);
+		painter.fillRect(rect(), color);
+	}
 };
 
