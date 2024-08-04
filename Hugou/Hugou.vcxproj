@@ -121,6 +121,7 @@
     <ClCompile Include="FloatingNotePanel.cpp" />
     <ClCompile Include="GlobalTop.cpp" />
     <ClCompile Include="IconTextButton.cpp" />
+    <ClCompile Include="IconTextButtonHoverWatcher.cpp" />
     <ClCompile Include="OperationZone.cpp" />
     <ClCompile Include="PDFEdit.cpp" />
     <ClCompile Include="PDFParse.cpp" />
@@ -155,6 +156,7 @@
     <QtMoc Include="SettingsHelper.h" />
     <QtMoc Include="GlobalTop.h" />
     <QtMoc Include="ThemeLoadThread.h" />
+    <QtMoc Include="IconTextButtonHoverWatcher.h" />
     <ClInclude Include="ui_GlobalTop.h" />
     <ClInclude Include="Var.h" />
     <ClInclude Include="ui_FloatingNotePanel.h" />
@@ -163,7 +165,7 @@
     <QtMoc Include="WorkSpace.h" />
     <QtMoc Include="TitleBar.h" />
     <QtMoc Include="AsideBar.h" />
-    <ClInclude Include="IconTextButton.h" />
+    <QtMoc Include="IconTextButton.h" />
     <ClInclude Include="Theme.h" />
     <ClInclude Include="ui_AsideBar.h" />
     <ClInclude Include="ui_FloatingNote.h" />

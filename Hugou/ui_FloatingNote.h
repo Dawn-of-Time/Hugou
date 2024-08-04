@@ -1,144 +1,131 @@
 #pragma once
 
-#include <QtWidgets/QWidget>
-#include <QtWidgets/QLabel>
-#include <QtWidgets/QPushButton>
-#include <QtWidgets/QVBoxLayout>
+#include <QLabel>
+#include <QPushButton>
+#include <QVBoxLayout>
 #include <QFile>
 #include "Const.h"
-#include "ButtonHoverWatcher.h"
+#include "IconTextButtonHoverWatcher.h"
+#include "IconTextButton.h"
 
 QT_BEGIN_NAMESPACE
 
 class Ui_FloatingNote
 {
 public:
-	QString content = "";
 	QFrame* floatingNoteFrame;
-	QFrame* signZone;
+	QString content = "";
+	QWidget* signZone;
 	QLabel* contentZone;
-	QFrame* buttonZone;
+	QLabel* subcontentZone;
+	QWidget* buttonZone;
 	QVBoxLayout* floatingNoteLayout;
-	QVBoxLayout* frameLayout;
 	QHBoxLayout* signLayout;
-	QPushButton* sign;
+	QLabel* signIcon;
+	QLabel* signTitle;
 	QLabel* timekeepingLabel;
 	QHBoxLayout* buttonLayout;
-	QPushButton* yesButton;
-	QPushButton* noButton;
-	QPushButton* dealLaterButton;
-	ButtonHoverWatcher* yesButtonHoverWatcher;
-	ButtonHoverWatcher* noButtonHoverWatcher;
-	ButtonHoverWatcher* dealLaterButtonHoverWatcher;
+	IconTextButton* yesButton;
+	IconTextButton* noButton;
+	IconTextButton* dealLaterButton;
+	IconTextButtonHoverWatcher* yesButtonHoverWatcher;
+	IconTextButtonHoverWatcher* noButtonHoverWatcher;
+	IconTextButtonHoverWatcher* dealLaterButtonHoverWatcher;
 	QPoint hiddenPos;
 	QPoint shownPos;
-	QPushButton* floatingNoteManagerButton;
-	QPushButton* floatingNoteIcon;
-	QHBoxLayout* queueLayout;
-	QLabel* floatingNoteQueue;
-	QLabel* firstNotePoint;
-	QLabel* secondNotePoint;
-	QLabel* thirdNotePoint;
-	QLabel* forthNotePoint;
-	QLabel* fifthNotePoint;
-	std::vector<QLabel*> notePointQueue;
-	QPixmap float_r = QPixmap("res/ico/float_r.png").scaled(QSize(10, 10));
-	QPixmap float_b = QPixmap("res/ico/float_b.png").scaled(QSize(10, 10));
-	QPixmap float_p = QPixmap("res/ico/float_p.png").scaled(QSize(10, 10));
-	QPixmap float_o = QPixmap("res/ico/float_o.png").scaled(QSize(10, 10));
-	QPixmap float_g = QPixmap("res/ico/float_g.png").scaled(QSize(10, 10));
-	QPixmap float_w = QPixmap("res/ico/float_w.png").scaled(QSize(10, 10));
-	QLabel* notePanel;
 
-	void setupUi(QWidget* FloatingNote) 
+	void setupUi(QWidget* floatingNote)
 	{
 		// 主体
-		FloatingNote->setFixedWidth(floatingNoteWidth);
-		floatingNoteFrame = new QFrame(FloatingNote);
+		floatingNote->setFixedWidth(floatingNoteWidth);
+		floatingNote->setObjectName("floatingNote");
+		floatingNoteFrame = new QFrame(floatingNote);
 		floatingNoteFrame->setObjectName("floatingNoteFrame");
-		floatingNoteLayout = new QVBoxLayout(FloatingNote);
-		floatingNoteLayout->setObjectName("contentZone");
-		frameLayout = new QVBoxLayout(floatingNoteFrame);
-		frameLayout->setObjectName("frameLayout");
-		frameLayout->setContentsMargins(5, 5, 5, 5);
-		frameLayout->setSpacing(10);
+		floatingNoteFrame->setFixedWidth(floatingNoteWidth);
+		floatingNoteLayout = new QVBoxLayout(floatingNoteFrame);
+		floatingNoteLayout->setObjectName("floatingNoteLayout");
+		floatingNoteLayout->setContentsMargins(10, 10, 10, 10);
+		floatingNoteLayout->setSpacing(10);
 
 		// 标志域
-		signZone = new QFrame(FloatingNote);
+		signZone = new QWidget(floatingNoteFrame);
 		signZone->setObjectName("signZone");
 		signLayout = new QHBoxLayout(signZone);
 		signLayout->setObjectName("signLayout");
 		signLayout->setSpacing(10);
 		signLayout->setContentsMargins(0, 0, 0, 0);
 		// 标志图标与文字
-		sign = new QPushButton(FloatingNote);
-		sign->setObjectName("sign");
-		sign->setLayoutDirection(Qt::LeftToRight);
-		sign->setFont(title2);
-		sign->setIconSize(QSize(25, 25));
+		signIcon = new QLabel(signZone);
+		signIcon->setObjectName("sign");
+		signIcon->setFixedSize(QSize(25, 25));
+		signTitle = new QLabel(signZone);
+		signTitle->setFont(signFont);
 		// 时长标签
-		timekeepingLabel = new QLabel("Now", FloatingNote);
+		timekeepingLabel = new QLabel("---Now", signZone);
 		timekeepingLabel->setObjectName("timekeepingLabel");
 		timekeepingLabel->setFont(timekeepingLabelFont);
-		signLayout->addWidget(sign);
-		signLayout->addWidget(timekeepingLabel, Qt::AlignLeft | Qt::AlignVCenter);
+		timekeepingLabel->setAlignment(Qt::AlignLeft | Qt::AlignBottom);
+		signLayout->addWidget(signIcon, 0, Qt::AlignBottom);
+		signLayout->addWidget(signTitle, 0, Qt::AlignBottom);
+		signLayout->addWidget(timekeepingLabel, 0, Qt::AlignBottom);
 		signLayout->addStretch();
 
 		// 内容域
-		contentZone = new QLabel(FloatingNote);
+		contentZone = new QLabel(floatingNoteFrame);
 		contentZone->setObjectName("contentZone");
 		contentZone->setFont(contentFont);
 		contentZone->setWordWrap(true);
 
+		subcontentZone = new QLabel(floatingNoteFrame);
+		subcontentZone->setObjectName("subcontentZone");
+		subcontentZone->setFont(contentFont);
+		subcontentZone->setWordWrap(true);
+		subcontentZone->setHidden(true);
+
 		// 按钮域
-		buttonZone = new QFrame(FloatingNote);
+		buttonZone = new QWidget(floatingNoteFrame);
 		buttonZone->setObjectName("buttonZone");
 		buttonZone->setFixedHeight(40);
 		buttonLayout = new QHBoxLayout(buttonZone);
 		buttonLayout->setObjectName("buttonLayout");
-		buttonLayout->setSpacing(0);
-		buttonLayout->setContentsMargins(0, 0, 0, 0);
+		buttonLayout->setSpacing(10);
+		buttonLayout->setContentsMargins(5, 5, 5, 5);
 		// 确认按钮
-		yesButton = new QPushButton(FloatingNote);
+		yesButton = new IconTextButton(QPixmap("res/ico/yes_g.png"), "Yes", floatingNoteButtonFont, buttonZone);
 		yesButton->setObjectName("yesButton");
-		yesButton->setIcon(QIcon("res/ico/yes_b.png"));
-		yesButton->setFixedSize(floatingNoteButtonWidth, floatingNoteButtonHeight);
-		yesButton->setText("Yes");
 		yesButton->setFont(buttonFont);
-		yesButtonHoverWatcher = new ButtonHoverWatcher("res/ico/yes_b.png", "res/ico/yes_w.png", FloatingNote);
+		yesButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+		yesButtonHoverWatcher = new IconTextButtonHoverWatcher("res/ico/yes_g.png", "res/ico/yes_w.png", floatingNoteButtonIconSize, floatingNote);
 		yesButton->installEventFilter(yesButtonHoverWatcher);
 		// 取消按钮
-		noButton = new QPushButton(FloatingNote);
+		noButton = new IconTextButton(QPixmap("res/ico/close_bla.png"), "No", floatingNoteButtonFont, buttonZone);
 		noButton->setObjectName("noButton");
-		noButton->setIcon(QIcon("res/ico/close_bla.png"));
-		noButton->setFixedSize(floatingNoteButtonWidth, floatingNoteButtonHeight);
-		noButton->setText("No");
 		noButton->setFont(buttonFont);
-		noButtonHoverWatcher = new ButtonHoverWatcher("res/ico/close_bla.png", "res/ico/close_w.png", FloatingNote);
+		noButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+		noButtonHoverWatcher = new IconTextButtonHoverWatcher("res/ico/close_bla.png", "res/ico/close_w.png", floatingNoteButtonIconSize, floatingNote);
 		noButton->installEventFilter(noButtonHoverWatcher);
 		// 稍后处理按钮
-		dealLaterButton = new QPushButton(FloatingNote);
+		dealLaterButton = new IconTextButton(QPixmap("res/ico/dealLater_b.png"), "Handle later", floatingNoteButtonFont, buttonZone);
 		dealLaterButton->setObjectName("dealLaterButton");
-		dealLaterButton->setIcon(QIcon("res/ico/dealLater_b.png"));
-		dealLaterButton->setFixedSize(floatingNoteButtonWidth, floatingNoteButtonHeight);
-		dealLaterButton->setText("Deal with later");
 		dealLaterButton->setFont(buttonFont);
-		dealLaterButtonHoverWatcher = new ButtonHoverWatcher("res/ico/dealLater_b.png", "res/ico/dealLater_w.png", FloatingNote);
+		dealLaterButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+		dealLaterButtonHoverWatcher = new IconTextButtonHoverWatcher("res/ico/dealLater_b.png", "res/ico/dealLater_w.png", floatingNoteButtonIconSize, floatingNote);
 		dealLaterButton->installEventFilter(dealLaterButtonHoverWatcher);
-		buttonLayout->addWidget(yesButton);
-		buttonLayout->addWidget(noButton);
-		buttonLayout->addWidget(dealLaterButton);
+		buttonLayout->addStretch(1);
+		buttonLayout->addWidget(yesButton, 10);
+		buttonLayout->addWidget(noButton, 10);
+		buttonLayout->addWidget(dealLaterButton, 10);
+		buttonLayout->addStretch(1);
 		// 框架布局
-		frameLayout->addWidget(signZone);
-		frameLayout->addWidget(contentZone, Qt::AlignTop | Qt::AlignLeft);
-		frameLayout->addWidget(buttonZone);
-		// 整体布局
-		floatingNoteLayout->setSpacing(0);
-		floatingNoteLayout->addWidget(floatingNoteFrame);
+		floatingNoteLayout->addWidget(signZone);
+		floatingNoteLayout->addWidget(contentZone, Qt::AlignTop | Qt::AlignLeft);
+		floatingNoteLayout->addWidget(subcontentZone, Qt::AlignTop | Qt::AlignLeft);
+		floatingNoteLayout->addWidget(buttonZone);
+
 		// 样式表设置
 		QFile styleFile("res/theme/Global/floatingNote.qss");
 		styleFile.open(QIODeviceBase::ReadOnly);
-		FloatingNote->setStyleSheet(styleFile.readAll());
+		floatingNote->setStyleSheet(styleFile.readAll());
 		styleFile.close();
 	}
 };

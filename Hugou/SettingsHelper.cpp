@@ -60,8 +60,10 @@ void SettingsHelper::syncSettings()
 void SettingsHelper::dealError(int errorCode)
 {
     QSettings errorCodeINI(":/Hugou/res/errorCode.ini", QSettings::IniFormat);
-    QString content = "Error Code" + QString::number(errorCode) + "\n" + errorCodeINI.value(QString::number(errorCode), "Unknown error code.").toString();
-    floatingNoteManager.raiseFloatingNote(Hugou, FloatingNote::Error, content);
+    QSettings solutionINI(":/Hugou/res/solution.ini", QSettings::IniFormat);
+    QString content = errorCodeINI.value(QString::number(errorCode), "Unknown error code.").toString() + "(Error Code: " + QString::number(errorCode) + ")";
+    QString subcontent = solutionINI.value(QString::number(errorCode), "No solution found.").toString();
+    floatingNoteManager.raiseFloatingNote(Hugou, FloatingNote::Error, content, subcontent);
 }
 
 bool SettingsHelper::verifyConfINIExist()

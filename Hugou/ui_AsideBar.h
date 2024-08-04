@@ -32,11 +32,11 @@ public:
         userLabel = new QLabel(asideBar);
         userLabel->setObjectName("userLabel");
         userLabel->setFixedSize(userLabelWidth, userLabelHeight);
-        workSpaceButton = new IconTextButton(QPixmap("res/ico/workSpace_b.png"), "WorkSpace", asideBar);
+        workSpaceButton = new IconTextButton(QPixmap("res/ico/workSpace_b.png"), "WorkSpace", asideFont, asideBar);
         workSpaceButton->setObjectName("workSpaceButton");
         workSpaceButton->setFixedSize(asideButtonWidth, asideButtonHeight);
         workSpaceButton->setEnabled(false);
-        settingButton = new IconTextButton(QPixmap("res/ico/setting_w.png"), "Settings", asideBar);
+        settingButton = new IconTextButton(QPixmap("res/ico/setting_w.png"), "Settings", asideFont, asideBar);
         settingButton->setObjectName("settingButton");
         settingButton->setFixedSize(asideButtonWidth, asideButtonHeight);
         asideFrameLayout->addWidget(userLabel, Qt::AlignLeft);

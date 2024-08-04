@@ -23,7 +23,7 @@ public:
 	~FloatingNoteManager();
 
 	bool isAnimating = false;  // 提供给其它类，指示浮动消息管理器是否有动画正在播放。
-	void raiseFloatingNote(QWidget* HugouClass, FloatingNote::Type type, QString content); // 总调用创建。初始化消息（UI）。检测是否能执行动画
+	void raiseFloatingNote(QWidget* HugouClass, FloatingNote::Type type, QString content, QString subcontent = ""); // 总调用创建。初始化消息（UI）。检测是否能执行动画
 	void adjustFloatingNote(QWidget* Hugou);
 	inline FloatingNote* getShownFloatingNote() { return shownFloatingNote; }
 	inline FloatingNote* getLatestHiddenFloatingNote() { return hiddenFloatingNoteList.back(); }

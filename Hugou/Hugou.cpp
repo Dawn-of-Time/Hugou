@@ -60,7 +60,7 @@ void Hugou::applyTheme(QString theme)
     ui.globalTop->setSource("res/qml/themeApplyMedia.qml");
     ui.globalTop->setHint("Upcoming theme: " + theme);
     ui.globalTop->fadeIn();
-    loader = new ThemeLoadThread(theme);
+    loader = new ThemeLoadThread(theme, this);
     connect(loader, &ThemeLoadThread::themeResourcePrepared, this, &Hugou::applyStyleSheet);
     loader->start();
 }
@@ -76,12 +76,9 @@ void Hugou::applyStyleSheet(QString generalStyleFile, QString asideBarStyleFile,
 void Hugou::changeStackedWidget(int index)
 {
     ui.stackedWidget->setCurrentIndex(index);
-    //raiseReadingSettingError();
+    SettingsHelper helper(this);
+    helper.triggerError(10000);
 }
-
-void Hugou::raiseReadingSettingError() { floatingNoteManager.raiseFloatingNote(this, FloatingNote::Error, readingSettingErrorHint);}
-
-void Hugou::raiseSavingSettingError() { floatingNoteManager.raiseFloatingNote(this, FloatingNote::Error, savingSettingErrorHint); }
 
 Hugou::Area Hugou::getArea(QPoint mousePos)
 {

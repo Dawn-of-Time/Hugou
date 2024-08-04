@@ -89,7 +89,6 @@ public:
         generalLayout->addWidget(titleBar);
         generalLayout->addWidget(asideBarAndStackedWidget);
 
-
         // 全局控件
         blurWidget = new QWidget(HugouClass);
         blurWidget->setObjectName("blurWidget");

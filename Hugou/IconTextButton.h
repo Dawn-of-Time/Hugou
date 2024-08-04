@@ -8,22 +8,25 @@
 class IconTextButton :
 	public QPushButton
 {
+	Q_OBJECT
+
 public:
 	QHBoxLayout* buttonLayout;
 	QLabel* iconZone;
 	QLabel* textZone;
 
-	IconTextButton(QPixmap icon, QString text, QWidget* parent);
-	void setIcon(QPixmap icon) 
+	IconTextButton(QPixmap icon, QString text, QFont font, QWidget* parent);
+
+	void setIcon(QPixmap icon, QSize size) 
 	{
-		icon = icon.scaled(QSize(18, 18), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+		icon = icon.scaled(size, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 		iconZone->setPixmap(icon);
 	};
 
-	void setText(QString text)
+	void setText(QString text, QFont font)
 	{
 		textZone->setText(text);
-		textZone->setFont(asideFont);
+		textZone->setFont(font);
 	}
 };
 

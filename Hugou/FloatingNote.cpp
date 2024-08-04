@@ -26,8 +26,14 @@ FloatingNote::~FloatingNote()
 
 void FloatingNote::updateUI()
 {
-	ui.sign->setIcon(typeIcon.at(type));
-	ui.sign->setText(typeText.at(type));
+	ui.signIcon->setPixmap(typeIcon.at(type).scaled(QSize(25, 25), Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+	ui.signTitle->setText(typeText.at(type));
+	ui.contentZone->setText(content);
+	if (!subcontent.isEmpty())
+	{
+		ui.subcontentZone->setHidden(false);
+		ui.subcontentZone->setText(subcontent);
+	}
 	ui.noButton->setVisible(false);
 	ui.noButton->setEnabled(false);
 	ui.dealLaterButton->setVisible(true);
@@ -40,26 +46,11 @@ void FloatingNote::updateUI()
 		ui.dealLaterButton->setEnabled(false);
 	}
 	// 根据内容调整控件大小
-	ui.sign->adjustSize();
-	ui.contentZone->setText(content);
+	ui.floatingNoteFrame->adjustSize();
+	ui.signIcon->adjustSize();
+	ui.signTitle->adjustSize();
 	ui.contentZone->adjustSize();
 	this->adjustSize();
-	this->setFixedWidth(floatingNoteWidth);
-}
-
-void FloatingNote::setType(Type type) { this->type = type;}
-
-void FloatingNote::setContent(QString content) { this->content = content; }
-
-QPropertyAnimation* FloatingNote::moveNote(QPoint startValue, QPoint endValue)
-{
-	this->setEnabled(false); // 动画执行期间，不允许点击
-	QPropertyAnimation* animation = new QPropertyAnimation(this, "pos");
-	double distance = sqrt(QPoint::dotProduct(endValue - startValue, endValue - startValue));
-	animation->setDuration(distance / 100);
-	animation->setStartValue(startValue);
-	animation->setEndValue(endValue);
-	return animation;
 }
 
 QPropertyAnimation* FloatingNote::raiseNote()
@@ -90,8 +81,8 @@ void FloatingNote::SlotTimekeeping()
 	qint64 elapsed = timer->elapsed();
 	int hours = elapsed / 3600000;
 	int minutes = (elapsed % 3600000) / 60000;
-	if (hours == 0 && minutes >= 1) ui.timekeepingLabel->setText(QString("%1min ago").arg(minutes, 0, 10));
-	else if (hours > 0) ui.timekeepingLabel->setText(QString("%1h%2min ago").arg(hours).arg(minutes, 0, 10));
+	if (hours == 0 && minutes >= 1) ui.timekeepingLabel->setText(QString("---%1min ago").arg(minutes, 0, 10));
+	else if (hours > 0) ui.timekeepingLabel->setText(QString("---%1h%2min ago").arg(hours).arg(minutes, 0, 10));
 }
 
 void FloatingNote::SlotButtonClicked(Feedback feedback)

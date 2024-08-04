@@ -95,6 +95,12 @@
     <QtMoc Include="ThemeLoadThread.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="IconTextButtonHoverWatcher.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="IconTextButton.h">
+      <Filter>User Interface\CustomWidget</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -169,6 +175,9 @@
     <ClCompile Include="ThemeLoadThread.cpp">
       <Filter>Source Files\Thread</Filter>
     </ClCompile>
+    <ClCompile Include="IconTextButtonHoverWatcher.cpp">
+      <Filter>Source Files\Watcher</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Const.h">
@@ -200,9 +209,6 @@
     </ClInclude>
     <ClInclude Include="Theme.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="IconTextButton.h">
-      <Filter>User Interface\CustomWidget</Filter>
     </ClInclude>
     <ClInclude Include="ui_WorkSpace.h">
       <Filter>User Interface</Filter>

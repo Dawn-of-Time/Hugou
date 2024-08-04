@@ -11,12 +11,13 @@ FloatingNoteManager::FloatingNoteManager() :
 FloatingNoteManager::~FloatingNoteManager()
 {}
 
-void FloatingNoteManager::raiseFloatingNote(QWidget* HugouClass, FloatingNote::Type type, QString content)
+void FloatingNoteManager::raiseFloatingNote(QWidget* HugouClass, FloatingNote::Type type, QString content, QString subcontent)
 {
     // 生成浮动消息
     FloatingNote* floatingNote = new FloatingNote(HugouClass);
     floatingNote->setType(type);
     floatingNote->setContent(content);
+    if (!subcontent.isEmpty()) floatingNote->setSubcontent(subcontent);
     floatingNote->updateUI(); 
     floatingNote->raise();
     // 弹出动画。动画过程不允许打断

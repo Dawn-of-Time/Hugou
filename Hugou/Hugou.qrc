@@ -77,5 +77,6 @@
         <file>res/theme/Spring/settings.qss</file>
         <file>res/qml/themeApplyMedia.qml</file>
         <file>res/mp4/applyTheme.mp4</file>
+        <file>res/solution.ini</file>
     </qresource>
 </RCC>

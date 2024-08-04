@@ -1,8 +1,10 @@
 #include "themeLoadThread.h"
 
-ThemeLoadThread::ThemeLoadThread(QString theme)
+ThemeLoadThread::ThemeLoadThread(QString theme, QWidget* hugou)
+    : QThread(hugou)
 {
     this->theme = theme;
+    this->hugou = hugou;
 }
 
 void ThemeLoadThread::run() {
@@ -12,7 +14,7 @@ void ThemeLoadThread::run() {
     if (!generalStyleFile.exists() || !asideBarStyleFile.exists() || !settingsStyleFile.exists())
     {
         // 硬编码Default主题
-        SettingsHelper helper;
+        SettingsHelper helper(hugou);
         emit helper.triggerError(10100);
         theme = "Default";
     }
@@ -30,7 +32,7 @@ void ThemeLoadThread::run() {
     else 
     {
         // 硬编码Default主题
-        SettingsHelper helper;
+        SettingsHelper helper(hugou);
         emit helper.triggerError(10101);
     }
 }

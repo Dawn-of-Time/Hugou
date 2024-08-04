@@ -1,6 +1,6 @@
 #include "IconTextButton.h"
 
-IconTextButton::IconTextButton(QPixmap icon, QString text, QWidget* parent) :
+IconTextButton::IconTextButton(QPixmap icon, QString text, QFont font, QWidget* parent) :
 	QPushButton(parent)
 {
 	buttonLayout = new QHBoxLayout(this);
@@ -18,10 +18,11 @@ IconTextButton::IconTextButton(QPixmap icon, QString text, QWidget* parent) :
 	icon = icon.scaled(QSize(18, 18), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 	iconZone->setPixmap(icon);
 	textZone->setText(text);
-	textZone->setFont(asideFont);
+	textZone->setFont(font);
 
+	buttonLayout->addStretch(1);
 	buttonLayout->addWidget(iconZone);
 	buttonLayout->addWidget(textZone);
-	buttonLayout->addStretch();
+	buttonLayout->addStretch(1);
 }
 

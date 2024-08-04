@@ -10,7 +10,7 @@ class ThemeLoadThread :
     Q_OBJECT
 
 public:
-    ThemeLoadThread(QString theme);
+    ThemeLoadThread(QString theme, QWidget* hugou);
     void run() override;
 
 signals:
@@ -18,6 +18,6 @@ signals:
 
 private:
     QString theme;
-    Hugou* mainWindow;
+    QWidget* hugou;
 };
 

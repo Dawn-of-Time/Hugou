@@ -75,7 +75,6 @@ bool ButtonHoverWatcher::eventFilter(QObject* watched, QEvent* event)
         }
         return true;
     }
-
     return false;
 }
 

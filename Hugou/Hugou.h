@@ -28,8 +28,6 @@ public:
     QTimer blurTimer;
     QPixmap screenShot;
 
-    void raiseReadingSettingError();
-    void raiseSavingSettingError();
     void applyTheme(QString theme = "");
 
 protected slots:
