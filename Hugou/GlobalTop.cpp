@@ -15,7 +15,7 @@ void GlobalTop::fadeIn()
     ui.globalTopQuickWidget->setHidden(true);
     ui.globalTopHint->setHidden(true);
     connect(timer, &QTimer::timeout, [&]() {
-        int newAlpha = color.alpha() + 17;
+        int newAlpha = color.alpha() + 51;
         if (newAlpha <= 255)
         {
             color.setAlpha(newAlpha);
@@ -37,7 +37,7 @@ void GlobalTop::fadeOut()
     ui.globalTopQuickWidget->setHidden(true);
     ui.globalTopHint->setHidden(true);
     connect(timer, &QTimer::timeout, [&]() {
-        int newAlpha = color.alpha() - 17;
+        int newAlpha = color.alpha() - 51;
         if (newAlpha >= 0)
         {
             color.setAlpha(newAlpha);

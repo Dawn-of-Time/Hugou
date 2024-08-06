@@ -34,22 +34,13 @@ void FloatingNote::updateUI()
 		ui.subcontentZone->setHidden(false);
 		ui.subcontentZone->setText(subcontent);
 	}
-	ui.noButton->setVisible(false);
-	ui.noButton->setEnabled(false);
-	ui.dealLaterButton->setVisible(true);
-	ui.dealLaterButton->setEnabled(true);
+	ui.noButton->setHidden(true);
+	ui.dealLaterButton->setHidden(true);
 	// Dialog
 	if (type == Type::Dialog) {
-		ui.noButton->setVisible(true);
-		ui.noButton->setEnabled(true);
-		ui.dealLaterButton->setVisible(false);
-		ui.dealLaterButton->setEnabled(false);
+		ui.noButton->setHidden(false);
 	}
 	// 根据内容调整控件大小
-	ui.floatingNoteFrame->adjustSize();
-	ui.signIcon->adjustSize();
-	ui.signTitle->adjustSize();
-	ui.contentZone->adjustSize();
 	this->adjustSize();
 }
 
@@ -81,8 +72,8 @@ void FloatingNote::SlotTimekeeping()
 	qint64 elapsed = timer->elapsed();
 	int hours = elapsed / 3600000;
 	int minutes = (elapsed % 3600000) / 60000;
-	if (hours == 0 && minutes >= 1) ui.timekeepingLabel->setText(QString("---%1min ago").arg(minutes, 0, 10));
-	else if (hours > 0) ui.timekeepingLabel->setText(QString("---%1h%2min ago").arg(hours).arg(minutes, 0, 10));
+	if (hours == 0 && minutes >= 1) ui.timekeepingLabel->setText(QString("%1min ago").arg(minutes, 0, 10));
+	else if (hours > 0) ui.timekeepingLabel->setText(QString("%1h%2min ago").arg(hours).arg(minutes, 0, 10));
 }
 
 void FloatingNote::SlotButtonClicked(Feedback feedback)

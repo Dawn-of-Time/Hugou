@@ -21,7 +21,7 @@ Hugou::Hugou(QWidget* parent)
 
     // 设置模糊
     blurEffect = new QGraphicsBlurEffect(this);
-    blurEffect->setBlurRadius(0);
+    blurEffect->setBlurRadius(30);
     blurEffect->setBlurHints(QGraphicsBlurEffect::QualityHint);
     blurTimer.setInterval(100);
     ui.blurWidget->setGraphicsEffect(blurEffect);
@@ -76,8 +76,6 @@ void Hugou::applyStyleSheet(QString generalStyleFile, QString asideBarStyleFile,
 void Hugou::changeStackedWidget(int index)
 {
     ui.stackedWidget->setCurrentIndex(index);
-    SettingsHelper helper(this);
-    helper.triggerError(10000);
 }
 
 Hugou::Area Hugou::getArea(QPoint mousePos)
@@ -187,35 +185,43 @@ void Hugou::openPDFEditFunction()
 void Hugou::blur()
 {
     screenShot = QPixmap(ui.asideBarAndStackedWidget->size());
-    ui.blurWidget->setHidden(false);
     ui.asideBarAndStackedWidget->render(&screenShot);
     QPalette palette;
     palette.setBrush(ui.blurWidget->backgroundRole(), QBrush(screenShot));
     ui.blurWidget->setPalette(palette);
     ui.blurWidget->setAutoFillBackground(true);
-    QPropertyAnimation* blurAnimation = new QPropertyAnimation(blurEffect, "blurRadius");
-    blurAnimation->setDuration(100);
-    blurAnimation->setStartValue(blurEffect->blurRadius());
-    blurAnimation->setEndValue(30);
-    if (sender()->objectName() == "notePanel") connect(blurAnimation, &QPropertyAnimation::finished, [&]() {ui.floatingNotePanel->switchPanel(); });
-    blurAnimation->start(QPropertyAnimation::DeleteWhenStopped); 
+    ui.blurWidget->setHidden(false);
+
+    //QPropertyAnimation* blurAnimation = new QPropertyAnimation(blurEffect, "blurRadius");
+    //blurAnimation->setDuration(100);
+    //blurAnimation->setStartValue(blurEffect->blurRadius());
+    //blurAnimation->setEndValue(30);
+    //if (sender()->objectName() == "notePanel") connect(blurAnimation, &QPropertyAnimation::finished, [&]() {ui.floatingNotePanel->switchPanel(); });
+    if (sender()->objectName() == "floatingNotePanel") ui.floatingNotePanel->switchPanel();
+    //blurAnimation->start(QPropertyAnimation::DeleteWhenStopped); 
 }
 
 void Hugou::clearBlur()
 {
-    screenShot = QPixmap(ui.asideBarAndStackedWidget->size());
-    ui.asideBarAndStackedWidget->render(&screenShot);
-    QPalette palette;
-    palette.setBrush(ui.blurWidget->backgroundRole(), QBrush(screenShot));
-    ui.blurWidget->setPalette(palette);
-    ui.blurWidget->setAutoFillBackground(true);
-    QPropertyAnimation* blurAnimation = new QPropertyAnimation(blurEffect, "blurRadius");
-    blurAnimation->setDuration(100); 
-    blurAnimation->setStartValue(blurEffect->blurRadius());
-    blurAnimation->setEndValue(0);
-    if (sender()->objectName() == "notePanel") connect(blurAnimation, &QPropertyAnimation::finished, [&]() {ui.blurWidget->setHidden(true); ui.floatingNotePanel->switchPanel(); });
-    if (sender()->objectName() == "globalTop") connect(blurAnimation, &QPropertyAnimation::finished, [&]() {ui.blurWidget->setHidden(true); ui.globalTop->switchTop(); ui.globalTop->removeSource(); });
-    blurAnimation->start(QPropertyAnimation::DeleteWhenStopped);
+    //screenShot = QPixmap(ui.asideBarAndStackedWidget->size());
+    //ui.asideBarAndStackedWidget->render(&screenShot);
+    //QPalette palette;
+    //palette.setBrush(ui.blurWidget->backgroundRole(), QBrush(screenShot));
+    //ui.blurWidget->setPalette(palette);
+    //ui.blurWidget->setAutoFillBackground(true);
+    //blurEffect->setBlurRadius(0);
+    //QPropertyAnimation* blurAnimation = new QPropertyAnimation(blurEffect, "blurRadius");
+    //blurAnimation->setDuration(100); 
+    //blurAnimation->setStartValue(blurEffect->blurRadius());
+    //blurAnimation->setEndValue(0);
+    //if (sender()->objectName() == "notePanel") connect(blurAnimation, &QPropertyAnimation::finished, [&]() {ui.blurWidget->setHidden(true); ui.floatingNotePanel->switchPanel(); });
+    if (sender()->objectName() == "floatingNotePanel")
+    {
+        ui.blurWidget->setHidden(true); 
+        ui.floatingNotePanel->switchPanel(); 
+    };
+    
+    //blurAnimation->start(QPropertyAnimation::DeleteWhenStopped);
 }
 
 // 父类函数重写
@@ -357,7 +363,8 @@ void Hugou::resizeEvent(QResizeEvent* event)
 
     // 设置页表单
     ui.settingsWidget->adjustSizeHint();
-    ui.floatingNotePanel->updateUi(this);
+
+    ui.floatingNotePanel->updateUi();
     ui.blurWidget->resize(this->width(), this->height() - titleFrameHeight);
     ui.globalTop->updateUi(this);
 

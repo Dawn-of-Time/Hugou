@@ -7,15 +7,9 @@ QFrame#floatingNoteFrame {
 	border-radius: 10px;
 }
 
-QLabel#signIcon
-{
-	border: none; 
-	text-align: left;
-}
 
 QLabel#timekeepingLabel {
-	color: #696969;
-	border-bottom: 2px #696969 solid
+	color: #85A5C3;
 }
 
 QLabel#contentZone 
@@ -27,45 +21,36 @@ QLabel#subcontentZone {
 	margin-left: 25px;
 }
 
-IconTextButton#yesButton {
+QPushButton#yesButton {
 	border: none;
-	background-color: #D1F6ED;
+	background-color: #3EC3AE;
 	border-radius: 5px;
+	color: white;
 }
 
-IconTextButton#yesButton > QLabel {
-	color: #1B867A;
+QPushButton#yesButton:hover {
+	background-color: #1B867A;
 }
 
-IconTextButton#yesButton:hover {
-	background-color: #69DBC6;
-}
-
-IconTextButton#noButton {
+QPushButton#noButton {
 	border: none;
-	background-color: #FFE3E3;
-	border-radius: 5px;
-}
-
-IconTextButton#noButton > QLabel {
-	color: #FA5252;
-}
-
-IconTextButton#noButton:hover {
 	background-color: #FFA8A8;
+	border-radius: 5px;
+	color: white;
 }
 
-IconTextButton#dealLaterButton {
+QPushButton#noButton:hover {
+	background-color: #FA5252;
+}
+
+QPushButton#dealLaterButton {
 	border: none;
-	background-color: #D0EEFE;
-	border-radius: 5px
+	background-color: #46BDFA;
+	border-radius: 5px;
+	color: white;
 }
 
-	IconTextButton#dealLaterButton > QLabel {
-		color: #157BF8;
-	}
-
-IconTextButton#dealLaterButton:hover {
-	background-color: #7BD6FC;
+QPushButton#dealLaterButton:hover {
+	background-color: #157BF8;
 }
 

@@ -1,7 +1,7 @@
 #include "themeLoadThread.h"
 
 ThemeLoadThread::ThemeLoadThread(QString theme, QWidget* hugou)
-    : QThread(hugou)
+    : QThread()
 {
     this->theme = theme;
     this->hugou = hugou;
@@ -23,7 +23,7 @@ void ThemeLoadThread::run() {
         asideBarStyleFile.open(QIODeviceBase::ReadOnly) &&
         settingsStyleFile.open(QIODeviceBase::ReadOnly))
     {
-        std::this_thread::sleep_for(std::chrono::seconds(5));
+        std::this_thread::sleep_for(std::chrono::seconds(2));
         emit themeResourcePrepared(generalStyleFile.readAll(), asideBarStyleFile.readAll(), settingsStyleFile.readAll());
         generalStyleFile.close();
         asideBarStyleFile.close();

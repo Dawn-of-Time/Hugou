@@ -28,6 +28,15 @@ public:
         Error
     };
 
+    const std::map<Type, QString> typeText =
+    {
+        {Success, "Success"},
+        {Information, "Information"},
+        {Dialog, "Dialog"},
+        {Warning, "Warning"},
+        {Error, "Error"}
+    };
+
     enum Feedback
     {
         Yes,
@@ -74,15 +83,6 @@ private:
         {Dialog, QPixmap("res/ico/dialog.png")},
         {Warning, QPixmap("res/ico/warning.png")},
         {Error, QPixmap("res/ico/error.png")}
-    };
-
-    const std::map<Type, QString> typeText =
-    {
-        {Success, "Success"},
-        {Information, "Information"},
-        {Dialog, "Dialog"},
-        {Warning, "Warning"},
-        {Error, "Error"}
     };
 };
 

@@ -4,14 +4,14 @@
 #include "Const.h"
 
 class FloatingNotePanel :
-    public QLabel
+    public QWidget
 {
 	Q_OBJECT
  
 public:
     bool isPanelShown = false;
     FloatingNotePanel(QWidget* parent);
-    void updateUi(QWidget* Hugou);
+    void updateUi();
     void switchPanel();
 
 signals:
@@ -20,6 +20,7 @@ signals:
 
 public slots:
     void blurOrClearBlurRequest();
+    void moveSlider(int buttonIndex);
 
 private:
     Ui_FloatingNotePanel ui;
