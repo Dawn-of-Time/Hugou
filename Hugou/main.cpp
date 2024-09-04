@@ -1,22 +1,41 @@
-﻿#include "Hugou.h"
+﻿#include "View_Welcome.h"
+#include "Model_Welcome.h"
+#include "Controller_Welcome.h"
+#include "View_Hugou.h"
+#include "Model_Hugou.h"
+#include "Controller_Hugou.h"
 #include <QtWidgets/QApplication>
+#include <QFontDatabase>
 #include <QQmlEngine>
 
 int main(int argc, char* argv[])
 {
     QApplication a(argc, argv);
     // 注册qml
-    qmlRegisterType<Hugou>("HugouModules", 1, 0, "Hugou");
+    qmlRegisterType<HugouView>("HugouModules", 1, 0, "Hugou");
     // 字体载入
-    QString fontDir = "res/font";
+    QString fontDir = "Resource/font";
     QDir dir(fontDir);
     QStringList files = dir.entryList(QDir::Files);
     foreach(const QString & fileName, files) {
         QString filePath = dir.absoluteFilePath(fileName);
         QFontDatabase::addApplicationFont(filePath);
     }
+    // 读取配置
+    SettingsHelper* helper = SettingsHelper::getHelper();
+    // 检查是否是首次登录
+    //if (helper->settingsMap["firstBoot"] == "true")
+    //{
+    //    WelcomeView welcomeView;
+    //    WelcomeModel welcomeModel;
+    //    WelcomeController welcomeController(&welcomeView, &welcomeModel);
+    //    helper->settingsMap["firstBoot"] = "false";
+    //    welcomeView.exec();
+    //}
     // 主构建
-    Hugou w;
-    w.show();
+    HugouView hugouView;
+    HugouModel hugouModel;
+    HugouController hugouController(&hugouView, &hugouModel);
+    hugouView.show();
     return a.exec();
 }

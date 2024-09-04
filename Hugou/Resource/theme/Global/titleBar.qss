@@ -1,0 +1,71 @@
+/* 标题栏 */
+/* 拖拽区域 */
+QLabel#dragZone {
+	border: none;
+	background-color: transparent;
+}
+
+/* 消息中心 */
+QPushButton#floatingNotePanelButton {
+	border: none;
+	background-color: transparent;
+}
+	QPushButton#floatingNotePanelButton:hover {
+		border: none;
+		background-color: rgba(255, 255, 255, 0.2)
+	}
+
+QPushButton#floatingNotePanelIcon {
+	background-color: transparent;
+	border: none;
+}
+
+QLabel#floatingNoteQueue {
+	border: none;
+	background-color: transparent;
+}
+
+
+/* 帮助按钮 */
+QPushButton#helpButton {
+	border: none;
+	background-color: transparent;
+}
+
+	QPushButton#helpButton:hover {
+		border: none;
+		background-color: rgba(255, 255, 255, 0.2)
+	}
+
+/* 最小化按钮 */
+QPushButton#minimizeButton {
+	border: none;
+	background-color: transparent;
+}
+
+	QPushButton#minimizeButton:hover {
+		border: none;
+		background-color: rgba(255, 255, 255, 0.2)
+	}
+
+/* 最大化/还原按钮 */
+QPushButton#scaledButton {
+	border: none;
+	background-color: transparent;
+}
+
+	QPushButton#scaledButton:hover {
+		border: none;
+		background-color: rgba(255, 255, 255, 0.2)
+	}
+
+/* 关闭按钮 */
+QPushButton#closeButton {
+	border: none;
+	background-color: transparent;
+}
+
+	QPushButton#closeButton:hover {
+		border: none;
+		background-color: rgba(255, 255, 255, 0.2)
+	}

@@ -5,7 +5,7 @@
  SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
 ***************************************************************************************************
 -->
-<Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
@@ -15,6 +15,99 @@
       <Configuration>Release</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Controller\Controller_AsideBar.cpp" />
+    <ClCompile Include="Controller\Controller_Hugou.cpp" />
+    <ClCompile Include="Controller\Controller_Welcome.cpp" />
+    <ClCompile Include="Controller\Controller_Settings.cpp" />
+    <ClCompile Include="Model\Model_Welcome.cpp" />
+    <ClCompile Include="Model\Model_Settings.cpp" />
+    <ClCompile Include="View\View_AsideBar.cpp" />
+    <ClCompile Include="View\ButtonHoverWatcher.cpp" />
+    <ClCompile Include="View\ComboboxWheelWatcher.cpp" />
+    <ClCompile Include="View\File.cpp" />
+    <ClCompile Include="View\FileImportDialog.cpp" />
+    <ClCompile Include="View\FileManager.cpp" />
+    <ClCompile Include="View\FloatingNote.cpp" />
+    <ClCompile Include="View\FloatingNoteManager.cpp" />
+    <ClCompile Include="View\FloatingNotePanel.cpp" />
+    <ClCompile Include="View\GlobalTop.cpp" />
+    <ClCompile Include="Model\Model_Hugou.cpp" />
+    <ClCompile Include="View\IconTextButton.cpp" />
+    <ClCompile Include="View\IconTextButtonHoverWatcher.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="View\View_Hugou.cpp" />
+    <ClCompile Include="View\OperationZone.cpp" />
+    <ClCompile Include="View\PDFEdit.cpp" />
+    <ClCompile Include="View\PDFParse.cpp" />
+    <ClCompile Include="View\PDFtoWord.cpp" />
+    <ClCompile Include="View\View_Settings.cpp" />
+    <ClCompile Include="View\SettingsHelper.cpp" />
+    <ClCompile Include="View\ThemeLoadThread.cpp" />
+    <ClCompile Include="View\View_TitleBar.cpp" />
+    <ClCompile Include="View\Var.cpp" />
+    <ClCompile Include="View\WorkSpace.cpp" />
+    <ClCompile Include="View\View_Welcome.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="Model\Include\ButtonHoverWatcher.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="Model\Include\ComboboxWheelWatcher.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="Controller\Include\Controller_AsideBar.h" />
+    <QtMoc Include="Model\Include\Model_Welcome.h" />
+    <QtMoc Include="Controller\Include\Controller_Welcome.h" />
+    <QtMoc Include="Model\Include\Model_Settings.h" />
+    <QtMoc Include="Controller\Include\Controller_Settings.h" />
+    <ClInclude Include="View\Include\View_Welcome.h" />
+    <QtMoc Include="Controller\Include\Controller_Hugou.h" />
+    <ClInclude Include="Model\Include\Const.h" />
+    <ClInclude Include="Model\Include\File.h" />
+    <ClInclude Include="Model\Include\FileManager.h" />
+    <ClInclude Include="Model\Include\PDFEdit.h" />
+    <ClInclude Include="Model\Include\PDFParse.h" />
+    <ClInclude Include="Model\Include\PDFtoWord.h" />
+    <ClInclude Include="Model\Include\Theme.h" />
+    <ClInclude Include="Model\Include\ThemeSetting.h" />
+    <ClInclude Include="Model\Include\Var.h" />
+    <QtMoc Include="View\Include\View_AsideBar.h" />
+    <ClInclude Include="View\Include\ui_FloatingNote.h" />
+    <ClInclude Include="View\Include\ui_FloatingNotePanel.h" />
+    <ClInclude Include="View\Include\ui_GlobalTop.h" />
+    <QtMoc Include="View\Include\View_Hugou.h" />
+    <ClInclude Include="View\Include\ui_OperationZone.h" />
+    <QtMoc Include="View\Include\View_Settings.h" />
+    <QtMoc Include="View\Include\View_TitleBar.h" />
+    <ClInclude Include="View\Include\ui_WorkSpace.h" />
+    <QtMoc Include="Model\Include\WorkSpace.h" />
+    <QtMoc Include="Model\Include\ThemeLoadThread.h" />
+    <QtMoc Include="Model\Include\SettingsHelper.h" />
+    <QtMoc Include="Model\Include\OperationZone.h" />
+    <QtMoc Include="Model\Include\IconTextButtonHoverWatcher.h" />
+    <QtMoc Include="Model\Include\IconTextButton.h" />
+    <QtMoc Include="Model\Include\Model_Hugou.h" />
+    <QtMoc Include="Model\Include\GlobalTop.h" />
+    <QtMoc Include="Model\Include\FloatingNotePanel.h" />
+    <QtMoc Include="Model\Include\FloatingNoteManager.h" />
+    <QtMoc Include="Model\Include\FloatingNote.h" />
+    <QtMoc Include="Model\Include\FileImportDialog.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Hugou.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Configuration\conf.ini" />
+    <None Include="Configuration\errorCode.ini" />
+    <None Include="Configuration\solution.ini" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="Resource\Hugou.qrc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource\Hugou.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{368FFBD4-4249-4B86-9163-91E5BFBC71C4}</ProjectGuid>
@@ -37,14 +130,14 @@
     <Import Project="$(QtMsBuild)\qt_defaults.props" />
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
-    <QtInstall>6.7.0</QtInstall>
-    <QtModules>core;gui;qml;widgets;multimedia;multimediawidgets;printsupport;quickwidgets;webchannel;webenginecore;webenginewidgets;webenginequick;quickwidgets</QtModules>
+    <QtInstall>6.7.2</QtInstall>
+    <QtModules>core;gui;qml;widgets;multimedia;multimediawidgets;printsupport;quickwidgets</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
-    <QtInstall>6.7.0</QtInstall>
-    <QtModules>core;gui;qml;widgets;multimedia;multimediawidgets;printsupport;quickwidgets;webchannel;webenginecore;webenginewidgets;webenginequick;</QtModules>
-    <QtBuildConfig>release</QtBuildConfig>
+    <QtInstall>6.7.2</QtInstall>
+    <QtModules>core;gui;qml;widgets;multimedia;multimediawidgets;printsupport;quickwidgets</QtModules>
+    <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
     <Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." />
@@ -61,14 +154,14 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <IncludePath>D:\Qt\6.7.0\msvc2019_64\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\Dawn\Desktop\Hugou\Hugou\View\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Model\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Controller\Include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Link>
-      <AdditionalLibraryDirectories>D:\Qt\6.7.0\msvc2019_64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Dwmapi.lib;Qt6Pdf.lib;Qt6Pdfd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Dwmapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <ClCompile>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -78,7 +171,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Link>
-      <AdditionalLibraryDirectories>D:\Qt\6.7.0\msvc2019_64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>Dwmapi.lib;Qt6Pdf.lib;Qt6Pdfd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <ClCompile>
@@ -109,79 +202,6 @@
       <GenerateDebugInformation>false</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="AsideBar.cpp" />
-    <ClCompile Include="ButtonHoverWatcher.cpp" />
-    <ClCompile Include="ComboboxWheelWatcher.cpp" />
-    <ClCompile Include="File.cpp" />
-    <ClCompile Include="FileImportDialog.cpp" />
-    <ClCompile Include="FileManager.cpp" />
-    <ClCompile Include="FloatingNote.cpp" />
-    <ClCompile Include="FloatingNoteManager.cpp" />
-    <ClCompile Include="FloatingNotePanel.cpp" />
-    <ClCompile Include="GlobalTop.cpp" />
-    <ClCompile Include="IconTextButton.cpp" />
-    <ClCompile Include="IconTextButtonHoverWatcher.cpp" />
-    <ClCompile Include="OperationZone.cpp" />
-    <ClCompile Include="PDFEdit.cpp" />
-    <ClCompile Include="PDFParse.cpp" />
-    <ClCompile Include="PDFtoWord.cpp" />
-    <ClCompile Include="Settings.cpp" />
-    <ClCompile Include="SettingsHelper.cpp" />
-    <ClCompile Include="ThemeLoadThread.cpp">
-      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">input</DynamicSource>
-      <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).moc</QtMocFileName>
-      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">input</DynamicSource>
-      <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).moc</QtMocFileName>
-    </ClCompile>
-    <ClCompile Include="ThemeSetting.cpp" />
-    <ClCompile Include="TitleBar.cpp" />
-    <ClCompile Include="ui_Settings.h" />
-    <ClCompile Include="Var.cpp" />
-    <ClCompile Include="WorkSpace.cpp" />
-    <QtRcc Include="Hugou.qrc" />
-    <QtMoc Include="Hugou.h" />
-    <ClCompile Include="Hugou.cpp" />
-    <ClCompile Include="main.cpp" />
-    <None Include="conf.ini" />
-    <None Include="Hugou.ico" />
-    <ResourceCompile Include="Hugou.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <QtMoc Include="OperationZone.h" />
-    <ClInclude Include="File.h" />
-    <ClInclude Include="FileManager.h" />
-    <QtMoc Include="FloatingNotePanel.h" />
-    <QtMoc Include="Settings.h" />
-    <QtMoc Include="SettingsHelper.h" />
-    <QtMoc Include="GlobalTop.h" />
-    <QtMoc Include="ThemeLoadThread.h" />
-    <QtMoc Include="IconTextButtonHoverWatcher.h" />
-    <ClInclude Include="ui_GlobalTop.h" />
-    <ClInclude Include="Var.h" />
-    <ClInclude Include="ui_FloatingNotePanel.h" />
-    <ClInclude Include="ui_OperationZone.h" />
-    <ClInclude Include="ui_WorkSpace.h" />
-    <QtMoc Include="WorkSpace.h" />
-    <QtMoc Include="TitleBar.h" />
-    <QtMoc Include="AsideBar.h" />
-    <QtMoc Include="IconTextButton.h" />
-    <ClInclude Include="Theme.h" />
-    <ClInclude Include="ui_AsideBar.h" />
-    <ClInclude Include="ui_FloatingNote.h" />
-    <ClInclude Include="ui_Hugou.h" />
-    <ClInclude Include="ui_TitleBar.h" />
-    <QtMoc Include="FloatingNoteManager.h" />
-    <QtMoc Include="FloatingNote.h" />
-    <QtMoc Include="ComboboxWheelWatcher.h" />
-    <QtMoc Include="ButtonHoverWatcher.h" />
-    <ClInclude Include="Const.h" />
-    <QtMoc Include="FileImportDialog.h" />
-    <ClInclude Include="PDFEdit.h" />
-    <ClInclude Include="PDFParse.h" />
-    <ClInclude Include="PDFtoWord.h" />
-    <ClInclude Include="ThemeSetting.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
     <Import Project="$(QtMsBuild)\qt.targets" />

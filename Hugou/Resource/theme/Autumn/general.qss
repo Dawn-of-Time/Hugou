@@ -1,0 +1,14 @@
+/* Ö÷´°Ìå */
+
+HugouView#hugou {
+    background-color: #F7A049;
+}
+
+QWidget#asideBarAndStackedWidget {
+    background-color: transparent;
+}
+
+QStackedWidget#stackedWidget {
+    border-radius: 10px;
+    background-color: rgba(255,255,255,0.8);
+}

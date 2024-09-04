@@ -1,0 +1,70 @@
+/* …Ë÷√“≥ */
+QStackedWidget {
+    background-color: transparent;
+    border: none
+}
+
+QTreeWidget {
+    background-color: transparent;
+    border: none
+}
+ 
+
+QListWidget {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    margin-left: 20px;
+    margin-right: 12px;
+    margin-top: 2px;
+    margin-bottom: 2px
+}
+
+    QListWidget::item:hover {
+        background-color: transparent
+    }
+
+QPushButton {
+    border: none
+}
+
+QComboBox {
+    border: none;
+    border-radius: 5px;
+    padding: 3px;
+    background-color: #A6C4DA;
+}
+
+    QComboBox:hover {
+        background-color: #85A5C3;
+    }
+
+    QComboBox QAbstractItemView {
+        outline: none;
+        margin-top: 5px;
+        border-radius: 5px;
+        background-color: #A6C4DA;
+    }
+
+        QComboBox QAbstractItemView::item:hover {
+            padding: 3px;
+            color: black;
+            border-radius: 5px;
+            background-color: #85A5C3;
+        }
+
+        QComboBox QAbstractItemView::item:selected {
+            padding: 3px;
+            color: white;
+            border-radius: 5px;
+            background-color: #85A5C3;
+        }
+
+    QComboBox::down-arrow {
+        image: url(":/icon/down_bla.png");
+        width: 20px;
+    }  
+
+    QComboBox::drop-down {
+        border: none;
+    }
