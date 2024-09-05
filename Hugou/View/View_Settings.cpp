@@ -5,7 +5,7 @@ SettingsView::SettingsView(QWidget* parent) :
 {
 	setupUi();
     SettingsHelper* helper = SettingsHelper::getHelper();
-    settingsComboboxMap["themeBox"]->setCurrentText(helper->settingsMap["theme"]);
+    settingsComboboxMap["themeBox"]->setCurrentText(helper->m_settingsMap["theme"]);
 }
 
 void SettingsView::setupUi()
@@ -110,7 +110,6 @@ void SettingsView::formContentList()
     {
         item->generateSettingItem(m_settingsContentListWidget);
     }
-
 
     // 不可选定
     for (int i = 0; i < m_settingsContentListWidget->count(); ++i)

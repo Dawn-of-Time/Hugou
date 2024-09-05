@@ -16,9 +16,9 @@ FloatingNote::FloatingNote(QWidget* HugouClass) :
 	updateTimer->start(1000);
 
 	// 按钮事件
-	connect(ui.yesButton, &QPushButton::clicked, this, [=]() {SlotButtonClicked(Feedback::Yes); });
-	connect(ui.noButton, &QPushButton::clicked, this, [=]() {SlotButtonClicked(Feedback::No); });
-	connect(ui.dealLaterButton, &QPushButton::clicked, this, [=]() {SlotButtonClicked(Feedback::DealLater); });
+	connect(ui.yesButton, &QPushButton::clicked, this, [&]() {SlotButtonClicked(Feedback::Yes); });
+	connect(ui.noButton, &QPushButton::clicked, this, [&]() {SlotButtonClicked(Feedback::No); });
+	connect(ui.dealLaterButton, &QPushButton::clicked, this, [&]() {SlotButtonClicked(Feedback::DealLater); });
 }
 
 FloatingNote::~FloatingNote()

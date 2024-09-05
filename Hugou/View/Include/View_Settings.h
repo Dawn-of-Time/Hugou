@@ -198,6 +198,7 @@ protected slots:
     void deleteSearchText();
 
 private:
+    friend class SettingsController;
     QHBoxLayout* m_settingsLayout;
     QWidget* m_settingsLeftWidget;
     QVBoxLayout* m_settingsLeftLayout;
@@ -236,8 +237,6 @@ private:
         new LineEditWithTrailingButtonItem(m_savePathButton, "savePathButton"),
         new ChapterSpaceItem()
     };
-    
-    friend class SettingsController;
 
     void setupUi();
     void formTree();

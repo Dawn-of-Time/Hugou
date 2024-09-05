@@ -12,9 +12,15 @@ class SettingsController : public QObject
 
 public:
     SettingsController(SettingsView* settingsView, SettingsModel* settingsModel);
+    bool m_userChanged = true;
 
 signals:
     void SignalApplyTheme(QString theme = "");
+
+protected slots:
+    void settingsTreeItemExpandOrCollapseRequest(QTreeWidgetItem* item, int column);
+    void settingsContentListWidgetSrollRequest(QTreeWidgetItem* item, int column);
+    void applyThemeRequest(QString theme);
 
 private:
     SettingsView* m_settingsView;

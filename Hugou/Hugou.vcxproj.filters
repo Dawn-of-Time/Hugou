@@ -86,7 +86,7 @@
     <ClCompile Include="View\FloatingNotePanel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="View\GlobalTop.cpp">
+    <ClCompile Include="View\View_GlobalTop.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Model\Model_Hugou.cpp">
@@ -175,7 +175,7 @@
     <QtMoc Include="Model\Include\FloatingNotePanel.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="Model\Include\GlobalTop.h">
+    <QtMoc Include="View\Include\View_GlobalTop.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="Model\Include\Model_Hugou.h">
@@ -264,9 +264,6 @@
     <ClInclude Include="View\Include\ui_FloatingNotePanel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="View\Include\ui_GlobalTop.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="View\Include\ui_OperationZone.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -274,6 +271,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="View\Include\View_Welcome.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Model\Include\ConstSuccessNote.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

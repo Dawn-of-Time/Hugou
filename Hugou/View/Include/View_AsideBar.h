@@ -20,21 +20,23 @@ signals:
     void SignalChangeStackedWidget(int index);
 
 private:
-    QFrame* m_asideFrame;
-    QVBoxLayout* m_asideFrameLayout;
+    QVBoxLayout* m_asideBarLayout;
     QLabel* m_userLabel;
-    IconTextButton* m_workSpaceButton;
+    QLabel* m_planLabel;
+    IconTextButton* m_scheduleButton;
+    QLabel* m_dataBaseLabel;
+    IconTextButton* m_documentButton;
+    IconTextButton* m_recordButton;
     IconTextButton* m_settingButton;
-    ButtonHoverWatcher* m_workSpaceButtonHoverWatcher;
+    ButtonHoverWatcher* m_scheduleButtonHoverWatcher;
     ButtonHoverWatcher* m_settingButtonHoverWatcher;
     QList<IconTextButton*> m_asideBarButtonList;
     const QList<QStringList> m_asideBarButtonIconList = 
     { 
-        {":/icon/workSpace_w.png", ":/icon/workSpace_b.png"},
-        {":/icon/setting_w.png", ":/icon/setting_b.png"}
+        {":/icon/schedule_bla.png", ":/icon/schedule_blu.png"},
+        {":/icon/setting_b.png", ":/icon/setting_w.png"}
     };
 
     void setupUi();
-    void showEvent(QShowEvent* event) override;
     void switchOverStackedWidget(int index);
 };

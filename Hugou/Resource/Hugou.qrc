@@ -91,5 +91,7 @@
         <file>theme/Winter/asideBar.qss</file>
         <file>theme/Winter/general.qss</file>
         <file>theme/Winter/settings.qss</file>
+        <file>icon/schedule_bla.png</file>
+        <file>icon/schedule_blu.png</file>
     </qresource>
 </RCC>

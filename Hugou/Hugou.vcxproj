@@ -32,7 +32,7 @@
     <ClCompile Include="View\FloatingNote.cpp" />
     <ClCompile Include="View\FloatingNoteManager.cpp" />
     <ClCompile Include="View\FloatingNotePanel.cpp" />
-    <ClCompile Include="View\GlobalTop.cpp" />
+    <ClCompile Include="View\View_GlobalTop.cpp" />
     <ClCompile Include="Model\Model_Hugou.cpp" />
     <ClCompile Include="View\IconTextButton.cpp" />
     <ClCompile Include="View\IconTextButtonHoverWatcher.cpp" />
@@ -62,6 +62,7 @@
     <QtMoc Include="Controller\Include\Controller_Welcome.h" />
     <QtMoc Include="Model\Include\Model_Settings.h" />
     <QtMoc Include="Controller\Include\Controller_Settings.h" />
+    <ClInclude Include="Model\Include\ConstSuccessNote.h" />
     <ClInclude Include="View\Include\View_Welcome.h" />
     <QtMoc Include="Controller\Include\Controller_Hugou.h" />
     <ClInclude Include="Model\Include\Const.h" />
@@ -76,7 +77,6 @@
     <QtMoc Include="View\Include\View_AsideBar.h" />
     <ClInclude Include="View\Include\ui_FloatingNote.h" />
     <ClInclude Include="View\Include\ui_FloatingNotePanel.h" />
-    <ClInclude Include="View\Include\ui_GlobalTop.h" />
     <QtMoc Include="View\Include\View_Hugou.h" />
     <ClInclude Include="View\Include\ui_OperationZone.h" />
     <QtMoc Include="View\Include\View_Settings.h" />
@@ -89,7 +89,7 @@
     <QtMoc Include="Model\Include\IconTextButtonHoverWatcher.h" />
     <QtMoc Include="Model\Include\IconTextButton.h" />
     <QtMoc Include="Model\Include\Model_Hugou.h" />
-    <QtMoc Include="Model\Include\GlobalTop.h" />
+    <QtMoc Include="View\Include\View_GlobalTop.h" />
     <QtMoc Include="Model\Include\FloatingNotePanel.h" />
     <QtMoc Include="Model\Include\FloatingNoteManager.h" />
     <QtMoc Include="Model\Include\FloatingNote.h" />
@@ -113,7 +113,7 @@
     <ProjectGuid>{368FFBD4-4249-4B86-9163-91E5BFBC71C4}</ProjectGuid>
     <Keyword>QtVS_v304</Keyword>
     <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">10.0</WindowsTargetPlatformVersion>
-    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">10.0.22000.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">10.0.22621.0</WindowsTargetPlatformVersion>
     <QtMsBuild Condition="'$(QtMsBuild)'=='' OR !Exists('$(QtMsBuild)\qt.targets')">$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -157,6 +157,7 @@
     <IncludePath>C:\Users\Dawn\Desktop\Hugou\Hugou\View\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Model\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Controller\Include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <IncludePath>C:\Users\Dawn\Desktop\Hugou\Hugou\View\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Model\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Controller\Include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Link>
@@ -172,7 +173,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Link>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Dwmapi.lib;Qt6Pdf.lib;Qt6Pdfd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Dwmapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <ClCompile>
       <DisableSpecificWarnings>4828</DisableSpecificWarnings>

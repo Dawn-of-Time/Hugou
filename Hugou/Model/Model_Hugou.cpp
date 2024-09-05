@@ -16,8 +16,10 @@ QString HugouModel::getTheme()
     if (m_theme.isEmpty())
     {
         SettingsHelper* helper = SettingsHelper::getHelper();
-        m_theme = helper->settingsMap["theme"];
+        m_theme = helper->m_settingsMap["theme"];
     }
+    // 如果不存在theme项，则设置为默认主题。
+    if (m_theme.isEmpty()) m_theme = "Default";
     return m_theme;
 }
 
@@ -37,7 +39,7 @@ HugouModel::ThemeResource HugouModel::loadThemeResource(QString theme)
             theme = "Default";
             return getDefaultThemeResource();
         }
-        // 校验完整性
+        // 校验正确性
         if (!generalStyleFile.open(QIODeviceBase::ReadOnly) ||
             !asideBarStyleFile.open(QIODeviceBase::ReadOnly) ||
             !settingsStyleFile.open(QIODeviceBase::ReadOnly))
@@ -51,7 +53,6 @@ HugouModel::ThemeResource HugouModel::loadThemeResource(QString theme)
         themeResource.generalStyleSheet = QTextStream(&generalStyleFile).readAll();
         themeResource.asideBarStyleSheet = QTextStream(&asideBarStyleFile).readAll();
         themeResource.settingsStyleSheet = QTextStream(&settingsStyleFile).readAll();
-        //std::this_thread::sleep_for(std::chrono::seconds(2));
         generalStyleFile.close();
         asideBarStyleFile.close();
         settingsStyleFile.close();

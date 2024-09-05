@@ -1,5 +1,5 @@
 #pragma once
-
+#include "ConstSuccessNote.h"
 #include "Var.h"
 #include "SettingsHelper.h"
 #include "View_Hugou.h"
@@ -19,10 +19,12 @@ public:
 protected slots:
     void openPDFEditFunction();
     void changeStackedWidgetRequest(int index);
-    void applyThemeRequest(bool startup, QString theme = "");
+    void applyThemeRequestForStartup();
 
 private:
     HugouView* m_hugouView;
     HugouModel* m_hugouModel;
     SettingsController* m_settingsController;
+
+    void applyThemeRequest(QString theme = "");
 };

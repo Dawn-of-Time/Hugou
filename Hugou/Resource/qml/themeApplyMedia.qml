@@ -3,8 +3,8 @@ import QtQuick.Controls 2.15
 import QtMultimedia
 
 Item {
-    width: 240
-    height: 240
+    width: 360
+    height: 360
 
     MediaPlayer {
         id: mediaPlayer

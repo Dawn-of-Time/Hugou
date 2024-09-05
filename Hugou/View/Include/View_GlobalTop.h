@@ -1,19 +1,22 @@
 #pragma once
-#include <QWidget>
+#include "Const.h"
+#include <QLabel>
+#include <QFile>
+#include <QVBoxLayout>
+#include <QQuickWidget>
 #include <QStyleOption>
 #include <QPainter>
 #include <QGraphicsOpacityEffect>
 #include <QPropertyAnimation>
-#include "ui_GlobalTop.h"
 
-class GlobalTop
+class GlobalTopView
 	: public QWidget 
 {
 	Q_OBJECT
 
 public:
 	bool isTopShown = false;
-	GlobalTop(QWidget* parent);
+	GlobalTopView(QWidget* parent);
 	void fadeIn();
 	void fadeOut();
 	void setSource(QString filename);
@@ -23,6 +26,7 @@ public:
 
 signals:
 	void fadeInFinished();
+	void fadeOutFinished();
 	void blurBackground();
 	void clearBackground();
 
@@ -30,14 +34,15 @@ public slots:
 	void switchTop();
 
 private:
-	Ui_GlobalTop ui;
-	QGraphicsOpacityEffect* effect;
-	QWidget* mainWindow;
-	QColor color = QColor(240, 242, 243, 255);
+	QGraphicsOpacityEffect* m_effect;
+	QVBoxLayout* m_globalTopLayout;
+	QQuickWidget* m_globalTopQuickWidget;
+	QLabel* m_globalTopHint;
+	void setupUi();
 	void paintEvent(QPaintEvent* event) {
 		QWidget::paintEvent(event);
 		QPainter painter(this);
-		painter.fillRect(rect(), color);
+		painter.fillRect(rect(), QColor(240, 242, 243, 255));
 	}
 };
 

@@ -4,7 +4,8 @@
 #include <QFont>
 #include <QSize>
 #include <QPoint>
-#include <map>
+#include <QList>
+#include <QMap>
 
 // 几何参数
 // 窗口
@@ -19,16 +20,15 @@ const int titleButtonWidth = 60;
 const int titleButtonHeight = titleFrameHeight;
 const QSize titleButtonIconSize = QSize(15, 15);
 // 侧边栏
-const int asideFrameWidth = 150;
-const int asideFrameHeight = mainWindowHeight - titleFrameHeight;
-const int userLabelWidth = 150;
-const int userLabelHeight = 80;
-const int asideButtonWidth = 135;
-const int asideButtonHeight = 40;
+const int asideBarWidth = 200;
+const int asideBarHeight = mainWindowHeight - titleFrameHeight;
+const int asideUserLabelHeight = 40;
+const int asideTitleHeight = 20;
+const int asideButtonHeight = 35;
 const QSize asideButtonIconSize = QSize(18, 18);
 // 主页
 const int stackedWidgetWidth = titleFrameWidth;
-const int stackedWidgetHeight = asideFrameHeight - titleFrameHeight;
+const int stackedWidgetHeight = asideBarHeight - titleFrameHeight;
 const int stackedTitleHeight = 50;
 const int functionSubwidgetWidth = stackedWidgetWidth;
 const int functionSubwidgetHeight = stackedWidgetHeight - stackedTitleHeight;
@@ -53,7 +53,8 @@ const QFont tableHeaderFont = QFont("Roboto", 14, QFont::Bold);
 const QFont tableContentFont = QFont("Roboto", 12, QFont::Medium);
 const QFont tableSubcontentFont = QFont("Roboto", 10);
 // 侧边栏
-const QFont asideFont = QFont("Roboto", 12, QFont::Medium);
+const QFont asideTitleFont = QFont("Roboto", 12, QFont::Normal);
+const QFont asideButtonFont = QFont("Hind Siliguri", 13, QFont::Normal);
 // 浮动消息
 const QFont signFont = QFont("Hind Siliguri", 16);
 const QFont timekeepingLabelFont = QFont("Hind Siliguri", 16);
@@ -62,31 +63,14 @@ const QFont floatingNoteButtonFont = QFont("Roboto", 12, QFont::Bold);
 const QFont floatingNotePanelButtonFont = QFont("Roboto", 14, QFont::Bold);
 
 // 全局顶层
-const QFont hintFont = QFont("Roboto", 18, QFont::Thin);
+const QFont hintFont = QFont("Roboto", 18, QFont::Normal);
 
 // 提示性文字
 const QString operationText = QString(
 	"<span style='font-weight: bold;'>DROP</span> the PDF file here or "
 	"<span style='font-weight: bold;'>CLICK</span> here to search from Explorer.");
 const QString searchText = QString("Search item.");
-const QString readingSettingErrorHint = QString(
-	"Failed to read the configuration file. ");
-const QString savingSettingErrorHint = QString(
-	"Failed to save configuration. ");
-// 	"<br>"
-//"● Settings - Restore:<br> "
-//"&nbsp;&nbsp; Restore the configuration to restore point.<br>"
 
-// 设置项。
-//const QStringList settingCatalogueList = {
-//		"Common",
-//			"Appearance",
-//				"Theme",
-//			"Country/Region",
-//				"Language",
-//		"Export",
-//			"Save",
-//				"Default Save Path" };
 const QStringList settingsGroupList = {
 	"Common",
 	"Export"
@@ -109,18 +93,16 @@ const QMap<QString, QString> defalutSettingsValueMap = {
 
 // 默认主题
 const QString defaultGeneralStyleSheet =
-QString("HugouView#hugou { background-color: #3763BE; }")
+QString("HugouView#hugou { background-color: #F0F4FD; }")
 + QString("QWidget#asideBarAndStackedWidget { background-color: transparent; }")
 + QString("QStackedWidget#stackedWidget { border-radius: 10px; background-color: rgba(255, 255, 255, 0.8);}");
 
 const QString defaultAsideBarStyleSheet = 
-QString("QLabel#userLabel { border-top-left-radius: 12px; background-color: transparent; }")
-+ QString("QFrame#asideFrame { border-top-left-radius: 15px; border-bottom-left-radius: 15px; background-color: transparent; }")
-+ QString("QPushButton[status=\"default\"]{border-radius: 10px;padding-top: 10px;padding-bottom: 10px;color: white;background-color: transparent; }")
-+ QString("QPushButton[status=\"default\"] > QLabel { color: white; background-color: transparent; }")
-+ QString("QPushButton[status=\"default\"]:hover { background-color: rgba(255,255,255,80); }")
-+ QString("QPushButton[status=\"current\"] { border-radius: 10px; padding-top: 10px; padding-bottom: 10px; color: #3763BE; background-color: white; }")
-+ QString("QPushButton[status=\"current\"] > QLabel { color: #3763BE; background-color: transparent; }");
+QString("QLabel#userLabel { background-color: transparent; }")
++ QString("QPushButton[status=\"default\"]{border-radius: 10px;}")
++ QString("QPushButton[status=\"default\"] > QLabel { color: #434343; background-color: transparent; }")
++ QString("QPushButton[status=\"current\"] { border-radius: 10px;}")
++ QString("QPushButton[status=\"current\"] > QLabel { color: #377FED; background-color: transparent; }");
 
 const QString defaultSettingsStyleSheet =
 QString("QStackedWidget { background-color: transparent; border: none }")

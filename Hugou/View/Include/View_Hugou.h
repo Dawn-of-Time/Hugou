@@ -11,12 +11,13 @@
 #include "View_TitleBar.h"
 #include "View_AsideBar.h"
 #include "View_Settings.h"
+#include "View_GlobalTop.h"
 #include "Const.h"
 #include "ButtonHoverWatcher.h"
 #include "ComboboxWheelWatcher.h"
 #include "WorkSpace.h"
 #include "FloatingNotePanel.h"
-#include "GlobalTop.h"
+
 
 QT_BEGIN_NAMESPACE
 
@@ -48,7 +49,7 @@ private:
     QWidget* m_blurWidget;
     QGraphicsBlurEffect* m_blurEffect;
     FloatingNotePanel* m_floatingNotePanel;
-    GlobalTop* m_globalTop;
+    GlobalTopView* m_globalTopView;
     QPixmap m_screenShot;
     enum Area
     {
@@ -68,10 +69,11 @@ private:
     QRect customScale(Area area, QRect currentMainWindowGeometry, QPoint change);
     Area getArea(QPoint mousePos);
     void setupUi();
+    bool applyThemeResourceForStartup(QString generalStyleFile, QString asideBarStyleFile, QString settingsStyleFile);
     void startToApplyThemeResource(QString theme);
     bool applyThemeResource(QString generalStyleFile, QString asideBarStyleFile, QString settingsStyleFile);
     void endToApplyThemeResourceFinished();
-    void changeStackedWidgetRequest(int index);
+    void changeStackedWidget(int index);
     void retranslateUi();
     // 父类函数重写
     // 注1：这里不能简单使用鼠标追踪的方式来观察鼠标是否处于拖拽边缘上。在当鼠标离开边缘区域时，由于遮挡关系，

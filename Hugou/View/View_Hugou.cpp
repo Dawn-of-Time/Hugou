@@ -82,30 +82,28 @@ void HugouView::setupUi()
     m_blurEffect->setBlurHints(QGraphicsBlurEffect::QualityHint);
     m_blurWidget->setGraphicsEffect(m_blurEffect);
     m_floatingNotePanel = new FloatingNotePanel(this);
-    m_globalTop = new GlobalTop(this);
+    m_globalTopView = new GlobalTopView(this);
 
     retranslateUi();
 } 
 
 void HugouView::startToApplyThemeResource(QString theme)
 {
-    m_globalTop->setSource("qrc:/qml/themeApplyMedia.qml");
-    m_globalTop->setHint("Upcoming theme: " + theme);
-    m_globalTop->fadeIn();
+    m_globalTopView->setSource("qrc:/qml/themeApplyMedia.qml");
+    m_globalTopView->setHint("Upcoming theme: " + theme);
+    m_globalTopView->fadeIn();
 }
 
-bool HugouView::applyThemeResource(QString generalStyleSheet, QString asideBarStyleSheet, QString settingsStyleSheet)
+bool HugouView::applyThemeResourceForStartup(QString generalStyleSheet, QString asideBarStyleSheet, QString settingsStyleSheet)
 {
-    bool applyFlag = false;
+    bool applyFlag = true;
     if (generalStyleSheet.isEmpty() || asideBarStyleSheet.isEmpty() || settingsStyleSheet.isEmpty())
     {
+        applyFlag = false;
+        emit SettingsHelper::getHelper()->triggerError(10100);
         generalStyleSheet = defaultGeneralStyleSheet;
         asideBarStyleSheet = defaultAsideBarStyleSheet;
         settingsStyleSheet = defaultSettingsStyleSheet;
-    }
-    else
-    {
-        applyFlag = true;
     }
     this->setStyleSheet(generalStyleSheet);
     m_asideBarView->setStyleSheet(asideBarStyleSheet);
@@ -113,12 +111,29 @@ bool HugouView::applyThemeResource(QString generalStyleSheet, QString asideBarSt
     return applyFlag;
 }
 
-void HugouView::endToApplyThemeResourceFinished()
+bool HugouView::applyThemeResource(QString generalStyleSheet, QString asideBarStyleSheet, QString settingsStyleSheet)
 {
-    m_globalTop->fadeOut();
+    bool applyFlag = true;
+    if (!generalStyleSheet.isEmpty() && !asideBarStyleSheet.isEmpty() && !settingsStyleSheet.isEmpty())
+    {
+        this->setStyleSheet(generalStyleSheet);
+        m_asideBarView->setStyleSheet(asideBarStyleSheet);
+        m_settingsView->setStyleSheet(settingsStyleSheet);
+    }
+    else
+    {
+        applyFlag = false;
+        emit SettingsHelper::getHelper()->triggerError(10100);
+    }
+    return applyFlag;
 }
 
-void HugouView::changeStackedWidgetRequest(int index)
+void HugouView::endToApplyThemeResourceFinished()
+{
+    m_globalTopView->fadeOut();
+}
+
+void HugouView::changeStackedWidget(int index)
 {
     m_stackedWidget->setCurrentIndex(index);
 }
@@ -382,7 +397,7 @@ void HugouView::resizeEvent(QResizeEvent* event)
 
     m_floatingNotePanel->updateUi();
     m_blurWidget->resize(this->width(), this->height() - titleFrameHeight);
-    m_globalTop->updateUi(this);
+    m_globalTopView->updateUi(this);
 
     if (!m_blurWidget->isHidden())
     {

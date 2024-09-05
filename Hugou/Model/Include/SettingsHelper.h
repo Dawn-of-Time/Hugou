@@ -13,9 +13,10 @@ class SettingsHelper : public QObject
 	Q_OBJECT
 
 public:
-	QMap<QString, QString> settingsMap;
 	static SettingsHelper* getHelper();
-	static void setHugou(QWidget* hugou) { m_hugou = hugou; }
+
+	QMap<QString, QString> m_settingsMap;
+	void setHugou(QWidget* hugou);
 	bool writeSettings(QString key, QString value);
 	void syncSettings();
 		
@@ -29,6 +30,7 @@ private:
 	static QWidget* m_hugou;
 	static SettingsHelper* m_helper;
 	static QMutex m_mutex;
+	QList<QPair<QString, QString>> m_errorList;
 	// ÖØÔØÔËËã·û
 	SettingsHelper(const SettingsHelper&) = delete;
 	SettingsHelper& operator=(const SettingsHelper&) = delete;
@@ -37,6 +39,5 @@ private:
 	void verifyAndLoadSettings();
 	QString readSettings(QString key);
 	bool verifyConfINIExist();
-	//bool verifyConfINIInvalid();
 };
 
