@@ -55,14 +55,14 @@ void HugouView::setupUi()
     m_stackedWidgetLayout->setContentsMargins(5, 0, 5, 5);
     m_stackedWidget = new QStackedWidget(m_stackedWidgetContainer);
     m_stackedWidget->setObjectName("stackedWidget");
-    // --------堆叠控件：WorkSpace
-    m_workSpaceWidget = new WorkSpace(m_stackedWidget);
+    // --------堆叠控件：Schedule
+    m_scheduleView = new ScheduleView(m_stackedWidget);
     // --------堆叠控件：Settings
     m_settingsView = new SettingsView(m_stackedWidget);
 
-    m_stackedWidget->addWidget(m_workSpaceWidget);
+    m_stackedWidget->addWidget(m_scheduleView);
     m_stackedWidget->addWidget(m_settingsView);
-    m_stackedWidget->setCurrentWidget(m_workSpaceWidget);
+    m_stackedWidget->setCurrentWidget(m_scheduleView);
 
     m_stackedWidgetLayout->addWidget(m_stackedWidget);
 

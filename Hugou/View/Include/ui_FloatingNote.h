@@ -4,7 +4,8 @@
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QFile>
-#include "Const.h"
+#include "Const_Geometry.h"
+#include "Const_Font.h"
 #include "IconTextButtonHoverWatcher.h"
 #include "IconTextButton.h"
 

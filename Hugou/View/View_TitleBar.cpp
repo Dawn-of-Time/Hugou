@@ -42,7 +42,7 @@ void TitleBarView::setupUi()
     m_floatingNotePanelIcon = new QPushButton(m_floatingNotePanelButtonBackground);
     m_floatingNotePanelIcon->setObjectName("floatingNotePanelIcon");
     m_floatingNotePanelIcon->setFixedSize(60, 35);
-    m_floatingNotePanelIcon->setIcon(QIcon(":/icon/floatingNoteManager_w.png"));
+    m_floatingNotePanelIcon->setIcon(QIcon(":/icon/floatingNoteManager_b.png"));
     m_floatingNotePanelIcon->setIconSize(titleButtonIconSize);
     m_floatingNoteQueue = new QLabel(m_floatingNotePanelButtonBackground);
     m_floatingNoteQueue->setObjectName("floatingNoteQueue");
@@ -79,7 +79,7 @@ void TitleBarView::setupUi()
     // 帮助按钮
     m_helpButton = new QPushButton(this);
     m_helpButton->setObjectName("helpButton");
-    m_helpButton->setIcon(QIcon(":/icon/help_w.png"));
+    m_helpButton->setIcon(QIcon(":/icon/help_b.png"));
     m_helpButton->setIconSize(titleButtonIconSize);
     m_helpButton->setFixedSize(titleButtonWidth, titleButtonHeight);
     m_helpButton->setCursor(QCursor(Qt::PointingHandCursor));
@@ -87,7 +87,7 @@ void TitleBarView::setupUi()
     // 最小化按钮
     m_minimizeButton = new QPushButton(this);
     m_minimizeButton->setObjectName("minimizeButton");
-    m_minimizeButton->setIcon(QIcon(":/icon/minimize_w.png"));
+    m_minimizeButton->setIcon(QIcon(":/icon/minimize_b.png"));
     m_minimizeButton->setIconSize(titleButtonIconSize);
     m_minimizeButton->setFixedSize(titleButtonWidth, titleButtonHeight);
     m_minimizeButton->setCursor(QCursor(Qt::PointingHandCursor));
@@ -95,7 +95,7 @@ void TitleBarView::setupUi()
     // 最大化/还原按钮
     m_scaledButton = new QPushButton(this);
     m_scaledButton->setObjectName("scaledButton");
-    m_scaledButton->setIcon(QIcon(":/icon/maximum_w.png"));
+    m_scaledButton->setIcon(QIcon(":/icon/maximum_bla.png"));
     m_scaledButton->setIconSize(titleButtonIconSize);
     m_scaledButton->setFixedSize(titleButtonWidth, titleButtonHeight);
     m_scaledButton->setCursor(QCursor(Qt::PointingHandCursor));
@@ -105,7 +105,7 @@ void TitleBarView::setupUi()
     // 关闭按钮
     m_closeButton = new QPushButton(this);
     m_closeButton->setObjectName("closeButton");
-    m_closeButton->setIcon(QIcon(":/icon/close_w.png"));
+    m_closeButton->setIcon(QIcon(":/icon/close_bla.png"));
     m_closeButton->setIconSize(titleButtonIconSize);
     m_closeButton->setFixedSize(titleButtonWidth, titleButtonHeight);
     m_closeButton->setCursor(QCursor(Qt::PointingHandCursor));

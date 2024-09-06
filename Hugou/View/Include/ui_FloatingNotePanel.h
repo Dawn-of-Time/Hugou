@@ -2,7 +2,6 @@
 #include <QLabel>
 #include <QFile>
 #include <QVBoxLayout>
-#include "Const.h"
 #include "FloatingNote.h"
 
 class Ui_FloatingNotePanel

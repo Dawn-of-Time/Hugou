@@ -2,7 +2,7 @@
 #include <qdialog.h>
 #include <QtWidgets>
 #include <QObject>
-#include "Const.h"
+#include "Const_Geometry.h"
 #include "ButtonHoverWatcher.h"
 
 QT_BEGIN_NAMESPACE

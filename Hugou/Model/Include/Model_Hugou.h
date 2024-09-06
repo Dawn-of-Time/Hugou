@@ -11,6 +11,7 @@
 #include "Var.h"
 #include "SettingsHelper.h"
 #include "Model_Settings.h"
+#include "Const_DefaultTheme.h"
 
 extern FloatingNoteManager floatingNoteManager;
 

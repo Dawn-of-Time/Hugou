@@ -12,10 +12,10 @@
 #include "View_AsideBar.h"
 #include "View_Settings.h"
 #include "View_GlobalTop.h"
-#include "Const.h"
+#include "View_Schedule.h"
+#include "Const_DefaultTheme.h"
 #include "ButtonHoverWatcher.h"
 #include "ComboboxWheelWatcher.h"
-#include "WorkSpace.h"
 #include "FloatingNotePanel.h"
 
 
@@ -44,7 +44,7 @@ private:
     QWidget* m_stackedWidgetContainer;
     QStackedWidget* m_stackedWidget;
     QHBoxLayout* m_stackedWidgetLayout;
-    WorkSpace* m_workSpaceWidget;
+    ScheduleView* m_scheduleView;
     SettingsView* m_settingsView;
     QWidget* m_blurWidget;
     QGraphicsBlurEffect* m_blurEffect;

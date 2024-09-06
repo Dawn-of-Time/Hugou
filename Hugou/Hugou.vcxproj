@@ -38,7 +38,6 @@
     <ClCompile Include="View\IconTextButtonHoverWatcher.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="View\View_Hugou.cpp" />
-    <ClCompile Include="View\OperationZone.cpp" />
     <ClCompile Include="View\PDFEdit.cpp" />
     <ClCompile Include="View\PDFParse.cpp" />
     <ClCompile Include="View\PDFtoWord.cpp" />
@@ -46,8 +45,8 @@
     <ClCompile Include="View\SettingsHelper.cpp" />
     <ClCompile Include="View\ThemeLoadThread.cpp" />
     <ClCompile Include="View\View_TitleBar.cpp" />
-    <ClCompile Include="View\Var.cpp" />
-    <ClCompile Include="View\WorkSpace.cpp" />
+    <ClCompile Include="Include\Var.cpp" />
+    <ClCompile Include="View\View_Schedule.cpp" />
     <ClCompile Include="View\View_Welcome.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -62,10 +61,14 @@
     <QtMoc Include="Controller\Include\Controller_Welcome.h" />
     <QtMoc Include="Model\Include\Model_Settings.h" />
     <QtMoc Include="Controller\Include\Controller_Settings.h" />
+    <ClInclude Include="Include\Const_Text.h" />
+    <ClInclude Include="Include\Const_Settings.h" />
+    <ClInclude Include="Include\Const_DefaultTheme.h" />
+    <ClInclude Include="Include\Const_Font.h" />
     <ClInclude Include="Model\Include\ConstSuccessNote.h" />
     <ClInclude Include="View\Include\View_Welcome.h" />
     <QtMoc Include="Controller\Include\Controller_Hugou.h" />
-    <ClInclude Include="Model\Include\Const.h" />
+    <ClInclude Include="Include\Const_Geometry.h" />
     <ClInclude Include="Model\Include\File.h" />
     <ClInclude Include="Model\Include\FileManager.h" />
     <ClInclude Include="Model\Include\PDFEdit.h" />
@@ -73,19 +76,16 @@
     <ClInclude Include="Model\Include\PDFtoWord.h" />
     <ClInclude Include="Model\Include\Theme.h" />
     <ClInclude Include="Model\Include\ThemeSetting.h" />
-    <ClInclude Include="Model\Include\Var.h" />
+    <ClInclude Include="Include\Var.h" />
     <QtMoc Include="View\Include\View_AsideBar.h" />
     <ClInclude Include="View\Include\ui_FloatingNote.h" />
     <ClInclude Include="View\Include\ui_FloatingNotePanel.h" />
     <QtMoc Include="View\Include\View_Hugou.h" />
-    <ClInclude Include="View\Include\ui_OperationZone.h" />
     <QtMoc Include="View\Include\View_Settings.h" />
     <QtMoc Include="View\Include\View_TitleBar.h" />
-    <ClInclude Include="View\Include\ui_WorkSpace.h" />
-    <QtMoc Include="Model\Include\WorkSpace.h" />
+    <QtMoc Include="View\Include\View_Schedule.h" />
     <QtMoc Include="Model\Include\ThemeLoadThread.h" />
     <QtMoc Include="Model\Include\SettingsHelper.h" />
-    <QtMoc Include="Model\Include\OperationZone.h" />
     <QtMoc Include="Model\Include\IconTextButtonHoverWatcher.h" />
     <QtMoc Include="Model\Include\IconTextButton.h" />
     <QtMoc Include="Model\Include\Model_Hugou.h" />
@@ -154,10 +154,10 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <IncludePath>C:\Users\Dawn\Desktop\Hugou\Hugou\View\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Model\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Controller\Include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\Dawn\Desktop\Hugou\Hugou\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\View\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Model\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Controller\Include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <IncludePath>C:\Users\Dawn\Desktop\Hugou\Hugou\View\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Model\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Controller\Include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\Dawn\Desktop\Hugou\Hugou\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\View\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Model\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Controller\Include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Link>

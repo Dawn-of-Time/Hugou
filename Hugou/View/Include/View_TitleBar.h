@@ -4,7 +4,7 @@
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QFile>
-#include "Const.h"
+#include "Const_Geometry.h"
 #include "FloatingNote.h"
 #include "ButtonHoverWatcher.h"
 

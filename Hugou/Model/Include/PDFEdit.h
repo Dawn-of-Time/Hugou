@@ -11,8 +11,8 @@
 //#include <QtPdf/QPDFDocument>
 #include <QPainter>
 #include <QPrinter>
-#include "Const.h"
 #include "ButtonHoverWatcher.h"
+#include "Const_Geometry.h"
 
 class PDFEdit
 	:public QWidget

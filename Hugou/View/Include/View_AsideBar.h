@@ -5,9 +5,13 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QFile>
-#include "Const.h"
+#include <QPainter>
+#include <QBitmap>
+#include "Const_Geometry.h"
+#include "Const_Font.h"
 #include "IconTextButton.h"
 #include "ButtonHoverWatcher.h"
+#include "Var.h"
 
 class AsideBarView : public QWidget
 {
@@ -21,7 +25,13 @@ signals:
 
 private:
     QVBoxLayout* m_asideBarLayout;
-    QLabel* m_userLabel;
+    QWidget* m_userWidget;
+    QHBoxLayout* m_userWidgetLayout;
+    QLabel* m_userAvatar;
+    QWidget* m_userNicknameAndIDWidget;
+    QVBoxLayout* m_userNicknameAndIDWidgetLayout;
+    QLabel* m_userNickname;
+    QLabel* m_userID;
     QLabel* m_planLabel;
     IconTextButton* m_scheduleButton;
     QLabel* m_dataBaseLabel;
@@ -33,10 +43,30 @@ private:
     QList<IconTextButton*> m_asideBarButtonList;
     const QList<QStringList> m_asideBarButtonIconList = 
     { 
-        {":/icon/schedule_bla.png", ":/icon/schedule_blu.png"},
-        {":/icon/setting_b.png", ":/icon/setting_w.png"}
+        {":/icon/schedule_default_16.png", ":/icon/schedule_current_16.png"},
+        {":/icon/document_default_16.png", ":/icon/document_current_16.png"}
     };
 
     void setupUi();
     void switchOverStackedWidget(int index);
+    QPixmap cropPixmapIntoCircle(QPixmap& pixmap, int diameter)
+    { 
+        double factor = getScale();
+        int width = pixmap.width();
+        int height = pixmap.height();
+        diameter = qMin(diameter, qMin(width, height));
+
+        QBitmap bitmap(width, height);
+        bitmap.fill(Qt::color0);
+        QPainter painter(&bitmap);
+        painter.setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
+        painter.setPen(Qt::NoPen);
+        painter.setBrush(Qt::color1);
+        painter.translate(0, 0);
+        painter.drawEllipse(0, 0, width, height);
+        QPixmap result = pixmap.copy();
+        result.setDevicePixelRatio(factor);
+        result.setMask(bitmap);
+        return result;
+    }
 };

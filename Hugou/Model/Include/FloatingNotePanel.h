@@ -1,7 +1,7 @@
 #pragma once
 #include <QLabel>
 #include "ui_FloatingNotePanel.h"
-#include "Const.h"
+#include "Const_Geometry.h"
 
 class FloatingNotePanel :
     public QWidget

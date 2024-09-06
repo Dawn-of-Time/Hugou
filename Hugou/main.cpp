@@ -7,10 +7,12 @@
 #include <QtWidgets/QApplication>
 #include <QFontDatabase>
 #include <QQmlEngine>
+#include <QDir>
 
 int main(int argc, char* argv[])
 {
     QApplication a(argc, argv);
+    a.setAttribute(Qt::AA_EnableHighDpiScaling);
     // 注册qml
     qmlRegisterType<HugouView>("HugouModules", 1, 0, "Hugou");
     // 字体载入

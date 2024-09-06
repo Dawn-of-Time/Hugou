@@ -1,5 +1,6 @@
 #pragma once
-#include "Const.h"
+#include "Const_Geometry.h"
+#include "Const_Font.h"
 #include <QLabel>
 #include <QFile>
 #include <QVBoxLayout>

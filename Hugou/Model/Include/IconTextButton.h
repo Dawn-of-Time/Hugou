@@ -3,7 +3,6 @@
 #include <QPushButton>
 #include <QHBoxLayout>
 #include <QLabel>
-#include "Const.h"
 
 class IconTextButton :
 	public QPushButton
@@ -15,7 +14,7 @@ public:
 
 	void setIcon(QPixmap icon, QSize size) 
 	{
-		icon = icon.scaled(size, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+		//icon = icon.scaled(size, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 		iconZone->setPixmap(icon);
 	};
 

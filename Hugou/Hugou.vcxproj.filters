@@ -101,9 +101,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="View\OperationZone.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="View\PDFEdit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -125,10 +122,10 @@
     <ClCompile Include="View\View_TitleBar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="View\Var.cpp">
+    <ClCompile Include="Include\Var.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="View\WorkSpace.cpp">
+    <ClCompile Include="View\View_Schedule.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Controller\Controller_AsideBar.cpp">
@@ -187,16 +184,10 @@
     <QtMoc Include="Model\Include\IconTextButtonHoverWatcher.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="Model\Include\OperationZone.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <QtMoc Include="Model\Include\SettingsHelper.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="Model\Include\ThemeLoadThread.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="Model\Include\WorkSpace.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="Controller\Include\Controller_Hugou.h">
@@ -229,9 +220,12 @@
     <QtMoc Include="Controller\Include\Controller_Settings.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="View\Include\View_Schedule.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Model\Include\Const.h">
+    <ClInclude Include="Include\Const_Geometry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Model\Include\File.h">
@@ -255,7 +249,7 @@
     <ClInclude Include="Model\Include\ThemeSetting.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Model\Include\Var.h">
+    <ClInclude Include="Include\Var.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="View\Include\ui_FloatingNote.h">
@@ -264,16 +258,22 @@
     <ClInclude Include="View\Include\ui_FloatingNotePanel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="View\Include\ui_OperationZone.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="View\Include\ui_WorkSpace.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="View\Include\View_Welcome.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Model\Include\ConstSuccessNote.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Const_Font.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Const_DefaultTheme.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Const_Settings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Const_Text.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -15,7 +15,7 @@
 #include <QTextLayout>
 #include "ButtonHoverWatcher.h"
 #include "SettingsHelper.h"
-#include "Const.h"
+#include "Const_Text.h"
 
 QT_BEGIN_NAMESPACE
 

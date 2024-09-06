@@ -3,7 +3,7 @@
 #include <QFile>
 #include <QSet>
 #include <QMutex> 
-#include "Const.h"
+#include "Const_Settings.h"
 #include "FloatingNoteManager.h"
 
 extern FloatingNoteManager floatingNoteManager;

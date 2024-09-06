@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>font/Hind-Bold.ttf</file>
         <file>font/HindSiliguri-Light.ttf</file>
         <file>font/HindSiliguri-Regular.ttf</file>
         <file>font/Roboto-Black.ttf</file>
@@ -81,7 +80,6 @@
         <file>theme/Global/floatingNotePanel.qss</file>
         <file>theme/Global/globalTop.qss</file>
         <file>theme/Global/titleBar.qss</file>
-        <file>theme/Global/workSpace.qss</file>
         <file>theme/Spring/asideBar.qss</file>
         <file>theme/Spring/general.qss</file>
         <file>theme/Spring/settings.qss</file>
@@ -91,7 +89,14 @@
         <file>theme/Winter/asideBar.qss</file>
         <file>theme/Winter/general.qss</file>
         <file>theme/Winter/settings.qss</file>
-        <file>icon/schedule_bla.png</file>
-        <file>icon/schedule_blu.png</file>
+        <file>icon/schedule_current_16.png</file>
+        <file>icon/schedule_default_16.png</file>
+        <file>font/HindSiliguri-Bold.ttf</file>
+        <file>font/HindSiliguri-Medium.ttf</file>
+        <file>font/HindSiliguri-SemiBold.ttf</file>
+        <file>icon/document_default_16.png</file>
+        <file>icon/document_current_16.png</file>
+        <file>icon/Hugou_48.png</file>
+        <file>theme/Global/schedule.qss</file>
     </qresource>
 </RCC>
