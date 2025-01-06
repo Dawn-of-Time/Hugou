@@ -32,11 +32,11 @@ void FloatingNotePanel::blurOrClearBlurRequest()
 {
     if (this->isHidden())
     {
-        emit blurBackground();
+        emit SignalBlurBackground();
     }
     else
     {
-        emit clearBackground();
+        emit SignalClearBackground();
     }
 }
 

@@ -32,39 +32,46 @@ QComboBox {
     border: none;
     border-radius: 5px;
     padding: 3px;
-    background-color: #A2CBEE;
+    background-color: #80CFEF;
 }
 
     QComboBox:hover {
         background-color: #5591DC;
     }
 
-    QComboBox QAbstractItemView {
-        outline: none;
-        margin-top: 5px;
+QComboBox QAbstractItemView {
+    outline: none;
+    margin-top: 5px;
+    border-radius: 5px;
+    background-color: #80CFEF;
+}
+
+    QComboBox QAbstractItemView::item:hover {
+        padding: 3px;
+        color: black;
         border-radius: 5px;
-        background-color: #A2CBEE;
+        background-color: #5591DC;
     }
 
-        QComboBox QAbstractItemView::item:hover {
-            padding: 3px;
-            color: black;
-            border-radius: 5px;
-            background-color: #5591DC;
-        }
-
-        QComboBox QAbstractItemView::item:selected {
-            padding: 3px;
-            color: white;
-            border-radius: 5px;
-            background-color: #5591DC;
-        }
-
-    QComboBox::down-arrow {
-        image: url(":/icon/down_bla.png");
-        width: 20px;
-    }  
-
-    QComboBox::drop-down {
-        border: none;
+    QComboBox QAbstractItemView::item:selected {
+        padding: 3px;
+        color: white;
+        border-radius: 5px;
+        background-color: #5591DC;
     }
+
+QComboBox::down-arrow {
+    image: url(":/icon/down_bla.png");
+    width: 20px;
+}  
+
+QComboBox::drop-down {
+    border: none;
+}
+
+QLineEdit {
+    border: none;
+    border-radius: 5px;
+    padding: 3px;
+    background-color: #80CFEF;
+}

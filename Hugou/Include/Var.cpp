@@ -1,7 +1,5 @@
 #include "Var.h"
 
-FloatingNoteManager floatingNoteManager;
-FileManager fileManager;
 double scale = calculateScale();
 
 double calculateScale()

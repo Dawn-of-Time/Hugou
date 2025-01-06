@@ -34,6 +34,7 @@ int main(int argc, char* argv[])
     //    helper->settingsMap["firstBoot"] = "false";
     //    welcomeView.exec();
     //}
+    
     // 主构建
     HugouView hugouView;
     HugouModel hugouModel;

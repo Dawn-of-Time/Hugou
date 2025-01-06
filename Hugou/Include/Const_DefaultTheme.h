@@ -13,7 +13,7 @@ QString("QLabel { padding-left: 6px; color:#666666; background-color: transparen
 + QString("QLabel#userAvatar { padding: 0px; border-radius: 24px; border: none; color: balck; background-color: transparent;} ")
 + QString("QLabel#userNickname { border: none; color: balck; background-color: transparent;} ")
 + QString("QLabel#userID { border: none; color: balck; background-color: transparent;} ")
-+ QString("QPushButton[status=\"default\"]{border-radius: 10px;}")
++ QString("QPushButton[status=\"default\"] { border-radius: 10px; }")
 + QString("QPushButton[status=\"default\"] > QLabel { padding: 0px; margin :0px; color: #434343; background-color: transparent; }")
 + QString("QPushButton[status=\"current\"] { border-radius: 10px;}")
 + QString("QPushButton[status=\"current\"] > QLabel { padding: 0px; margin :0px; color: #377FED; background-color: transparent; }");

@@ -24,6 +24,16 @@ HugouView::HugouView()
         | CS_DBLCLKS
         | WS_THICKFRAME
     );
+    // 为FloatingNoteManager指定Hugou
+    FloatingNoteManager::getManager()->setHugou(this);
+}
+
+void HugouView::scale()
+{
+    if (this->isMaximized())
+        ShowWindow((HWND)winId(), SW_RESTORE);
+    else
+        ShowWindow((HWND)winId(), SW_MAXIMIZE);
 }
 
 void HugouView::setupUi()
@@ -33,6 +43,7 @@ void HugouView::setupUi()
     this->setObjectName("hugou");
     this->setMinimumSize(mainWindowWidth, mainWindowHeight);
     this->resize(960, 640);
+    this->setWindowIcon(QIcon(":/icon/Hugou_48.png"));
 
     // 2 主布局
     m_generalLayout = new QVBoxLayout(this);
@@ -55,15 +66,32 @@ void HugouView::setupUi()
     m_stackedWidgetLayout->setContentsMargins(5, 0, 5, 5);
     m_stackedWidget = new QStackedWidget(m_stackedWidgetContainer);
     m_stackedWidget->setObjectName("stackedWidget");
+    m_stackedWidgetOpacityEffect = new QGraphicsOpacityEffect(m_stackedWidget);
+    m_stackedWidgetOpacityEffect->setOpacity(1);
+    m_stackedWidget->setGraphicsEffect(m_stackedWidgetOpacityEffect);
+    m_stackedWidgetOpacityEffect->setEnabled(false);
+    m_stackedSwitchFadeOutAnimation = new QPropertyAnimation(m_stackedWidgetOpacityEffect, "opacity", m_stackedWidget);
+    m_stackedSwitchFadeOutAnimation->setStartValue(1);
+    m_stackedSwitchFadeOutAnimation->setEndValue(0);
+    m_stackedSwitchFadeOutAnimation->setDuration(200);
+    connect(m_stackedSwitchFadeOutAnimation, &QPropertyAnimation::finished, [&]()
+        {
+            m_stackedWidget->setCurrentIndex(m_objectiveStackedWidgetIndex);
+            m_stackedSwitchFadeInAnimation->start();
+        });
+    m_stackedSwitchFadeInAnimation = new QPropertyAnimation(m_stackedWidgetOpacityEffect, "opacity", m_stackedWidget);
+    m_stackedSwitchFadeInAnimation->setStartValue(0);
+    m_stackedSwitchFadeInAnimation->setEndValue(1);
+    m_stackedSwitchFadeInAnimation->setDuration(200);
+    connect(m_stackedSwitchFadeInAnimation, &QPropertyAnimation::finished, this, &HugouView::disableGraphicsEffect);
     // --------堆叠控件：Schedule
     m_scheduleView = new ScheduleView(m_stackedWidget);
     // --------堆叠控件：Settings
     m_settingsView = new SettingsView(m_stackedWidget);
-
     m_stackedWidget->addWidget(m_scheduleView);
     m_stackedWidget->addWidget(m_settingsView);
     m_stackedWidget->setCurrentWidget(m_scheduleView);
-
+    
     m_stackedWidgetLayout->addWidget(m_stackedWidget);
 
     m_asideBarAndStackedLayout->addWidget(m_asideBarView);
@@ -85,62 +113,28 @@ void HugouView::setupUi()
     m_globalTopView = new GlobalTopView(this);
 
     retranslateUi();
-} 
-
-void HugouView::startToApplyThemeResource(QString theme)
-{
-    m_globalTopView->setSource("qrc:/qml/themeApplyMedia.qml");
-    m_globalTopView->setHint("Upcoming theme: " + theme);
-    m_globalTopView->fadeIn();
-}
-
-bool HugouView::applyThemeResourceForStartup(QString generalStyleSheet, QString asideBarStyleSheet, QString settingsStyleSheet)
-{
-    bool applyFlag = true;
-    if (generalStyleSheet.isEmpty() || asideBarStyleSheet.isEmpty() || settingsStyleSheet.isEmpty())
-    {
-        applyFlag = false;
-        emit SettingsHelper::getHelper()->triggerError(10100);
-        generalStyleSheet = defaultGeneralStyleSheet;
-        asideBarStyleSheet = defaultAsideBarStyleSheet;
-        settingsStyleSheet = defaultSettingsStyleSheet;
-    }
-    this->setStyleSheet(generalStyleSheet);
-    m_asideBarView->setStyleSheet(asideBarStyleSheet);
-    m_settingsView->setStyleSheet(settingsStyleSheet);
-    return applyFlag;
-}
-
-bool HugouView::applyThemeResource(QString generalStyleSheet, QString asideBarStyleSheet, QString settingsStyleSheet)
-{
-    bool applyFlag = true;
-    if (!generalStyleSheet.isEmpty() && !asideBarStyleSheet.isEmpty() && !settingsStyleSheet.isEmpty())
-    {
-        this->setStyleSheet(generalStyleSheet);
-        m_asideBarView->setStyleSheet(asideBarStyleSheet);
-        m_settingsView->setStyleSheet(settingsStyleSheet);
-    }
-    else
-    {
-        applyFlag = false;
-        emit SettingsHelper::getHelper()->triggerError(10100);
-    }
-    return applyFlag;
-}
-
-void HugouView::endToApplyThemeResourceFinished()
-{
-    m_globalTopView->fadeOut();
 }
 
 void HugouView::changeStackedWidget(int index)
 {
-    m_stackedWidget->setCurrentIndex(index);
+    enableGraphicsEffect();
+    m_objectiveStackedWidgetIndex = index;
+    m_stackedSwitchFadeOutAnimation->start();
 }
 
 void HugouView::retranslateUi()
 {
-    this->setWindowTitle(QCoreApplication::translate("HugouClass", "Hugou", nullptr));
+
+}
+
+void HugouView::disableGraphicsEffect()
+{
+    m_stackedWidgetOpacityEffect->setEnabled(false);
+}
+
+void HugouView::enableGraphicsEffect()
+{
+    m_stackedWidgetOpacityEffect->setEnabled(true);
 }
 
 HugouView::Area HugouView::getArea(QPoint mousePos)
@@ -172,68 +166,66 @@ HugouView::Area HugouView::getArea(QPoint mousePos)
 
 QRect HugouView::customScale(Area area, QRect currentMainWindowGeometry, QPoint change)
 {
-    QRect tempMainWindowGeometry = currentMainWindowGeometry;
     QRect newMainWindowGeometry = currentMainWindowGeometry;
-    bool widthInvalid = (tempMainWindowGeometry.width() < mainWindowWidth);
-    bool heightInvalid = (tempMainWindowGeometry.height() < mainWindowHeight);
+    bool widthInvalid = (newMainWindowGeometry.width() < mainWindowWidth);
+    bool heightInvalid = (newMainWindowGeometry.height() < mainWindowHeight);
     switch (area)
     {
     case TOPLEFT:
     {
-        tempMainWindowGeometry.setTopLeft(currentMainWindowGeometry.topLeft() + change);
-        if (heightInvalid) tempMainWindowGeometry.setTop(tempMainWindowGeometry.top() - change.y());
-        if (widthInvalid) tempMainWindowGeometry.setLeft(tempMainWindowGeometry.left() - change.x());
+        newMainWindowGeometry.setTopLeft(currentMainWindowGeometry.topLeft() + change);
+        if (heightInvalid) newMainWindowGeometry.setTop(newMainWindowGeometry.top() - change.y());
+        if (widthInvalid) newMainWindowGeometry.setLeft(newMainWindowGeometry.left() - change.x());
         break;
     }
     case TOP:
     {
-        tempMainWindowGeometry.setTop(currentMainWindowGeometry.top() + change.y());
-        if (heightInvalid) tempMainWindowGeometry.setTop(tempMainWindowGeometry.top() - change.y());
+        newMainWindowGeometry.setTop(currentMainWindowGeometry.top() + change.y());
+        if (heightInvalid) newMainWindowGeometry.setTop(newMainWindowGeometry.top() - change.y());
         break;
     }
     case TOPRIGHT:
     {
-        tempMainWindowGeometry.setTopRight(currentMainWindowGeometry.topRight() + change);
-        if (heightInvalid) tempMainWindowGeometry.setTop(tempMainWindowGeometry.top() - change.y());
-        if (widthInvalid) tempMainWindowGeometry.setRight(tempMainWindowGeometry.right() - change.x());
+        newMainWindowGeometry.setTopRight(currentMainWindowGeometry.topRight() + change);
+        if (heightInvalid) newMainWindowGeometry.setTop(newMainWindowGeometry.top() - change.y());
+        if (widthInvalid) newMainWindowGeometry.setRight(newMainWindowGeometry.right() - change.x());
         break;
     }
     case LEFT:
     {
-        tempMainWindowGeometry.setLeft(currentMainWindowGeometry.left() + change.x());
-        if (widthInvalid) tempMainWindowGeometry.setLeft(tempMainWindowGeometry.left() - change.x());
+        newMainWindowGeometry.setLeft(currentMainWindowGeometry.left() + change.x());
+        if (widthInvalid) newMainWindowGeometry.setLeft(newMainWindowGeometry.left() - change.x());
         break;
     }
     case RIGHT:
     {
-        tempMainWindowGeometry.setRight(currentMainWindowGeometry.right() + change.x());
-        if (widthInvalid) tempMainWindowGeometry.setRight(tempMainWindowGeometry.right() - change.x());
+        newMainWindowGeometry.setRight(currentMainWindowGeometry.right() + change.x());
+        if (widthInvalid) newMainWindowGeometry.setRight(newMainWindowGeometry.right() - change.x());
         break;
     }
     case BOTTOMLEFT:
     {
-        tempMainWindowGeometry.setBottomLeft(currentMainWindowGeometry.bottomLeft() + change);
-        if (heightInvalid) tempMainWindowGeometry.setBottom(tempMainWindowGeometry.bottom() - change.y());
-        if (widthInvalid) tempMainWindowGeometry.setLeft(tempMainWindowGeometry.left() - change.x());
+        newMainWindowGeometry.setBottomLeft(currentMainWindowGeometry.bottomLeft() + change);
+        if (heightInvalid) newMainWindowGeometry.setBottom(newMainWindowGeometry.bottom() - change.y());
+        if (widthInvalid) newMainWindowGeometry.setLeft(newMainWindowGeometry.left() - change.x());
         break;
     }
     case BOTTOM:
     {
-        tempMainWindowGeometry.setBottom(currentMainWindowGeometry.bottom() + change.y());
-        if (heightInvalid) tempMainWindowGeometry.setBottom(tempMainWindowGeometry.bottom() - change.y());
+        newMainWindowGeometry.setBottom(currentMainWindowGeometry.bottom() + change.y());
+        if (heightInvalid) newMainWindowGeometry.setBottom(newMainWindowGeometry.bottom() - change.y());
         break;
     }
     case BOTTOMRIGHT:
     {
-        tempMainWindowGeometry.setBottomRight(currentMainWindowGeometry.bottomRight() + change);
-        if (heightInvalid) tempMainWindowGeometry.setBottom(tempMainWindowGeometry.bottom() - change.y());
-        if (widthInvalid) tempMainWindowGeometry.setRight(tempMainWindowGeometry.right() - change.x());
+        newMainWindowGeometry.setBottomRight(currentMainWindowGeometry.bottomRight() + change);
+        if (heightInvalid) newMainWindowGeometry.setBottom(newMainWindowGeometry.bottom() - change.y());
+        if (widthInvalid) newMainWindowGeometry.setRight(newMainWindowGeometry.right() - change.x());
         break;
     }
     case NOTAREA: { break; }
     default: { break; }
     }
-    newMainWindowGeometry = tempMainWindowGeometry;
     return newMainWindowGeometry;
 }
 
@@ -253,6 +245,12 @@ void HugouView::clearBlur()
 {
     m_blurWidget->setHidden(true);
     m_floatingNotePanel->switchPanel();
+}
+
+void HugouView::closeHugou()
+{
+    SettingsHelper::getHelper()->syncSettings();
+    this->close();
 }
 
 // 父类函数重写
@@ -298,14 +296,13 @@ bool HugouView::nativeEvent(const QByteArray& eventType, void* message, qintptr*
         default: { break; }
         }
 
-        QPushButton* button = m_titleBarView->m_scaledButton;
+        QPushButton* button = m_titleBarView->m_scaleButton;
         QPoint localPos = button->mapFromGlobal(globalPos);
         if (m_titleBarView->isOnMaxButton(windowPos))
         {
             // 这里的触发机制如下：
             // 当控件未接受到Enter事件时，undermouse()返回false。因此，在鼠标首次悬浮于最大化按钮之上时（undermouse()为false），
             // 发送Enter事件，此后当鼠标在最大化按钮区域内移动时，undermouse()为true。
-            setCursor(QCursor(Qt::PointingHandCursor));
             QMouseEvent mouseEvent = QMouseEvent(button->underMouse() ? QEvent::MouseMove : QEvent::Enter, localPos, globalPos, Qt::NoButton, Qt::NoButton, Qt::NoModifier);
             QCoreApplication::sendEvent(button, &mouseEvent);
             button->update();
@@ -317,7 +314,6 @@ bool HugouView::nativeEvent(const QByteArray& eventType, void* message, qintptr*
             if (button->underMouse())
             {
                 // 同样的，只有接受到Leave事件后，undermouse()才返回false。
-                setCursor(QCursor(Qt::ArrowCursor));
                 QMouseEvent mouseEvent = QMouseEvent(QEvent::Leave, localPos, globalPos, Qt::NoButton, Qt::NoButton, Qt::NoModifier);
                 QCoreApplication::sendEvent(button, &mouseEvent);
                 button->update();
@@ -330,7 +326,7 @@ bool HugouView::nativeEvent(const QByteArray& eventType, void* message, qintptr*
     case WM_NCLBUTTONDOWN:
     {
         if (msg->wParam == HTMAXBUTTON) {
-            QPushButton* button = m_titleBarView->m_scaledButton;
+            QPushButton* button = m_titleBarView->m_scaleButton;
             QMouseEvent mouseEvent = QMouseEvent(QEvent::MouseButtonPress, QPoint(), QPoint(), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
             QCoreApplication::sendEvent(button, &mouseEvent);
             *result = HTNOWHERE;
@@ -341,7 +337,7 @@ bool HugouView::nativeEvent(const QByteArray& eventType, void* message, qintptr*
     case WM_NCLBUTTONUP:
     {
         if (msg->wParam == HTMAXBUTTON) {
-            QPushButton* button = m_titleBarView->m_scaledButton;
+            QPushButton* button = m_titleBarView->m_scaleButton;
             QMouseEvent mouseEvent = QMouseEvent(QEvent::MouseButtonRelease, QPoint(), QPoint(), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
             QCoreApplication::sendEvent(button, &mouseEvent);
             return true;
@@ -363,38 +359,40 @@ bool HugouView::nativeEvent(const QByteArray& eventType, void* message, qintptr*
 }
 
 void HugouView::changeEvent(QEvent* event) {
+    QWidget::changeEvent(event);
     if (event->type() == QEvent::WindowStateChange) {
         switch (windowState()) {
         case Qt::WindowMaximized: {
-            m_titleBarView->m_scaledButton->setIcon(QIcon(":/icon/restore_w.png"));
+            m_titleBarView->m_scaleButton->setIcon(QIcon(":/icon/restore.png"));
             int border = GetSystemMetrics(SM_CXSIZEFRAME);
             setContentsMargins(border, border, border, border);
             break;
         }
         case Qt::WindowNoState:
-            m_titleBarView->m_scaledButton->setIcon(QIcon(":/icon/maximum_w.png"));
+            m_titleBarView->m_scaleButton->setIcon(QIcon(":/icon/maximum.png"));
             setContentsMargins(0, 0, 0, 0);
             break;
         default:
             break;
         }
     }
-    QWidget::changeEvent(event);
 }
+
 
 void HugouView::resizeEvent(QResizeEvent* event)
 {
     QWidget::resizeEvent(event);
+    FloatingNoteManager* floatingNoteManager = FloatingNoteManager::getManager();
     // 浮动消息
-    if (floatingNoteManager.isAnimating || (floatingNoteManager.getShownFloatingNote()))
+    if (floatingNoteManager->isAnimating || (floatingNoteManager->getShownFloatingNote()))
     {
         //qDebug() << "***Start adjusting***";
-        floatingNoteManager.adjustFloatingNote(this);
+        floatingNoteManager->adjustFloatingNote();
     }
 
     // 设置页表单
     m_settingsView->adjustSizeHint();
-
+    
     m_floatingNotePanel->updateUi();
     m_blurWidget->resize(this->width(), this->height() - titleFrameHeight);
     m_globalTopView->updateUi(this);
@@ -408,4 +406,15 @@ void HugouView::resizeEvent(QResizeEvent* event)
         m_blurWidget->setPalette(palette);
         m_blurWidget->setAutoFillBackground(true);
     }
+
+    if (m_stackedSwitchFadeInAnimation->state() == QPropertyAnimation::Running ||
+        m_stackedSwitchFadeOutAnimation->state() == QPropertyAnimation::Running)
+    {
+        m_stackedSwitchFadeInAnimation->stop();
+        m_stackedSwitchFadeOutAnimation->stop();
+        m_stackedWidgetOpacityEffect->setOpacity(1);
+        disableGraphicsEffect();
+        m_stackedWidget->setCurrentIndex(m_objectiveStackedWidgetIndex);
+    }
 }
+

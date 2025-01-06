@@ -3,7 +3,7 @@
 #include "Var.h"
 #include "View_Settings.h"
 #include "Model_Settings.h"
-#include "SettingsHelper.h"
+#include "Assistance_SettingsHelper.h"
 
 class SettingsController : public QObject
 {
@@ -12,6 +12,7 @@ class SettingsController : public QObject
 
 public:
     SettingsController(SettingsView* settingsView, SettingsModel* settingsModel);
+    void updateThemeComboboxValue(QString value);        // 通过程序修改值，不触发相关槽函数
     bool m_userChanged = true;
 
 signals:

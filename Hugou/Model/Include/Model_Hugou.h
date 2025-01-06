@@ -9,11 +9,9 @@
 #include <thread>
 #include <chrono>
 #include "Var.h"
-#include "SettingsHelper.h"
+#include "Assistance_SettingsHelper.h"
+#include "Model_Schedule.h"
 #include "Model_Settings.h"
-#include "Const_DefaultTheme.h"
-
-extern FloatingNoteManager floatingNoteManager;
 
 class HugouController;
 
@@ -25,11 +23,8 @@ class HugouModel : public QObject
 public:
     HugouModel();
     ~HugouModel();
-    inline void setTheme(QString theme) { m_theme = theme; };
-    QString getTheme();
 
 private:
-    QString m_theme = "";
     friend class HugouController;
     struct ThemeResource
     {
@@ -38,8 +33,7 @@ private:
         QString settingsStyleSheet;
     };
     QStringList styleFileNameList = { "general", "asideBar", "settings" };
-    ThemeResource loadThemeResource(QString theme);
-    ThemeResource getDefaultThemeResource();
 
     SettingsModel* m_settingsModel;
+    ScheduleModel* m_scheduleModel;
 };

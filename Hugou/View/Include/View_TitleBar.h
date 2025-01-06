@@ -7,6 +7,7 @@
 #include "Const_Geometry.h"
 #include "FloatingNote.h"
 #include "ButtonHoverWatcher.h"
+#include "Assistance_FloatingNoteManager.h"
 
 
 QT_BEGIN_NAMESPACE
@@ -23,10 +24,12 @@ public:
     bool isOnDragZone(QPoint windowPos);
 
 signals:
-    void floatingNotePanelButtonClicked();
+    void SignalMinimizeButtonClicked();
+    void SignalScaleButtonClicked();
+    void SignalCloseButtonClicked();
+    void SignalFloatingNotePanelButtonClicked();
 private:
     friend class HugouView;
-    QWidget* m_parent;
     QHBoxLayout* m_titleLayout;
     QLabel* m_dragZone;
     QLabel* m_floatingNotePanelLabel;
@@ -59,18 +62,16 @@ private:
     std::vector<QLabel*> m_notePointQueue;
     QPushButton* m_helpButton;
     QPushButton* m_minimizeButton;
-    QPushButton* m_scaledButton;
+    QPushButton* m_scaleButton;
     QPushButton* m_closeButton;
     ButtonHoverWatcher* m_floatingNotePanelButtonHoverWatcher;
     //ButtonHoverWatcher* closeButtonHoverWatcher;
     //ButtonHoverWatcher* scaledButtonHoverWatcher;
 
     void setupUi();
-    void scale();
     void slideFloatingNotePoint();
     void floatFloatingNotePoint();
     void allocateFloatingNotePoint();
-    void mouseDoubleClickEvent(QMouseEvent* event) { scale(); }
 
     //void paintEvent(QPaintEvent* event) override;
 };

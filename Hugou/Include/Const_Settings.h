@@ -7,20 +7,22 @@
 
 const QStringList settingsGroupList = {
 	"Common",
-	"Export"
+	"Task",
 };
 const QStringList settingsKeyList = {
-	{"firstBoot", "theme", "language", "defaultSavePath"}
+	{"firstBoot", "theme", "language", "recycleBin", "retentionPeriod"}
 };
 // "invalid"不能是值。
 const QMap<QString, QStringList> settingsValueMap = {
 	{"firstBoot", {"true", "false"}},
 	{"theme", {"Default", "Spring", "Summer", "Autumn", "Winter"}},
-	{"language", {"English"}}
+	{"language", {"English"}}, 
+	{"recycleBin", {"on", "off"}}
 };
 const QMap<QString, QString> defalutSettingsValueMap = {
 	{"firstBoot", "false"},
 	{"theme", "Default"},
 	{"language", "English"},
-	{"defaultSavePath", ""}
+	{"recycleBin", "on"},
+	{"retentionPeriod", "30"}
 };

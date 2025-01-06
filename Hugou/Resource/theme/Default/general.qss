@@ -1,7 +1,7 @@
 /* Ö÷´°Ìå */
 
 HugouView#hugou {
-    background-color: #3763BE;
+    background-color: #F0F4FD;
 }
 
 QWidget#asideBarAndStackedWidget {
@@ -9,6 +9,8 @@ QWidget#asideBarAndStackedWidget {
 }
 
 QStackedWidget#stackedWidget {
+    margin-bottom: 10px;
+    margin-right: 10px;
     border-radius: 10px;
-    background-color: rgba(255,255,255,0.8);
+    background-color: rgba(255, 255, 255, 0.8);
 }

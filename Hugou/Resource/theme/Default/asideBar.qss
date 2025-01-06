@@ -15,12 +15,12 @@ QPushButton[status="default"] {
 	border-radius: 10px;
 	padding-top: 10px;
 	padding-bottom: 10px;
-	color: white;
+	color: black;
 	background-color: transparent;
 }
 
 	QPushButton[status="default"] > QLabel {
-		color: white;
+		color: black;
 		background-color: transparent;
 	}
 

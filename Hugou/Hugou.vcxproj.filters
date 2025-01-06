@@ -62,25 +62,16 @@
     <ClCompile Include="View\View_AsideBar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="View\ButtonHoverWatcher.cpp">
+    <ClCompile Include="Assistance\ButtonHoverWatcher.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="View\ComboboxWheelWatcher.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="View\File.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="View\FileImportDialog.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="View\FileManager.cpp">
+    <ClCompile Include="Assistance\Assistance_ComboboxWheelWatcher.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="View\FloatingNote.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="View\FloatingNoteManager.cpp">
+    <ClCompile Include="Assistance\Assistance_FloatingNoteManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="View\FloatingNotePanel.cpp">
@@ -95,28 +86,16 @@
     <ClCompile Include="View\IconTextButton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="View\IconTextButtonHoverWatcher.cpp">
+    <ClCompile Include="Assistance\IconTextButtonHoverWatcher.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="View\PDFEdit.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="View\PDFParse.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="View\PDFtoWord.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="View\View_Settings.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="View\SettingsHelper.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="View\ThemeLoadThread.cpp">
+    <ClCompile Include="Assistance\Assistance_SettingsHelper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="View\View_TitleBar.cpp">
@@ -152,24 +131,39 @@
     <ClCompile Include="Controller\Controller_Settings.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="View\SettingItem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Model\Model_Schedule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Controller\Controller_Schedule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Assistance\Assistance_ThemeManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Database\Database.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="View\View_TaskSetting.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="Model\Include\ButtonHoverWatcher.h">
+    <QtMoc Include="Assistance\Include\ButtonHoverWatcher.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="Model\Include\ComboboxWheelWatcher.h">
+    <QtMoc Include="Assistance\Include\Assistance_ComboboxWheelWatcher.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="Model\Include\FileImportDialog.h">
+    <QtMoc Include="View\Include\FloatingNote.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="Model\Include\FloatingNote.h">
+    <QtMoc Include="Assistance\Include\Assistance_FloatingNoteManager.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="Model\Include\FloatingNoteManager.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="Model\Include\FloatingNotePanel.h">
+    <QtMoc Include="View\Include\FloatingNotePanel.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="View\Include\View_GlobalTop.h">
@@ -178,16 +172,13 @@
     <QtMoc Include="Model\Include\Model_Hugou.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="Model\Include\IconTextButton.h">
+    <QtMoc Include="View\Include\IconTextButton.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="Model\Include\IconTextButtonHoverWatcher.h">
+    <QtMoc Include="Assistance\Include\IconTextButtonHoverWatcher.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="Model\Include\SettingsHelper.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="Model\Include\ThemeLoadThread.h">
+    <QtMoc Include="Assistance\Include\Assistance_SettingsHelper.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="Controller\Include\Controller_Hugou.h">
@@ -223,36 +214,24 @@
     <QtMoc Include="View\Include\View_Schedule.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="Assistance\Include\Assistance_ThemeManager.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Controller\Include\Controller_Schedule.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Database\Include\Database.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="View\Include\View_TaskSetting.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Const_Geometry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Model\Include\File.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Model\Include\FileManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Model\Include\PDFEdit.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Model\Include\PDFParse.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Model\Include\PDFtoWord.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Model\Include\Theme.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Model\Include\ThemeSetting.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Include\Var.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="View\Include\ui_FloatingNote.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="View\Include\ui_FloatingNotePanel.h">
@@ -261,7 +240,7 @@
     <ClInclude Include="View\Include\View_Welcome.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Model\Include\ConstSuccessNote.h">
+    <ClInclude Include="Include\Const_SuccessNote.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Include\Const_Font.h">
@@ -276,11 +255,15 @@
     <ClInclude Include="Include\Const_Text.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Hugou.ico">
-      <Filter>Resource Files</Filter>
-    </Image>
+    <ClInclude Include="View\Include\SettingItem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Model\Include\Model_Schedule.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Struct_Task.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Configuration\conf.ini" />
@@ -296,5 +279,10 @@
     <ResourceCompile Include="Resource\Hugou.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <QtTranslation Include="Translation_zh.ts">
+      <Filter>Translation Files</Filter>
+    </QtTranslation>
   </ItemGroup>
 </Project>

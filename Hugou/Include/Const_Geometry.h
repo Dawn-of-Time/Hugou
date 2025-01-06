@@ -19,7 +19,8 @@ const int asideBarWidth = 200;
 const int asideBarHeight = mainWindowHeight - titleFrameHeight;
 const int asideUserWidgetHeight = 48;
 const int asideUserAvaterSide = asideUserWidgetHeight;
-const int asideTitleHeight = 10;
+const int asideTitleHeight = 12;
+const int asideButtonWidth = 140;
 const int asideButtonHeight = 35;
 const QSize asideButtonIconSize = QSize(18, 18);
 // 主页

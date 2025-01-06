@@ -15,7 +15,7 @@ const QFont tableSubcontentFont = QFont("Roboto", 10);
 // 侧边栏
 const QFont asideNicknameFont = QFont("Hind Siliguri", 13, QFont::DemiBold);
 const QFont asideIDFont = QFont("Hind Siliguri", 8, QFont::Thin);
-const QFont asideTitleFont = QFont("Hind Siliguri", 10, QFont::Medium);
+const QFont asideTitleFont = QFont("Work Sans", 10, QFont::DemiBold);
 const QFont asideButtonFont = QFont("Hind Siliguri", 13, QFont::Medium);
 // 浮动消息
 const QFont signFont = QFont("Hind Siliguri", 16);
@@ -27,4 +27,5 @@ const QFont floatingNotePanelButtonFont = QFont("Roboto", 14, QFont::Bold);
 const QFont hintFont = QFont("Roboto", 18, QFont::Normal);
 
 // 计划表
-const QFont viewSwitchButtonFont = QFont("Hind Siliguri", 16);
+const QFont viewSwitchButtonFont = QFont("Hind Siliguri", 13);
+const QFont weekdayFont = QFont("Work Sans", 10, QFont::DemiBold);

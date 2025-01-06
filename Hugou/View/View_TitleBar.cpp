@@ -1,20 +1,15 @@
 #include "View_TitleBar.h"
-#include "Var.h"
-
-extern FloatingNoteManager floatingNoteManager;
 
 TitleBarView::TitleBarView(QWidget* parent) :
-	QWidget(parent)
+    QWidget(parent)
 {
 	setupUi();
-    // 父子关系（由子至父）：TitleBar->titleBarAndStackedWidget->HugouClass
-    this->m_parent = parent;
-
-	connect(m_minimizeButton, &QPushButton::clicked, m_parent, &QWidget::showMinimized);
-    connect(m_scaledButton, &QPushButton::clicked, this, &TitleBarView::scale);
-	connect(m_closeButton, &QPushButton::clicked, m_parent, &QWidget::close);
-    connect(m_floatingNotePanelButton, &QPushButton::clicked, [&]() {emit floatingNotePanelButtonClicked(); });
-    connect(&floatingNoteManager, &FloatingNoteManager::SignalAnimationFinishedToTitleBar, this, &TitleBarView::slideFloatingNotePoint);
+    
+    connect(m_minimizeButton, &QPushButton::clicked, [&]() {emit SignalMinimizeButtonClicked(); });
+    connect(m_scaleButton, &QPushButton::clicked, [&]() {emit SignalScaleButtonClicked(); });
+	connect(m_closeButton, &QPushButton::clicked, [&]() {emit SignalCloseButtonClicked(); });
+    connect(m_floatingNotePanelButton, &QPushButton::clicked, [&]() {emit SignalFloatingNotePanelButtonClicked(); });
+    connect(FloatingNoteManager::getManager(), &FloatingNoteManager::SignalAnimationFinishedToTitleBar, this, &TitleBarView::slideFloatingNotePoint);
 }
 
 void TitleBarView::setupUi()
@@ -74,7 +69,6 @@ void TitleBarView::setupUi()
     /*floatingNotePanelButtonHoverWatcher = new ButtonHoverWatcher(floatingNotePanelButtonBackground, "transparent", "background: qradialgradient(cx:0.5, cy:0.5, fx:0.5, fy:0.5, radius:0.65, stop:0 rgba(255, 255, 255, 0.5), stop:0.8 rgba(255, 255, 255, 0), stop:1 rgba(255, 255, 255, 0));", titleBar);
     floatingNotePanelButton->installEventFilter(floatingNotePanelButtonHoverWatcher);*/
     m_floatingNotePanelButton->raise();
-    m_floatingNotePanelButton->setCursor(QCursor(Qt::PointingHandCursor));
 
     // 帮助按钮
     m_helpButton = new QPushButton(this);
@@ -82,33 +76,24 @@ void TitleBarView::setupUi()
     m_helpButton->setIcon(QIcon(":/icon/help_b.png"));
     m_helpButton->setIconSize(titleButtonIconSize);
     m_helpButton->setFixedSize(titleButtonWidth, titleButtonHeight);
-    m_helpButton->setCursor(QCursor(Qt::PointingHandCursor));
 
     // 最小化按钮
     m_minimizeButton = new QPushButton(this);
     m_minimizeButton->setObjectName("minimizeButton");
-    m_minimizeButton->setIcon(QIcon(":/icon/minimize_b.png"));
-    m_minimizeButton->setIconSize(titleButtonIconSize);
+    m_minimizeButton->setIcon(QIcon(":/icon/minimum.png"));
     m_minimizeButton->setFixedSize(titleButtonWidth, titleButtonHeight);
-    m_minimizeButton->setCursor(QCursor(Qt::PointingHandCursor));
 
     // 最大化/还原按钮
-    m_scaledButton = new QPushButton(this);
-    m_scaledButton->setObjectName("scaledButton");
-    m_scaledButton->setIcon(QIcon(":/icon/maximum_bla.png"));
-    m_scaledButton->setIconSize(titleButtonIconSize);
-    m_scaledButton->setFixedSize(titleButtonWidth, titleButtonHeight);
-    m_scaledButton->setCursor(QCursor(Qt::PointingHandCursor));
-    /*scaledButtonHoverWatcher = new ButtonHoverWatcher(QString(":/icon/island_b.png"), QString(":/icon/island_w.png"), titleBar);
-    scaledButton->installEventFilter(scaledButtonHoverWatcher);*/
+    m_scaleButton = new QPushButton(this);
+    m_scaleButton->setObjectName("scaledButton");
+    m_scaleButton->setIcon(QIcon(":/icon/maximum.png"));
+    m_scaleButton->setFixedSize(titleButtonWidth, titleButtonHeight);
 
     // 关闭按钮
     m_closeButton = new QPushButton(this);
     m_closeButton->setObjectName("closeButton");
-    m_closeButton->setIcon(QIcon(":/icon/close_bla.png"));
-    m_closeButton->setIconSize(titleButtonIconSize);
+    m_closeButton->setIcon(QIcon(":/icon/close.png"));
     m_closeButton->setFixedSize(titleButtonWidth, titleButtonHeight);
-    m_closeButton->setCursor(QCursor(Qt::PointingHandCursor));
     /*closeButtonHoverWatcher = new ButtonHoverWatcher(QString(":/icon/close_bla.png"), QString(":/icon/close_w.png"), titleBar);
     closeButton->installEventFilter(closeButtonHoverWatcher);*/
 
@@ -116,7 +101,7 @@ void TitleBarView::setupUi()
     m_titleLayout->addWidget(m_floatingNotePanelLabel);
     m_titleLayout->addWidget(m_helpButton);
     m_titleLayout->addWidget(m_minimizeButton);
-    m_titleLayout->addWidget(m_scaledButton);
+    m_titleLayout->addWidget(m_scaleButton);
     m_titleLayout->addWidget(m_closeButton);
 
     // 样式表设置
@@ -127,12 +112,6 @@ void TitleBarView::setupUi()
 }
 
 // 槽函数
-void TitleBarView::scale()
-{
-    if (m_parent->isMaximized()) m_parent->showNormal();
-    else m_parent->showMaximized();
-}
-
 void TitleBarView::slideFloatingNotePoint()
 {
     QParallelAnimationGroup* parallelGroup = new QParallelAnimationGroup;
@@ -152,7 +131,7 @@ void TitleBarView::floatFloatingNotePoint()
 {
     QPropertyAnimation* animation0 = new QPropertyAnimation(m_notePointQueue[4], "pos", m_floatingNoteQueue);
     // 设置消息点必须在移动动画之后
-    m_notePointQueue[4]->setPixmap(m_typePixmap[floatingNoteManager.getLatestHiddenFloatingNote()->type]);
+    m_notePointQueue[4]->setPixmap(m_typePixmap[FloatingNoteManager::getManager()->getLatestHiddenFloatingNote()->m_type]);
     animation0->setDuration(100);
     animation0->setStartValue(QPoint(5, 15));
     animation0->setEndValue(QPoint(5, 0));
@@ -167,17 +146,17 @@ void TitleBarView::allocateFloatingNotePoint()
     m_notePointQueue.pop_back();
     for (int i = 0; i < 5; ++i) m_queueLayout->removeWidget(m_notePointQueue[i]);
     for (int i = 0; i < 5; ++i) m_queueLayout->addWidget(m_notePointQueue[i]);
-    floatingNoteManager.checkPopupQueue();
+    FloatingNoteManager::getManager()->checkPopupQueue();
 }
 
 bool TitleBarView::isOnMaxButton(QPoint windowPos)
 {
-    return QRect(m_scaledButton->mapTo(m_parent, QPoint(0, 0)), m_scaledButton->size()).contains(windowPos);
+    return QRect(m_scaleButton->mapTo(this->parentWidget(), QPoint(0, 0)), m_scaleButton->size()).contains(windowPos);
 }
 
 bool TitleBarView::isOnDragZone(QPoint windowPos)
 {
-    return QRect(m_dragZone->mapTo(m_parent, QPoint(0, 0)), m_dragZone->size()).contains(windowPos);
+    return QRect(m_dragZone->mapTo(this->parentWidget(), QPoint(0, 0)), m_dragZone->size()).contains(windowPos);
 }
 
 //void TitleBarView::paintEvent(QPaintEvent* event) {

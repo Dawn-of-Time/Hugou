@@ -19,9 +19,6 @@
         <file>icon/appearance.png</file>
         <file>icon/browse_bla.png</file>
         <file>icon/browse_blu.png</file>
-        <file>icon/close_bla.png</file>
-        <file>icon/close_blu.png</file>
-        <file>icon/close_w.png</file>
         <file>icon/common.png</file>
         <file>icon/country_region.png</file>
         <file>icon/dealLater_b.png</file>
@@ -44,13 +41,9 @@
         <file>icon/information.png</file>
         <file>icon/island_b.png</file>
         <file>icon/island_w.png</file>
-        <file>icon/maximum_w.png</file>
-        <file>icon/minimize_b.png</file>
-        <file>icon/minimize_w.png</file>
         <file>icon/P_b.png</file>
         <file>icon/P_r.png</file>
         <file>icon/P_w.png</file>
-        <file>icon/restore_w.png</file>
         <file>icon/save_bla.png</file>
         <file>icon/save_blu.png</file>
         <file>icon/search_bla.png</file>
@@ -98,5 +91,16 @@
         <file>icon/document_current_16.png</file>
         <file>icon/Hugou_48.png</file>
         <file>theme/Global/schedule.qss</file>
+        <file>icon/schedule_current_24.png</file>
+        <file>icon/schedule_default_24.png</file>
+        <file>icon/close.png</file>
+        <file>icon/maximum.png</file>
+        <file>icon/minimum.png</file>
+        <file>icon/restore.png</file>
+        <file>icon/enter.png</file>
+        <file>font/WorkSans-Light.ttf</file>
+        <file>font/WorkSans-Regular.ttf</file>
+        <file>font/WorkSans-Medium.ttf</file>
+        <file>font/WorkSans-SemiBold.ttf</file>
     </qresource>
 </RCC>

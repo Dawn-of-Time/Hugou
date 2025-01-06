@@ -4,8 +4,14 @@ SettingsView::SettingsView(QWidget* parent) :
 	QWidget(parent)
 {
 	setupUi();
-    SettingsHelper* helper = SettingsHelper::getHelper();
-    settingsComboboxMap["themeBox"]->setCurrentText(helper->m_settingsMap["theme"]);
+}
+
+SettingsView::~SettingsView()
+{
+    for (SettingItem* item : m_settingsItemList)
+    {
+        delete item;
+    }
 }
 
 void SettingsView::setupUi()
@@ -84,7 +90,7 @@ void SettingsView::formTree()
     item1->setIcon(0, QIcon(":/icon/common.png"));
     m_settingsTreeWidget->addTopLevelItem(item1);
     QTreeWidgetItem* item2 = new QTreeWidgetItem(m_settingsTreeWidget);
-    item2->setText(0, "Export");
+    item2->setText(0, "Task");
     item2->setIcon(0, QIcon(":/icon/export.png"));
     m_settingsTreeWidget->addTopLevelItem(item2);
 
@@ -95,6 +101,9 @@ void SettingsView::formTree()
     QTreeWidgetItem* item1_2 = new QTreeWidgetItem(item1);
     item1_2->setText(0, "Country/Region");
     item1_2->setIcon(0, QIcon(":/icon/country_region.png"));
+    QTreeWidgetItem* item2_1 = new QTreeWidgetItem(item2);
+    item2_1->setText(0, "Recycle Bin");
+    item2_1->setIcon(0, QIcon(":/icon/country_region.png"));
 }
 
 void SettingsView::formContentList()
@@ -105,10 +114,9 @@ void SettingsView::formContentList()
 
     headSpaceItem->setSizeHint(QSize(m_settingsContentListWidget->width(), 10));
     m_settingsContentListWidget->setItemWidget(headSpaceItem, headSpace);
-
-    for (SettingItem* item : settingsItemList)
+    for (SettingItem* item : m_settingsItemList)
     {
-        item->generateSettingItem(m_settingsContentListWidget);
+        item->generateSettingItem(m_settingsContentListWidget, m_settingMap);
     }
 
     // 不可选定
@@ -226,10 +234,10 @@ void SettingsView::searchSettings()
 
 void SettingsView::adjustSizeHint()
 {
-    if (hintItemLabelMap.size())
+    if (m_settingMap.hintItemLabelMap.size())
     {
-        for (QListWidgetItem* const &item : hintItemLabelMap.keys()) {
-            QLabel* label = hintItemLabelMap.value(item);
+        for (QListWidgetItem* const &item : m_settingMap.hintItemLabelMap.keys()) {
+            QLabel* label = m_settingMap.hintItemLabelMap.value(item);
             QFontMetrics fontMetrics(label->font());
             int newHeight = fontMetrics.boundingRect(QRect(0, 0, label->width(), fontMetrics.height()), Qt::TextWordWrap, label->text()).height();
             label->setFixedHeight(newHeight);

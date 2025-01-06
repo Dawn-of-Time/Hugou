@@ -21,82 +21,75 @@
     <ClCompile Include="Controller\Controller_Hugou.cpp" />
     <ClCompile Include="Controller\Controller_Welcome.cpp" />
     <ClCompile Include="Controller\Controller_Settings.cpp" />
+    <ClCompile Include="Controller\Controller_Schedule.cpp" />
+    <ClCompile Include="Database\Database.cpp" />
     <ClCompile Include="Model\Model_Welcome.cpp" />
     <ClCompile Include="Model\Model_Settings.cpp" />
+    <ClCompile Include="Model\Model_Schedule.cpp" />
+    <ClCompile Include="Assistance\Assistance_ThemeManager.cpp" />
+    <ClCompile Include="View\SettingItem.cpp" />
     <ClCompile Include="View\View_AsideBar.cpp" />
-    <ClCompile Include="View\ButtonHoverWatcher.cpp" />
-    <ClCompile Include="View\ComboboxWheelWatcher.cpp" />
-    <ClCompile Include="View\File.cpp" />
-    <ClCompile Include="View\FileImportDialog.cpp" />
-    <ClCompile Include="View\FileManager.cpp" />
+    <ClCompile Include="Assistance\ButtonHoverWatcher.cpp" />
+    <ClCompile Include="Assistance\Assistance_ComboboxWheelWatcher.cpp" />
     <ClCompile Include="View\FloatingNote.cpp" />
-    <ClCompile Include="View\FloatingNoteManager.cpp" />
+    <ClCompile Include="Assistance\Assistance_FloatingNoteManager.cpp" />
     <ClCompile Include="View\FloatingNotePanel.cpp" />
     <ClCompile Include="View\View_GlobalTop.cpp" />
     <ClCompile Include="Model\Model_Hugou.cpp" />
     <ClCompile Include="View\IconTextButton.cpp" />
-    <ClCompile Include="View\IconTextButtonHoverWatcher.cpp" />
+    <ClCompile Include="Assistance\IconTextButtonHoverWatcher.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="View\View_Hugou.cpp" />
-    <ClCompile Include="View\PDFEdit.cpp" />
-    <ClCompile Include="View\PDFParse.cpp" />
-    <ClCompile Include="View\PDFtoWord.cpp" />
     <ClCompile Include="View\View_Settings.cpp" />
-    <ClCompile Include="View\SettingsHelper.cpp" />
-    <ClCompile Include="View\ThemeLoadThread.cpp" />
+    <ClCompile Include="Assistance\Assistance_SettingsHelper.cpp" />
     <ClCompile Include="View\View_TitleBar.cpp" />
     <ClCompile Include="Include\Var.cpp" />
     <ClCompile Include="View\View_Schedule.cpp" />
     <ClCompile Include="View\View_Welcome.cpp" />
+    <ClCompile Include="View\View_TaskSetting.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="Model\Include\ButtonHoverWatcher.h" />
+    <QtMoc Include="Assistance\Include\ButtonHoverWatcher.h" />
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="Model\Include\ComboboxWheelWatcher.h" />
+    <QtMoc Include="Assistance\Include\Assistance_ComboboxWheelWatcher.h" />
   </ItemGroup>
   <ItemGroup>
+    <QtMoc Include="View\Include\View_TaskSetting.h" />
     <QtMoc Include="Controller\Include\Controller_AsideBar.h" />
     <QtMoc Include="Model\Include\Model_Welcome.h" />
     <QtMoc Include="Controller\Include\Controller_Welcome.h" />
     <QtMoc Include="Model\Include\Model_Settings.h" />
     <QtMoc Include="Controller\Include\Controller_Settings.h" />
+    <QtMoc Include="Controller\Include\Controller_Schedule.h" />
+    <QtMoc Include="Database\Include\Database.h" />
     <ClInclude Include="Include\Const_Text.h" />
     <ClInclude Include="Include\Const_Settings.h" />
     <ClInclude Include="Include\Const_DefaultTheme.h" />
     <ClInclude Include="Include\Const_Font.h" />
-    <ClInclude Include="Model\Include\ConstSuccessNote.h" />
+    <ClInclude Include="Include\Const_SuccessNote.h" />
+    <ClInclude Include="Include\Struct_Task.h" />
+    <ClInclude Include="Model\Include\Model_Schedule.h" />
+    <QtMoc Include="Assistance\Include\Assistance_ThemeManager.h" />
+    <ClInclude Include="View\Include\SettingItem.h" />
     <ClInclude Include="View\Include\View_Welcome.h" />
     <QtMoc Include="Controller\Include\Controller_Hugou.h" />
     <ClInclude Include="Include\Const_Geometry.h" />
-    <ClInclude Include="Model\Include\File.h" />
-    <ClInclude Include="Model\Include\FileManager.h" />
-    <ClInclude Include="Model\Include\PDFEdit.h" />
-    <ClInclude Include="Model\Include\PDFParse.h" />
-    <ClInclude Include="Model\Include\PDFtoWord.h" />
-    <ClInclude Include="Model\Include\Theme.h" />
-    <ClInclude Include="Model\Include\ThemeSetting.h" />
     <ClInclude Include="Include\Var.h" />
     <QtMoc Include="View\Include\View_AsideBar.h" />
-    <ClInclude Include="View\Include\ui_FloatingNote.h" />
     <ClInclude Include="View\Include\ui_FloatingNotePanel.h" />
     <QtMoc Include="View\Include\View_Hugou.h" />
     <QtMoc Include="View\Include\View_Settings.h" />
     <QtMoc Include="View\Include\View_TitleBar.h" />
     <QtMoc Include="View\Include\View_Schedule.h" />
-    <QtMoc Include="Model\Include\ThemeLoadThread.h" />
-    <QtMoc Include="Model\Include\SettingsHelper.h" />
-    <QtMoc Include="Model\Include\IconTextButtonHoverWatcher.h" />
-    <QtMoc Include="Model\Include\IconTextButton.h" />
+    <QtMoc Include="Assistance\Include\Assistance_SettingsHelper.h" />
+    <QtMoc Include="Assistance\Include\IconTextButtonHoverWatcher.h" />
+    <QtMoc Include="View\Include\IconTextButton.h" />
     <QtMoc Include="Model\Include\Model_Hugou.h" />
     <QtMoc Include="View\Include\View_GlobalTop.h" />
-    <QtMoc Include="Model\Include\FloatingNotePanel.h" />
-    <QtMoc Include="Model\Include\FloatingNoteManager.h" />
-    <QtMoc Include="Model\Include\FloatingNote.h" />
-    <QtMoc Include="Model\Include\FileImportDialog.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Hugou.ico" />
+    <QtMoc Include="View\Include\FloatingNotePanel.h" />
+    <QtMoc Include="Assistance\Include\Assistance_FloatingNoteManager.h" />
+    <QtMoc Include="View\Include\FloatingNote.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Configuration\conf.ini" />
@@ -109,6 +102,9 @@
   <ItemGroup>
     <ResourceCompile Include="Resource\Hugou.rc" />
   </ItemGroup>
+  <ItemGroup>
+    <QtTranslation Include="Translation_zh.ts" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{368FFBD4-4249-4B86-9163-91E5BFBC71C4}</ProjectGuid>
     <Keyword>QtVS_v304</Keyword>
@@ -120,6 +116,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <PlatformToolset>v143</PlatformToolset>
+    <UseDebugLibraries>true</UseDebugLibraries>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -131,7 +128,7 @@
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
     <QtInstall>6.7.2</QtInstall>
-    <QtModules>core;gui;qml;widgets;multimedia;multimediawidgets;printsupport;quickwidgets</QtModules>
+    <QtModules>core;gui;qml;widgets;multimedia;multimediawidgets;printsupport;quickwidgets;sql</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
@@ -154,7 +151,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <IncludePath>C:\Users\Dawn\Desktop\Hugou\Hugou\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\View\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Model\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Controller\Include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\Dawn\Desktop\Hugou\Hugou\Database\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Assistance\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\View\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Model\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Controller\Include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <IncludePath>C:\Users\Dawn\Desktop\Hugou\Hugou\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\View\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Model\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Controller\Include;$(IncludePath)</IncludePath>

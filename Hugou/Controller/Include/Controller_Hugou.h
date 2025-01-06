@@ -1,12 +1,11 @@
 #pragma once
-#include "ConstSuccessNote.h"
-#include "Var.h"
-#include "SettingsHelper.h"
-#include "View_Hugou.h"
-#include "Model_Hugou.h"
+#include "Assistance_SettingsHelper.h"
+#include "Assistance_ThemeManager.h"
 #include "Controller_Settings.h"
-
-extern FloatingNoteManager floatingNoteManager;
+#include "Controller_Schedule.h"
+#include "Assistance_FloatingNoteManager.h"
+#include "Model_Hugou.h"
+#include "View_Hugou.h"
 
 class HugouController : public QObject
 {
@@ -15,16 +14,12 @@ class HugouController : public QObject
 public:
     HugouController(HugouView* hugouView, HugouModel* hugouModel);
     ~HugouController();
-
-protected slots:
     void openPDFEditFunction();
-    void changeStackedWidgetRequest(int index);
-    void applyThemeRequestForStartup();
-
+    
 private:
     HugouView* m_hugouView;
     HugouModel* m_hugouModel;
     SettingsController* m_settingsController;
-
-    void applyThemeRequest(QString theme = "");
+    ScheduleController* m_scheduleController;
+    ThemeManager* m_themeManager;
 };

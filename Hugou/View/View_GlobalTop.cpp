@@ -44,7 +44,7 @@ void GlobalTopView::fadeIn()
     animation->setStartValue(0);
     animation->setEndValue(1);
     animation->setEasingCurve(QEasingCurve::Linear);
-    animation->setDuration(500);
+    animation->setDuration(700);
     connect(animation, &QPropertyAnimation::finished, [&]() { emit fadeInFinished(); });
     animation->start(QAbstractAnimation::DeleteWhenStopped);
 }
@@ -55,7 +55,7 @@ void GlobalTopView::fadeOut()
     animation->setStartValue(1);
     animation->setEndValue(0);
     animation->setEasingCurve(QEasingCurve::Linear);
-    animation->setDuration(500);
+    animation->setDuration(700);
     connect(animation, &QPropertyAnimation::finished, [&]() {
         this->setHidden(true);
         removeSource();
