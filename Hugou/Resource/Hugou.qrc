@@ -102,5 +102,6 @@
         <file>font/WorkSans-Regular.ttf</file>
         <file>font/WorkSans-Medium.ttf</file>
         <file>font/WorkSans-SemiBold.ttf</file>
+        <file>theme/Global/taskSetting.qss</file>
     </qresource>
 </RCC>

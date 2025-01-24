@@ -10,6 +10,9 @@ class ScheduleController :
 public:
     ScheduleController(ScheduleView* scheduleView, ScheduleModel* scheduleModel);
 
+    void showTaskSetting();
+    void closeTaskSetting(TaskSettingController* taskeSettingController);
+
 private:
     ScheduleView* m_scheduleView;
     ScheduleModel* m_scheduleModel;

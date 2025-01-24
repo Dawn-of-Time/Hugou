@@ -1,0 +1,45 @@
+QWidget#general {
+    border-left: 1px solid #D6D6D6;
+    background-color: #F0F8FF;
+    border: none;
+}
+
+QWidget#title {
+    border-bottom: 1px solid #D6D6D6;
+}
+
+QPushButton#closeButton{
+    border: none;
+}
+
+QLabel#sketchTitle {
+    border: none;
+}
+
+QLabel#taskTypeTitle {
+    border: none;
+}
+
+QWidget#detailedTaskTypeWidget {
+    border: none;
+}
+
+QLabel#timeTitle {
+    border: none;
+}
+
+QPushButton#showOrHideButton {
+    border: none;
+}
+
+QLabel#detailTitle {
+    border: none;
+}
+
+QLabel#awardTitle {
+    border: none;
+}
+
+QLineEdit {
+    border: none;
+}

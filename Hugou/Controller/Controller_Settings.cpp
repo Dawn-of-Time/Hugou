@@ -15,13 +15,10 @@ SettingsController::SettingsController(SettingsView* settingsView, SettingsModel
     connect(m_settingsView->m_settingMap.settingsComboboxMap["recycleBin"], &QComboBox::currentTextChanged, [&](QString value)
         {
             SettingsHelper::getHelper()->setSettingsValue("recycleBin", value);
-            if (value == "on") m_settingsView->m_settingMap.settingsLineEditMap["retentionPeriod"]->setEnabled(true);
+            if (value == "on") 
+                m_settingsView->m_settingMap.settingsLineEditMap["retentionPeriod"]->setEnabled(true);
             else
-            {
-                m_settingsView->m_settingMap.settingsLineEditMap["retentionPeriod"]->setText("");
-                SettingsHelper::getHelper()->setSettingsValue("retentionPeriod", "");
                 m_settingsView->m_settingMap.settingsLineEditMap["retentionPeriod"]->setEnabled(false);
-            }
         });
 }
 

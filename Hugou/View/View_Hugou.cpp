@@ -63,7 +63,7 @@ void HugouView::setupUi()
     m_stackedWidgetContainer = new QWidget(m_asideBarAndStackedWidget);
     m_stackedWidgetLayout = new QHBoxLayout(m_stackedWidgetContainer);
     m_stackedWidgetLayout->setSpacing(0);
-    m_stackedWidgetLayout->setContentsMargins(5, 0, 5, 5);
+    m_stackedWidgetLayout->setContentsMargins(5, 0, 0, 0);
     m_stackedWidget = new QStackedWidget(m_stackedWidgetContainer);
     m_stackedWidget->setObjectName("stackedWidget");
     m_stackedWidgetOpacityEffect = new QGraphicsOpacityEffect(m_stackedWidget);
@@ -101,14 +101,10 @@ void HugouView::setupUi()
     m_generalLayout->addWidget(m_asideBarAndStackedWidget);
 
     // 全局控件
-    m_blurWidget = new QWidget(this);
-    m_blurWidget->setObjectName("blurWidget");
-    m_blurWidget->setGeometry(0, titleFrameHeight, mainWindowWidth, mainWindowHeight);
-    m_blurWidget->setHidden(true);
-    m_blurEffect = new QGraphicsBlurEffect(this);
-    m_blurEffect->setBlurRadius(30);
-    m_blurEffect->setBlurHints(QGraphicsBlurEffect::QualityHint);
-    m_blurWidget->setGraphicsEffect(m_blurEffect);
+    m_darkenWidget = new QWidget(this);
+    m_darkenWidget->setObjectName("darkenWidget");
+    m_darkenWidget->setGeometry(0, titleFrameHeight, mainWindowWidth, mainWindowHeight);
+    m_darkenWidget->setHidden(true);
     m_floatingNotePanel = new FloatingNotePanel(this);
     m_globalTopView = new GlobalTopView(this);
 
@@ -229,22 +225,20 @@ QRect HugouView::customScale(Area area, QRect currentMainWindowGeometry, QPoint 
     return newMainWindowGeometry;
 }
 
-void HugouView::blur()
+void HugouView::darken()
 {
-    m_screenShot = QPixmap(m_asideBarAndStackedWidget->size());
-    m_asideBarAndStackedWidget->render(&m_screenShot);
     QPalette palette;
-    palette.setBrush(m_blurWidget->backgroundRole(), QBrush(m_screenShot));
-    m_blurWidget->setPalette(palette);
-    m_blurWidget->setAutoFillBackground(true);
-    m_blurWidget->setHidden(false);
+    palette.setColor(m_darkenWidget->backgroundRole(), QColor(0, 0, 0, 150));
+    m_darkenWidget->setPalette(palette);
+    m_darkenWidget->setAutoFillBackground(true);
+    m_darkenWidget->setHidden(false);
     if (sender()->objectName() == "floatingNotePanel") m_floatingNotePanel->switchPanel();
 }
 
-void HugouView::clearBlur()
+void HugouView::brighten()
 {
-    m_blurWidget->setHidden(true);
-    m_floatingNotePanel->switchPanel();
+    m_darkenWidget->setHidden(true);
+    if (sender()->objectName() == "floatingNotePanel") m_floatingNotePanel->switchPanel();
 }
 
 void HugouView::closeHugou()
@@ -394,18 +388,8 @@ void HugouView::resizeEvent(QResizeEvent* event)
     m_settingsView->adjustSizeHint();
     
     m_floatingNotePanel->updateUi();
-    m_blurWidget->resize(this->width(), this->height() - titleFrameHeight);
+    m_darkenWidget->resize(this->width(), this->height() - titleFrameHeight);
     m_globalTopView->updateUi(this);
-
-    if (!m_blurWidget->isHidden())
-    {
-        m_screenShot = QPixmap(m_asideBarAndStackedWidget->size());
-        m_asideBarAndStackedWidget->render(&m_screenShot);
-        QPalette palette;
-        palette.setBrush(m_blurWidget->backgroundRole(), QBrush(m_screenShot));
-        m_blurWidget->setPalette(palette);
-        m_blurWidget->setAutoFillBackground(true);
-    }
 
     if (m_stackedSwitchFadeInAnimation->state() == QPropertyAnimation::Running ||
         m_stackedSwitchFadeOutAnimation->state() == QPropertyAnimation::Running)

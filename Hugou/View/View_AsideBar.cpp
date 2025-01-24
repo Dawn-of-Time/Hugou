@@ -11,6 +11,12 @@ AsideBarView::AsideBarView(QWidget* parent) :
 
 void AsideBarView::setupUi()
 {
+    // ×ÖÌåÇåµ¥
+    const QFont asideNicknameFont = QFont("Hind Siliguri", 13, QFont::DemiBold);
+    const QFont asideIDFont = QFont("Hind Siliguri", 8, QFont::Thin);
+    const QFont asideTitleFont = QFont("Work Sans", 10, QFont::DemiBold);
+    const QFont asideButtonFont = QFont("Hind Siliguri", 13, QFont::Medium);
+
     this->setObjectName("asideBarView");
     this->setMinimumHeight(asideBarHeight);
     this->setFixedWidth(asideBarWidth);
@@ -22,7 +28,7 @@ void AsideBarView::setupUi()
     m_userWidget->setFixedHeight(asideUserWidgetHeight);
     m_userWidgetLayout = new QHBoxLayout(m_userWidget);
     m_userWidgetLayout->setContentsMargins(0, 0, 0, 0);
-    m_userWidgetLayout->setSpacing(0);
+    m_userWidgetLayout->setSpacing(10);
     m_userAvatar = new QLabel(m_userWidget);
     m_userAvatar->setObjectName("userAvatar");
     m_userAvatar->setFixedSize(asideUserAvaterSide, asideUserAvaterSide);
@@ -53,8 +59,8 @@ void AsideBarView::setupUi()
     m_planLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
     m_scheduleButton = new IconTextButton(QPixmap(":/icon/schedule_current_16.png"), tr("Schedule"), asideButtonFont, this);
     m_scheduleButton->setObjectName("scheduleButton");
-    m_scheduleButton->setFixedHeight(asideButtonHeight);
-    
+    m_scheduleButton->setFixedSize(asideButtonWidth, asideButtonHeight);
+    m_scheduleButton->setBackgroundWidgetStyleSheet("background-color: rgba(0, 0, 255, 0.1); border-radius: 10px;");
     QSpacerItem* spacer2 = new QSpacerItem(0, 15, QSizePolicy::Expanding, QSizePolicy::Minimum);
     m_dataBaseLabel = new QLabel(tr("DATABASE"), this);
     m_dataBaseLabel->setFixedHeight(asideTitleHeight);
@@ -62,7 +68,8 @@ void AsideBarView::setupUi()
     m_dataBaseLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
     m_settingButton = new IconTextButton(QPixmap(":/icon/document_default_16.png"), tr("Document"), asideButtonFont, this);
     m_settingButton->setObjectName("settingButton");
-    m_settingButton->setFixedHeight(asideButtonHeight);
+    m_settingButton->setFixedSize(asideButtonWidth, asideButtonHeight);
+    m_settingButton->setBackgroundWidgetStyleSheet("background-color: rgba(0, 0, 255, 0.1); border-radius: 10px;");
     m_asideBarLayout->addWidget(m_userWidget, Qt::AlignLeft);
     m_asideBarLayout->addSpacerItem(spacer1);
     m_asideBarLayout->addWidget(m_planLabel, Qt::AlignLeft);

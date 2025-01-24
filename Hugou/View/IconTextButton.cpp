@@ -4,8 +4,6 @@ IconTextButton::IconTextButton(QPixmap icon, QString text, QFont font, QWidget* 
 	QPushButton(parent)
 {
 	m_backgroundWidget = new QWidget(this);
-	m_backgroundWidget->setFixedSize(asideButtonWidth, asideButtonHeight);
-	m_backgroundWidget->setStyleSheet("background-color: rgba(0, 0, 255, 0.1); border-radius: 5px;");
 	m_backgroundWidgetOpacityEffect = new QGraphicsOpacityEffect();
 	m_backgroundWidgetOpacityEffect->setOpacity(0);
 	m_backgroundWidget->setGraphicsEffect(m_backgroundWidgetOpacityEffect);
@@ -31,6 +29,35 @@ IconTextButton::IconTextButton(QPixmap icon, QString text, QFont font, QWidget* 
 	m_buttonLayout->addWidget(m_iconZone, Qt::AlignVCenter);
 	m_buttonLayout->addWidget(m_textZone, Qt::AlignVCenter);
 	m_buttonLayout->addStretch();
+}
+
+void IconTextButton::setIcon(QPixmap icon)
+{
+	icon.setDevicePixelRatio(getScale());
+	m_iconZone->setPixmap(icon);
+};
+
+void IconTextButton::setIconSize(QSize size)
+{
+	m_iconZone->setFixedSize(size);
+};
+
+void IconTextButton::setText(QString text, QFont font)
+{
+	m_textZone->setText(text);
+	m_textZone->setFont(font);
+}
+
+void IconTextButton::setFixedSize(int w, int h)
+{
+	QPushButton::setFixedSize(w, h);
+	m_backgroundWidget->setFixedSize(w, h);
+}
+
+void IconTextButton::setFixedHeight(int h)
+{
+	QPushButton::setFixedHeight(h);
+	m_backgroundWidget->setFixedHeight(h);
 }
 
 void IconTextButton::enterEvent(QEnterEvent* event)
@@ -62,4 +89,15 @@ void IconTextButton::leaveEvent(QEvent* event)
 	m_backgroundWidgetOpacityEffectAnimation->setEndValue(0);
 	m_backgroundWidgetOpacityEffectAnimation->setDuration(200);
 	m_backgroundWidgetOpacityEffectAnimation->start();
+}
+
+void IconTextButton::paintEvent(QPaintEvent* event) {
+    QStyleOption opt;
+    opt.initFrom(this);
+    QPainter painter(this);
+    style()->drawPrimitive(QStyle::PE_Widget, &opt, &painter, this);
+}
+
+void IconTextButton::showEvent(QShowEvent* event) {
+	m_backgroundWidget->resize(this->size());
 }

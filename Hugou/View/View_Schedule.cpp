@@ -6,11 +6,14 @@ ScheduleView::ScheduleView(QWidget* parent) :
     m_currentView = ViewMode::Month;
     m_switchViewAnimationGroup = new QSequentialAnimationGroup(this);
 	setupUi();
-    connect(m_monthViewSwitchButton, &QPushButton::clicked, this, &ScheduleView::switchToMonthView);
 }
 
 void ScheduleView::setupUi()
 {
+    // ×ÖÌåÇåµ¥
+    const QFont viewSwitchButtonFont = QFont("Hind Siliguri", 13);
+    const QFont weekdayFont = QFont("Hind Siliguri", 11, QFont::Medium);
+
     m_scheduleLayout = new QVBoxLayout(this);
     m_viewSwitchBar = new QWidget(this);
     m_viewSwitchBar->setFixedHeight(60);
@@ -21,9 +24,12 @@ void ScheduleView::setupUi()
     m_weekViewSwitchButton->setFont(viewSwitchButtonFont);
     m_dayViewSwitchButton = new QPushButton(m_viewSwitchBar);
     m_dayViewSwitchButton->setFont(viewSwitchButtonFont);
+    m_addTaskButton = new QPushButton("ADD", m_viewSwitchBar);
+    m_addTaskButton->setFont(viewSwitchButtonFont);
     m_viewSwitchBarLayout->addWidget(m_monthViewSwitchButton);
     m_viewSwitchBarLayout->addWidget(m_weekViewSwitchButton);
     m_viewSwitchBarLayout->addWidget(m_dayViewSwitchButton);
+    m_viewSwitchBarLayout->addWidget(m_addTaskButton);
     m_viewSwitchBarLayout->addStretch();
 
     m_scheduleWidget = new QWidget(this);
@@ -295,6 +301,7 @@ void ScheduleView::resizeEvent(QResizeEvent* event)
             break;
         }
     }
+    if (m_taskSettingView) m_taskSettingView->adjustView();
 }
 
 void ScheduleView::disableGraphicsEffect()

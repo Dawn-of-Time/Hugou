@@ -31,8 +31,8 @@ public:
 
 protected slots:
     void scale();
-    void blur();
-    void clearBlur();
+    void darken();
+    void brighten();
     void closeHugou();
 
 private:
@@ -47,11 +47,9 @@ private:
     QHBoxLayout* m_stackedWidgetLayout;
     ScheduleView* m_scheduleView;
     SettingsView* m_settingsView;
-    QWidget* m_blurWidget;
-    QGraphicsBlurEffect* m_blurEffect;
+    QWidget* m_darkenWidget;
     FloatingNotePanel* m_floatingNotePanel;
     GlobalTopView* m_globalTopView;
-    QPixmap m_screenShot;
     enum Area
     {
         TOPLEFT,

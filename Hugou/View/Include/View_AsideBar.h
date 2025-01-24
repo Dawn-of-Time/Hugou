@@ -8,7 +8,6 @@
 #include <QPainter>
 #include <QBitmap>
 #include "Const_Geometry.h"
-#include "Const_Font.h"
 #include "IconTextButton.h"
 #include "ButtonHoverWatcher.h"
 #include "Var.h"

@@ -1,5 +1,3 @@
-/* ¸¡¶¯ÏûÏ¢ */
-
 QFrame#floatingNoteFrame {
 	background-color: #F0F2F3;
 	margin-top: 10px;

@@ -1,5 +1,3 @@
-/* ÏûÏ¢Ãæ°å */
-
 QWidget#floatingNotePanelTabBar {
 	border-radius: 10px;
 }

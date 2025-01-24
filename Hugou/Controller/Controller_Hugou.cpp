@@ -12,12 +12,12 @@ HugouController::HugouController(HugouView* hugouView, HugouModel* hugouModel)
     m_themeManager = new ThemeManager(m_hugouView, m_hugouView->m_asideBarView, m_hugouView->m_settingsView, m_hugouView->m_globalTopView);
     
     // 信号与槽
-    connect(m_hugouView->m_titleBarView, &TitleBarView::SignalFloatingNotePanelButtonClicked, m_hugouView->m_floatingNotePanel, &FloatingNotePanel::blurOrClearBlurRequest);
+    connect(m_hugouView->m_titleBarView, &TitleBarView::SignalFloatingNotePanelButtonClicked, m_hugouView->m_floatingNotePanel, &FloatingNotePanel::darkenOrBrightenRequest);
     connect(m_hugouView->m_titleBarView, &TitleBarView::SignalMinimizeButtonClicked, m_hugouView, &HugouView::showMinimized);
     connect(m_hugouView->m_titleBarView, &TitleBarView::SignalScaleButtonClicked, m_hugouView, &HugouView::scale);
     connect(m_hugouView->m_titleBarView, &TitleBarView::SignalCloseButtonClicked, m_hugouView, &HugouView::closeHugou);
-    connect(m_hugouView->m_floatingNotePanel, &FloatingNotePanel::SignalBlurBackground, m_hugouView, &HugouView::blur);
-    connect(m_hugouView->m_floatingNotePanel, &FloatingNotePanel::SignalClearBackground, m_hugouView, &HugouView::clearBlur);
+    connect(m_hugouView->m_floatingNotePanel, &FloatingNotePanel::SignalDarkenBackground, m_hugouView, &HugouView::darken);
+    connect(m_hugouView->m_floatingNotePanel, &FloatingNotePanel::SignalBrightenBackground, m_hugouView, &HugouView::brighten);
     connect(m_hugouView->m_asideBarView, &AsideBarView::SignalChangeStackedWidget, m_hugouView, &HugouView::changeStackedWidget);
     connect(m_settingsController, &SettingsController::SignalApplyTheme, m_themeManager, &ThemeManager::loadThemeResource);
     connect(m_themeManager, &ThemeManager::SignalUpdateThemeComboboxValue, m_settingsController, &SettingsController::updateThemeComboboxValue);

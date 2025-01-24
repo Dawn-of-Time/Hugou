@@ -9,9 +9,7 @@ SettingsView::SettingsView(QWidget* parent) :
 SettingsView::~SettingsView()
 {
     for (SettingItem* item : m_settingsItemList)
-    {
         delete item;
-    }
 }
 
 void SettingsView::setupUi()
@@ -108,16 +106,24 @@ void SettingsView::formTree()
 
 void SettingsView::formContentList()
 {
-    // HeadSpace
-    QListWidgetItem* headSpaceItem = new QListWidgetItem(m_settingsContentListWidget);
-    QLabel* headSpace = new QLabel(m_settingsContentListWidget);
+    // 
+    //QListWidgetItem* headSpaceItem = new QListWidgetItem(m_settingsContentListWidget);
+    //QLabel* headSpace = new QLabel(m_settingsContentListWidget);
+    //headSpaceItem->setSizeHint(QSize(m_settingsContentListWidget->width(), 10));
+    //m_settingsContentListWidget->setItemWidget(headSpaceItem, headSpace);
 
-    headSpaceItem->setSizeHint(QSize(m_settingsContentListWidget->width(), 10));
-    m_settingsContentListWidget->setItemWidget(headSpaceItem, headSpace);
+    // 生成设置项
     for (SettingItem* item : m_settingsItemList)
-    {
         item->generateSettingItem(m_settingsContentListWidget, m_settingMap);
-    }
+
+    // 设置项逻辑
+    QString value;
+    SettingsHelper::getHelper()->getSettingsValue("recycleBin", value);
+    if (value == "on")
+        m_settingMap.settingsLineEditMap["retentionPeriod"]->setEnabled(true);
+    else
+        m_settingMap.settingsLineEditMap["retentionPeriod"]->setEnabled(false);
+
 
     // 不可选定
     for (int i = 0; i < m_settingsContentListWidget->count(); ++i)

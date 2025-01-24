@@ -19,6 +19,5 @@ public:
 
 private:
     Database* m_database;
-    QList<QString> TaskTypeList = { "Work", "Learn", "Recreation"};
 };
 

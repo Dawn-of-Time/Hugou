@@ -11,7 +11,7 @@ QFrame#asideFrame {
 	background-color: transparent;
 }
 
-QPushButton[status="default"] {
+IconTextButton[status="default"] {
 	border-radius: 10px;
 	padding-top: 10px;
 	padding-bottom: 10px;
@@ -19,16 +19,12 @@ QPushButton[status="default"] {
 	background-color: transparent;
 }
 
-	QPushButton[status="default"] > QLabel {
+	IconTextButton[status="default"] > QLabel {
 		color: black;
 		background-color: transparent;
 	}
 
-QPushButton[status="default"]:hover {
-	background-color: rgba(255,255,255,80);
-}
-
-QPushButton[status="current"] {
+IconTextButton[status="current"] {
 	border-radius: 10px;
 	padding-top: 10px;
 	padding-bottom: 10px;
@@ -36,7 +32,7 @@ QPushButton[status="current"] {
 	background-color: white;
 }
 
-	QPushButton[status="current"] > QLabel {
+	IconTextButton[status="current"] > QLabel {
 		color: #3763BE;
 		background-color: transparent;
 	}

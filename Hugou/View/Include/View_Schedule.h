@@ -11,7 +11,7 @@
 #include <QFile>
 #include <QDate>
 #include <cmath>
-#include "Const_Font.h"
+#include "Controller_TaskSetting.h"
 
 class ScheduleView : public QWidget
 {
@@ -23,7 +23,12 @@ public:
     void switchToWeekView();
     void switchToDayView();
 
+signals:
+    void SignalDarkenBackground();
+    void SignalBrightenBackground();
+
 private:
+    friend class ScheduleController;
     enum ViewMode {
         Day,
         Week,
@@ -32,14 +37,16 @@ private:
     QVBoxLayout* m_scheduleLayout;
     QWidget* m_viewSwitchBar;
     QHBoxLayout* m_viewSwitchBarLayout;
-    QPushButton* m_dayViewSwitchButton;
-    QPushButton* m_weekViewSwitchButton;
     QPushButton* m_monthViewSwitchButton;
+    QPushButton* m_weekViewSwitchButton;
+    QPushButton* m_dayViewSwitchButton;
+    QPushButton* m_addTaskButton;
     QAnimationGroup* m_switchViewAnimationGroup;
     QWidget* m_scheduleWidget;
     QWidget* m_weekdaysBar;
     QHBoxLayout* m_weekdaysBarLayout;
     QVBoxLayout* m_scheduleWidgetLayout;
+    TaskSettingView* m_taskSettingView = nullptr;
     ViewMode m_currentView;
     QList<QPushButton*> m_weekIndexButtonListForAMonth = {};
     QList<QPushButton*> m_dayListForAMonth = {};
@@ -62,5 +69,6 @@ private:
 
     void hideOtherWeeks();
     void showOtherWeeks();
+
     void resizeEvent(QResizeEvent* event) override;
 };

@@ -30,3 +30,10 @@ struct Task
     int retentionPeriod = -1;
     int ID = -1;
 };
+
+const QMap<QString, QString> taskTypeMap = 
+{ 
+    {"Work", "red"},
+    {"Learn", "blue"},
+    {"Recreation", "green"},
+};

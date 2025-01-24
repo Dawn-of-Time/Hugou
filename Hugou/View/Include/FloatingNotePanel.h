@@ -15,11 +15,11 @@ public:
     void switchPanel();
 
 signals:
-    void SignalBlurBackground();
-    void SignalClearBackground();
+    void SignalDarkenBackground();
+    void SignalBrightenBackground();
 
 public slots:
-    void blurOrClearBlurRequest();
+    void darkenOrBrightenRequest();
     void moveSlider(int buttonIndex);
 
 private:

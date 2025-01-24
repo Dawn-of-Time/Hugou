@@ -4,7 +4,6 @@ TitleBarView::TitleBarView(QWidget* parent) :
     QWidget(parent)
 {
 	setupUi();
-    
     connect(m_minimizeButton, &QPushButton::clicked, [&]() {emit SignalMinimizeButtonClicked(); });
     connect(m_scaleButton, &QPushButton::clicked, [&]() {emit SignalScaleButtonClicked(); });
 	connect(m_closeButton, &QPushButton::clicked, [&]() {emit SignalCloseButtonClicked(); });

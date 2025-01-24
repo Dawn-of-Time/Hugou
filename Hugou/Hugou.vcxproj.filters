@@ -149,6 +149,12 @@
     <ClCompile Include="View\View_TaskSetting.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Controller\Controller_TaskSetting.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Model\Model_TaskSetting.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Assistance\Include\ButtonHoverWatcher.h">
@@ -226,6 +232,9 @@
     <QtMoc Include="View\Include\View_TaskSetting.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="Controller\Include\Controller_TaskSetting.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Const_Geometry.h">
@@ -264,11 +273,20 @@
     <ClInclude Include="Include\Struct_Task.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Model\Include\Model_TaskSetting.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Configuration\conf.ini" />
     <None Include="Configuration\errorCode.ini" />
     <None Include="Configuration\solution.ini" />
+    <None Include="Resource\theme\Global\floatingNote.qss" />
+    <None Include="Resource\theme\Global\floatingNotePanel.qss" />
+    <None Include="Resource\theme\Global\globalTop.qss" />
+    <None Include="Resource\theme\Global\schedule.qss" />
+    <None Include="Resource\theme\Global\titleBar.qss" />
+    <None Include="Resource\theme\Global\taskSetting.qss" />
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="Resource\Hugou.qrc">
@@ -284,5 +302,219 @@
     <QtTranslation Include="Translation_zh.ts">
       <Filter>Translation Files</Filter>
     </QtTranslation>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Resource\font\HindSiliguri-Bold.ttf" />
+    <Font Include="Resource\font\HindSiliguri-Light.ttf" />
+    <Font Include="Resource\font\HindSiliguri-Medium.ttf" />
+    <Font Include="Resource\font\HindSiliguri-Regular.ttf" />
+    <Font Include="Resource\font\HindSiliguri-SemiBold.ttf" />
+    <Font Include="Resource\font\Roboto-Black.ttf" />
+    <Font Include="Resource\font\Roboto-BlackItalic.ttf" />
+    <Font Include="Resource\font\Roboto-Bold.ttf" />
+    <Font Include="Resource\font\Roboto-Italic.ttf" />
+    <Font Include="Resource\font\Roboto-BoldItalic.ttf" />
+    <Font Include="Resource\font\Roboto-Light.ttf" />
+    <Font Include="Resource\font\Roboto-LightItalic.ttf" />
+    <Font Include="Resource\font\Roboto-Medium.ttf" />
+    <Font Include="Resource\font\Roboto-MediumItalic.ttf" />
+    <Font Include="Resource\font\Roboto-Regular.ttf" />
+    <Font Include="Resource\font\Roboto-Thin.ttf" />
+    <Font Include="Resource\font\Roboto-ThinItalic.ttf" />
+    <Font Include="Resource\font\WorkSans-Light.ttf" />
+    <Font Include="Resource\font\WorkSans-Medium.ttf" />
+    <Font Include="Resource\font\WorkSans-Regular.ttf" />
+    <Font Include="Resource\font\WorkSans-SemiBold.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resource\gif\applyTheme.gif">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\gif\dropZoneGif.gif">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\appearance.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\browse_bla.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\close.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\browse_blu.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\close_bla.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\close_blu.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\close_w.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\common.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\country_region.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\dealLater_b.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\dealLater_w.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\dialog.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\document_current_16.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\document_default_16.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\down_bla.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\enter.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\error.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\export.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\fail_status.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\float_b.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\float_g.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\float_o.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\float_p.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\float_r.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\float_w.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\floatingNoteManager_b.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\floatingNoteManager_w.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\help_b.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\help_w.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\Hugou_48.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\information.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\island_b.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\island_w.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\maximum.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\maximum_w.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\minimize_b.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\minimize_w.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\minimum.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\P_b.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\P_r.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\P_w.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\restore.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\restore_w.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\save_bla.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\save_blu.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\schedule_current_16.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\schedule_current_24.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\schedule_default_16.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\schedule_default_24.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\search_bla.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\search_blu.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\setting_b.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\setting_w.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\success.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\success_status.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\warning.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\workSpace_w.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\workSpace_b.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\yes_b.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\yes_g.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\icon\yes_w.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

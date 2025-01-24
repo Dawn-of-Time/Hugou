@@ -32,33 +32,33 @@ QComboBox {
     border: none;
     border-radius: 5px;
     padding: 3px;
-    background-color: #80CFEF;
+    background-color: #E0F0FF;
 }
 
     QComboBox:hover {
-        background-color: #5591DC;
+        background-color: #E0E5FF;
     }
 
-QComboBox QAbstractItemView {
-    outline: none;
-    margin-top: 5px;
-    border-radius: 5px;
-    background-color: #80CFEF;
-}
-
-    QComboBox QAbstractItemView::item:hover {
-        padding: 3px;
-        color: black;
+    QComboBox QAbstractItemView {
+        outline: none;
+        margin-top: 5px;
         border-radius: 5px;
-        background-color: #5591DC;
+        background-color: #E0F0FF;
     }
 
-    QComboBox QAbstractItemView::item:selected {
-        padding: 3px;
-        color: white;
-        border-radius: 5px;
-        background-color: #5591DC;
-    }
+        QComboBox QAbstractItemView::item:hover {
+            padding: 3px;
+            color: black;
+            border-radius: 5px;
+            background-color: #E0E5FF;
+        }
+
+        QComboBox QAbstractItemView::item:selected {
+            padding: 3px;
+            color: black;
+            border-radius: 5px;
+            background-color: #E0E5FF;
+        }
 
 QComboBox::down-arrow {
     image: url(":/icon/down_bla.png");
@@ -73,5 +73,5 @@ QLineEdit {
     border: none;
     border-radius: 5px;
     padding: 3px;
-    background-color: #80CFEF;
+    background-color: #E0F0FF;
 }

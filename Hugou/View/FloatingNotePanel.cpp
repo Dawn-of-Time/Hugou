@@ -10,7 +10,6 @@ FloatingNotePanel::FloatingNotePanel(QWidget* parent) :
     connect(ui.informationFloatingNoteButton, &QPushButton::clicked, [&]() {moveSlider(2); });
     connect(ui.warningFloatingNoteButton, &QPushButton::clicked, [&]() {moveSlider(3); });
     connect(ui.errorFloatingNoteButton, &QPushButton::clicked, [&]() {moveSlider(4); });
-
 }
 
 void FloatingNotePanel::moveSlider(int buttonIndex)
@@ -28,15 +27,15 @@ void FloatingNotePanel::moveSlider(int buttonIndex)
     animation->start(QPropertyAnimation::DeleteWhenStopped);
 }
 
-void FloatingNotePanel::blurOrClearBlurRequest()
+void FloatingNotePanel::darkenOrBrightenRequest()
 {
     if (this->isHidden())
     {
-        emit SignalBlurBackground();
+        emit SignalDarkenBackground();
     }
     else
     {
-        emit SignalClearBackground();
+        emit SignalBrightenBackground();
     }
 }
 
