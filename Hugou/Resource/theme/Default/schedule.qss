@@ -1,0 +1,13 @@
+QWidget#cardWidget {
+    border-left: 1px solid #A8A8A8;
+}
+
+QWidget#memoWidget {
+    background-color: #FFFFFF;
+    border-radius: 12px;
+}
+
+QPushButton {
+    border: none;
+    background-color: transparent;
+}

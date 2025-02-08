@@ -157,7 +157,7 @@ void FloatingNoteManager::sendToPanel()
     hiddenFloatingNoteList.push_back(shownFloatingNote);
     shownFloatingNote = forthcomingFloatingNote;
     forthcomingFloatingNote = nullptr;
-    emit SignalAnimationFinishedToTitleBar();
+    //emit SignalAnimationFinishedToTitleBar();
 }
 
 void FloatingNoteManager::deleteShownFloatingNote()

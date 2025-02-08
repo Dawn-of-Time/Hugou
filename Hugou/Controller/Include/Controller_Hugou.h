@@ -1,7 +1,7 @@
 #pragma once
-#include "Assistance_SettingsHelper.h"
+#include "Assistance_PreferenceHelper.h"
 #include "Assistance_ThemeManager.h"
-#include "Controller_Settings.h"
+#include "Controller_Preference.h"
 #include "Controller_Schedule.h"
 #include "Assistance_FloatingNoteManager.h"
 #include "Model_Hugou.h"
@@ -19,7 +19,7 @@ public:
 private:
     HugouView* m_hugouView;
     HugouModel* m_hugouModel;
-    SettingsController* m_settingsController;
+    PreferenceController* m_preferenceController;
     ScheduleController* m_scheduleController;
     ThemeManager* m_themeManager;
 };

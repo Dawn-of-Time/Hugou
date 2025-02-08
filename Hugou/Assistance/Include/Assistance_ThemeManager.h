@@ -1,6 +1,6 @@
 #pragma once
 #include "View_GlobalTop.h"
-#include "Assistance_SettingsHelper.h"
+#include "Assistance_preferenceHelper.h"
 #include "Const_DefaultTheme.h"
 #include "Const_SuccessNote.h"
 #include <QObject>
@@ -10,7 +10,7 @@ struct ThemeResource
 {
     QString generalStyleSheet = "";
     QString asideBarStyleSheet = "";
-    QString settingsStyleSheet = "";
+    QString preferenceStyleSheet = "";
 };
 
 class ThemeManager :
@@ -19,7 +19,7 @@ class ThemeManager :
     Q_OBJECT
 
 public:
-    ThemeManager(QWidget* hugou, QWidget* asideBarView, QWidget* settingsView, GlobalTopView* globalTopView);
+    ThemeManager(QWidget* hugou, QWidget* asideBarView, QWidget* preferenceView, GlobalTopView* globalTopView);
     ~ThemeManager();
     QString getTheme();
     void loadThemeResource(QString theme = "");
@@ -37,7 +37,7 @@ private:
     QString m_theme = "";
     QWidget* m_hugou;
     QWidget* m_asideBarView;
-    QWidget* m_settingsView;
+    QWidget* m_preferenceView;
     GlobalTopView* m_globalTopView;
 
     void applyThemeForStartup(ThemeResource* themeResource, bool consistentFlag);

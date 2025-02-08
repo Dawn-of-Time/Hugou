@@ -1,10 +1,12 @@
 #include "Database.h"
 
+
 Database::Database()
 	:QObject()
 {
 	m_database = QSqlDatabase::addDatabase("QSQLITE");
 	m_database.setDatabaseName("hugou.db");
+	open();
 }
 
 bool Database::open()
@@ -32,5 +34,5 @@ bool Database::exec(QSqlQuery query)
 
 void Database::dealError(QString errorText)
 {
-	emit SettingsHelper::getHelper()->triggerError("20000", errorText);
+	emit preferenceHelper::getHelper()->triggerError("20000", errorText);
 }

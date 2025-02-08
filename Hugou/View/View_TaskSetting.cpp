@@ -71,37 +71,37 @@ void TaskSettingView::setupUi()
     m_detailedTaskTypeWidget->setObjectName("detailedTaskTypeWidget");
     m_detailedTaskTypeWidgetLayout = new QVBoxLayout(m_detailedTaskTypeWidget);
     m_detailedTaskTypeWidgetLayout->setSpacing(2);
-    for (QMap<QString, QString>::const_iterator it = taskTypeMap.begin(); it != taskTypeMap.end(); ++it)
-    {
-        QString type = it.key();
-        IconTextButton* button = new IconTextButton(QPixmap(), type, secondLevellTitleFont, m_detailedTaskTypeWidget);
-        button->setObjectName(type + "TypeButton");
-        button->setFixedHeight(20);
-        button->setProperty("status", "default");
-        button->setStyleSheet(QString(
-            "IconTextButton[status=\"default\"] {"
-            "border-radius: 10px;"
-            "background-color: white;"
-            "}"
-            "IconTextButton[status=\"default\"] > QLabel {"
-            "color: %1;"
-            "background-color: transparent;"
-            "}"
-            "IconTextButton[status=\"current\"] {"
-            "border-radius: 10px;"
-            "background-color: %1;"
-            "}"
-            "IconTextButton[status=\"current\"] > QLabel {"
-            "color: white;"
-            "background-color: transparent;"
-            "}"
-        ).arg(taskTypeMap[type]));
-        button->setBackgroundWidgetStyleSheet(QString(
-            "border-radius: 10px; background-color: rgba(0, 0, 255, 0.1);"
-        ));
-        m_detailedTaskTypeWidgetLayout->addWidget(button);
-    }
-    m_addTaskTypeButton = new IconTextButton(QPixmap(), "Add Type", secondLevellTitleFont, m_detailedTaskTypeWidget);
+    //for (QMap<QString, QString>::const_iterator it = taskTypeMap.begin(); it != taskTypeMap.end(); ++it)
+    //{
+    //    QString type = it.key();
+    //    IconTextButton* button = new IconTextButton(QPixmap(), QSize(16, 16), type, secondLevellTitleFont, m_detailedTaskTypeWidget);
+    //    button->setObjectName(type + "TypeButton");
+    //    button->setFixedHeight(20);
+    //    button->setProperty("status", "default");
+    //    button->setStyleSheet(QString(
+    //        "IconTextButton[status=\"default\"] {"
+    //        "border-radius: 10px;"
+    //        "background-color: white;"
+    //        "}"
+    //        "IconTextButton[status=\"default\"] > QLabel {"
+    //        "color: %1;"
+    //        "background-color: transparent;"
+    //        "}"
+    //        "IconTextButton[status=\"current\"] {"
+    //        "border-radius: 10px;"
+    //        "background-color: %1;"
+    //        "}"
+    //        "IconTextButton[status=\"current\"] > QLabel {"
+    //        "color: white;"
+    //        "background-color: transparent;"
+    //        "}"
+    //    ).arg(taskTypeMap[type]));
+    //    button->setBackgroundWidgetStyleSheet(QString(
+    //        "border-radius: 10px; background-color: rgba(0, 0, 255, 0.1);"
+    //    ));
+    //    m_detailedTaskTypeWidgetLayout->addWidget(button);
+    //}
+    m_addTaskTypeButton = new IconTextButton(QPixmap(), QSize(16, 16), "Add Type", secondLevellTitleFont, m_detailedTaskTypeWidget);
     m_addTaskTypeButton->setFixedHeight(20);
     m_addTaskTypeButton->setBackgroundWidgetStyleSheet("border-radius: 10px; border: 1px solid #D6D6D6; ");
     m_detailedTaskTypeWidgetLayout->addWidget(m_addTaskTypeButton);

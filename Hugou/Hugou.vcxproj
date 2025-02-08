@@ -17,38 +17,45 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Assistance\Assistance_AsideBarGenerator.cpp" />
+    <ClCompile Include="Assistance\Assistance_PictureHelper.cpp" />
+    <ClCompile Include="Card\Card.cpp" />
+    <ClCompile Include="Card\Card_MonthOverview.cpp" />
     <ClCompile Include="Controller\Controller_AsideBar.cpp" />
     <ClCompile Include="Controller\Controller_Hugou.cpp" />
     <ClCompile Include="Controller\Controller_Welcome.cpp" />
-    <ClCompile Include="Controller\Controller_Settings.cpp" />
+    <ClCompile Include="Controller\Controller_Preference.cpp" />
     <ClCompile Include="Controller\Controller_Schedule.cpp" />
     <ClCompile Include="Controller\Controller_TaskSetting.cpp" />
+    <ClCompile Include="Controller\Controller_MemoSetting.cpp" />
     <ClCompile Include="Database\Database.cpp" />
     <ClCompile Include="Model\Model_Welcome.cpp" />
-    <ClCompile Include="Model\Model_Settings.cpp" />
+    <ClCompile Include="Model\Model_Preference.cpp" />
     <ClCompile Include="Model\Model_Schedule.cpp" />
     <ClCompile Include="Assistance\Assistance_ThemeManager.cpp" />
     <ClCompile Include="Model\Model_TaskSetting.cpp" />
-    <ClCompile Include="View\SettingItem.cpp" />
+    <ClCompile Include="Model\Model_MemoSetting.cpp" />
+    <ClCompile Include="View\PreferenceItem.cpp" />
     <ClCompile Include="View\View_AsideBar.cpp" />
     <ClCompile Include="Assistance\ButtonHoverWatcher.cpp" />
     <ClCompile Include="Assistance\Assistance_ComboboxWheelWatcher.cpp" />
-    <ClCompile Include="View\FloatingNote.cpp" />
+    <ClCompile Include="View\View_FloatingNote.cpp" />
     <ClCompile Include="Assistance\Assistance_FloatingNoteManager.cpp" />
-    <ClCompile Include="View\FloatingNotePanel.cpp" />
+    <ClCompile Include="View\View_FloatingNotePanel.cpp" />
     <ClCompile Include="View\View_GlobalTop.cpp" />
     <ClCompile Include="Model\Model_Hugou.cpp" />
     <ClCompile Include="View\IconTextButton.cpp" />
     <ClCompile Include="Assistance\IconTextButtonHoverWatcher.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="View\View_Hugou.cpp" />
-    <ClCompile Include="View\View_Settings.cpp" />
-    <ClCompile Include="Assistance\Assistance_SettingsHelper.cpp" />
+    <ClCompile Include="View\View_Preference.cpp" />
+    <ClCompile Include="Assistance\Assistance_PreferenceHelper.cpp" />
     <ClCompile Include="View\View_TitleBar.cpp" />
     <ClCompile Include="Include\Var.cpp" />
     <ClCompile Include="View\View_Schedule.cpp" />
     <ClCompile Include="View\View_Welcome.cpp" />
     <ClCompile Include="View\View_TaskSetting.cpp" />
+    <ClCompile Include="View\View_MemoSetting.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Assistance\Include\ButtonHoverWatcher.h" />
@@ -57,17 +64,24 @@
     <QtMoc Include="Assistance\Include\Assistance_ComboboxWheelWatcher.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Controller\Include\Controller_MemoSetting.h" />
+    <ClInclude Include="Model\Include\Model_MemoSetting.h" />
+    <ClInclude Include="View\Include\View_MemoSetting.h" />
     <QtMoc Include="View\Include\View_TaskSetting.h" />
     <QtMoc Include="Controller\Include\Controller_AsideBar.h" />
     <QtMoc Include="Model\Include\Model_Welcome.h" />
     <QtMoc Include="Controller\Include\Controller_Welcome.h" />
-    <QtMoc Include="Model\Include\Model_Settings.h" />
-    <QtMoc Include="Controller\Include\Controller_Settings.h" />
+    <QtMoc Include="Model\Include\Model_Preference.h" />
+    <QtMoc Include="Controller\Include\Controller_Preference.h" />
     <QtMoc Include="Controller\Include\Controller_Schedule.h" />
     <QtMoc Include="Database\Include\Database.h" />
     <QtMoc Include="Controller\Include\Controller_TaskSetting.h" />
+    <ClInclude Include="Assistance\Include\Assistance_AsideBarGenerator.h" />
+    <ClInclude Include="Assistance\Include\Assistance_PictureHelper.h" />
+    <ClInclude Include="Card\Include\Card.h" />
+    <ClInclude Include="Card\Include\Card_MonthOverview.h" />
     <ClInclude Include="Include\Const_Text.h" />
-    <ClInclude Include="Include\Const_Settings.h" />
+    <ClInclude Include="Include\Const_Preference.h" />
     <ClInclude Include="Include\Const_DefaultTheme.h" />
     <ClInclude Include="Include\Const_Font.h" />
     <ClInclude Include="Include\Const_SuccessNote.h" />
@@ -75,25 +89,25 @@
     <ClInclude Include="Model\Include\Model_Schedule.h" />
     <QtMoc Include="Assistance\Include\Assistance_ThemeManager.h" />
     <ClInclude Include="Model\Include\Model_TaskSetting.h" />
-    <ClInclude Include="View\Include\SettingItem.h" />
+    <ClInclude Include="Include\Struct_Memo.h" />
+    <ClInclude Include="View\Include\PreferenceItem.h" />
     <ClInclude Include="View\Include\View_Welcome.h" />
     <QtMoc Include="Controller\Include\Controller_Hugou.h" />
     <ClInclude Include="Include\Const_Geometry.h" />
     <ClInclude Include="Include\Var.h" />
     <QtMoc Include="View\Include\View_AsideBar.h" />
-    <ClInclude Include="View\Include\ui_FloatingNotePanel.h" />
     <QtMoc Include="View\Include\View_Hugou.h" />
-    <QtMoc Include="View\Include\View_Settings.h" />
+    <QtMoc Include="View\Include\View_Preference.h" />
     <QtMoc Include="View\Include\View_TitleBar.h" />
     <QtMoc Include="View\Include\View_Schedule.h" />
-    <QtMoc Include="Assistance\Include\Assistance_SettingsHelper.h" />
+    <QtMoc Include="Assistance\Include\Assistance_PreferenceHelper.h" />
     <QtMoc Include="Assistance\Include\IconTextButtonHoverWatcher.h" />
     <QtMoc Include="View\Include\IconTextButton.h" />
     <QtMoc Include="Model\Include\Model_Hugou.h" />
     <QtMoc Include="View\Include\View_GlobalTop.h" />
-    <QtMoc Include="View\Include\FloatingNotePanel.h" />
+    <QtMoc Include="View\Include\View_FloatingNotePanel.h" />
     <QtMoc Include="Assistance\Include\Assistance_FloatingNoteManager.h" />
-    <QtMoc Include="View\Include\FloatingNote.h" />
+    <QtMoc Include="View\Include\View_FloatingNote.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Configuration\conf.ini" />
@@ -102,7 +116,7 @@
     <None Include="Resource\theme\Global\floatingNote.qss" />
     <None Include="Resource\theme\Global\floatingNotePanel.qss" />
     <None Include="Resource\theme\Global\globalTop.qss" />
-    <None Include="Resource\theme\Global\schedule.qss" />
+    <None Include="Resource\theme\Default\schedule.qss" />
     <None Include="Resource\theme\Global\taskSetting.qss" />
     <None Include="Resource\theme\Global\titleBar.qss" />
   </ItemGroup>
@@ -249,7 +263,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <IncludePath>C:\Users\Dawn\Desktop\Hugou\Hugou\Database\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Assistance\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\View\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Model\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Controller\Include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\Dawn\Desktop\Hugou\Hugou\Card\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Database\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Assistance\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\View\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Model\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Controller\Include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <IncludePath>C:\Users\Dawn\Desktop\Hugou\Hugou\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\View\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Model\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Controller\Include;$(IncludePath)</IncludePath>

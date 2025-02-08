@@ -68,13 +68,13 @@
     <ClCompile Include="Assistance\Assistance_ComboboxWheelWatcher.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="View\FloatingNote.cpp">
+    <ClCompile Include="View\View_FloatingNote.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Assistance\Assistance_FloatingNoteManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="View\FloatingNotePanel.cpp">
+    <ClCompile Include="View\View_FloatingNotePanel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="View\View_GlobalTop.cpp">
@@ -92,10 +92,10 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="View\View_Settings.cpp">
+    <ClCompile Include="View\View_Preference.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Assistance\Assistance_SettingsHelper.cpp">
+    <ClCompile Include="Assistance\Assistance_PreferenceHelper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="View\View_TitleBar.cpp">
@@ -125,13 +125,13 @@
     <ClCompile Include="Controller\Controller_Welcome.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Model\Model_Settings.cpp">
+    <ClCompile Include="Model\Model_Preference.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Controller\Controller_Settings.cpp">
+    <ClCompile Include="Controller\Controller_Preference.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="View\SettingItem.cpp">
+    <ClCompile Include="View\PreferenceItem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Model\Model_Schedule.cpp">
@@ -155,6 +155,27 @@
     <ClCompile Include="Model\Model_TaskSetting.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Assistance\Assistance_PictureHelper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Assistance\Assistance_AsideBarGenerator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Card\Card_MonthOverview.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Card\Card.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="View\View_MemoSetting.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Model\Model_MemoSetting.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Controller\Controller_MemoSetting.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Assistance\Include\ButtonHoverWatcher.h">
@@ -163,13 +184,13 @@
     <QtMoc Include="Assistance\Include\Assistance_ComboboxWheelWatcher.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="View\Include\FloatingNote.h">
+    <QtMoc Include="View\Include\View_FloatingNote.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="Assistance\Include\Assistance_FloatingNoteManager.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="View\Include\FloatingNotePanel.h">
+    <QtMoc Include="View\Include\View_FloatingNotePanel.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="View\Include\View_GlobalTop.h">
@@ -184,7 +205,7 @@
     <QtMoc Include="Assistance\Include\IconTextButtonHoverWatcher.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="Assistance\Include\Assistance_SettingsHelper.h">
+    <QtMoc Include="Assistance\Include\Assistance_PreferenceHelper.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="Controller\Include\Controller_Hugou.h">
@@ -208,13 +229,13 @@
     <QtMoc Include="Controller\Include\Controller_AsideBar.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="View\Include\View_Settings.h">
+    <QtMoc Include="View\Include\View_Preference.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="Model\Include\Model_Settings.h">
+    <QtMoc Include="Model\Include\Model_Preference.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="Controller\Include\Controller_Settings.h">
+    <QtMoc Include="Controller\Include\Controller_Preference.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="View\Include\View_Schedule.h">
@@ -243,9 +264,6 @@
     <ClInclude Include="Include\Var.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="View\Include\ui_FloatingNotePanel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="View\Include\View_Welcome.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -258,13 +276,13 @@
     <ClInclude Include="Include\Const_DefaultTheme.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Const_Settings.h">
+    <ClInclude Include="Include\Const_Preference.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Include\Const_Text.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="View\Include\SettingItem.h">
+    <ClInclude Include="View\Include\PreferenceItem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Model\Include\Model_Schedule.h">
@@ -276,6 +294,30 @@
     <ClInclude Include="Model\Include\Model_TaskSetting.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Assistance\Include\Assistance_PictureHelper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Assistance\Include\Assistance_AsideBarGenerator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Card\Include\Card_MonthOverview.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Card\Include\Card.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Struct_Memo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="View\Include\View_MemoSetting.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Model\Include\Model_MemoSetting.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller\Include\Controller_MemoSetting.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Configuration\conf.ini" />
@@ -284,7 +326,7 @@
     <None Include="Resource\theme\Global\floatingNote.qss" />
     <None Include="Resource\theme\Global\floatingNotePanel.qss" />
     <None Include="Resource\theme\Global\globalTop.qss" />
-    <None Include="Resource\theme\Global\schedule.qss" />
+    <None Include="Resource\theme\Default\schedule.qss" />
     <None Include="Resource\theme\Global\titleBar.qss" />
     <None Include="Resource\theme\Global\taskSetting.qss" />
   </ItemGroup>

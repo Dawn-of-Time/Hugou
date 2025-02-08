@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "FloatingNote.h"
+#include "View_FloatingNote.h"
 #include <list>
 #include <QString>
 #include <QStringList>
@@ -30,7 +30,7 @@ public:
 	inline FloatingNote* getLatestHiddenFloatingNote() { return hiddenFloatingNoteList.back(); }
 
 signals:
-	void SignalAnimationFinishedToTitleBar();
+	//void SignalAnimationFinishedToTitleBar();
 
 public slots:
 	void checkPopupQueue();

@@ -9,9 +9,9 @@
 #include <thread>
 #include <chrono>
 #include "Var.h"
-#include "Assistance_SettingsHelper.h"
+#include "Assistance_preferenceHelper.h"
 #include "Model_Schedule.h"
-#include "Model_Settings.h"
+#include "Model_preference.h"
 
 class HugouController;
 
@@ -30,10 +30,10 @@ private:
     {
         QString generalStyleSheet;
         QString asideBarStyleSheet;
-        QString settingsStyleSheet;
+        QString preferenceStyleSheet;
     };
-    QStringList styleFileNameList = { "general", "asideBar", "settings" };
+    QStringList styleFileNameList = { "general", "asideBar", "preference" };
 
-    SettingsModel* m_settingsModel;
+    PreferenceModel* m_preferenceModel;
     ScheduleModel* m_scheduleModel;
 };

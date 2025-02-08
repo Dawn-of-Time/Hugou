@@ -7,98 +7,97 @@ TitleBarView::TitleBarView(QWidget* parent) :
     connect(m_minimizeButton, &QPushButton::clicked, [&]() {emit SignalMinimizeButtonClicked(); });
     connect(m_scaleButton, &QPushButton::clicked, [&]() {emit SignalScaleButtonClicked(); });
 	connect(m_closeButton, &QPushButton::clicked, [&]() {emit SignalCloseButtonClicked(); });
-    connect(m_floatingNotePanelButton, &QPushButton::clicked, [&]() {emit SignalFloatingNotePanelButtonClicked(); });
-    connect(FloatingNoteManager::getManager(), &FloatingNoteManager::SignalAnimationFinishedToTitleBar, this, &TitleBarView::slideFloatingNotePoint);
 }
 
 void TitleBarView::setupUi()
 {
+    // 字体清单
+    QFont appNameFont = QFont("NeverMind", 14, QFont::Bold);
+    QFont AIChatLineEditFont = QFont("NeverMind", 12, QFont::Normal);
+
     this->setObjectName("titleBar");
 
     m_titleLayout = new QHBoxLayout(this);
-    m_titleLayout->setContentsMargins(0, 0, 0, 0);
+    m_titleLayout->setContentsMargins(16, 0, 0, 16);
     m_titleLayout->setSpacing(0);
 
-    // 拖拽区域
-    m_dragZone = new QLabel(this);
-    m_dragZone->setObjectName("dragZone");
-    m_dragZone->setFixedHeight(titleButtonHeight);
+    // 软件图标和名字
+    m_appIcon = new QLabel(this);
+    m_appIcon->setFixedSize(48, 48);
+    m_appIcon->setPixmap(QPixmap(":/icon/Hugou_48.png"));
+    m_appName = new QLabel("Hugou", this);
+    m_appName->setFixedWidth(80);
+    m_appName->setFont(appNameFont);
 
-    // 消息中心
-    m_floatingNotePanelLabel = new QLabel(this);
-    m_floatingNotePanelLabel->setFixedSize(titleButtonWidth, titleButtonHeight);
-    m_floatingNotePanelButtonBackground = new QLabel(m_floatingNotePanelLabel);
-    m_floatingNotePanelButtonBackground->setObjectName("floatingNotePanelButtonBackground");
-    m_floatingNotePanelButtonBackground->setFixedSize(titleButtonWidth, titleButtonHeight);
-    m_floatingNotePanelButtonBackgroundLayout = new QVBoxLayout(m_floatingNotePanelButtonBackground);
-    m_floatingNotePanelButtonBackgroundLayout->setContentsMargins(0, 0, 0, 0);
-    m_floatingNotePanelButtonBackgroundLayout->setSpacing(0);
-    m_floatingNotePanelIcon = new QPushButton(m_floatingNotePanelButtonBackground);
-    m_floatingNotePanelIcon->setObjectName("floatingNotePanelIcon");
-    m_floatingNotePanelIcon->setFixedSize(60, 35);
-    m_floatingNotePanelIcon->setIcon(QIcon(":/icon/floatingNoteManager_b.png"));
-    m_floatingNotePanelIcon->setIconSize(titleButtonIconSize);
-    m_floatingNoteQueue = new QLabel(m_floatingNotePanelButtonBackground);
-    m_floatingNoteQueue->setObjectName("floatingNoteQueue");
-    m_floatingNoteQueue->setFixedHeight(10);
-    m_queueLayout = new QHBoxLayout(m_floatingNoteQueue);
-    m_queueLayout->setContentsMargins(5, 0, 0, 0);
-    m_queueLayout->setSpacing(0);
-    m_firstNotePoint = new QLabel(m_floatingNoteQueue);
-    m_firstNotePoint->setObjectName("firstNotePoint");
-    m_secondNotePoint = new QLabel(m_floatingNoteQueue);
-    m_secondNotePoint->setObjectName("secondNotePoint");
-    m_thirdNotePoint = new QLabel(m_floatingNoteQueue);
-    m_thirdNotePoint->setObjectName("thirdNotePoint");
-    m_forthNotePoint = new QLabel(m_floatingNoteQueue);
-    m_forthNotePoint->setObjectName("forthNotePoint");
-    m_fifthNotePoint = new QLabel(m_floatingNoteQueue);
-    m_fifthNotePoint->setObjectName("fifthNotePoint");
-    m_notePointQueue = { m_firstNotePoint, m_secondNotePoint, m_thirdNotePoint, m_forthNotePoint, m_fifthNotePoint };
-    for (int i = 0; i < 5; ++i)
-    {
-        m_notePointQueue[i]->setFixedSize(QSize(10, 10));
-        m_queueLayout->addWidget(m_notePointQueue[i]);
-    }
-    m_floatingNotePanelButtonBackgroundLayout->addWidget(m_floatingNotePanelIcon);
-    m_floatingNotePanelButtonBackgroundLayout->addWidget(m_floatingNoteQueue);
-    m_floatingNotePanelButton = new QPushButton(m_floatingNotePanelLabel);
-    m_floatingNotePanelButton->setObjectName("floatingNotePanelButton");
-    m_floatingNotePanelButton->setFixedSize(titleButtonWidth, titleButtonHeight);
-    /*floatingNotePanelButtonHoverWatcher = new ButtonHoverWatcher(floatingNotePanelButtonBackground, "transparent", "background: qradialgradient(cx:0.5, cy:0.5, fx:0.5, fy:0.5, radius:0.65, stop:0 rgba(255, 255, 255, 0.5), stop:0.8 rgba(255, 255, 255, 0), stop:1 rgba(255, 255, 255, 0));", titleBar);
-    floatingNotePanelButton->installEventFilter(floatingNotePanelButtonHoverWatcher);*/
-    m_floatingNotePanelButton->raise();
+    // 左拖拽区域
+    m_leftDragZone = new QLabel(this);
+    m_leftDragZone->setObjectName("leftDragZone");
+    m_leftDragZone->setFixedHeight(titleFrameHeight);
 
-    // 帮助按钮
-    m_helpButton = new QPushButton(this);
-    m_helpButton->setObjectName("helpButton");
-    m_helpButton->setIcon(QIcon(":/icon/help_b.png"));
-    m_helpButton->setIconSize(titleButtonIconSize);
-    m_helpButton->setFixedSize(titleButtonWidth, titleButtonHeight);
+    // AI 聊天
+    m_AIChatWidget = new QWidget(this);
+    m_AIChatWidget->setObjectName("AIChatWidget");
+    m_AIChatWidget->setFixedHeight(40);
+    m_AIChatWidgetLayout = new QHBoxLayout(m_AIChatWidget);
+    m_AIChatWidgetLayout->setSpacing(5);
+    m_AIChatIcon = new QLabel(m_AIChatWidget);
+    m_AIChatIcon->setFixedSize(16, 16);
+    m_AIChatIcon->setPixmap(QPixmap(":/icon/AI_chat_default_16.png"));
+    m_AIChatLineEdit = new QLineEdit(m_AIChatWidget);
+    m_AIChatLineEdit->setObjectName("AIChatLineEdit");
+    m_AIChatLineEdit->setPlaceholderText("Chat");
+    m_AIChatLineEdit->setFont(AIChatLineEditFont);
+
+    m_AIChatWidgetLayout->setAlignment(Qt::AlignVCenter);
+    m_AIChatWidgetLayout->addWidget(m_AIChatIcon);
+    m_AIChatWidgetLayout->addWidget(m_AIChatLineEdit);
+
+    // 右拖拽区域
+    m_rightDragZone = new QLabel(this);
+    m_rightDragZone->setObjectName("leftDragZone");
+    m_rightDragZone->setFixedHeight(titleFrameHeight);
+
+    // 用户区域
+    m_userWidget = new QWidget(this);
+    m_userWidget->setFixedSize(56, 56);
+    m_userWidgetLayout = new QHBoxLayout(m_userWidget);
+    m_userWidgetLayout->setContentsMargins(0, 0, 0, 0);
+    m_userWidgetLayout->setSpacing(0);
+    m_userButton = new QPushButton(m_userWidget);
+    m_userButton->setObjectName("userButton");
+    m_userButton->setFixedSize(36, 36);
+    m_userButton->setIcon(QPixmap(":/icon/Hugou_48.png"));
+    m_userButton->setIconSize(QSize(36, 36));
+    m_userWidgetLayout->setAlignment(Qt::AlignCenter);
+    m_userWidgetLayout->addWidget(m_userButton);
 
     // 最小化按钮
     m_minimizeButton = new QPushButton(this);
     m_minimizeButton->setObjectName("minimizeButton");
-    m_minimizeButton->setIcon(QIcon(":/icon/minimum.png"));
+    m_minimizeButton->setIcon(QIcon(":/icon/minimum_black.png"));
     m_minimizeButton->setFixedSize(titleButtonWidth, titleButtonHeight);
 
     // 最大化/还原按钮
     m_scaleButton = new QPushButton(this);
     m_scaleButton->setObjectName("scaledButton");
-    m_scaleButton->setIcon(QIcon(":/icon/maximum.png"));
+    m_scaleButton->setIcon(QIcon(":/icon/maximum_black.png"));
     m_scaleButton->setFixedSize(titleButtonWidth, titleButtonHeight);
 
     // 关闭按钮
     m_closeButton = new QPushButton(this);
     m_closeButton->setObjectName("closeButton");
-    m_closeButton->setIcon(QIcon(":/icon/close.png"));
+    m_closeButton->setIcon(QIcon(":/icon/close_black.png"));
     m_closeButton->setFixedSize(titleButtonWidth, titleButtonHeight);
-    /*closeButtonHoverWatcher = new ButtonHoverWatcher(QString(":/icon/close_bla.png"), QString(":/icon/close_w.png"), titleBar);
-    closeButton->installEventFilter(closeButtonHoverWatcher);*/
+    m_closeButtonHoverWatcher = new ButtonHoverWatcher(QString(":/icon/close_black.png"), QString(":/icon/close_white.png"), this);
+    m_closeButton->installEventFilter(m_closeButtonHoverWatcher);
 
-    m_titleLayout->addWidget(m_dragZone);
-    m_titleLayout->addWidget(m_floatingNotePanelLabel);
-    m_titleLayout->addWidget(m_helpButton);
+    m_titleLayout->setAlignment(Qt::AlignVCenter);
+    m_titleLayout->addWidget(m_appIcon);
+    m_titleLayout->addWidget(m_appName);
+    m_titleLayout->addWidget(m_leftDragZone, 1);
+    m_titleLayout->addWidget(m_AIChatWidget, 1);
+    m_titleLayout->addWidget(m_rightDragZone, 1);
+    m_titleLayout->addWidget(m_userWidget);
     m_titleLayout->addWidget(m_minimizeButton);
     m_titleLayout->addWidget(m_scaleButton);
     m_titleLayout->addWidget(m_closeButton);
@@ -110,44 +109,6 @@ void TitleBarView::setupUi()
     styleFile.close();
 }
 
-// 槽函数
-void TitleBarView::slideFloatingNotePoint()
-{
-    QParallelAnimationGroup* parallelGroup = new QParallelAnimationGroup;
-    for (int i = 0; i < 5; i++)
-    {
-        QPropertyAnimation* animation = new QPropertyAnimation(m_notePointQueue[i], "pos", m_floatingNoteQueue);
-        animation->setDuration(100);
-        animation->setStartValue(QPoint(5 + 10 * i, 0));
-        animation->setEndValue(QPoint(5 + 10 * (i + 1), 0));
-        parallelGroup->addAnimation(animation);
-    }
-    connect(parallelGroup, &QParallelAnimationGroup::finished, this, &TitleBarView::floatFloatingNotePoint);
-    parallelGroup->start(QParallelAnimationGroup::DeleteWhenStopped);
-}
-
-void TitleBarView::floatFloatingNotePoint()
-{
-    QPropertyAnimation* animation0 = new QPropertyAnimation(m_notePointQueue[4], "pos", m_floatingNoteQueue);
-    // 设置消息点必须在移动动画之后
-    m_notePointQueue[4]->setPixmap(m_typePixmap[FloatingNoteManager::getManager()->getLatestHiddenFloatingNote()->m_type]);
-    animation0->setDuration(100);
-    animation0->setStartValue(QPoint(5, 15));
-    animation0->setEndValue(QPoint(5, 0));
-    connect(animation0, &QPropertyAnimation::finished, this, &TitleBarView::allocateFloatingNotePoint);
-    animation0->start(QAbstractAnimation::DeleteWhenStopped);
-}
-
-void TitleBarView::allocateFloatingNotePoint()
-{
-    // 重新分配控件位置
-    m_notePointQueue.insert(m_notePointQueue.begin(), m_notePointQueue.back());
-    m_notePointQueue.pop_back();
-    for (int i = 0; i < 5; ++i) m_queueLayout->removeWidget(m_notePointQueue[i]);
-    for (int i = 0; i < 5; ++i) m_queueLayout->addWidget(m_notePointQueue[i]);
-    FloatingNoteManager::getManager()->checkPopupQueue();
-}
-
 bool TitleBarView::isOnMaxButton(QPoint windowPos)
 {
     return QRect(m_scaleButton->mapTo(this->parentWidget(), QPoint(0, 0)), m_scaleButton->size()).contains(windowPos);
@@ -155,7 +116,8 @@ bool TitleBarView::isOnMaxButton(QPoint windowPos)
 
 bool TitleBarView::isOnDragZone(QPoint windowPos)
 {
-    return QRect(m_dragZone->mapTo(this->parentWidget(), QPoint(0, 0)), m_dragZone->size()).contains(windowPos);
+    return QRect(m_leftDragZone->mapTo(this->parentWidget(), QPoint(0, 0)), m_leftDragZone->size()).contains(windowPos) ||
+        QRect(m_rightDragZone->mapTo(this->parentWidget(), QPoint(0, 0)), m_rightDragZone->size()).contains(windowPos);
 }
 
 //void TitleBarView::paintEvent(QPaintEvent* event) {

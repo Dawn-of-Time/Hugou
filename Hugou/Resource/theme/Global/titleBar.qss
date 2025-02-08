@@ -1,37 +1,28 @@
 
-QLabel#dragZone {
+QLabel#leftDragZone {
 	border: none;
 	background-color: transparent;
 }
 
-QPushButton#floatingNotePanelButton {
-	border: none;
-	background-color: transparent;
+QWidget#AIChatWidget {
+	background-color: #FDFEFE;
+	border-radius: 20px;
 }
-	QPushButton#floatingNotePanelButton:hover {
-		border: none;
-		background-color: rgba(0, 0, 255, 0.2)
-	}
 
-QPushButton#floatingNotePanelIcon {
-	background-color: transparent;
+QLineEdit#AIChatLineEdit {
 	border: none;
 }
 
-QLabel#floatingNoteQueue {
+QLabel#rightDragZone {
 	border: none;
 	background-color: transparent;
 }
 
-QPushButton#helpButton {
-	border: none;
-	background-color: transparent;
+QPushButton#userButton {
+	border: 1px solid #377FED;
+	border-radius: 18px;
+	background-color: white;
 }
-
-	QPushButton#helpButton:hover {
-		border: none;
-		background-color: rgba(0, 0, 255, 0.2)
-	}
 
 QPushButton#minimizeButton {
 	border: none;
@@ -40,7 +31,7 @@ QPushButton#minimizeButton {
 
 	QPushButton#minimizeButton:hover {
 		border: none;
-		background-color: rgba(0, 0, 255, 0.2)
+		background-color: white;
 	}
 
 QPushButton#scaledButton {
@@ -50,7 +41,7 @@ QPushButton#scaledButton {
 
 	QPushButton#scaledButton:hover {
 		border: none;
-		background-color: rgba(0, 0, 255, 0.2)
+		background-color: white;
 	}
 
 QPushButton#closeButton {
@@ -60,5 +51,5 @@ QPushButton#closeButton {
 
 	QPushButton#closeButton:hover {
 		border: none;
-		background-color: rgba(255, 0, 0, 0.2)
+		background-color: red;
 	}

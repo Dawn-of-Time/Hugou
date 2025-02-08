@@ -2,6 +2,8 @@
 #include <QObject>
 #include "View_Schedule.h"
 #include "Model_Schedule.h"
+#include "Controller_MemoSetting.h"
+
 class ScheduleController :
     public QObject
 {
@@ -9,12 +11,12 @@ class ScheduleController :
 
 public:
     ScheduleController(ScheduleView* scheduleView, ScheduleModel* scheduleModel);
-
-    void showTaskSetting();
-    void closeTaskSetting(TaskSettingController* taskeSettingController);
+    ~ScheduleController();
+    void readAndGenerateMemos();
 
 private:
     ScheduleView* m_scheduleView;
     ScheduleModel* m_scheduleModel;
+    MemoSettingController* m_memoSettingController;
 };
 

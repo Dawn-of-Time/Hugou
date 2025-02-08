@@ -1,6 +1,0 @@
-/* ¼Æ»®±í */
-
-QPushButton {
-    border: none;
-    background-color: transparent;
-}

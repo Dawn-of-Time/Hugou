@@ -28,9 +28,9 @@
     </message>
 </context>
 <context>
-    <name>SettingsView</name>
+    <name>preferenceView</name>
     <message>
-        <location filename="View/Include/View_Settings.h" line="201"/>
+        <location filename="View/Include/View_preference.h" line="201"/>
         <source>Search item.</source>
         <translation>检索项。</translation>
     </message>

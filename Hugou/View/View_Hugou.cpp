@@ -41,8 +41,8 @@ void HugouView::setupUi()
     // 1 主窗口
     // --基本设置
     this->setObjectName("hugou");
-    this->setMinimumSize(mainWindowWidth, mainWindowHeight);
-    this->resize(960, 640);
+    this->setMinimumSize(minimumMainWindowWidth, minimumMainWindowHeight);
+    this->resize(mainWindowWidth, mainWindowHeight);
     this->setWindowIcon(QIcon(":/icon/Hugou_48.png"));
 
     // 2 主布局
@@ -86,10 +86,10 @@ void HugouView::setupUi()
     connect(m_stackedSwitchFadeInAnimation, &QPropertyAnimation::finished, this, &HugouView::disableGraphicsEffect);
     // --------堆叠控件：Schedule
     m_scheduleView = new ScheduleView(m_stackedWidget);
-    // --------堆叠控件：Settings
-    m_settingsView = new SettingsView(m_stackedWidget);
+    // --------堆叠控件：preference
+    m_preferenceView = new PreferenceView(m_stackedWidget);
     m_stackedWidget->addWidget(m_scheduleView);
-    m_stackedWidget->addWidget(m_settingsView);
+    m_stackedWidget->addWidget(m_preferenceView);
     m_stackedWidget->setCurrentWidget(m_scheduleView);
     
     m_stackedWidgetLayout->addWidget(m_stackedWidget);
@@ -243,7 +243,7 @@ void HugouView::brighten()
 
 void HugouView::closeHugou()
 {
-    SettingsHelper::getHelper()->syncSettings();
+    preferenceHelper::getHelper()->syncpreference();
     this->close();
 }
 
@@ -270,9 +270,8 @@ bool HugouView::nativeEvent(const QByteArray& eventType, void* message, qintptr*
     {
         *result = HTCLIENT;
         // 为了获取到正确的全局鼠标位置，应将GET_X_LPARAM和GET_Y_LPARAM得到的结果除以缩放倍数。
-        double scale = getScale();
-        QPoint globalPos = QPoint(GET_X_LPARAM(msg->lParam), GET_Y_LPARAM(msg->lParam)) / scale;
-        QPoint windowPos = globalPos - this->pos();
+        QPoint globalPos = QPoint(GET_X_LPARAM(msg->lParam), GET_Y_LPARAM(msg->lParam)) / devicePixelRatio();
+        QPoint windowPos = mapFromGlobal(globalPos);
 
         Area area = getArea(windowPos);
         switch (area)
@@ -357,13 +356,13 @@ void HugouView::changeEvent(QEvent* event) {
     if (event->type() == QEvent::WindowStateChange) {
         switch (windowState()) {
         case Qt::WindowMaximized: {
-            m_titleBarView->m_scaleButton->setIcon(QIcon(":/icon/restore.png"));
-            int border = GetSystemMetrics(SM_CXSIZEFRAME);
+            m_titleBarView->m_scaleButton->setIcon(QIcon(":/icon/restore_black.png"));
+            int border = GetSystemMetrics(SM_CXSIZEFRAME) + edgeWidth;
             setContentsMargins(border, border, border, border);
             break;
         }
         case Qt::WindowNoState:
-            m_titleBarView->m_scaleButton->setIcon(QIcon(":/icon/maximum.png"));
+            m_titleBarView->m_scaleButton->setIcon(QIcon(":/icon/maximum_black.png"));
             setContentsMargins(0, 0, 0, 0);
             break;
         default:
@@ -385,7 +384,7 @@ void HugouView::resizeEvent(QResizeEvent* event)
     }
 
     // 设置页表单
-    m_settingsView->adjustSizeHint();
+    m_preferenceView->adjustSizeHint();
     
     m_floatingNotePanel->updateUi();
     m_darkenWidget->resize(this->width(), this->height() - titleFrameHeight);

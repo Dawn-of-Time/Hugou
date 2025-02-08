@@ -3,10 +3,8 @@
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlError>
-#include <QTemporaryFile>
 #include <QDir>
-#include "Assistance_SettingsHelper.h"
-#include "Windows.h"
+#include "Assistance_preferenceHelper.h"
 
 class Database :
     public QObject
@@ -16,11 +14,10 @@ class Database :
 public:
     Database();
     bool open();
-    bool exec(QSqlQuery query);
+    static bool exec(QSqlQuery query);
 
 private:
     QSqlDatabase m_database;
-
-    void dealError(QString errorText);
+    static void dealError(QString errorText);
 };
 

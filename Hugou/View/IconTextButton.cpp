@@ -1,6 +1,6 @@
 #include "IconTextButton.h"
 
-IconTextButton::IconTextButton(QPixmap icon, QString text, QFont font, QWidget* parent) :
+IconTextButton::IconTextButton(QPixmap icon, QSize iconSize, QString text, QFont font, QWidget* parent) :
 	QPushButton(parent)
 {
 	m_backgroundWidget = new QWidget(this);
@@ -10,30 +10,27 @@ IconTextButton::IconTextButton(QPixmap icon, QString text, QFont font, QWidget* 
 	m_backgroundWidgetOpacityEffectAnimation = new QPropertyAnimation(m_backgroundWidgetOpacityEffect, "opacity");
 
 	m_buttonLayout = new QHBoxLayout(this);
-	m_buttonLayout->setContentsMargins(0, 0, 0, 0);
-	m_buttonLayout->setSpacing(0);
+	m_buttonLayout->setContentsMargins(20, 10, 20, 10);
+	m_buttonLayout->setSpacing(10);
 	m_iconZone = new QLabel(this);
-	m_iconZone->setFixedSize(16, 16);
+	m_iconZone->setFixedSize(iconSize);
 	m_textZone = new QLabel(this);
 	
 	// 穿透子控件，使鼠标触发事件的对象是父控件
 	m_iconZone->setAttribute(Qt::WA_TransparentForMouseEvents);
 	m_textZone->setAttribute(Qt::WA_TransparentForMouseEvents);
 
-	m_buttonLayout->setContentsMargins(10, 0, 10, 0);
-	m_buttonLayout->setSpacing(12);
-
 	this->setIcon(icon);
 	this->setText(text, font);
 
-	m_buttonLayout->addWidget(m_iconZone, Qt::AlignVCenter);
-	m_buttonLayout->addWidget(m_textZone, Qt::AlignVCenter);
-	m_buttonLayout->addStretch();
+	m_buttonLayout->setAlignment(Qt::AlignVCenter);
+	m_buttonLayout->addWidget(m_iconZone);
+	m_buttonLayout->addWidget(m_textZone);
 }
 
 void IconTextButton::setIcon(QPixmap icon)
 {
-	icon.setDevicePixelRatio(getScale());
+	//icon.setDevicePixelRatio(getScale());
 	m_iconZone->setPixmap(icon);
 };
 
@@ -46,6 +43,8 @@ void IconTextButton::setText(QString text, QFont font)
 {
 	m_textZone->setText(text);
 	m_textZone->setFont(font);
+	m_textZone->adjustSize();
+	this->adjustSize();
 }
 
 void IconTextButton::setFixedSize(int w, int h)

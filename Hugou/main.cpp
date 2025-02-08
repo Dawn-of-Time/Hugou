@@ -4,6 +4,8 @@
 #include "View_Hugou.h"
 #include "Model_Hugou.h"
 #include "Controller_Hugou.h"
+#include "Var.h"
+#include "Database.h"
 #include <QtWidgets/QApplication>
 #include <QFontDatabase>
 #include <QQmlEngine>
@@ -11,8 +13,15 @@
 
 int main(int argc, char* argv[])
 {
+    // 分辨率适配（含图片缩放质量调整）
+    QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
+    QApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
+    
+    // 初始化全局变量
+    Var::getVar();
+
     QApplication a(argc, argv);
-    a.setAttribute(Qt::AA_EnableHighDpiScaling);
     // 注册qml
     qmlRegisterType<HugouView>("HugouModules", 1, 0, "Hugou");
     // 字体载入
@@ -23,21 +32,23 @@ int main(int argc, char* argv[])
         QString filePath = dir.absoluteFilePath(fileName);
         QFontDatabase::addApplicationFont(filePath);
     }
+    // 创建数据库
+    Database db;
     // 读取配置
-    SettingsHelper* helper = SettingsHelper::getHelper();
+    preferenceHelper* helper = preferenceHelper::getHelper();
     // 检查是否是首次登录
-    //if (helper->settingsMap["firstBoot"] == "true")
+    //if (helper->preferenceMap["firstBoot"] == "true")
     //{
     //    WelcomeView welcomeView;
     //    WelcomeModel welcomeModel;
     //    WelcomeController welcomeController(&welcomeView, &welcomeModel);
-    //    helper->settingsMap["firstBoot"] = "false";
+    //    helper->preferenceMap["firstBoot"] = "false";
     //    welcomeView.exec();
     //}
     
     // 主构建
-    HugouView hugouView;
     HugouModel hugouModel;
+    HugouView hugouView;
     HugouController hugouController(&hugouView, &hugouModel);
     hugouView.show();
     return a.exec();

@@ -16,8 +16,9 @@ class IconTextButton :
 	Q_OBJECT
 
 public:
-	IconTextButton(QPixmap icon, QString text, QFont font, QWidget* parent);
+	IconTextButton(QPixmap icon, QSize iconSize, QString text, QFont font, QWidget* parent);
 
+	inline QString text() { return m_textZone->text(); }
 	void setIcon(QPixmap icon);
 	void setIconSize(QSize size);
 	void setText(QString text, QFont font);

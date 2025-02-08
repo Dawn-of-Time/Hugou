@@ -1,5 +1,4 @@
 #pragma once
-
 #include <QFrame>
 #include <QVBoxLayout>
 #include <QLabel>
@@ -24,48 +23,56 @@ signals:
 
 private:
     QVBoxLayout* m_asideBarLayout;
-    QWidget* m_userWidget;
-    QHBoxLayout* m_userWidgetLayout;
-    QLabel* m_userAvatar;
-    QWidget* m_userNicknameAndIDWidget;
-    QVBoxLayout* m_userNicknameAndIDWidgetLayout;
-    QLabel* m_userNickname;
-    QLabel* m_userID;
-    QLabel* m_planLabel;
-    IconTextButton* m_scheduleButton;
-    QLabel* m_dataBaseLabel;
-    IconTextButton* m_documentButton;
-    IconTextButton* m_recordButton;
-    IconTextButton* m_settingButton;
-    ButtonHoverWatcher* m_scheduleButtonHoverWatcher;
-    ButtonHoverWatcher* m_settingButtonHoverWatcher;
     QList<IconTextButton*> m_asideBarButtonList;
-    const QList<QStringList> m_asideBarButtonIconList = 
-    { 
-        {":/icon/schedule_default_16.png", ":/icon/schedule_current_16.png"},
-        {":/icon/document_default_16.png", ":/icon/document_current_16.png"}
+
+    // ×ÖÌåÇåµ¥
+    const QFont asideTitleFont = QFont("NeverMind", 10, QFont::Normal);
+    const QFont asideButtonFont = QFont("NeverMind", 12, QFont::Normal);
+
+    enum class ItemType {
+        AsideTitle,
+        AsideButton,
+        Stretch
+    };
+    const QStringList asideBarList =
+    {
+        tr("Plan"),
+        tr("Schedule"),
+        tr("Project"),
+        tr("Achievement"),
+        "",
+        tr("Database"),
+        tr("Document"),
+        tr("Application Repo"),
+        "",
+        tr("Addition"),
+        tr("Extension"),
+        "Stretch",
+        tr("Recycle Bin"),
+        tr("Preference")
     };
 
-    void setupUi();
-    void switchOverStackedWidget(int index);
-    QPixmap cropPixmapIntoCircle(QPixmap& pixmap, int diameter)
-    { 
-        double factor = getScale();
-        int width = pixmap.width();
-        int height = pixmap.height();
-        diameter = qMin(diameter, qMin(width, height));
+    const QMap<QString, QPair<ItemType, QStringList>> m_asideBarItemIconMap =
+    {
+        {tr("Plan"), qMakePair(ItemType::AsideTitle, QStringList())},
+        {tr("Schedule"), qMakePair(ItemType::AsideButton, QStringList({":/icon/schedule_default_16.png", ":/icon/schedule_current_16.png"}))},
+        {tr("Project"), qMakePair(ItemType::AsideButton, QStringList({":/icon/project_default_16.png", ":/icon/project_current_16.png"}))},
+        {tr("Achievement"), qMakePair(ItemType::AsideButton, QStringList({":/icon/achievement_default_16.png", ":/icon/achievement_current_16.png"}))},
 
-        QBitmap bitmap(width, height);
-        bitmap.fill(Qt::color0);
-        QPainter painter(&bitmap);
-        painter.setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
-        painter.setPen(Qt::NoPen);
-        painter.setBrush(Qt::color1);
-        painter.translate(0, 0);
-        painter.drawEllipse(0, 0, width, height);
-        QPixmap result = pixmap.copy();
-        result.setDevicePixelRatio(factor);
-        result.setMask(bitmap);
-        return result;
-    }
+        {tr("Database"), qMakePair(ItemType::AsideTitle, QStringList())},
+        {tr("Document"), qMakePair(ItemType::AsideButton, QStringList({":/icon/document_default_16.png", ":/icon/document_current_16.png"}))},
+        {tr("Application Repo"), qMakePair(ItemType::AsideButton, QStringList({":/icon/application_repo_default_16.png", ":/icon/application_repo_current_16.png"}))},
+
+        {tr("Addition"), qMakePair(ItemType::AsideTitle, QStringList())},
+        {tr("Extension"), qMakePair(ItemType::AsideButton, QStringList({":/icon/extension_default_16.png", ":/icon/extension_current_16.png"}))},
+        
+        {"Stretch", qMakePair(ItemType::Stretch, QStringList())},
+
+        {tr("Recycle Bin"), qMakePair(ItemType::AsideButton, QStringList({":/icon/recycle_bin_default_16.png", ":/icon/recycle_bin_current_16.png"}))},
+        {tr("Preference"), qMakePair(ItemType::AsideButton, QStringList({":/icon/preference_default_16.png", ":/icon/preference_current_16.png"}))}
+    };
+    void setupUi();
+    QLabel* generateTitle(QString titleText);
+    IconTextButton* generateButton(QString buttonText);
+    void switchOverStackedWidget();
 };

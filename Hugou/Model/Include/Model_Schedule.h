@@ -4,20 +4,34 @@
 #include <QDebug>
 #include "Database.h"
 #include "Struct_Task.h"
+#include "Struct_Memo.h"
+#include "Controller_MemoSetting.h"
 
+class ScheduleController;
 
 class ScheduleModel :
     public QObject
 {
 public:
     ScheduleModel();
-    ~ScheduleModel();
-    void addTask(Task& task);   // 添加后，更新结构体中的ID
-    void deleteTaskRequest(int ID);
-    void deleteTask(int ID);
-    void updateTask(int ID, QString propertyName, QString value);
+    void addMemo(Memo& memo);   // 添加后，更新结构体中的ID
+    void addMemoAndAwardRelation(int memoID, int awardID);
+    void addMemoAndReferenceRelation(int memoID, int referenceID);
+    void addMemoAndSubMemoRelation(int memoID, int subMemoID);
+    void readMemoDatabase();
+    void deleteMemoRequest(int ID);
+    void deleteMemo(int ID);
+    void updateMemo(int ID, QString propertyName, QString value);
 
 private:
-    Database* m_database;
+    friend class ScheduleController;
+    MemoSettingModel* m_memoSettingModel;
+    QList<Memo> m_memoList = {};
+    void createMemoDatabase();
+    void createAwardDatabase();
+    void createReferenceDatabase();
+    void createMemoAndAwardDatabase();
+    void createMemoAndReferenceDatabase();
+    void createMemoAndSubMemoDatabase();
 };
 

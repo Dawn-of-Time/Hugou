@@ -18,7 +18,7 @@ QString("QLabel { padding-left: 6px; color:#666666; background-color: transparen
 + QString("QPushButton[status=\"current\"] { border-radius: 10px;}")
 + QString("QPushButton[status=\"current\"] > QLabel { padding: 0px; margin :0px; color: #377FED; background-color: transparent; }");
 
-const QString defaultSettingsStyleSheet =
+const QString defaultpreferenceStyleSheet =
 QString("QStackedWidget { background-color: transparent; border: none }")
 + QString("QTreeWidget { background-color: transparent; border: none }")
 + QString("QListWidget { background-color: transparent; border: none; outline: none; margin-left: 20px; margin-right: 12px; margin-top: 2px; margin-bottom: 2px }")

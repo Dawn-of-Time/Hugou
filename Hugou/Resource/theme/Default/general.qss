@@ -1,7 +1,5 @@
-/* Ö÷´°Ìå */
-
 HugouView#hugou {
-    background-color: #F0F4FD;
+    background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #F5E8E7,stop:1 #EAF9FE);
 }
 
 QWidget#asideBarAndStackedWidget {
@@ -9,5 +7,5 @@ QWidget#asideBarAndStackedWidget {
 }
 
 QStackedWidget#stackedWidget {
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.5);
 }

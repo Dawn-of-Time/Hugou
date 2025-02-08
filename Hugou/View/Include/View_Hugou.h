@@ -2,11 +2,11 @@
 #include "Assistance_ThemeManager.h"
 #include "ButtonHoverWatcher.h"
 #include "Const_DefaultTheme.h"
-#include "FloatingNotePanel.h"
+#include "View_FloatingNotePanel.h"
 #include "View_AsideBar.h"
 #include "View_GlobalTop.h"
 #include "View_Schedule.h"
-#include "View_Settings.h"
+#include "View_preference.h"
 #include "View_TitleBar.h"
 #include <dwmapi.h>
 #include <QApplication>
@@ -46,7 +46,7 @@ private:
     QStackedWidget* m_stackedWidget;
     QHBoxLayout* m_stackedWidgetLayout;
     ScheduleView* m_scheduleView;
-    SettingsView* m_settingsView;
+    PreferenceView* m_preferenceView;
     QWidget* m_darkenWidget;
     FloatingNotePanel* m_floatingNotePanel;
     GlobalTopView* m_globalTopView;

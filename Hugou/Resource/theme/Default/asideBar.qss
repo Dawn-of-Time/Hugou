@@ -1,21 +1,12 @@
-/* ²à±ßÀ¸ */
-
-QLabel#userLabel {
-	border-top-left-radius: 12px;
-	background-color: transparent;
-}
-
-QFrame#asideFrame {
-	border-top-left-radius: 15px;
-	border-bottom-left-radius: 15px;
+QLabel#asideTitle {
+	color: #6A6868;
+	padding-left: 20px;
+	padding-right: 20px;
 	background-color: transparent;
 }
 
 IconTextButton[status="default"] {
-	border-radius: 10px;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	color: black;
+	border-radius: 18px;
 	background-color: transparent;
 }
 
@@ -25,14 +16,11 @@ IconTextButton[status="default"] {
 	}
 
 IconTextButton[status="current"] {
-	border-radius: 10px;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	color: #3763BE;
-	background-color: white;
+	border-radius: 18px;
+	background-color: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #104FB9,stop:1 #468DFA);
 }
 
 	IconTextButton[status="current"] > QLabel {
-		color: #3763BE;
+		color: white;
 		background-color: transparent;
 	}

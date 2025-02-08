@@ -1,7 +1,7 @@
 #include "Assistance_ThemeManager.h"
 
-ThemeManager::ThemeManager(QWidget* hugou, QWidget* asideBarView, QWidget* settingsView, GlobalTopView* globalTopView)
-    : QObject(), m_hugou(hugou), m_asideBarView(asideBarView), m_settingsView(settingsView), m_globalTopView(globalTopView)
+ThemeManager::ThemeManager(QWidget* hugou, QWidget* asideBarView, QWidget* preferenceView, GlobalTopView* globalTopView)
+    : QObject(), m_hugou(hugou), m_asideBarView(asideBarView), m_preferenceView(preferenceView), m_globalTopView(globalTopView)
 {
     connect(this, &ThemeManager::SignalThemeResourcePrepared, this, &ThemeManager::applyThemeForStartup);
 }
@@ -14,9 +14,9 @@ QString ThemeManager::getTheme()
 {
     if (m_theme.isEmpty())
     {
-        SettingsHelper* helper = SettingsHelper::getHelper();
+        preferenceHelper* helper = preferenceHelper::getHelper();
         QString theme;
-        if (helper->getSettingsValue("theme", theme))
+        if (helper->getpreferenceValue("theme", theme))
             m_theme = theme;
         else m_theme = "Default";
     }
@@ -43,7 +43,7 @@ void ThemeManager::loadThemeResource(QString theme)
 // 下面两个应用主题的函数分别用于第一次加载和后续手动变更两种情况。
 // 它们都经由ThemeManager的SignalThemeResourcePrepared信号触发。
 // ThemeManager一定可以得到可行的主题，因此两个函数都不需要进行失败的判定。ThemeManager中通过getTheme得到的主题一定是与当前主题资源匹配的主题。
-// consistentFlag--希望应用的主题和加载的主题资源是否一致。如果不一致，则需要将settingsComboboxMap["themeBox"]：
+// consistentFlag--希望应用的主题和加载的主题资源是否一致。如果不一致，则需要将preferenceComboboxMap["themeBox"]：
 // * 如果是第一次加载的情况，改为Default；
 // * 如果是后续手动变更的情况，则改为ThemeManager中通过getTheme得到的主题名称。
 void ThemeManager::applyThemeForStartup(ThemeResource* themeResource, bool consistentFlag)
@@ -59,7 +59,7 @@ void ThemeManager::applyTheme(ThemeResource* themeResource, bool consistentFlag)
 {
     // 若不为第一次加载，那么需要执行动画。
     if (!consistentFlag)  emit SignalUpdateThemeComboboxValue(m_theme);
-    SettingsHelper::getHelper()->setSettingsValue("theme", m_theme);
+    preferenceHelper::getHelper()->setpreferenceValue("theme", m_theme);
     m_globalTopView->disconnect();
     connect(m_globalTopView, &GlobalTopView::fadeInFinished, [=]()
         {
@@ -85,10 +85,10 @@ void ThemeManager::applyThemeResource(ThemeResource* themeResource)
 
     QString generalStyleSheet = themeResource->generalStyleSheet;
     QString asideBarStyleSheet = themeResource->asideBarStyleSheet;
-    QString settingsStyleSheet = themeResource->settingsStyleSheet;
+    QString preferenceStyleSheet = themeResource->preferenceStyleSheet;
     m_hugou->setStyleSheet(generalStyleSheet);
     m_asideBarView->setStyleSheet(asideBarStyleSheet);
-    m_settingsView->setStyleSheet(settingsStyleSheet);
+    m_preferenceView->setStyleSheet(preferenceStyleSheet);
     delete themeResource;
 }
 
@@ -101,17 +101,17 @@ void LoadThemeResourceThread::run()
 {
     QFile generalStyleFile(QString(":/theme/%1/general.qss").arg(m_theme));
     QFile asideBarStyleFile(QString(":/theme/%1/asideBar.qss").arg(m_theme));
-    QFile settingsStyleFile(QString(":/theme/%1/settings.qss").arg(m_theme));
-    bool isExisted = generalStyleFile.exists() && asideBarStyleFile.exists() && settingsStyleFile.exists();
+    QFile preferenceStyleFile(QString(":/theme/%1/preference.qss").arg(m_theme));
+    bool isExisted = generalStyleFile.exists() && asideBarStyleFile.exists() && preferenceStyleFile.exists();
     bool isCorrect = generalStyleFile.open(QIODeviceBase::ReadOnly) && asideBarStyleFile.open(QIODeviceBase::ReadOnly) &&
-        settingsStyleFile.open(QIODeviceBase::ReadOnly);
+        preferenceStyleFile.open(QIODeviceBase::ReadOnly);
     // 校验存在性
     if (!isExisted)
     {
         // Default主题文件是否存在和是否有效都不触发错误。其主题内容被硬编码到程序中。但是，如果有该主题的文件，就使用该主题文件的内容。
         if (m_theme != "Default")
         {
-            SettingsHelper* helper = SettingsHelper::getHelper();
+            preferenceHelper* helper = preferenceHelper::getHelper();
             emit helper->triggerError("10100");
             m_theme = "Default";
             m_themeResource = getDefaultThemeResource();
@@ -123,7 +123,7 @@ void LoadThemeResourceThread::run()
     {
         if (m_theme != "Default")
         {
-            SettingsHelper* helper = SettingsHelper::getHelper();
+            preferenceHelper* helper = preferenceHelper::getHelper();
             emit helper->triggerError("10101");
             m_theme = "Default";
             m_themeResource = getDefaultThemeResource();
@@ -134,13 +134,13 @@ void LoadThemeResourceThread::run()
     {
         QString generalStyleSheet = QTextStream(&generalStyleFile).readAll();
         QString asideBarStyleSheet = QTextStream(&asideBarStyleFile).readAll();
-        QString settingsStyleSheet = QTextStream(&settingsStyleFile).readAll();
+        QString preferenceStyleSheet = QTextStream(&preferenceStyleFile).readAll();
         // 校验是否为空
-        if (generalStyleSheet.isEmpty() || asideBarStyleSheet.isEmpty() || settingsStyleSheet.isEmpty())
+        if (generalStyleSheet.isEmpty() || asideBarStyleSheet.isEmpty() || preferenceStyleSheet.isEmpty())
         {
             if (m_theme != "Default")
             {
-                SettingsHelper* helper = SettingsHelper::getHelper();
+                preferenceHelper* helper = preferenceHelper::getHelper();
                 emit helper->triggerError("10103");
                 m_theme = "Default";
                 m_themeResource = getDefaultThemeResource();
@@ -151,13 +151,13 @@ void LoadThemeResourceThread::run()
         {
             m_themeResource->generalStyleSheet = generalStyleSheet;
             m_themeResource->asideBarStyleSheet = asideBarStyleSheet;
-            m_themeResource->settingsStyleSheet = settingsStyleSheet;
+            m_themeResource->preferenceStyleSheet = preferenceStyleSheet;
             m_isConsistent = true;
         }
     }
     generalStyleFile.close();
     asideBarStyleFile.close();
-    settingsStyleFile.close();
+    preferenceStyleFile.close();
     emit SignalThemeResourcePreparedInThread(m_themeResource, m_isConsistent);
 }
 
@@ -166,6 +166,6 @@ ThemeResource* LoadThemeResourceThread::getDefaultThemeResource()
     ThemeResource* themeResource = new ThemeResource{};
     themeResource->generalStyleSheet = defaultGeneralStyleSheet;
     themeResource->asideBarStyleSheet = defaultAsideBarStyleSheet;
-    themeResource->settingsStyleSheet = defaultSettingsStyleSheet;
+    themeResource->preferenceStyleSheet = defaultpreferenceStyleSheet;
     return themeResource;
 }
