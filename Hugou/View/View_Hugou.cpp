@@ -377,7 +377,7 @@ void HugouView::resizeEvent(QResizeEvent* event)
     QWidget::resizeEvent(event);
     FloatingNoteManager* floatingNoteManager = FloatingNoteManager::getManager();
     // 浮动消息
-    if (floatingNoteManager->isAnimating || (floatingNoteManager->getShownFloatingNote()))
+    if (floatingNoteManager->m_isAnimating || (floatingNoteManager->getShownFloatingNote()))
     {
         //qDebug() << "***Start adjusting***";
         floatingNoteManager->adjustFloatingNote();

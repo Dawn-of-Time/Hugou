@@ -9,6 +9,7 @@
 #include <QPainter>
 #include <QGraphicsOpacityEffect>
 #include <QPropertyAnimation>
+#include <QQmlEngine>
 
 class GlobalTopView
 	: public QWidget 
@@ -16,8 +17,9 @@ class GlobalTopView
 	Q_OBJECT
 
 public:
-	bool isTopShown = false;
+	bool m_isTopShown = false;
 	GlobalTopView(QWidget* parent);
+	~GlobalTopView();
 	void fadeIn();
 	void fadeOut();
 	void setSource(QString filename);

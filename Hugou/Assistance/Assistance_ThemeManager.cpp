@@ -34,7 +34,7 @@ void ThemeManager::loadThemeResource(QString theme)
             if (consistentFlag) m_theme = m_tempTheme;
             emit SignalThemeResourcePrepared(themeResource, consistentFlag);
         });
-    //connect(loadThemeResourceThread, &LoadThemeResourceThread::finished, loadThemeResourceThread, &LoadThemeResourceThread::deleteLater);
+    connect(loadThemeResourceThread, &LoadThemeResourceThread::finished, loadThemeResourceThread, &LoadThemeResourceThread::deleteLater);
     loadThemeResourceThread->setTheme(theme);
     // 下述线程一定能够得到可行的主题资源。
     loadThemeResourceThread->start();

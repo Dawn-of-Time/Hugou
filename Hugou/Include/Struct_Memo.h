@@ -4,7 +4,7 @@
 #include <QDateTime>
 #include <QColor>
 
-enum MemoImportance
+enum MemoImportanceAndUrgency
 {
     UrgentAndImportant,
     NotUrgentButImportant,
@@ -13,7 +13,7 @@ enum MemoImportance
 };
 
 enum MemoSettingItemType {
-    Type, Time, Importance, Detail, SubMemo, Award, Reference
+    Type, Time, ImportanceAndUrgency, Detail, SubMemo, Award, Reference
 };
 
 struct MemoTemplate
@@ -27,7 +27,7 @@ const MemoTemplate defaultTemplate = MemoTemplate
 {
     "Default",
     QColor("#377FED"),
-    { Type, Time, Importance, Detail, SubMemo, Award, Reference }
+    { Type, Time, ImportanceAndUrgency, Detail, SubMemo, Award, Reference }
 };
 
 struct MemoType
@@ -46,8 +46,7 @@ struct Memo
     QDateTime timePeriod_f = QDateTime();
     QDateTime timePeriod_l = QDateTime();
     QDateTime timePoint = QDateTime();
-    MemoImportance importance = UrgentAndImportant;
-    int importanceDegree = -1;
+    MemoImportanceAndUrgency importanceAndUrgency = UrgentAndImportant;
     QString detail = "NULL";
     int retentionPeriod = -1;
     bool hasSubMemo = false;

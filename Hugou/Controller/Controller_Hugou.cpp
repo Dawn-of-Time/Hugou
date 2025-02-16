@@ -28,6 +28,7 @@ HugouController::HugouController(HugouView* hugouView, HugouModel* hugouModel)
 HugouController::~HugouController()
 {
     delete m_preferenceController;
+	delete m_scheduleController;
     delete m_themeManager;
 }
 

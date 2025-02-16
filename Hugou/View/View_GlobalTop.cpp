@@ -9,6 +9,11 @@ GlobalTopView::GlobalTopView(QWidget* parent) :
     this->setGraphicsEffect(m_effect);
 }
 
+GlobalTopView::~GlobalTopView()
+{
+    removeSource();
+}
+
 void GlobalTopView::setupUi()
 {
     this->setObjectName("globalTop");
@@ -66,20 +71,21 @@ void GlobalTopView::fadeOut()
 
 void GlobalTopView::switchTop()
 {
-    if (!isTopShown)
+    if (!m_isTopShown)
     {
         this->setHidden(false);
-        isTopShown = true;
+        m_isTopShown = true;
     }
     else
     {
         this->setHidden(true);
-        isTopShown = false;
+        m_isTopShown = false;
     }
 }
 
 void GlobalTopView::setSource(QString filename)
 {
+    m_globalTopQuickWidget->engine()->clearComponentCache();
     m_globalTopQuickWidget->setSource(QUrl(filename));
     m_globalTopQuickWidget->show();
 }
@@ -91,7 +97,7 @@ void GlobalTopView::setHint(QString hint)
 
 void GlobalTopView::removeSource()
 {
-    m_globalTopQuickWidget->setSource(QUrl("qrc:/qml/empty.qml"));
+    m_globalTopQuickWidget->setSource(QUrl());
 }
 
 void GlobalTopView::updateUi(QWidget* Hugou)

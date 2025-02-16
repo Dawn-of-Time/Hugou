@@ -12,6 +12,7 @@ class PreferenceController : public QObject
 
 public:
     PreferenceController(PreferenceView* preferenceView, PreferenceModel* preferenceModel);
+	~PreferenceController();
     void updateThemeComboboxValue(QString value);        // 通过程序修改值，不触发相关槽函数
     bool m_userChanged = true;
 

@@ -5,7 +5,7 @@
 #include <QPushButton>
 #include <QFile>
 #include <QPropertyAnimation>
-#include "IconTextButton.h"
+#include "FadeEffectButton.h"
 #include "Struct_Task.h"
 
 class TaskSettingController;
@@ -48,7 +48,7 @@ private:
     QHBoxLayout* m_briefTaskTypeWidgetLayout;
     QWidget* m_detailedTaskTypeWidget;
     QVBoxLayout* m_detailedTaskTypeWidgetLayout;
-    IconTextButton* m_addTaskTypeButton;
+    FadeEffectButton* m_addTaskTypeButton;
     QWidget* m_timeWidget;
     QVBoxLayout* m_timeWidgetLayout;
     QLabel* m_timeTitle;

@@ -59,9 +59,9 @@ QLabel* AsideBarView::generateTitle(QString titleText)
     return title;
 }
 
-IconTextButton* AsideBarView::generateButton(QString titleText)
+FadeEffectButton* AsideBarView::generateButton(QString titleText)
 {
-    IconTextButton* button = new IconTextButton(QPixmap(m_asideBarItemIconMap[titleText].second[0]), QSize(16, 16), titleText, asideButtonFont, this);
+    FadeEffectButton* button = new FadeEffectButton(QPixmap(m_asideBarItemIconMap[titleText].second[0]), QSize(16, 16), titleText, asideButtonFont, this);
     button->setFixedSize(asideButtonWidth, asideButtonHeight);
     button->setBackgroundWidgetStyleSheet("background-color: rgba(0, 0, 255, 0.1); border-radius: 18px;");
     button->setIcon(QPixmap(m_asideBarItemIconMap[titleText].second[0]));
@@ -74,10 +74,10 @@ IconTextButton* AsideBarView::generateButton(QString titleText)
 
 void AsideBarView::switchOverStackedWidget()
 {
-    IconTextButton* objectiveButton = (IconTextButton*)sender();
+    FadeEffectButton* objectiveButton = (FadeEffectButton*)sender();
     int index = 0;
     int stackedWidgetIndex = 0;
-    for(IconTextButton* button : m_asideBarButtonList)
+    for(FadeEffectButton* button : m_asideBarButtonList)
     {
         if (button == objectiveButton)
         {

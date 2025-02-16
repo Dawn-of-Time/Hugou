@@ -22,7 +22,6 @@ class HugouModel : public QObject
 
 public:
     HugouModel();
-    ~HugouModel();
 
 private:
     friend class HugouController;

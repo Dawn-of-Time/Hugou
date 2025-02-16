@@ -21,6 +21,10 @@
     <ClCompile Include="Assistance\Assistance_PictureHelper.cpp" />
     <ClCompile Include="Card\Card.cpp" />
     <ClCompile Include="Card\Card_MonthOverview.cpp" />
+    <ClCompile Include="CloseWhenLeaveWidget.cpp" />
+    <ClCompile Include="DoubleClickedToEditButton.cpp" />
+    <ClCompile Include="View\ComboBox.cpp" />
+    <ClCompile Include="View\CheckBox.cpp" />
     <ClCompile Include="Controller\Controller_AsideBar.cpp" />
     <ClCompile Include="Controller\Controller_Hugou.cpp" />
     <ClCompile Include="Controller\Controller_Welcome.cpp" />
@@ -29,6 +33,7 @@
     <ClCompile Include="Controller\Controller_TaskSetting.cpp" />
     <ClCompile Include="Controller\Controller_MemoSetting.cpp" />
     <ClCompile Include="Database\Database.cpp" />
+    <ClCompile Include="View\MemoSettingItem.cpp" />
     <ClCompile Include="Model\Model_Welcome.cpp" />
     <ClCompile Include="Model\Model_Preference.cpp" />
     <ClCompile Include="Model\Model_Schedule.cpp" />
@@ -44,7 +49,7 @@
     <ClCompile Include="View\View_FloatingNotePanel.cpp" />
     <ClCompile Include="View\View_GlobalTop.cpp" />
     <ClCompile Include="Model\Model_Hugou.cpp" />
-    <ClCompile Include="View\IconTextButton.cpp" />
+    <ClCompile Include="View\FadeEffectButton.cpp" />
     <ClCompile Include="Assistance\IconTextButtonHoverWatcher.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="View\View_Hugou.cpp" />
@@ -64,9 +69,14 @@
     <QtMoc Include="Assistance\Include\Assistance_ComboboxWheelWatcher.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Controller\Include\Controller_MemoSetting.h" />
+    <QtMoc Include="Controller\Include\Controller_MemoSetting.h" />
+    <QtMoc Include="View\Include\MemoSettingItem.h" />
+    <QtMoc Include="View\Include\CheckBox.h" />
+    <QtMoc Include="CloseWhenLeaveWidget.h" />
+    <ClInclude Include="DoubleClickedToEditButton.h" />
+    <ClInclude Include="View\Include\ComboBox.h" />
     <ClInclude Include="Model\Include\Model_MemoSetting.h" />
-    <ClInclude Include="View\Include\View_MemoSetting.h" />
+    <QtMoc Include="View\Include\View_MemoSetting.h" />
     <QtMoc Include="View\Include\View_TaskSetting.h" />
     <QtMoc Include="Controller\Include\Controller_AsideBar.h" />
     <QtMoc Include="Model\Include\Model_Welcome.h" />
@@ -102,7 +112,7 @@
     <QtMoc Include="View\Include\View_Schedule.h" />
     <QtMoc Include="Assistance\Include\Assistance_PreferenceHelper.h" />
     <QtMoc Include="Assistance\Include\IconTextButtonHoverWatcher.h" />
-    <QtMoc Include="View\Include\IconTextButton.h" />
+    <QtMoc Include="View\Include\FadeEffectButton.h" />
     <QtMoc Include="Model\Include\Model_Hugou.h" />
     <QtMoc Include="View\Include\View_GlobalTop.h" />
     <QtMoc Include="View\Include\View_FloatingNotePanel.h" />
@@ -245,7 +255,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
     <QtInstall>6.7.2</QtInstall>
-    <QtModules>core;gui;qml;widgets;multimedia;multimediawidgets;printsupport;quickwidgets</QtModules>
+    <QtModules>core;gui;qml;widgets;multimedia;multimediawidgets;printsupport;quickwidgets;sql</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
@@ -263,15 +273,15 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <IncludePath>C:\Users\Dawn\Desktop\Hugou\Hugou\Card\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Database\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Assistance\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\View\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Model\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Controller\Include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Program Files %28x86%29\Visual Leak Detector\include;C:\Users\Dawn\Desktop\Hugou\Hugou\Card\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Database\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Assistance\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\View\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Model\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Controller\Include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <IncludePath>C:\Users\Dawn\Desktop\Hugou\Hugou\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\View\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Model\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Controller\Include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Program Files %28x86%29\Visual Leak Detector\include;C:\Users\Dawn\Desktop\Hugou\Hugou\Assistance\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Database\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Card\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\View\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Model\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Controller\Include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Link>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Dwmapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Dwmapi.lib;C:\Program Files (x86)\Visual Leak Detector\lib\Win64\vld.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <ClCompile>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -282,7 +292,8 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Link>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Dwmapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Dwmapi.lib;C:\Program Files (x86)\Visual Leak Detector\lib\Win64\vld.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/NODEFAULTLIB:library %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <ClCompile>
       <DisableSpecificWarnings>4828</DisableSpecificWarnings>

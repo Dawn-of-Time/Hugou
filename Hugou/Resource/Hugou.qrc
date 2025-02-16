@@ -123,5 +123,9 @@
         <file>icon/forward.png</file>
         <file>icon/back.png</file>
         <file>icon/add_memo.png</file>
+        <file>icon/tick_white.png</file>
+        <file>icon/more.png</file>
+        <file>icon/remind.png</file>
+        <file>icon/off.png</file>
     </qresource>
 </RCC>

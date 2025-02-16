@@ -74,24 +74,24 @@ void TaskSettingView::setupUi()
     //for (QMap<QString, QString>::const_iterator it = taskTypeMap.begin(); it != taskTypeMap.end(); ++it)
     //{
     //    QString type = it.key();
-    //    IconTextButton* button = new IconTextButton(QPixmap(), QSize(16, 16), type, secondLevellTitleFont, m_detailedTaskTypeWidget);
+    //    FadeEffectButton* button = new FadeEffectButton(QPixmap(), QSize(16, 16), type, secondLevellTitleFont, m_detailedTaskTypeWidget);
     //    button->setObjectName(type + "TypeButton");
     //    button->setFixedHeight(20);
     //    button->setProperty("status", "default");
     //    button->setStyleSheet(QString(
-    //        "IconTextButton[status=\"default\"] {"
+    //        "FadeEffectButton[status=\"default\"] {"
     //        "border-radius: 10px;"
     //        "background-color: white;"
     //        "}"
-    //        "IconTextButton[status=\"default\"] > QLabel {"
+    //        "FadeEffectButton[status=\"default\"] > QLabel {"
     //        "color: %1;"
     //        "background-color: transparent;"
     //        "}"
-    //        "IconTextButton[status=\"current\"] {"
+    //        "FadeEffectButton[status=\"current\"] {"
     //        "border-radius: 10px;"
     //        "background-color: %1;"
     //        "}"
-    //        "IconTextButton[status=\"current\"] > QLabel {"
+    //        "FadeEffectButton[status=\"current\"] > QLabel {"
     //        "color: white;"
     //        "background-color: transparent;"
     //        "}"
@@ -101,7 +101,7 @@ void TaskSettingView::setupUi()
     //    ));
     //    m_detailedTaskTypeWidgetLayout->addWidget(button);
     //}
-    m_addTaskTypeButton = new IconTextButton(QPixmap(), QSize(16, 16), "Add Type", secondLevellTitleFont, m_detailedTaskTypeWidget);
+    m_addTaskTypeButton = new FadeEffectButton(QPixmap(), QSize(16, 16), "Add Type", secondLevellTitleFont, m_detailedTaskTypeWidget);
     m_addTaskTypeButton->setFixedHeight(20);
     m_addTaskTypeButton->setBackgroundWidgetStyleSheet("border-radius: 10px; border: 1px solid #D6D6D6; ");
     m_detailedTaskTypeWidgetLayout->addWidget(m_addTaskTypeButton);

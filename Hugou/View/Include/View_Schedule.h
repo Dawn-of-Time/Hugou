@@ -16,6 +16,7 @@
 #include "Card_MonthOverview.h"
 #include "View_MemoSetting.h"
 #include "Struct_Memo.h"
+#include "CheckBox.h"
 
 class ScheduleView : public QWidget
 {
@@ -51,27 +52,30 @@ private:
     QLabel* m_weekToDayForward;
     QPushButton* m_dayViewSwitchButton;
     //QAnimationGroup* m_switchViewAnimationGroup;
-    QWidget* m_memoWidget;
-    QVBoxLayout* m_memoWidgetLayout;
-    QWidget* m_memoTitleWidget;
-    QHBoxLayout* m_memoTitleWidgetLayout;
-    QLabel* m_memoTitle;
+    QWidget* m_memoGeneralWidget;
+    QVBoxLayout* m_memoGeneralWidgetLayout;
+    QWidget* m_memoGeneralTitleWidget;
+    QHBoxLayout* m_memoGeneralTitleWidgetLayout;
+    QLabel* m_memoGeneralTitle;
     QWidget* m_memoListWidget;
     QVBoxLayout* m_memoListWidgetLayout;
 
     QWidget* m_addMemoWidget;
     QVBoxLayout* m_addMemoWidgetLayout;
-    QPushButton* m_addMemoBriefWidget;
+    FadeEffectButton* m_addMemoBriefWidget;
     QHBoxLayout* m_addMemoBriefWidgetLayout;
     QPushButton* m_dropDownButton;
-    QLabel* m_addIcon;
+    CheckBox* m_checkBox;
+    QWidget* m_memoContentWidget;
+    QVBoxLayout* m_memoContentWidgetLayout;
     QLabel* m_memoContent;
-    
+    QLabel* m_memoSubContent;
     ViewMode m_currentView;
     
     QList<QGraphicsOpacityEffect*> m_weekOpacityEffectListForAMonth = {};
     QList<QString> m_monthNameList = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
     QMap<QWidget*, Memo> m_memoButtonMap = {};
+    QMap<FadeEffectButton*, MemoSettingView*> m_memoSettingMap = {};
     int m_currentWeekIndex;
     enum AnimationFlag {
         NoSwitch, MonthToWeek, WeekToDay, DayToMonth,
@@ -80,7 +84,7 @@ private:
     AnimationFlag m_animationFlag = NoSwitch;
     void setupUi();
     void generateMemos(QList<Memo> memoList);
-    void showMemoSetting();
+    void showMemoSetting(FadeEffectButton* memoBriefWidget);
 
     // 当播放与GraphicsEffect有关的动画时，下述两函数需要依次在播放前和播放后调用。
     // enableGraphicsEffect函数用于启用这些效果。

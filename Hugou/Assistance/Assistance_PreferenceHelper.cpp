@@ -1,9 +1,5 @@
 #include "Assistance_preferenceHelper.h"
 
-QWidget* preferenceHelper::m_hugou = nullptr;
-preferenceHelper* preferenceHelper::m_helper = nullptr;
-QMutex preferenceHelper::m_mutex;
-
 preferenceHelper::preferenceHelper()
     : QObject()
 {
@@ -11,16 +7,11 @@ preferenceHelper::preferenceHelper()
     verifyAndLoadpreference();
 }
 
+
 preferenceHelper* preferenceHelper::getHelper() 
 {
-    if (m_helper == nullptr) {
-        QMutexLocker locker(&m_mutex);
-        // 再次检查实例是否为空，防止多线程同时创建实例（双重检查锁定）  
-        if (m_helper == nullptr) {
-            m_helper = new preferenceHelper();
-        }
-    }
-    return m_helper;
+	static preferenceHelper helper;
+    return &helper;
 }
 
 void preferenceHelper::setHugou(QWidget* hugou) 
@@ -41,10 +32,10 @@ void preferenceHelper::verifyAndLoadpreference()
     for (const QString& key : preferenceKeyList)
     {
         // 配置项完整性校验
-        if (!m_confINI.allKeys().contains(key))
+        if (!confINIList.contains(key))
         {
             integralityFlag = false;
-            m_preferenceMap.insert(key, defalutpreferenceValueMap[key]);
+            m_preferenceMap.insert(key, defalutPreferenceValueMap[key]);
             continue;
         }
         // 配置项合法性校验
@@ -58,7 +49,7 @@ void preferenceHelper::verifyAndLoadpreference()
         if (!values.contains(value))
         {
             validityFlag = false;
-            m_preferenceMap.insert(key, defalutpreferenceValueMap[key]);
+            m_preferenceMap.insert(key, defalutPreferenceValueMap[key]);
         }
         else m_preferenceMap.insert(key, value);
     }

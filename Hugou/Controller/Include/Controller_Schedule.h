@@ -18,5 +18,7 @@ private:
     ScheduleView* m_scheduleView;
     ScheduleModel* m_scheduleModel;
     MemoSettingController* m_memoSettingController;
+	QList<MemoSettingController*> m_memoSettingControllerList;
+    void addMemo();
 };
 

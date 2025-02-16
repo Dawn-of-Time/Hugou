@@ -28,9 +28,7 @@ protected slots:
 
 private:
 	QSettings m_confINI = QSettings("Configuration/conf.ini", QSettings::IniFormat);
-	static QWidget* m_hugou;
-	static preferenceHelper* m_helper;
-	static QMutex m_mutex;
+	QWidget* m_hugou;
 	QList<QPair<QString, QString>> m_errorList;
 	
 	bool m_isChanged = false;

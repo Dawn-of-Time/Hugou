@@ -13,28 +13,31 @@ ScheduleModel::ScheduleModel()
 	m_memoSettingModel = new MemoSettingModel();
 }
 
+ScheduleModel::~ScheduleModel()
+{
+	delete m_memoSettingModel;
+}
 
 void ScheduleModel::createMemoDatabase()
 {
 	QSqlQuery creatQuery;
 	creatQuery.prepare(
 		"CREATE TABLE IF NOT EXISTS memo("
-		"ID               INTEGER      NOT NULL PRIMARY KEY AUTOINCREMENT, "
-		"Sketch           VARCHAR(255) NOT NULL, "
-		"Template         VARCHAR(255) NOT NULL, "
-		"Type             TINYINT      NOT NULL, "
-		"Status           BIT      DEFAULT 0, "
-		"PostponeFlag     BIT      DEFAULT 0, "
-		"TimePeriod_F     DATETIME DEFAULT NULL, "
-		"TimePeriod_L     DATETIME DEFAULT NULL, "
-		"TimePoint        DATETIME DEFAULT NULL, "
-		"Importance       TINYINT  DEFAULT 0, "
-		"ImportanceDegree TINYINT DEFAULT -1, "
-		"Detail           TEXT     DEFAULT NULL, "
-		"RetentionPeriod  TINYINT  DEFAULT -1, "
-		"HasSubMemo       BIT      DEFAULT 0, "
-		"HasAward         BIT      DEFAULT 0, "
-		"HasReference     BIT      DEFAULT 0"
+		"ID                   INTEGER      NOT NULL PRIMARY KEY AUTOINCREMENT, "
+		"Sketch               VARCHAR(255) NOT NULL, "
+		"Template             VARCHAR(255) NOT NULL, "
+		"Type                 TINYINT      NOT NULL, "
+		"Status               BIT      DEFAULT 0, "
+		"PostponeFlag         BIT      DEFAULT 0, "
+		"TimePeriod_F         DATETIME DEFAULT NULL, "
+		"TimePeriod_L         DATETIME DEFAULT NULL, "
+		"TimePoint            DATETIME DEFAULT NULL, "
+		"ImportanceAndUrgency TINYINT  DEFAULT 0, "
+		"Detail               TEXT     DEFAULT NULL, "
+		"RetentionPeriod      TINYINT  DEFAULT -1, "
+		"HasSubMemo           BIT      DEFAULT 0, "
+		"HasAward             BIT      DEFAULT 0, "
+		"HasReference         BIT      DEFAULT 0"
 		");"
 	);
 	Database::exec(creatQuery);
@@ -123,7 +126,7 @@ void ScheduleModel::addMemo(Memo& memo)
 	QSqlQuery insertQuery;
 	insertQuery.prepare(
 		"INSERT INTO memo(Sketch, Type, Template, Status, PostponeFlag, "
-		"TimePeriod_F, TimePeriod_L, TimePoint, Importance, ImportanceDegree, "
+		"TimePeriod_F, TimePeriod_L, TimePoint, ImportanceAndUrgency,"
 		"Detail, HasSubMemo, HasAward, HasReference)"
 		"VALUES(:Sketch, :Type, :Template, :Status, :PostponeFlag, "
 		":TimePeriod_F, :TimePeriod_L, :TimePoint, :Importance, :ImportanceDegree, "
@@ -137,8 +140,7 @@ void ScheduleModel::addMemo(Memo& memo)
 	insertQuery.bindValue(":TimePeriod_F", memo.timePeriod_f);
 	insertQuery.bindValue(":TimePeriod_L", memo.timePeriod_l);
 	insertQuery.bindValue(":TimePoint", memo.timePoint);
-	insertQuery.bindValue(":Importance", QString::number(int(memo.importance)));
-	insertQuery.bindValue(":ImportanceDegree", QString::number(int(memo.importanceDegree)));
+	insertQuery.bindValue(":ImportanceAndUrgency", QString::number(int(memo.importanceAndUrgency)));
 	insertQuery.bindValue(":Detail", memo.detail);
 	insertQuery.bindValue(":HasSubMemo", QString::number(int(memo.hasSubMemo)));
 	insertQuery.bindValue(":HasAward", QString::number(int(memo.hasAward)));
@@ -212,7 +214,7 @@ void ScheduleModel::readMemoDatabase()
 	QSqlQuery selectQuery;
 	selectQuery.prepare(
 		"SELECT ID, Sketch, Type, Status, PostponeFlag, "
-		"TimePeriod_F, TimePeriod_L, TimePoint, Importance, ImportanceDegree, Detail, RetentionPeriod, "
+		"TimePeriod_F, TimePeriod_L, TimePoint, ImportanceAndUrgency, Detail, RetentionPeriod, "
 		"HasSubMemo, HasAward, HasReference FROM memo"
 	);
 	Database::exec(selectQuery);
@@ -228,13 +230,12 @@ void ScheduleModel::readMemoDatabase()
 			memo.timePeriod_f = selectQuery.value(5).toDateTime();
 			memo.timePeriod_l = selectQuery.value(6).toDateTime();
 			memo.timePoint = selectQuery.value(7).toDateTime();
-			memo.importance = static_cast<MemoImportance>(selectQuery.value(8).toInt());
-			memo.importanceDegree = selectQuery.value(9).toInt();
-			memo.detail = selectQuery.value(10).toString();
-			memo.retentionPeriod = selectQuery.value(11).toInt();
-			memo.hasSubMemo = selectQuery.value(12).toBool();
-			memo.hasAward = selectQuery.value(13).toBool();
-			memo.hasReference = selectQuery.value(14).toBool();
+			memo.importanceAndUrgency = static_cast<MemoImportanceAndUrgency>(selectQuery.value(8).toInt());
+			memo.detail = selectQuery.value(9).toString();
+			memo.retentionPeriod = selectQuery.value(10).toInt();
+			memo.hasSubMemo = selectQuery.value(11).toBool();
+			memo.hasAward = selectQuery.value(12).toBool();
+			memo.hasReference = selectQuery.value(13).toBool();
 			QSqlQuery query;
 			// ×Ó±¸ÍüÂ¼
 			if (memo.hasSubMemo)

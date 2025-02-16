@@ -3,10 +3,42 @@
 MemoSettingController::MemoSettingController(MemoSettingView* memoSettingView, MemoSettingModel* memoSettingModel)
 	:QObject(), m_memoSettingView(memoSettingView), m_memoSettingModel(memoSettingModel)
 {
-	m_memoSettingView->applyTemplate(m_memoSettingModel->m_templateList[0]);
+	applyTemplate(m_memoSettingView->m_memo.memoTemplate);
 }
 
 MemoSettingController::~MemoSettingController()
 {
-	delete m_memoSettingModel;
+}
+
+void MemoSettingController::applyTemplate(MemoTemplate memoTemplate)
+{
+	m_memoSettingView->applyGeneralStyle(memoTemplate);
+	for (MemoSettingItemType itemType : memoTemplate.templateContent)
+	{
+		QWidget* widget = m_memoSettingView->m_memoContentMap.value(itemType);
+		switch (itemType)
+		{
+		case MemoSettingItemType::Type:
+		{
+			MemoTypeItem* item = qobject_cast<MemoTypeItem*>(widget);
+			for (MemoType memoType : m_memoSettingModel->m_typeList)
+				item->addMemoType(memoType);
+			break;
+		}
+		case MemoSettingItemType::Time:
+			break;
+		case MemoSettingItemType::ImportanceAndUrgency:
+			break;
+		case MemoSettingItemType::Detail:
+			break;
+		case MemoSettingItemType::SubMemo:
+			break;
+		case MemoSettingItemType::Award:
+			break;
+		case MemoSettingItemType::Reference:
+			break;
+		default:
+			break;
+		}
+	}
 }

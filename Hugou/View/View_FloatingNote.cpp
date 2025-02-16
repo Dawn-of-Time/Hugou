@@ -22,7 +22,10 @@ FloatingNote::FloatingNote(QWidget* HugouClass) :
 }
 
 FloatingNote::~FloatingNote()
-{}
+{
+	delete m_timer;
+	delete m_updateTimer;
+}
 
 void FloatingNote::setupUi()
 {

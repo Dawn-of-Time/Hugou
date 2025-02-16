@@ -22,6 +22,11 @@ PreferenceController::PreferenceController(PreferenceView* preferenceView, Prefe
         });
 }
 
+PreferenceController::~PreferenceController()
+{
+	delete m_preferenceModel;
+}
+
 void PreferenceController::updateThemeComboboxValue(QString value)
 {
     m_preferenceView->m_preferenceMap.preferenceComboboxMap["themeBox"]->blockSignals(true);

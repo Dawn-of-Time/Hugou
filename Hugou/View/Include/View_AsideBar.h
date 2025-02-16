@@ -7,7 +7,7 @@
 #include <QPainter>
 #include <QBitmap>
 #include "Const_Geometry.h"
-#include "IconTextButton.h"
+#include "FadeEffectButton.h"
 #include "ButtonHoverWatcher.h"
 #include "Var.h"
 
@@ -23,7 +23,7 @@ signals:
 
 private:
     QVBoxLayout* m_asideBarLayout;
-    QList<IconTextButton*> m_asideBarButtonList;
+    QList<FadeEffectButton*> m_asideBarButtonList;
 
     // ×ÖÌåÇåµ¥
     const QFont asideTitleFont = QFont("NeverMind", 10, QFont::Normal);
@@ -73,6 +73,6 @@ private:
     };
     void setupUi();
     QLabel* generateTitle(QString titleText);
-    IconTextButton* generateButton(QString buttonText);
+    FadeEffectButton* generateButton(QString buttonText);
     void switchOverStackedWidget();
 };

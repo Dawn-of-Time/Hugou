@@ -19,7 +19,7 @@ const QMap<QString, QStringList> preferenceValueMap = {
 	{"language", {"English"}}, 
 	{"recycleBin", {"on", "off"}}
 };
-const QMap<QString, QString> defalutpreferenceValueMap = {
+const QMap<QString, QString> defalutPreferenceValueMap = {
 	{"firstBoot", "false"},
 	{"theme", "Default"},
 	{"language", "English"},

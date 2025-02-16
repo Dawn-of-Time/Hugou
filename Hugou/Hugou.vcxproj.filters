@@ -83,7 +83,7 @@
     <ClCompile Include="Model\Model_Hugou.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="View\IconTextButton.cpp">
+    <ClCompile Include="View\FadeEffectButton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Assistance\IconTextButtonHoverWatcher.cpp">
@@ -176,6 +176,21 @@
     <ClCompile Include="Controller\Controller_MemoSetting.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="View\MemoSettingItem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="View\CheckBox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="View\ComboBox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DoubleClickedToEditButton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CloseWhenLeaveWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Assistance\Include\ButtonHoverWatcher.h">
@@ -199,7 +214,7 @@
     <QtMoc Include="Model\Include\Model_Hugou.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="View\Include\IconTextButton.h">
+    <QtMoc Include="View\Include\FadeEffectButton.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="Assistance\Include\IconTextButtonHoverWatcher.h">
@@ -256,6 +271,21 @@
     <QtMoc Include="Controller\Include\Controller_TaskSetting.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="Controller\Include\Controller_MemoSetting.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="View\Include\View_MemoSetting.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="View\Include\MemoSettingItem.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="View\Include\CheckBox.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="CloseWhenLeaveWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Const_Geometry.h">
@@ -309,13 +339,13 @@
     <ClInclude Include="Include\Struct_Memo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="View\Include\View_MemoSetting.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Model\Include\Model_MemoSetting.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Controller\Include\Controller_MemoSetting.h">
+    <ClInclude Include="View\Include\ComboBox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DoubleClickedToEditButton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

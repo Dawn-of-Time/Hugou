@@ -2,7 +2,7 @@
 #include <QObject>
 #include <QMap>
 #include <QLabel>
-#include "IconTextButton.h"
+#include "FadeEffectButton.h"
 
 class AsideBarGenerator :
     public QObject

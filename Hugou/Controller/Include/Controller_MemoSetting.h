@@ -6,9 +6,12 @@
 class MemoSettingController :
     public QObject
 {
+    Q_OBJECT
+
 public:
     MemoSettingController(MemoSettingView* memoSettingView, MemoSettingModel* memoSettingModel);
     ~MemoSettingController();
+    void applyTemplate(MemoTemplate memoTemplate);
 
 private:
     MemoSettingView* m_memoSettingView;

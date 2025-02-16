@@ -1,22 +1,15 @@
 #include "Var.h"
 
-Var* Var::m_var = nullptr;
-QMutex Var::m_mutex;
-
 Var::Var()
 {
     calculateScale();
 }
 
+
 Var* Var::getVar()
 {
-    if (m_var == nullptr) {
-        QMutexLocker locker(&m_mutex);
-        if (m_var == nullptr) {
-            m_var = new Var();
-        }
-    }
-    return m_var;
+    static Var var;
+    return &var;
 }
 
 void Var::calculateScale()

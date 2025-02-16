@@ -10,6 +10,8 @@
 #include <QFontDatabase>
 #include <QQmlEngine>
 #include <QDir>
+#include "vld.h"
+
 
 int main(int argc, char* argv[])
 {

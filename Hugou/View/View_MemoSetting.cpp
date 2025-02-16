@@ -1,80 +1,129 @@
 #include "View_MemoSetting.h"
 
 MemoSettingView::MemoSettingView(QWidget* parent, Memo memo)
-	:QWidget(parent)
+	:QWidget(parent), m_memo(memo)
 {
 	setupUi();
-	applyTemplate(memo.memoTemplate);
+	hide();
 }
 
 void MemoSettingView::setupUi()
 {
 	// 字体清单
-	QFont templateTitleFont = QFont("NeverMind", 14, QFont::Medium);
-	QFont templateButtonFont = QFont("NeverMind", 12, QFont::DemiBold);
-	m_layout = new QVBoxLayout(this);
-	m_layout->setContentsMargins(20, 10, 20, 10);
-	m_layout->setSpacing(5);
+	QFont templateTitleFont = QFont("NeverMind", 12, QFont::Medium);
+	QFont templateButtonFont = QFont("NeverMind", 10, QFont::DemiBold);
 
-	m_templateWidget = new QWidget(this);
-	m_templateWidget->setFixedHeight(30);
+	m_effect = new QGraphicsOpacityEffect(this);
+	m_effect->setOpacity(0);
+	this->setGraphicsEffect(m_effect);
+	m_effect->setEnabled(false);
+
+	m_layout = new QVBoxLayout(this);
+	m_layout->setContentsMargins(41, 0, 0, 0);
+
+	m_baseWidget = new QWidget(this);
+	m_layout->addWidget(m_baseWidget);
+
+	m_baselayout = new QVBoxLayout(m_baseWidget);
+	m_baselayout->setContentsMargins(20, 10, 20, 10);
+	m_baselayout->setSpacing(5);
+
+	m_templateWidget = new QWidget(m_baseWidget);
+	m_templateWidget->setFixedHeight(25);
 	m_templateWidgetLayout = new QHBoxLayout(m_templateWidget);
 	m_templateWidgetLayout->setContentsMargins(0, 0, 0, 0);
 	m_templateWidgetLayout->setSpacing(10);
 	m_templateTitle = new QLabel("Current Template:", m_templateWidget);
 	m_templateTitle->setFont(templateTitleFont);
+	m_templateTitle->setStyleSheet("color: #252A31");
 	m_templateButton = new QPushButton(m_templateWidget);
-	m_templateButton->setFixedHeight(30);
+	m_templateButton->setFixedHeight(24);
 	m_templateButton->setFont(templateButtonFont);
+	m_templateButton->setCursor(Qt::PointingHandCursor);
+
 	m_templateWidgetLayout->addWidget(m_templateTitle);
 	m_templateWidgetLayout->addWidget(m_templateButton);
+	m_templateWidgetLayout->addStretch();
 
-	m_contentWidget = new QWidget(this);
+	m_area = new QScrollArea(m_baseWidget);
+	m_area->setObjectName("scrollArea");
+	m_area->setStyleSheet("QWidget #scrollArea { background-color: transparent}");
+	m_area->setWidgetResizable(true);
+
+	m_contentWidget = new QWidget(m_area);
 	m_contentWidgetLayout = new QHBoxLayout(m_contentWidget);
 	m_contentWidgetLayout->setContentsMargins(0, 0, 0, 0);
 	m_contentWidgetLayout->setSpacing(20);
+	m_contentWidgetLayout->setAlignment(Qt::AlignLeft);
+	generateNewPage();
+	for (MemoSettingItemType itemType : m_memo.memoTemplate.templateContent)
+		addMemoSettingItem(itemType);
 
-	m_layout->setAlignment(Qt::AlignLeft);
-	m_layout->addWidget(m_templateWidget);
-	m_layout->addWidget(m_contentWidget);
+	m_area->setWidget(m_contentWidget);
+	//m_area->setMaximumHeight(getSuitableHeight());
+
+	m_baselayout->setAlignment(Qt::AlignLeft);
+	m_baselayout->addWidget(m_templateWidget);
+	m_baselayout->addWidget(m_area);
+
+	setMaximumHeight(25 + getSuitableHeight());
 }
 
-void MemoSettingView::applyTemplate(MemoTemplate memoTemplate)
+void MemoSettingView::applyGeneralStyle(MemoTemplate memoTemplate)
 {
 	QColor color = memoTemplate.color;
 	QString colorRGBAString = QString("rgba(%1, %2, %3, 0.2)").arg(color.red()).arg(color.green()).arg(color.blue());
 
+	m_baseWidget->setObjectName(memoTemplate.name + "Memo");
+	m_baseWidget->setStyleSheet(QString(
+		"QWidget #%1Memo {"
+		"background-color: %2; "
+		"border-radius: 10px;"
+		"}"
+	).arg(memoTemplate.name).arg(colorRGBAString));
+
+	m_contentWidget->setObjectName(memoTemplate.name + "Content");
+	m_contentWidget->setStyleSheet(QString(
+		"QWidget #%1Content {border-radius: 5px; background-color: rgba(255, 255, 255, 0.4)}"
+	).arg(memoTemplate.name)
+	);
+
+	m_templateButton->setObjectName(memoTemplate.name + "TemplateButton");
 	m_templateButton->setText(memoTemplate.name);
-	this->setObjectName(memoTemplate.name);
-	this->setStyleSheet(QString(
-		"QWidget #%1 {border-left: 4px solid %2; background-color: %3}"
-	).arg(memoTemplate.name).arg(color.name()).arg(colorRGBAString));
 	m_templateButton->setStyleSheet(QString(
-		"border-radius: 15px; background-color: %1; color:white; padding-left: 10px; padding-right: 10px"
+		"border-radius: 12px; "
+		"background-color: %1; "
+		"color:white; "
+		"padding-left: 10px; "
+		"padding-right: 10px"
 	).arg(color.name()));
-	for (MemoSettingItemType itemType : memoTemplate.templateContent)
-		addMemoSettingItem(itemType);
 }
 
-void MemoSettingView::addMemoSettingItem(MemoSettingItemType itemType)
+QWidget* MemoSettingView::addMemoSettingItem(MemoSettingItemType itemType)
 {
 	QWidget* widget = nullptr;
 	switch (itemType)
 	{
 	case MemoSettingItemType::Type:
-		widget = new MemoTypeItem(this);
+		widget = new MemoTypeItem();
 		break;
 	case MemoSettingItemType::Time:
+		widget = new MemoTimeItem();
 		break;
-	case MemoSettingItemType::Importance:
+	case MemoSettingItemType::ImportanceAndUrgency:
+		widget = new MemoImportanceAndUrgencyItem();
 		break;
 	case MemoSettingItemType::Detail:
+		widget = new MemoDetailItem();
 		break;
 	case MemoSettingItemType::SubMemo:
+		widget = new MemoSubMemoItem();
 		break;
 	case MemoSettingItemType::Award:
+		widget = new MemoAwardItem();
 		break;
 	case MemoSettingItemType::Reference:
+		widget = new MemoReferenceItem();
 		break;
 	default:
 		break;
@@ -82,79 +131,66 @@ void MemoSettingView::addMemoSettingItem(MemoSettingItemType itemType)
 	if (widget)
 	{
 		m_memoContentMap.insert(itemType, widget);
-		m_contentWidgetLayout->addWidget(widget);
+		int height = widget->height();  // 即将加入的控件的高度
+		// 将当前页面已经占用的高度拟加上即将加入的控件的高度：
+		// 如果超过了当前页面的最大高度，则生成新的页面；
+		// 否则，将控件加入当前页面。
+		if (m_occupiedHeight + height > m_maxPageHeight)
+		{
+			m_occupiedHeight = 10 + height;
+			generateNewPage();
+		}
+		else
+		{
+			m_occupiedHeight = m_occupiedHeight + height + 10;	// 控件之间的间距为10
+			if (m_occupiedHeight > m_pageSuitableHeight)
+				m_pageSuitableHeight = m_occupiedHeight;
+		}
+		widget->setParent(m_pageList.last());
+		m_pageList.last()->layout()->addWidget(widget);
 	}
+	return widget;
 }
 
-MemoSettingView::MemoSettingItem::MemoSettingItem(QWidget* parent)
-	:QWidget(parent)
+void MemoSettingView::generateNewPage()
 {
-	setupUi();
+	m_pageNum++;
+	QWidget* newPage = new QWidget(m_contentWidget);
+	newPage->setObjectName(QString("page%1").arg(m_pageNum));
+	newPage->setFixedWidth(324);
+	newPage->setMaximumHeight(m_maxPageHeight);
+	QVBoxLayout* newPageLayout = new QVBoxLayout(newPage);
+	newPageLayout->setContentsMargins(10, 10, 10, 10);
+	newPageLayout->setSpacing(10);
+	newPageLayout->setAlignment(Qt::AlignTop);
+	m_contentWidgetLayout->addWidget(newPage);
+	m_pageList.append(newPage);
 }
 
-void MemoSettingView::MemoSettingItem::setupUi()
+void MemoSettingView::enableGraphicEffect()
 {
-	// 字体清单
-	QFont titleFont = QFont("NeverMind", 14, QFont::Medium);
-
-	m_itemLayout = new QVBoxLayout(this);
-	m_itemLayout->setContentsMargins(0, 0, 0, 0);
-	m_itemLayout->setSpacing(4);
-	m_itemLayout->setAlignment(Qt::AlignLeft);
-
-	m_title = new QLabel(this);
-	m_title->setFont(titleFont);
-
-	m_content = new QWidget(this);
-
-	m_itemLayout->addWidget(m_title);
+	m_effect->setEnabled(true);
 }
 
-void MemoSettingView::MemoSettingItem::setTitle(QString title)
+void MemoSettingView::disableGraphicEffect()
 {
-	m_title->setText(title);
+	m_effect->setEnabled(false);
 }
 
-void MemoSettingView::MemoSettingItem::setContent(QWidget* content)
+void MemoSettingView::fadeIn()
 {
-	m_itemLayout->addWidget(content);
+	enableGraphicEffect();
+	QPropertyAnimation* fadeInAnimation = new QPropertyAnimation(m_effect, "opacity", this);
+	fadeInAnimation->setStartValue(0);
+	fadeInAnimation->setEndValue(1);
+	fadeInAnimation->setDuration(500);
+	connect(fadeInAnimation, &QPropertyAnimation::finished, this, &MemoSettingView::disableGraphicEffect);
+	fadeInAnimation->start(QPropertyAnimation::DeleteWhenStopped);
 }
 
-MemoSettingView::MemoTypeItem::MemoTypeItem(QWidget* parent)
-	:MemoSettingItem(parent)
-{
-	setupUi();
-}
-
-void MemoSettingView::MemoTypeItem::setupUi()
-{
-	setTitle("Type");
-
-	m_content->setFixedHeight(76);
-	m_contentLayout = new QHBoxLayout(m_content);
-	m_contentLayout->setContentsMargins(10, 10, 10, 10);
-	m_contentLayout->setSpacing(10);
-
-	setContent(m_content);
-}
-
-void MemoSettingView::MemoTypeItem::addMemoType(MemoType memoType)
-{
-	// 字体清单
-	QFont labelFont = QFont("NeverMind", 12, QFont::Medium);
-
-	QWidget* memoTypeWidget = new QWidget(m_content);
-	memoTypeWidget->setFixedSize(36, 56);
-	QVBoxLayout* memoTypeWidgetLayout = new QVBoxLayout(memoTypeWidget);
-	memoTypeWidgetLayout->setContentsMargins(0, 0, 0, 0);
-	memoTypeWidgetLayout->setSpacing(0);
-	QWidget* icon = new QWidget(memoTypeWidget);
-	icon->setFixedSize(36, 36);
-	icon->setStyleSheet(QString("{background-color: %1; border-radius: 5}").arg(memoType.color.name()));
-	QLabel* label = new QLabel(memoType.name, memoTypeWidget);
-	label->setFont(labelFont);
-
-	memoTypeWidgetLayout->setAlignment(Qt::AlignHCenter);
-	memoTypeWidgetLayout->addWidget(icon);
-	memoTypeWidgetLayout->addWidget(label);
+void MemoSettingView::paintEvent(QPaintEvent* event) {
+	QStyleOption opt;
+	opt.initFrom(this);
+	QPainter painter(this);
+	style()->drawPrimitive(QStyle::PE_Widget, &opt, &painter, this);
 }

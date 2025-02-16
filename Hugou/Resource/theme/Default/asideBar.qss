@@ -5,22 +5,22 @@ QLabel#asideTitle {
 	background-color: transparent;
 }
 
-IconTextButton[status="default"] {
+FadeEffectButton[status="default"] {
 	border-radius: 18px;
 	background-color: transparent;
 }
 
-	IconTextButton[status="default"] > QLabel {
+	FadeEffectButton[status="default"] > QLabel {
 		color: black;
 		background-color: transparent;
 	}
 
-IconTextButton[status="current"] {
+FadeEffectButton[status="current"] {
 	border-radius: 18px;
 	background-color: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #104FB9,stop:1 #468DFA);
 }
 
-	IconTextButton[status="current"] > QLabel {
+	FadeEffectButton[status="current"] > QLabel {
 		color: white;
 		background-color: transparent;
 	}
