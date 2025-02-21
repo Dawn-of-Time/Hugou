@@ -34,7 +34,7 @@ void TaskSettingView::setupUi()
     m_closeButton = new QPushButton(m_title);
     m_closeButton->setObjectName("closeButton");
     m_closeButton->setFixedSize(24, 24);
-    m_closeButton->setIcon(QIcon(":/icon/close.png"));
+    m_closeButton->setIcon(QIcon(":/icon/close.ico"));
     m_titleLayout->addWidget(m_titleLabel);
     m_titleLayout->addStretch();
     m_titleLayout->addWidget(m_closeButton);

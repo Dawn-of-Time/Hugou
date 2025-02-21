@@ -3,6 +3,9 @@
 ScheduleModel::ScheduleModel()
 {
 	// 创建数据表
+	createMemoTypeLabelDatabase();
+	createMemoTypeDatabase();
+
 	createMemoDatabase();
 	createAwardDatabase();
 	createReferenceDatabase();
@@ -26,7 +29,7 @@ void ScheduleModel::createMemoDatabase()
 		"ID                   INTEGER      NOT NULL PRIMARY KEY AUTOINCREMENT, "
 		"Sketch               VARCHAR(255) NOT NULL, "
 		"Template             VARCHAR(255) NOT NULL, "
-		"Type                 TINYINT      NOT NULL, "
+		"Type                 INTEGER      NOT NULL, "
 		"Status               BIT      DEFAULT 0, "
 		"PostponeFlag         BIT      DEFAULT 0, "
 		"TimePeriod_F         DATETIME DEFAULT NULL, "
@@ -37,7 +40,35 @@ void ScheduleModel::createMemoDatabase()
 		"RetentionPeriod      TINYINT  DEFAULT -1, "
 		"HasSubMemo           BIT      DEFAULT 0, "
 		"HasAward             BIT      DEFAULT 0, "
-		"HasReference         BIT      DEFAULT 0"
+		"HasReference         BIT      DEFAULT 0, "
+		"FOREIGN KEY(Type) REFERENCES type(ID)"
+		");"
+	);
+	Database::exec(creatQuery);
+}
+
+void ScheduleModel::createMemoTypeLabelDatabase()
+{
+	QSqlQuery creatQuery;
+	creatQuery.prepare(
+		"CREATE TABLE IF NOT EXISTS memotype_label("
+		"ID     INTEGER      NOT NULL PRIMARY KEY AUTOINCREMENT, "
+		"Name   VARCHAR(255) NOT NULL "
+		");"
+	);
+	Database::exec(creatQuery);
+}
+
+void ScheduleModel::createMemoTypeDatabase()
+{
+	QSqlQuery creatQuery;
+	creatQuery.prepare(
+		"CREATE TABLE IF NOT EXISTS memotype("
+		"ID     INTEGER      NOT NULL PRIMARY KEY AUTOINCREMENT, "
+		"Name   VARCHAR(255) NOT NULL, "
+		"Color  VARCHAR(7)   NOT NULL, "
+		"Label  INTEGER      NOT NULL, "
+		"FOREIGN KEY(Label) REFERENCES memotype_label(ID)"
 		");"
 	);
 	Database::exec(creatQuery);
@@ -278,11 +309,11 @@ void ScheduleModel::readMemoDatabase()
 void ScheduleModel::deleteMemoRequest(int ID)
 {
 	QString recycleBin;
-	preferenceHelper::getHelper()->getpreferenceValue("recycleBin", recycleBin);
+	PreferenceHelper::getHelper()->getpreferenceValue("recycleBin", recycleBin);
 	if (recycleBin == "on")
 	{
 		QString retentionPeriod;
-		preferenceHelper::getHelper()->getpreferenceValue("retentionPeriod", retentionPeriod);
+		PreferenceHelper::getHelper()->getpreferenceValue("retentionPeriod", retentionPeriod);
 		updateMemo(ID, "retentionPeriod", retentionPeriod);
 	}
 	else deleteMemo(ID);

@@ -4,13 +4,13 @@ FloatingNoteManager::FloatingNoteManager() :
     QObject()
 {
     m_popupParallelGroup = new QParallelAnimationGroup;
-    connect(m_popupParallelGroup, &QParallelAnimationGroup::finished, m_popupParallelGroup, &QParallelAnimationGroup::clear);
     m_dealLaterAnimation = new QPropertyAnimation;
     m_dealNowAnimation = new QPropertyAnimation;
 }
 
 FloatingNoteManager::~FloatingNoteManager()
 {
+    m_popupParallelGroup->clear();
     delete m_popupParallelGroup;
     delete m_dealLaterAnimation;
     delete m_dealNowAnimation;
@@ -45,6 +45,8 @@ void FloatingNoteManager::raiseFloatingNote(FloatingNote::Type type, QString con
 void FloatingNoteManager::popupFloatingNote()
 {
     m_isAnimating = true;
+    m_popupParallelGroup->clear();
+
     // 备份，以便回复。
     m_backupForthcomingFloatingNote = m_forthcomingFloatingNote;
     m_backupShownFloatingNote = m_shownFloatingNote;
@@ -52,7 +54,7 @@ void FloatingNoteManager::popupFloatingNote()
     m_forthcomingFloatingNote->show();
     QPropertyAnimation* raiseAnimation = m_forthcomingFloatingNote->raiseNote();
     m_popupParallelGroup->addAnimation(raiseAnimation);
-    // 如果已经有消息，那么前面的消息移出并隐藏，同时标题栏按钮执行动画；如果有消息正在执行动画，先等待
+    // 如果已经有消息，那么前面的消息移出并隐藏；如果有消息正在执行动画，先等待
     if (m_shownFloatingNote)
     {
         QPropertyAnimation* hideAnimation = m_shownFloatingNote->dropNote();
@@ -145,6 +147,7 @@ void FloatingNoteManager::updatePointer()
     m_hiddenFloatingNoteList.push_back(m_shownFloatingNote);
     m_shownFloatingNote = m_forthcomingFloatingNote;
     m_forthcomingFloatingNote = nullptr;
+    checkPopupQueue();
 }
 
 void FloatingNoteManager::deleteShownFloatingNote()
@@ -160,7 +163,6 @@ void FloatingNoteManager::deleteShownFloatingNote()
 
 void FloatingNoteManager::checkPopupQueue()
 {
-    m_popupFlag = true;
     m_isAnimating = false;
     if (!m_popupQueue.empty())
     {
@@ -171,6 +173,7 @@ void FloatingNoteManager::checkPopupQueue()
     }
     else
     {
+        m_popupFlag = true;
         if (m_shownFloatingNote)
         {
             m_shownFloatingNote->setEnabled(true);

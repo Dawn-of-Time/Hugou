@@ -38,12 +38,12 @@ void PreferenceView::setupUi()
     searchPalette.setColor(searchPalette.PlaceholderText, QColor("#cccccc"));
     m_searchButton = new QPushButton(m_searchLineEdit);
     m_searchButton->setObjectName("searchButton");
-    m_searchButton->setIcon(QIcon(":/icon/search_bla.png"));
+    m_searchButton->setIcon(QIcon(":/icon/search_bla.ico"));
     m_searchButton->setCursor(Qt::ArrowCursor);
     QWidgetAction* searchAction = new QWidgetAction(m_searchLineEdit);
     searchAction->setDefaultWidget(m_searchButton);
     m_searchLineEdit->addAction(searchAction, QLineEdit::TrailingPosition);
-    m_searchButtonHoverWatcher = new ButtonHoverWatcher(QString(":/icon/search_bla.png"), QString(":/icon/search_blu.png"), this);
+    m_searchButtonHoverWatcher = new ButtonHoverWatcher(QString(":/icon/search_bla.ico"), QString(":/icon/search_blu.ico"), this);
     m_searchButton->installEventFilter(m_searchButtonHoverWatcher);
 
     // 目录
@@ -85,23 +85,23 @@ void PreferenceView::formTree()
     // 一级目录
     QTreeWidgetItem* item1 = new QTreeWidgetItem(m_preferenceTreeWidget);
     item1->setText(0, "Common");
-    item1->setIcon(0, QIcon(":/icon/common.png"));
+    item1->setIcon(0, QIcon(":/icon/common.ico"));
     m_preferenceTreeWidget->addTopLevelItem(item1);
     QTreeWidgetItem* item2 = new QTreeWidgetItem(m_preferenceTreeWidget);
     item2->setText(0, "Task");
-    item2->setIcon(0, QIcon(":/icon/export.png"));
+    item2->setIcon(0, QIcon(":/icon/export.ico"));
     m_preferenceTreeWidget->addTopLevelItem(item2);
 
     // 二级目录
     QTreeWidgetItem* item1_1 = new QTreeWidgetItem(item1);
     item1_1->setText(0, "Appearance");
-    item1_1->setIcon(0, QIcon(":/icon/appearance.png"));
+    item1_1->setIcon(0, QIcon(":/icon/appearance.ico"));
     QTreeWidgetItem* item1_2 = new QTreeWidgetItem(item1);
     item1_2->setText(0, "Country/Region");
-    item1_2->setIcon(0, QIcon(":/icon/country_region.png"));
+    item1_2->setIcon(0, QIcon(":/icon/country_region.ico"));
     QTreeWidgetItem* item2_1 = new QTreeWidgetItem(item2);
     item2_1->setText(0, "Recycle Bin");
-    item2_1->setIcon(0, QIcon(":/icon/country_region.png"));
+    item2_1->setIcon(0, QIcon(":/icon/country_region.ico"));
 }
 
 void PreferenceView::formContentList()
@@ -118,7 +118,7 @@ void PreferenceView::formContentList()
 
     // 设置项逻辑
     QString value;
-    preferenceHelper::getHelper()->getpreferenceValue("recycleBin", value);
+    PreferenceHelper::getHelper()->getpreferenceValue("recycleBin", value);
     if (value == "on")
         m_preferenceMap.preferenceLineEditMap["retentionPeriod"]->setEnabled(true);
     else
@@ -170,16 +170,16 @@ void PreferenceView::switchOverSearchButton(bool msg)
 {
     if (msg)
     {
-        m_searchButton->setIcon(QIcon(":/icon/close_bla.png"));
-        m_searchButtonHoverWatcher->setResource(QString(":/icon/close_bla.png"), QString(":/icon/close_blu.png"));
+        m_searchButton->setIcon(QIcon(":/icon/close_bla.ico"));
+        m_searchButtonHoverWatcher->setResource(QString(":/icon/close_bla.ico"), QString(":/icon/close_blu.ico"));
         m_searchButton->disconnect();
         connect(m_searchButton, &QPushButton::clicked, this, &PreferenceView::deleteSearchText);
         searchpreference(); // 一旦有文字输入，总是自动开始寻找匹配项
     }
     else
     {
-        m_searchButton->setIcon(QIcon(":/icon/search_bla.png"));
-        m_searchButtonHoverWatcher->setResource(QString(":/icon/search_bla.png"), QString(":/icon/search_blu.png"));
+        m_searchButton->setIcon(QIcon(":/icon/search_bla.ico"));
+        m_searchButtonHoverWatcher->setResource(QString(":/icon/search_bla.ico"), QString(":/icon/search_blu.ico"));
         m_searchButton->disconnect();
         connect(m_searchButton, &QPushButton::clicked, this, &PreferenceView::searchpreference);
         showpreference(m_preferenceTreeWidget, m_preferenceTreeWidget->invisibleRootItem()); // 一旦为空，则显示所有项

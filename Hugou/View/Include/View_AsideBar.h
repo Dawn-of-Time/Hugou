@@ -6,6 +6,7 @@
 #include <QFile>
 #include <QPainter>
 #include <QBitmap>
+#include <QFont>
 #include "Const_Geometry.h"
 #include "FadeEffectButton.h"
 #include "ButtonHoverWatcher.h"
@@ -24,10 +25,6 @@ signals:
 private:
     QVBoxLayout* m_asideBarLayout;
     QList<FadeEffectButton*> m_asideBarButtonList;
-
-    // ×ÖÌåÇåµ¥
-    const QFont asideTitleFont = QFont("NeverMind", 10, QFont::Normal);
-    const QFont asideButtonFont = QFont("NeverMind", 12, QFont::Normal);
 
     enum class ItemType {
         AsideTitle,
@@ -55,21 +52,21 @@ private:
     const QMap<QString, QPair<ItemType, QStringList>> m_asideBarItemIconMap =
     {
         {tr("Plan"), qMakePair(ItemType::AsideTitle, QStringList())},
-        {tr("Schedule"), qMakePair(ItemType::AsideButton, QStringList({":/icon/schedule_default_16.png", ":/icon/schedule_current_16.png"}))},
-        {tr("Project"), qMakePair(ItemType::AsideButton, QStringList({":/icon/project_default_16.png", ":/icon/project_current_16.png"}))},
-        {tr("Achievement"), qMakePair(ItemType::AsideButton, QStringList({":/icon/achievement_default_16.png", ":/icon/achievement_current_16.png"}))},
+        {tr("Schedule"), qMakePair(ItemType::AsideButton, QStringList({":/icon/schedule_default.ico", ":/icon/schedule_current.ico"}))},
+        {tr("Project"), qMakePair(ItemType::AsideButton, QStringList({":/icon/project_default.ico", ":/icon/project_current.ico"}))},
+        {tr("Achievement"), qMakePair(ItemType::AsideButton, QStringList({":/icon/achievement_default.ico", ":/icon/achievement_current.ico"}))},
 
         {tr("Database"), qMakePair(ItemType::AsideTitle, QStringList())},
-        {tr("Document"), qMakePair(ItemType::AsideButton, QStringList({":/icon/document_default_16.png", ":/icon/document_current_16.png"}))},
-        {tr("Application Repo"), qMakePair(ItemType::AsideButton, QStringList({":/icon/application_repo_default_16.png", ":/icon/application_repo_current_16.png"}))},
+        {tr("Document"), qMakePair(ItemType::AsideButton, QStringList({":/icon/document_default.ico", ":/icon/document_current.ico"}))},
+        {tr("Application Repo"), qMakePair(ItemType::AsideButton, QStringList({":/icon/application_repo_default.ico", ":/icon/application_repo_current.ico"}))},
 
         {tr("Addition"), qMakePair(ItemType::AsideTitle, QStringList())},
-        {tr("Extension"), qMakePair(ItemType::AsideButton, QStringList({":/icon/extension_default_16.png", ":/icon/extension_current_16.png"}))},
+        {tr("Extension"), qMakePair(ItemType::AsideButton, QStringList({":/icon/extension_default.ico", ":/icon/extension_current.ico"}))},
         
         {"Stretch", qMakePair(ItemType::Stretch, QStringList())},
 
-        {tr("Recycle Bin"), qMakePair(ItemType::AsideButton, QStringList({":/icon/recycle_bin_default_16.png", ":/icon/recycle_bin_current_16.png"}))},
-        {tr("Preference"), qMakePair(ItemType::AsideButton, QStringList({":/icon/preference_default_16.png", ":/icon/preference_current_16.png"}))}
+        {tr("Recycle Bin"), qMakePair(ItemType::AsideButton, QStringList({":/icon/recycle_bin_default.ico", ":/icon/recycle_bin_current.ico"}))},
+        {tr("Preference"), qMakePair(ItemType::AsideButton, QStringList({":/icon/preference_default.ico", ":/icon/preference_current.ico"}))}
     };
     void setupUi();
     QLabel* generateTitle(QString titleText);

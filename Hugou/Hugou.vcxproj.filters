@@ -86,9 +86,6 @@
     <ClCompile Include="View\FadeEffectButton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Assistance\IconTextButtonHoverWatcher.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -188,7 +185,13 @@
     <ClCompile Include="DoubleClickedToEditButton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CloseWhenLeaveWidget.cpp">
+    <ClCompile Include="View\CloseWhenLeaveWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="View_MemoTypeConfig.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PopupWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -283,7 +286,13 @@
     <QtMoc Include="View\Include\CheckBox.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="CloseWhenLeaveWidget.h">
+    <QtMoc Include="View\Include\CloseWhenLeaveWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="PopupWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="View_MemoTypeConfig.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -359,6 +368,8 @@
     <None Include="Resource\theme\Default\schedule.qss" />
     <None Include="Resource\theme\Global\titleBar.qss" />
     <None Include="Resource\theme\Global\taskSetting.qss" />
+    <None Include="Resource\etc\qt.conf" />
+    <None Include="Resource\qt\etc\qt.conf" />
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="Resource\Hugou.qrc">

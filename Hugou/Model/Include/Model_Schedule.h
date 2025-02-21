@@ -29,6 +29,8 @@ private:
     MemoSettingModel* m_memoSettingModel;
     QList<Memo> m_memoList = {};
     void createMemoDatabase();
+    void createMemoTypeLabelDatabase();
+    void createMemoTypeDatabase();
     void createAwardDatabase();
     void createReferenceDatabase();
     void createMemoAndAwardDatabase();

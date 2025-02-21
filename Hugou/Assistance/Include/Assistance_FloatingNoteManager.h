@@ -28,9 +28,6 @@ public:
 	inline FloatingNote* getShownFloatingNote() { return m_shownFloatingNote; }
 	inline FloatingNote* getLatestHiddenFloatingNote() { return m_hiddenFloatingNoteList.back(); }
 
-signals:
-	//void SignalAnimationFinishedToTitleBar();
-
 public slots:
 	void checkPopupQueue();
 

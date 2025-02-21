@@ -3,7 +3,7 @@
 #include "Var.h"
 #include "View_Welcome.h"
 #include "Model_Welcome.h"
-#include "Assistance_preferenceHelper.h"
+#include "Assistance_PreferenceHelper.h"
 
 class WelcomeController : public QObject
 {

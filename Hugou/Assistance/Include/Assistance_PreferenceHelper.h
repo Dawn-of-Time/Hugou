@@ -6,14 +6,14 @@
 #include "Const_Preference.h"
 #include "Assistance_FloatingNoteManager.h"
 
-class preferenceHelper : public QObject
+class PreferenceHelper : public QObject
 {
 	Q_OBJECT
 
 public:
 	QMap<QString, QString> m_preferenceMap;
 
-	static preferenceHelper* getHelper();
+	static PreferenceHelper* getHelper();
 	void setHugou(QWidget* hugou);
 	bool getpreferenceValue(QString key, QString& value);
 	void setpreferenceValue(QString key, QString value);
@@ -33,10 +33,10 @@ private:
 	
 	bool m_isChanged = false;
 	// ÖØÔØÔËËã·û
-	preferenceHelper(const preferenceHelper&) = delete;
-	preferenceHelper& operator=(const preferenceHelper&) = delete;
+	PreferenceHelper(const PreferenceHelper&) = delete;
+	PreferenceHelper& operator=(const PreferenceHelper&) = delete;
 
-	preferenceHelper();
+	PreferenceHelper();
 	void verifyAndLoadpreference();
 	QString readpreference(QString key);
 	bool verifyConfINIExist();

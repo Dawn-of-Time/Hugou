@@ -1,5 +1,6 @@
 #pragma once
 #include "Struct_Memo.h"
+#include "View_MemoTypeConfig.h"
 #include <QGraphicsEffect>
 #include <QLabel>
 #include <QLineEdit>
@@ -43,12 +44,14 @@ public:
     void addMemoType(MemoType memoType);
 
 private:
+    int m_count = 0;
     QHBoxLayout* m_contentLayout;
     QWidget* m_typeListWidget;
     QHBoxLayout* m_typeListWidgetLayout;
     QPushButton* m_addTypeButton;
     QList<QWidget*> m_memoTypeWidgetList;
     void setupUi();
+    void showMemoTypeConfigView();
 };
 
 // Ê±¼ä
@@ -67,7 +70,7 @@ private:
 	QVBoxLayout* m_contentLayout;
 	QWidget* m_reminderWidget;
     QPushButton* m_reminderButton;
-    QLabel* m_offLabel;
+    QPushButton* m_off;
     QPushButton* m_moreButton;
     QGraphicsOpacityEffect* m_moreButtonEffect;
     QWidget* m_dateWidget;

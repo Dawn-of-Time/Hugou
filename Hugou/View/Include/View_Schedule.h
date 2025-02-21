@@ -47,9 +47,9 @@ private:
     QWidget* m_viewSwitchBar;
     QHBoxLayout* m_viewSwitchBarLayout;
     QPushButton* m_monthViewSwitchButton;
-    QLabel* m_monthToWeekForward;
+    QPushButton* m_monthToWeekForward;
     QPushButton* m_weekViewSwitchButton;
-    QLabel* m_weekToDayForward;
+    QPushButton* m_weekToDayForward;
     QPushButton* m_dayViewSwitchButton;
     //QAnimationGroup* m_switchViewAnimationGroup;
     QWidget* m_memoGeneralWidget;

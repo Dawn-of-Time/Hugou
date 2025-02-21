@@ -14,7 +14,7 @@ void MonthOverviewCard::setupUi()
 {
     // ×ÖÌåÇåµ¥
     QFont titleFont = QFont("NeverMind", 16, QFont::DemiBold);
-    QFont backToTodayFont = QFont("NeverMind", 12, QFont::Medium);
+    QFont backToTodayFont = QFont("NeverMind", 12, QFont::Bold);
     QFont monthContentFont = QFont("NeverMind", 11, QFont::Normal);
 
     m_layout = new QVBoxLayout(this);
@@ -25,35 +25,39 @@ void MonthOverviewCard::setupUi()
     m_titleWidget->setFixedHeight(30);
     m_titleWidgetLayout = new QHBoxLayout(m_titleWidget);
     m_titleWidgetLayout->setContentsMargins(8, 0, 8, 0);
-    m_title = new QPushButton(m_titleWidget);
-    m_title->setFont(titleFont);
+    m_titleWidgetLayout->setSpacing(0);
+    m_title = new FadeEffectButton("", titleFont, m_titleWidget);
+    m_title->setFixedSize(176, 30);
+    m_title->layout()->setContentsMargins(0, 0, 0, 0);
+    m_title->setBackgroundWidgetStyleSheet("background-color: rgba(0, 0, 255, 0.1)");
     m_actionWidget = new QWidget(m_titleWidget);
-    m_actionWidget->setFixedWidth(80);
+    m_actionWidget->setFixedWidth(92);
     m_actionWidgetLayout = new QHBoxLayout(m_actionWidget);
-    m_actionWidgetLayout->setContentsMargins(0, 0, 0, 0);
-    m_actionWidgetLayout->setSpacing(10);
+    m_actionWidgetLayout->setContentsMargins(5, 0, 5, 0);
+    m_actionWidgetLayout->setSpacing(5);
     m_backToTodayButton = new QPushButton("T", m_actionWidget);
     m_backToTodayButton->setObjectName("backToTodayButton");
-    m_backToTodayButton->setFixedSize(20, 20);
+    m_backToTodayButton->setFixedSize(24, 24);
+    m_backToTodayButton->setFont(backToTodayFont);
     m_backToTodayButton->setCursor(Qt::PointingHandCursor);
-    m_backToTodayButton->setStyleSheet("background-color: #AEE4FD; border-radius: 10px");
+    m_backToTodayButton->setStyleSheet("background-color: #AEE4FD; border-radius: 12px");
     QSizePolicy policy = m_backToTodayButton->sizePolicy();
     policy.setRetainSizeWhenHidden(true);
     m_backToTodayButton->setSizePolicy(policy);
     m_backButton = new QPushButton(m_actionWidget);
     m_backButton->setObjectName("backButton");
-    m_backButton->setFixedSize(20, 20);
-    m_backButton->setIcon(QIcon(":/icon/back.png"));
+    m_backButton->setFixedSize(24, 24);
+    m_backButton->setIcon(QIcon(":/icon/back.ico"));
     m_backButton->setIconSize(QSize(12, 12));
     m_backButton->setCursor(Qt::PointingHandCursor);
-    m_backButton->setStyleSheet("background-color: #AEE4FD; border-radius: 10px");
+    m_backButton->setStyleSheet("background-color: #AEE4FD; border-radius: 12px");
     m_forwardButton = new QPushButton(m_actionWidget);
     m_forwardButton->setObjectName("forwardButton");
-    m_forwardButton->setFixedSize(20, 20);
-    m_forwardButton->setIcon(QIcon(":/icon/forward.png"));
+    m_forwardButton->setFixedSize(24, 24);
+    m_forwardButton->setIcon(QIcon(":/icon/forward.ico"));
     m_forwardButton->setIconSize(QSize(12, 12));
     m_forwardButton->setCursor(Qt::PointingHandCursor);
-    m_forwardButton->setStyleSheet("background-color: #AEE4FD; border-radius: 10px");
+    m_forwardButton->setStyleSheet("background-color: #AEE4FD; border-radius: 12px");
     m_actionWidgetLayout->addWidget(m_backToTodayButton);
     m_actionWidgetLayout->addWidget(m_backButton);
     m_actionWidgetLayout->addWidget(m_forwardButton);
@@ -194,12 +198,12 @@ void MonthOverviewCard::setYearAndMonth()
     QFont yearFont = QFont("NeverMind", 14, QFont::DemiBold);
     QFont monthFont = QFont("NeverMind", 12, QFont::Light);
 
-    m_title->blockSignals(true);
+    m_title->disconnect();
     CloseWhenLeaveWidget* settingWidget = new CloseWhenLeaveWidget(this);
-    settingWidget->setFixedSize(225, 195);
     settingWidget->move(21, 46);
     settingWidget->setObjectName("yearAndMonthSettingWidget");
     settingWidget->setStyleSheet("QWidget #yearAndMonthSettingWidget { background-color: white; border: 1px solid #377FED }");
+    connect(m_title, &QPushButton::clicked, settingWidget, &CloseWhenLeaveWidget::close);
     
     QGraphicsDropShadowEffect* effect = new QGraphicsDropShadowEffect(settingWidget);
     effect->setBlurRadius(20);
@@ -220,7 +224,7 @@ void MonthOverviewCard::setYearAndMonth()
     QPushButton* backButton = new QPushButton(titleWidget);
     backButton->setObjectName("backButton");
     backButton->setFixedSize(20, 20);
-    backButton->setIcon(QIcon(":/icon/back.png"));
+    backButton->setIcon(QIcon(":/icon/back.ico"));
     backButton->setIconSize(QSize(12, 12));
     backButton->setCursor(Qt::PointingHandCursor);
     backButton->setStyleSheet("background-color: #AEE4FD; border-radius: 10px");
@@ -233,7 +237,7 @@ void MonthOverviewCard::setYearAndMonth()
     QPushButton* forwardButton = new QPushButton(titleWidget);
     forwardButton->setObjectName("forwardButton");
     forwardButton->setFixedSize(20, 20);
-    forwardButton->setIcon(QIcon(":/icon/forward.png"));
+    forwardButton->setIcon(QIcon(":/icon/forward.ico"));
     forwardButton->setIconSize(QSize(12, 12));
     forwardButton->setCursor(Qt::PointingHandCursor);
     forwardButton->setStyleSheet("background-color: #AEE4FD; border-radius: 10px");
@@ -242,7 +246,6 @@ void MonthOverviewCard::setYearAndMonth()
     titleWidgetLayout->addWidget(forwardButton);
 
     QWidget* monthWidget = new QWidget(settingWidget);
-    monthWidget->setFixedSize(189, 120);
     QGridLayout* monthWidgetLayout = new QGridLayout(monthWidget);
     monthWidgetLayout->setHorizontalSpacing(15);
     monthWidgetLayout->setVerticalSpacing(3);
@@ -251,21 +254,27 @@ void MonthOverviewCard::setYearAndMonth()
     {
         for (int column = 0; column < 4; column++)
         {
-            QPushButton* button = new QPushButton(m_monthNameList[row * 4 + column].left(3), monthWidget);
+            FadeEffectButton* button = new FadeEffectButton(m_monthNameList[row * 4 + column].left(3), monthFont, monthWidget);
             button->setFixedSize(45, 30);
-            button->setCursor(Qt::PointingHandCursor);
-            button->setFont(monthFont);
+            button->layout()->setContentsMargins(0, 0, 0, 0);
+            button->setTextAlignment(Qt::AlignCenter);
+            button->setBackgroundWidgetStyleSheet("background-color: rgba(0, 0, 255, 0.1); border-radius: 5px");
+            if (row * 4 + column == m_currentDate.month() - 1)  
+            {
+                button->setObjectName("currentMonth");
+                button->setStyleSheet("QWidget #currentMonth{background-color: rgba(0, 0, 255, 0.1); border-radius: 5px}");
+            }
             monthWidgetLayout->addWidget(button, row, column);
-            connect(button, &QPushButton::clicked, [=]()
+            connect(button, &FadeEffectButton::clicked, [=]()
                 {
                     loadMonthView(QDate(m_currentDate.year(), m_monthMap[button->text()], m_currentDate.day()));
                     settingWidget->blockSignals(true);
-                    m_title->blockSignals(false);
+                    m_title->disconnect();
+                    connect(m_title, &FadeEffectButton::clicked, this, &MonthOverviewCard::setYearAndMonth);
                     settingWidget->close();
                 });
         }
     }
-
 
     settingWidgetLayout->addWidget(titleWidget);
     settingWidgetLayout->addWidget(monthWidget);
@@ -286,7 +295,14 @@ void MonthOverviewCard::setYearAndMonth()
         });
     connect(settingWidget, &CloseWhenLeaveWidget::SignalClose, [=]() 
         {
-            m_title->blockSignals(false);
+            m_title->disconnect();
+            connect(m_title, &QPushButton::clicked, this, &MonthOverviewCard::setYearAndMonth);
             loadMonthView(QDate(yearLineEdit->text().toInt(), m_currentDate.month(), m_currentDate.day()));
         });
+
+    QPropertyAnimation* animation = new QPropertyAnimation(settingWidget, "geometry");
+    animation->setStartValue(QRect(21, 46, 0, 0));
+    animation->setEndValue(QRect(21, 46, 255, 195));
+    animation->setDuration(200);
+    animation->start(QPropertyAnimation::DeleteWhenStopped);
 }

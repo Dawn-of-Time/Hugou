@@ -35,15 +35,16 @@ void ScheduleView::setupUi()
     m_viewSwitchBarLayout->setSpacing(7);
     m_monthViewSwitchButton = new QPushButton(m_monthNameList[QDate::currentDate().month() - 1], m_viewSwitchBar);
     m_monthViewSwitchButton->setFont(viewSwitchButtonFont);
-    m_monthToWeekForward = new QLabel(m_viewSwitchBar);
+    m_monthToWeekForward = new QPushButton(m_viewSwitchBar);
     m_monthToWeekForward->setFixedSize(32, 32);
-    m_monthToWeekForward->setPixmap(QPixmap(":/icon/forward_schedule_viewSwitchBar.png"));
-
+    m_monthToWeekForward->setIcon(QIcon(":/icon/forward_schedule_viewSwitchBar.ico"));
+    m_monthToWeekForward->setIconSize(QSize(32, 32));
     m_weekViewSwitchButton = new QPushButton("Week " + QString::number(QDate::currentDate().weekNumber()), m_viewSwitchBar);
     m_weekViewSwitchButton->setFont(viewSwitchButtonFont);
-    m_weekToDayForward = new QLabel(m_viewSwitchBar);
+    m_weekToDayForward = new QPushButton(m_viewSwitchBar);
     m_weekToDayForward->setFixedSize(32, 32);
-    m_weekToDayForward->setPixmap(QPixmap(":/icon/forward_schedule_viewSwitchBar.png"));
+    m_weekToDayForward->setIcon(QIcon(":/icon/forward_schedule_viewSwitchBar.ico"));
+    m_weekToDayForward->setIconSize(QSize(32, 32));
     m_dayViewSwitchButton = new QPushButton("Day " + QString::number(QDate::currentDate().day()), m_viewSwitchBar);
     m_dayViewSwitchButton->setFont(viewSwitchButtonFont);
     m_viewSwitchBarLayout->addWidget(m_monthViewSwitchButton);
@@ -66,15 +67,23 @@ void ScheduleView::setupUi()
     m_memoGeneralTitle->setFont(memoTitleFont);
     m_memoGeneralTitleWidgetLayout->addWidget(m_memoGeneralTitle, Qt::AlignLeft);
 
-    m_memoListWidget = new QWidget(m_memoGeneralWidget);
+    QScrollArea* m_memoListArea = new QScrollArea(m_memoGeneralWidget);
+    m_memoListArea->setWidgetResizable(true);
+    m_memoListArea->viewport()->setStyleSheet("background-color: transparent;");
+    m_memoListArea->setStyleSheet(
+        "QScrollArea{ background-color: transparent; border: none }"
+    );
+    m_memoListWidget = new QWidget(m_memoListArea);
+    m_memoListWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     m_memoListWidgetLayout = new QVBoxLayout(m_memoListWidget);
     m_memoListWidgetLayout->setContentsMargins(0, 0, 0, 0);
     m_memoListWidgetLayout->setSpacing(16);
     m_memoListWidgetLayout->setAlignment(Qt::AlignLeft | Qt::AlignTop);
 
+    m_memoListArea->setWidget(m_memoListWidget);
     m_memoGeneralWidgetLayout->setAlignment(Qt::AlignLeft | Qt::AlignTop);
     m_memoGeneralWidgetLayout->addWidget(m_memoGeneralTitleWidget);
-    m_memoGeneralWidgetLayout->addWidget(m_memoListWidget);
+    m_memoGeneralWidgetLayout->addWidget(m_memoListArea);
 
     m_centralWidgetLayout->addWidget(m_viewSwitchBar);
     m_centralWidgetLayout->addWidget(m_memoGeneralWidget);
@@ -112,7 +121,7 @@ void ScheduleView::generateMemos(QList<Memo> memoList)
         dropDownButton->setFixedSize(12, 12);
         if (memo.hasSubMemo)
         {
-            dropDownButton->setIcon(QIcon(":/icon/forward.png"));
+            dropDownButton->setIcon(QIcon(":/icon/forward.ico"));
             dropDownButton->setIconSize(QSize(9, 9));
         }
         QCheckBox* checkBox = new QCheckBox(memoWidget);
@@ -138,11 +147,11 @@ void ScheduleView::generateMemos(QList<Memo> memoList)
     m_addMemoWidgetLayout->setAlignment(Qt::AlignLeft | Qt::AlignTop);
 
     m_addMemoBriefWidget = new FadeEffectButton(m_addMemoWidget);
-    m_addMemoBriefWidget->setFixedHeight(52);
+    m_addMemoBriefWidget->setFixedHeight(60);
     m_addMemoBriefWidget->setCursor(Qt::PointingHandCursor);
-    m_addMemoBriefWidget->setBackgroundWidgetStyleSheet("border: 2px solid #377FED; border-radius: 10px");
+    m_addMemoBriefWidget->setBackgroundWidgetStyleSheet("background-color: #EAF9FE; border-radius: 10px");
     m_addMemoBriefWidgetLayout = new QHBoxLayout(m_addMemoBriefWidget);
-    m_addMemoBriefWidgetLayout->setContentsMargins(0, 8, 0, 8);
+    m_addMemoBriefWidgetLayout->setContentsMargins(0, 12, 0, 12);
     m_addMemoBriefWidgetLayout->setSpacing(8);
 	
     m_dropDownButton = new QPushButton(m_addMemoBriefWidget);
@@ -173,7 +182,7 @@ void ScheduleView::generateMemos(QList<Memo> memoList)
     m_addMemoBriefWidgetLayout->addWidget(m_checkBox);
     m_addMemoBriefWidgetLayout->addWidget(m_memoContentWidget);
 
-    MemoSettingView* memoSetting = new MemoSettingView(m_addMemoBriefWidget, Memo());
+    MemoSettingView* memoSetting = new MemoSettingView(m_addMemoWidget, Memo());
     m_memoSettingMap.insert(m_addMemoBriefWidget, memoSetting);
 
     m_addMemoWidgetLayout->addWidget(m_addMemoBriefWidget);
@@ -187,22 +196,26 @@ void ScheduleView::showMemoSetting(FadeEffectButton* memoBriefWidget)
 {
     MemoSettingView* memoSetting = m_memoSettingMap[memoBriefWidget];
     QWidget* memoWidget = memoBriefWidget->parentWidget();
-    int availableHeight = m_centralWidget->height() - 48 - m_viewSwitchBar->height() - m_memoGeneralWidget->height();
+    int availableHeight = m_memoListWidget->height() - m_addMemoWidget->height();
     int memoSettingHeight = memoSetting->getSuitableHeight();
     int heightIncrement = availableHeight < memoSettingHeight ? availableHeight : memoSettingHeight;
+    QParallelAnimationGroup* group = new QParallelAnimationGroup;
     QPropertyAnimation* memoWidgetExpandAnimation = new QPropertyAnimation(memoWidget, "geometry");
     memoWidgetExpandAnimation->setStartValue(memoWidget->geometry());
-    memoWidgetExpandAnimation->setEndValue(QRect(memoWidget->x(), memoWidget->y(), memoWidget->width(), memoWidget->height() + memoSettingHeight));
-    memoWidgetExpandAnimation->setDuration(300);
-    memoWidgetExpandAnimation->setEasingCurve(QEasingCurve::OutQuint);
-
-    connect(memoWidgetExpandAnimation, &QPropertyAnimation::finished, [=]()
+    memoWidgetExpandAnimation->setEndValue(QRect(memoWidget->x(), memoWidget->y(), memoWidget->width(), memoWidget->height() + heightIncrement));
+    memoWidgetExpandAnimation->setDuration(200);
+    QPropertyAnimation* memoSettingExpandAnimation = new QPropertyAnimation(memoSetting, "geometry");
+    memoSettingExpandAnimation->setStartValue(memoSetting->geometry());
+    memoSettingExpandAnimation->setEndValue(QRect(memoSetting->x(), memoSetting->y(), memoSetting->width(), memoSetting->height() + heightIncrement));
+    memoSettingExpandAnimation->setDuration(200);
+    group->addAnimation(memoWidgetExpandAnimation);
+    group->addAnimation(memoSettingExpandAnimation);
+    connect(group, &QParallelAnimationGroup::finished, [=]()
         {
-            memoSetting->show();
             memoSetting->fadeIn();
         }
     );
-    memoWidgetExpandAnimation->start(QPropertyAnimation::DeleteWhenStopped);
+    group->start(QPropertyAnimation::DeleteWhenStopped);
 }
 
 void ScheduleView::switchToMonthView()

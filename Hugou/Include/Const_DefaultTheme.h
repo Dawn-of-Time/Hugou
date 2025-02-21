@@ -29,5 +29,5 @@ QString("QStackedWidget { background-color: transparent; border: none }")
 + QString("QComboBox QAbstractItemView { outline: none; margin-top: 5px; border-radius: 5px; background-color: #A2CBEE; }")
 + QString("QComboBox QAbstractItemView::item:hover { padding: 3px; color: black; border-radius: 5px; background-color: #5591DC; }")
 + QString("QComboBox QAbstractItemView::item:selected { padding: 3px; color: white; border-radius: 5px; background-color: #5591DC; }")
-+ QString("QComboBox::down-arrow { image: url(\":/icon/down_bla.png\"); width: 20px; }")
++ QString("QComboBox::down-arrow { image: url(\":/icon/down_bla.ico\"); width: 20px; }")
 + QString("QComboBox::drop-down { border: none; }");

@@ -40,6 +40,7 @@ MemoTypeItem::MemoTypeItem(QWidget* parent)
 	:MemoSettingItem(parent)
 {
 	setupUi();
+	connect(m_addTypeButton, &QPushButton::clicked, this, &MemoTypeItem::showMemoTypeConfigView);
 }
 
 void MemoTypeItem::setupUi()
@@ -69,11 +70,12 @@ void MemoTypeItem::setupUi()
 	QVBoxLayout* addTypeButtonLayout = new QVBoxLayout(m_addTypeButton);
 	addTypeButtonLayout->setContentsMargins(0, 0, 0, 0);
 	addTypeButtonLayout->setSpacing(4);
-	QLabel* icon = new QLabel(m_addTypeButton);
-	icon->setAlignment(Qt::AlignCenter);
+	QPushButton* icon = new QPushButton(m_addTypeButton);
 	icon->setFixedSize(36, 36);
-	icon->setStyleSheet("background-color: #EAF9FE; border-radius: 5px");
-	icon->setPixmap(QPixmap(":/icon/preference_default_16.png"));
+	icon->setStyleSheet("background-color: #EAF9FE; border-radius: 5px; border: none");
+	icon->setIcon(QIcon(":/icon/preference_default.ico"));
+	icon->setIconSize(QSize(16, 16));
+	icon->setAttribute(Qt::WA_TransparentForMouseEvents);
 	QLabel* label = new QLabel("Config", m_addTypeButton);
 	label->setAlignment(Qt::AlignHCenter);
 	label->setFixedSize(40, 20);
@@ -93,25 +95,35 @@ void MemoTypeItem::addMemoType(MemoType memoType)
 	// ×ÖÌåÇåµ¥
 	QFont labelFont = QFont("NeverMind", 10, QFont::Normal);
 
-	QPushButton* memoTypeWidget = new QPushButton(m_content);
-	memoTypeWidget->setFixedSize(36, 60);
-	QVBoxLayout* memoTypeWidgetLayout = new QVBoxLayout(memoTypeWidget);
-	memoTypeWidgetLayout->setContentsMargins(0, 0, 0, 0);
-	memoTypeWidgetLayout->setSpacing(4);
-	QLabel* icon = new QLabel(memoTypeWidget);
-	icon->setAlignment(Qt::AlignCenter);
-	icon->setFixedSize(36, 36);
-	icon->setStyleSheet(QString("background-color: %1; border-radius: 5px").arg(memoType.color.name()));
-	QLabel* label = new QLabel(memoType.name, memoTypeWidget);
-	label->setAlignment(Qt::AlignHCenter);
-	label->setFixedSize(36, 20);
-	label->setFont(labelFont);
+	if (m_count <= 4)
+	{
+		QPushButton* memoTypeWidget = new QPushButton(m_content);
+		memoTypeWidget->setFixedSize(36, 60);
+		QVBoxLayout* memoTypeWidgetLayout = new QVBoxLayout(memoTypeWidget);
+		memoTypeWidgetLayout->setContentsMargins(0, 0, 0, 0);
+		memoTypeWidgetLayout->setSpacing(4);
+		QLabel* icon = new QLabel(memoTypeWidget);
+		icon->setAlignment(Qt::AlignCenter);
+		icon->setFixedSize(36, 36);
+		icon->setStyleSheet(QString("background-color: %1; border-radius: 5px").arg(memoType.color.name()));
+		QLabel* label = new QLabel(memoType.name, memoTypeWidget);
+		label->setAlignment(Qt::AlignHCenter);
+		label->setFixedSize(36, 20);
+		label->setFont(labelFont);
 
-	memoTypeWidgetLayout->setAlignment(Qt::AlignHCenter);
-	memoTypeWidgetLayout->addWidget(icon);
-	memoTypeWidgetLayout->addWidget(label);
+		memoTypeWidgetLayout->setAlignment(Qt::AlignHCenter);
+		memoTypeWidgetLayout->addWidget(icon);
+		memoTypeWidgetLayout->addWidget(label);
 
-	m_typeListWidgetLayout->addWidget(memoTypeWidget);
+		m_typeListWidgetLayout->addWidget(memoTypeWidget);
+		m_count++;
+	}
+}
+
+void MemoTypeItem::showMemoTypeConfigView()
+{
+	MemoTypeConfigView* view = new MemoTypeConfigView();
+	view->show();
 }
 
 MemoTimeItem::MemoTimeItem(QWidget* parent)
@@ -144,18 +156,19 @@ void MemoTimeItem::setupUi()
 	m_reminderWidget->setFixedSize(50, 25);
 	m_reminderButton = new QPushButton(m_reminderWidget);
 	m_reminderButton->setFixedSize(25, 25);
-	m_reminderButton->setIconSize(QSize(25, 25));
-	m_reminderButton->setIcon(QIcon(":/icon/remind.png"));
+	m_reminderButton->setIconSize(QSize(16, 16));
+	m_reminderButton->setIcon(QIcon(":/icon/remind.ico"));
 	m_reminderButton->setStyleSheet("border: none; background-color: transparent");
 	m_reminderButton->setCursor(Qt::PointingHandCursor);
-	m_offLabel = new QLabel(m_reminderButton);
-	m_offLabel->setFixedSize(25, 25);
-	m_offLabel->setPixmap(QPixmap(":/icon/off.png"));
-	m_offLabel->setAlignment(Qt::AlignCenter);
+	m_off = new QPushButton(m_reminderButton);
+	m_off->setFixedSize(25, 25);
+	m_off->setIcon(QIcon(":/icon/off.ico"));
+	m_off->setIconSize(QSize(16, 16));
+	m_off->setAttribute(Qt::WA_TransparentForMouseEvents);
 	m_moreButton = new QPushButton(m_reminderWidget);
 	m_moreButton->setFixedSize(25, 25);
 	m_moreButton->setIconSize(QSize(25, 25));
-	m_moreButton->setIcon(QIcon(":/icon/more.png"));
+	m_moreButton->setIcon(QIcon(":/icon/more.ico"));
 	m_moreButton->setStyleSheet("border: none; background-color: transparent");
 	m_moreButtonEffect = new QGraphicsOpacityEffect(m_moreButton);
 	m_moreButtonEffect->setOpacity(0);
@@ -194,12 +207,12 @@ void MemoTimeItem::setupUi()
 	m_backButton = new QPushButton(m_actionWidget);
 	m_backButton->setObjectName("backButton");
 	m_backButton->setFixedSize(20, 20);
-	m_backButton->setIcon(QIcon(":/icon/back.png"));
+	m_backButton->setIcon(QIcon(":/icon/back.ico"));
 	m_backButton->setIconSize(QSize(12, 12));
 	m_forwardButton = new QPushButton(m_actionWidget);
 	m_forwardButton->setObjectName("forwardButton");
 	m_forwardButton->setFixedSize(20, 20);
-	m_forwardButton->setIcon(QIcon(":/icon/forward.png"));
+	m_forwardButton->setIcon(QIcon(":/icon/forward.ico"));
 	m_forwardButton->setIconSize(QSize(12, 12));
 	m_actionWidgetLayout->addWidget(m_backButton);
 	m_actionWidgetLayout->addStretch();
@@ -473,7 +486,7 @@ void MemoTimeItem::switchReminder()
 	if (m_hasReminder)
 	{
 		m_hasReminder = false;
-		m_offLabel->show();
+		m_off->show();
 		QPropertyAnimation* moveAnimation = new QPropertyAnimation(m_reminderButton, "pos", this);
 		moveAnimation->setStartValue(m_reminderButton->pos());
 		moveAnimation->setEndValue(QPoint(25, 0));
@@ -488,7 +501,7 @@ void MemoTimeItem::switchReminder()
 	else
 	{
 		m_hasReminder = true;
-		m_offLabel->hide();
+		m_off->hide();
 		QPropertyAnimation* moveAnimation = new QPropertyAnimation(m_reminderButton, "pos", this);
 		moveAnimation->setStartValue(m_reminderButton->pos());
 		moveAnimation->setEndValue(QPoint(0, 0));

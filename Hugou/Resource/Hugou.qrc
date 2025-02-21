@@ -1,19 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>font/HindSiliguri-Light.ttf</file>
-        <file>font/HindSiliguri-Regular.ttf</file>
-        <file>font/Roboto-Black.ttf</file>
-        <file>font/Roboto-BlackItalic.ttf</file>
-        <file>font/Roboto-Bold.ttf</file>
-        <file>font/Roboto-BoldItalic.ttf</file>
-        <file>font/Roboto-Italic.ttf</file>
-        <file>font/Roboto-Light.ttf</file>
-        <file>font/Roboto-LightItalic.ttf</file>
-        <file>font/Roboto-Medium.ttf</file>
-        <file>font/Roboto-MediumItalic.ttf</file>
-        <file>font/Roboto-Regular.ttf</file>
-        <file>font/Roboto-Thin.ttf</file>
-        <file>font/Roboto-ThinItalic.ttf</file>
         <file>gif/applyTheme.gif</file>
         <file>gif/dropZoneGif.gif</file>
         <file>mp4/applyTheme.mp4</file>
@@ -40,15 +26,8 @@
         <file>theme/Winter/asideBar.qss</file>
         <file>theme/Winter/general.qss</file>
         <file>theme/Winter/preference.qss</file>
-        <file>icon/schedule_current_16.png</file>
-        <file>icon/schedule_default_16.png</file>
-        <file>font/HindSiliguri-Bold.ttf</file>
-        <file>font/HindSiliguri-Medium.ttf</file>
-        <file>font/HindSiliguri-SemiBold.ttf</file>
-        <file>font/WorkSans-Light.ttf</file>
-        <file>font/WorkSans-Regular.ttf</file>
-        <file>font/WorkSans-Medium.ttf</file>
-        <file>font/WorkSans-SemiBold.ttf</file>
+        <file>icon/schedule_current.ico</file>
+        <file>icon/schedule_default.ico</file>
         <file>theme/Global/taskSetting.qss</file>
         <file>theme/Default/schedule.qss</file>
         <file>font/NeverMind-Bold.ttf</file>
@@ -65,67 +44,38 @@
         <file>font/NeverMind-RegularItalic.ttf</file>
         <file>font/NeverMind-Thin.ttf</file>
         <file>font/NeverMind-ThinItalic.ttf</file>
-        <file>icon/appearance.png</file>
-        <file>icon/browse_bla.png</file>
-        <file>icon/browse_blu.png</file>
-        <file>icon/close_black.png</file>
-        <file>icon/close_white.png</file>
-        <file>icon/common.png</file>
-        <file>icon/country_region.png</file>
-        <file>icon/dealLater_b.png</file>
-        <file>icon/dealLater_w.png</file>
-        <file>icon/dialog.png</file>
-        <file>icon/document_current_16.png</file>
-        <file>icon/document_default_16.png</file>
-        <file>icon/down_bla.png</file>
-        <file>icon/enter.png</file>
-        <file>icon/error.png</file>
-        <file>icon/export.png</file>
-        <file>icon/fail_status.png</file>
-        <file>icon/float_b.png</file>
-        <file>icon/float_g.png</file>
-        <file>icon/float_o.png</file>
-        <file>icon/float_p.png</file>
-        <file>icon/float_r.png</file>
-        <file>icon/float_w.png</file>
-        <file>icon/floatingNoteManager_b.png</file>
-        <file>icon/floatingNoteManager_w.png</file>
-        <file>icon/Hugou_48.png</file>
-        <file>icon/information.png</file>
-        <file>icon/island_w.png</file>
-        <file>icon/maximum_black.png</file>
-        <file>icon/minimum_black.png</file>
-        <file>icon/restore_black.png</file>
-        <file>icon/search_bla.png</file>
-        <file>icon/search_blu.png</file>
-        <file>icon/success.png</file>
-        <file>icon/success_status.png</file>
-        <file>icon/warning.png</file>
-        <file>icon/workSpace_b.png</file>
-        <file>icon/yes_b.png</file>
-        <file>icon/yes_g.png</file>
-        <file>icon/yes_w.png</file>
-        <file>icon/preference_current_16.png</file>
-        <file>icon/preference_default_16.png</file>
-        <file>icon/recycle_bin_default_16.png</file>
-        <file>icon/recycle_bin_current_16.png</file>
-        <file>icon/extension_current_16.png</file>
-        <file>icon/extension_default_16.png</file>
-        <file>icon/achievement_current_16.png</file>
-        <file>icon/achievement_default_16.png</file>
-        <file>icon/project_current_16.png</file>
-        <file>icon/project_default_16.png</file>
-        <file>icon/AI_chat_default_16.png</file>
-        <file>icon/application_repo_current_16.png</file>
-        <file>icon/application_repo_default_16.png</file>
-        <file>icon/forward_schedule_viewSwitchBar.png</file>
-        <file>icon/add.png</file>
-        <file>icon/forward.png</file>
-        <file>icon/back.png</file>
-        <file>icon/add_memo.png</file>
-        <file>icon/tick_white.png</file>
-        <file>icon/more.png</file>
-        <file>icon/remind.png</file>
-        <file>icon/off.png</file>
+        <file>icon/project_current.ico</file>
+        <file>icon/project_default.ico</file>
+        <file>icon/recycle_bin_current.ico</file>
+        <file>icon/recycle_bin_default.ico</file>
+        <file>icon/remind.ico</file>
+        <file>icon/restore_black.ico</file>
+        <file>icon/schedule_current.ico</file>
+        <file>icon/document_default.ico</file>
+        <file>icon/down.ico</file>
+        <file>icon/extension_current.ico</file>
+        <file>icon/extension_default.ico</file>
+        <file>icon/forward.ico</file>
+        <file>icon/maximum_black.ico</file>
+        <file>icon/minimum_black.ico</file>
+        <file>icon/more.ico</file>
+        <file>icon/preference_current.ico</file>
+        <file>icon/preference_default.ico</file>
+        <file>icon/achievement_current.ico</file>
+        <file>icon/achievement_default.ico</file>
+        <file>icon/add.ico</file>
+        <file>icon/back.ico</file>
+        <file>icon/close_black.ico</file>
+        <file>icon/close_white.ico</file>
+        <file>icon/delete.ico</file>
+        <file>icon/document_current.ico</file>
+        <file>icon/off.ico</file>
+        <file>icon/Hugou.ico</file>
+        <file>icon/schedule_default.ico</file>
+        <file>icon/AI_chat_default.ico</file>
+        <file>icon/application_repo_current.ico</file>
+        <file>icon/application_repo_default.ico</file>
+        <file>icon/forward_schedule_viewSwitchBar.ico</file>
+        <file>qt/etc/qt.conf</file>
     </qresource>
 </RCC>

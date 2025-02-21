@@ -98,11 +98,11 @@ private:
 
     const std::map<Type, QPixmap> m_typeIcon =
     {
-        {Success, QPixmap(":/icon/success.png")},
-        {Information, QPixmap(":/icon/information.png")},
-        {Dialog, QPixmap(":/icon/dialog.png")},
-        {Warning, QPixmap(":/icon/warning.png")},
-        {Error, QPixmap(":/icon/error.png")}
+        {Success, QPixmap(":/icon/success.ico")},
+        {Information, QPixmap(":/icon/information.ico")},
+        {Dialog, QPixmap(":/icon/dialog.ico")},
+        {Warning, QPixmap(":/icon/warning.ico")},
+        {Error, QPixmap(":/icon/error.ico")}
     };
 
     void setupUi();

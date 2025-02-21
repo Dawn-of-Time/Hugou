@@ -22,9 +22,12 @@ void TitleBarView::setupUi()
     m_titleLayout->setSpacing(0);
 
     // 软件图标和名字
-    m_appIcon = new QLabel(this);
+    m_appIcon = new QPushButton(this);
     m_appIcon->setFixedSize(48, 48);
-    m_appIcon->setPixmap(QPixmap(":/icon/Hugou_48.png"));
+    m_appIcon->setIcon(QIcon(":/icon/Hugou.ico"));
+    m_appIcon->setIconSize(QSize(48, 48));
+    m_appIcon->setStyleSheet("border: none; background-color: transparent");
+
     m_appName = new QLabel("Hugou", this);
     m_appName->setFixedWidth(80);
     m_appName->setFont(appNameFont);
@@ -40,9 +43,11 @@ void TitleBarView::setupUi()
     m_AIChatWidget->setFixedHeight(40);
     m_AIChatWidgetLayout = new QHBoxLayout(m_AIChatWidget);
     m_AIChatWidgetLayout->setSpacing(5);
-    m_AIChatIcon = new QLabel(m_AIChatWidget);
+    m_AIChatIcon = new QPushButton(m_AIChatWidget);
     m_AIChatIcon->setFixedSize(16, 16);
-    m_AIChatIcon->setPixmap(QPixmap(":/icon/AI_chat_default_16.png"));
+    m_AIChatIcon->setIcon(QIcon(":/icon/AI_chat_default.ico"));
+    m_AIChatIcon->setIconSize(QSize(16, 16));
+    m_AIChatIcon->setStyleSheet("border: none; background-color: transparent");
     m_AIChatLineEdit = new QLineEdit(m_AIChatWidget);
     m_AIChatLineEdit->setObjectName("AIChatLineEdit");
     m_AIChatLineEdit->setPlaceholderText("Chat");
@@ -66,7 +71,7 @@ void TitleBarView::setupUi()
     m_userButton = new QPushButton(m_userWidget);
     m_userButton->setObjectName("userButton");
     m_userButton->setFixedSize(36, 36);
-    m_userButton->setIcon(QPixmap(":/icon/Hugou_48.png"));
+    m_userButton->setIcon(QIcon(":/icon/Hugou.ico"));
     m_userButton->setIconSize(QSize(36, 36));
     m_userWidgetLayout->setAlignment(Qt::AlignCenter);
     m_userWidgetLayout->addWidget(m_userButton);
@@ -74,21 +79,21 @@ void TitleBarView::setupUi()
     // 最小化按钮
     m_minimizeButton = new QPushButton(this);
     m_minimizeButton->setObjectName("minimizeButton");
-    m_minimizeButton->setIcon(QIcon(":/icon/minimum_black.png"));
+    m_minimizeButton->setIcon(QIcon(":/icon/minimum_black.ico"));
     m_minimizeButton->setFixedSize(titleButtonWidth, titleButtonHeight);
 
     // 最大化/还原按钮
     m_scaleButton = new QPushButton(this);
     m_scaleButton->setObjectName("scaledButton");
-    m_scaleButton->setIcon(QIcon(":/icon/maximum_black.png"));
+    m_scaleButton->setIcon(QIcon(":/icon/maximum_black.ico"));
     m_scaleButton->setFixedSize(titleButtonWidth, titleButtonHeight);
 
     // 关闭按钮
     m_closeButton = new QPushButton(this);
     m_closeButton->setObjectName("closeButton");
-    m_closeButton->setIcon(QIcon(":/icon/close_black.png"));
+    m_closeButton->setIcon(QIcon(":/icon/close_black.ico"));
     m_closeButton->setFixedSize(titleButtonWidth, titleButtonHeight);
-    m_closeButtonHoverWatcher = new ButtonHoverWatcher(QString(":/icon/close_black.png"), QString(":/icon/close_white.png"), this);
+    m_closeButtonHoverWatcher = new ButtonHoverWatcher(QString(":/icon/close_black.ico"), QString(":/icon/close_white.ico"), this);
     m_closeButton->installEventFilter(m_closeButtonHoverWatcher);
 
     m_titleLayout->setAlignment(Qt::AlignVCenter);

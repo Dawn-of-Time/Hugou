@@ -6,20 +6,18 @@ FadeEffectButton::FadeEffectButton(QWidget* parent) :
 	setGeneralStyle();
 }
 
-FadeEffectButton::FadeEffectButton(QPixmap icon, QSize iconSize, QString text, QFont font, QWidget* parent) :
+FadeEffectButton::FadeEffectButton(QIcon icon, QSize iconSize, QString text, QFont font, QWidget* parent) :
 	QPushButton(parent)
 {
 	setGeneralStyle();
-	setGeneralLayout();
 	addIconZone(icon, iconSize);
 	addTextZone(text, font);
 }
 
-FadeEffectButton::FadeEffectButton(QPixmap icon, QSize iconSize, QWidget* parent) :
+FadeEffectButton::FadeEffectButton(QIcon icon, QSize iconSize, QWidget* parent) :
 	QPushButton(parent)
 {
 	setGeneralStyle();
-	setGeneralLayout();
 	addIconZone(icon, iconSize);
 }
 
@@ -27,7 +25,6 @@ FadeEffectButton::FadeEffectButton(QString text, QFont font, QWidget* parent) :
 	QPushButton(parent)
 {
 	setGeneralStyle();
-	setGeneralLayout();
 	addTextZone(text, font);
 }
 
@@ -51,16 +48,21 @@ void FadeEffectButton::setGeneralLayout()
 
 void FadeEffectButton::addTextZone(QString text, QFont font)
 {
-	m_textZone = new QLabel(this);
-	this->setText(text, font);
+	if (!m_buttonLayout) setGeneralLayout();
+	m_textZone = new QLabel(text, this);
+	m_textZone->setFont(font);
 	m_buttonLayout->addWidget(m_textZone);
 }
 
-void FadeEffectButton::addIconZone(QPixmap icon, QSize iconSize)
+void FadeEffectButton::addIconZone(QIcon icon, QSize iconSize)
 {
-	m_iconZone = new QLabel(this);
+	if (!m_buttonLayout) setGeneralLayout();
+	m_iconZone = new QPushButton(this);
 	m_iconZone->setFixedSize(iconSize);
-	this->setIcon(icon);
+	m_iconZone->setIconSize(iconSize);
+	m_iconZone->setIcon(icon);
+	m_iconZone->setAttribute(Qt::WA_TransparentForMouseEvents);
+	m_iconZone->setStyleSheet("border: none; background-color: transparent");
 	m_buttonLayout->addWidget(m_iconZone);
 }
 
@@ -71,26 +73,37 @@ QString FadeEffectButton::text()
 	else return "";
 }
 
-void FadeEffectButton::setIcon(QPixmap icon)
+void FadeEffectButton::setIcon(QIcon icon)
 {
-	//icon.setDevicePixelRatio(getScale());
-	if (m_iconZone) m_iconZone->setPixmap(icon);
+	if (m_iconZone) m_iconZone->setIcon(icon);
 };
 
-void FadeEffectButton::setIconSize(QSize size)
+void FadeEffectButton::setIconSize(QSize iconSize)
 {
-	if (m_iconZone) m_iconZone->setFixedSize(size);
+	if (m_iconZone) m_iconZone->setIconSize(iconSize);
 };
 
-void FadeEffectButton::setText(QString text, QFont font)
+void FadeEffectButton::setText(QString text)
 {
 	if (m_textZone)
 	{
 		m_textZone->setText(text);
-		m_textZone->setFont(font);
 		m_textZone->adjustSize();
 		this->adjustSize();
 	}
+	else addTextZone(text, QFont());
+}
+
+void FadeEffectButton::setTextAlignment(Qt::Alignment alignment)
+{
+	if (m_textZone)
+		m_textZone->setAlignment(alignment);
+}
+
+void FadeEffectButton::setFont(QFont font)
+{
+	if (m_textZone) m_textZone->setFont(font); 
+	else addTextZone("", font);
 }
 
 void FadeEffectButton::setFixedSize(int w, int h)

@@ -1,6 +1,6 @@
 #pragma once
 #include "View_GlobalTop.h"
-#include "Assistance_preferenceHelper.h"
+#include "Assistance_PreferenceHelper.h"
 #include "Const_DefaultTheme.h"
 #include "Const_SuccessNote.h"
 #include <QObject>

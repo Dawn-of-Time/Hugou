@@ -52,6 +52,9 @@ void AsideBarView::setupUi()
 
 QLabel* AsideBarView::generateTitle(QString titleText)
 {
+    // 字体清单
+    QFont asideTitleFont = QFont("NeverMind", 10, QFont::Normal);
+    
     QLabel* title = new QLabel(titleText, this);
     title->setObjectName("asideTitle");
     title->setFixedHeight(asideTitleHeight);
@@ -61,10 +64,12 @@ QLabel* AsideBarView::generateTitle(QString titleText)
 
 FadeEffectButton* AsideBarView::generateButton(QString titleText)
 {
-    FadeEffectButton* button = new FadeEffectButton(QPixmap(m_asideBarItemIconMap[titleText].second[0]), QSize(16, 16), titleText, asideButtonFont, this);
+    // 字体清单
+    QFont asideButtonFont = QFont("NeverMind", 11, QFont::Normal);
+
+    FadeEffectButton* button = new FadeEffectButton(QIcon(m_asideBarItemIconMap[titleText].second[0]), QSize(16, 16), titleText, asideButtonFont, this);
     button->setFixedSize(asideButtonWidth, asideButtonHeight);
     button->setBackgroundWidgetStyleSheet("background-color: rgba(0, 0, 255, 0.1); border-radius: 18px;");
-    button->setIcon(QPixmap(m_asideBarItemIconMap[titleText].second[0]));
     button->setProperty("status", "default");
     button->setStatus(true);
     m_asideBarButtonList.append(button);

@@ -10,6 +10,8 @@
 #include <QGraphicsDropShadowEffect>
 #include <QLineEdit>
 #include <QIntValidator>
+#include <QPropertyAnimation>
+#include "FadeEffectButton.h"
 
 
 class MonthOverviewCard :
@@ -25,7 +27,7 @@ private:
     QVBoxLayout* m_layout;
     QWidget* m_titleWidget;
     QHBoxLayout* m_titleWidgetLayout;
-    QPushButton* m_title;
+    FadeEffectButton* m_title;
     QWidget* m_actionWidget;
     QHBoxLayout* m_actionWidgetLayout;
     QPushButton* m_backToTodayButton;

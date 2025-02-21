@@ -1,4 +1,5 @@
 #include "Var.h"
+#include <QDebug>
 
 Var::Var()
 {
@@ -15,7 +16,7 @@ Var* Var::getVar()
 void Var::calculateScale()
 {
     qreal screenWidth = GetSystemMetrics(SM_CXSCREEN);
-    m_scale = screenWidth / 1920;
+    m_scale = screenWidth / 1920 * 0.9;
     qputenv("QT_SCALE_FACTOR", QString::number(m_scale).toLatin1());
 }
 

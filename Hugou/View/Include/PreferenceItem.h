@@ -8,7 +8,7 @@
 #include <QComboBox>
 #include <QValidator>
 #include "ButtonHoverWatcher.h"
-#include "Assistance_preferenceHelper.h"
+#include "Assistance_PreferenceHelper.h"
 #include "Assistance_ComboboxWheelWatcher.h"
 
 class PreferenceItem

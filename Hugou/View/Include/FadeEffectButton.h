@@ -15,22 +15,25 @@ class FadeEffectButton :
 
 public:
 	FadeEffectButton(QWidget* parent);
-	FadeEffectButton(QPixmap icon, QSize iconSize, QString text, QFont font, QWidget* parent);
-	FadeEffectButton(QPixmap icon, QSize iconSize, QWidget* parent);
+	FadeEffectButton(QIcon icon, QSize iconSize, QString text, QFont font, QWidget* parent);
+	FadeEffectButton(QIcon icon, QSize iconSize, QWidget* parent);
 	FadeEffectButton(QString text, QFont font, QWidget* parent);
 
 	QString text();
-	void setIcon(QPixmap icon);
+	void setIcon(QIcon icon);
 	void setIconSize(QSize size);
-	void setText(QString text, QFont font);
+	void setText(QString text);
+	void setTextAlignment(Qt::Alignment alignment);
+	void setFont(QFont font);
 	inline void setStatus(bool isActive) { m_status = isActive; }
 	void setFixedSize(int w, int h);
 	void setFixedHeight(int h);
 	void setBackgroundWidgetStyleSheet(QString styleSheet) { m_backgroundWidget->setStyleSheet(styleSheet); }
+	QHBoxLayout* layout() { return m_buttonLayout; };
 
 private:
-	QHBoxLayout* m_buttonLayout;
-	QLabel* m_iconZone = nullptr;
+	QHBoxLayout* m_buttonLayout = nullptr;
+	QPushButton* m_iconZone = nullptr;
 	QLabel* m_textZone = nullptr;
 	QWidget* m_backgroundWidget;
 	QGraphicsOpacityEffect* m_backgroundWidgetOpacityEffect;
@@ -41,7 +44,7 @@ private:
 	void setGeneralLayout();
 	void setGeneralStyle();
 	void addTextZone(QString text, QFont font);
-	void addIconZone(QPixmap icon, QSize iconSize);
+	void addIconZone(QIcon icon, QSize iconSize);
 	void enableGraphicsEffect();
 	void disableGraphicsEffect();
 	void enterEvent(QEnterEvent* event) override;

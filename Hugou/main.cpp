@@ -37,7 +37,7 @@ int main(int argc, char* argv[])
     // 创建数据库
     Database db;
     // 读取配置
-    preferenceHelper* helper = preferenceHelper::getHelper();
+    PreferenceHelper* helper = PreferenceHelper::getHelper();
     // 检查是否是首次登录
     //if (helper->preferenceMap["firstBoot"] == "true")
     //{

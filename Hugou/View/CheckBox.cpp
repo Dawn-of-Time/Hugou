@@ -15,7 +15,7 @@ CheckBox::CheckBox(QWidget* parent, Status status)
 	m_icon = new QLabel(this);
 	m_icon->setFixedSize(20, 20);
 	m_icon->setStyleSheet("background-color: #4F5E71");
-	m_icon->setPixmap(QPixmap(":/icon/tick_white.png"));
+	m_icon->setPixmap(QPixmap(":/icon/tick_white.ico"));
 	m_icon->setAlignment(Qt::AlignCenter);
 
 	m_effect = new QGraphicsOpacityEffect(m_icon);

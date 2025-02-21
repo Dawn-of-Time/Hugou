@@ -14,7 +14,7 @@ QString ThemeManager::getTheme()
 {
     if (m_theme.isEmpty())
     {
-        preferenceHelper* helper = preferenceHelper::getHelper();
+        PreferenceHelper* helper = PreferenceHelper::getHelper();
         QString theme;
         if (helper->getpreferenceValue("theme", theme))
             m_theme = theme;
@@ -59,7 +59,7 @@ void ThemeManager::applyTheme(ThemeResource* themeResource, bool consistentFlag)
 {
     // 若不为第一次加载，那么需要执行动画。
     if (!consistentFlag)  emit SignalUpdateThemeComboboxValue(m_theme);
-    preferenceHelper::getHelper()->setpreferenceValue("theme", m_theme);
+    PreferenceHelper::getHelper()->setpreferenceValue("theme", m_theme);
     m_globalTopView->disconnect();
     connect(m_globalTopView, &GlobalTopView::fadeInFinished, [=]()
         {
@@ -111,7 +111,7 @@ void LoadThemeResourceThread::run()
         // Default主题文件是否存在和是否有效都不触发错误。其主题内容被硬编码到程序中。但是，如果有该主题的文件，就使用该主题文件的内容。
         if (m_theme != "Default")
         {
-            preferenceHelper* helper = preferenceHelper::getHelper();
+            PreferenceHelper* helper = PreferenceHelper::getHelper();
             emit helper->triggerError("10100");
             m_theme = "Default";
             m_themeResource = getDefaultThemeResource();
@@ -123,7 +123,7 @@ void LoadThemeResourceThread::run()
     {
         if (m_theme != "Default")
         {
-            preferenceHelper* helper = preferenceHelper::getHelper();
+            PreferenceHelper* helper = PreferenceHelper::getHelper();
             emit helper->triggerError("10101");
             m_theme = "Default";
             m_themeResource = getDefaultThemeResource();
@@ -140,7 +140,7 @@ void LoadThemeResourceThread::run()
         {
             if (m_theme != "Default")
             {
-                preferenceHelper* helper = preferenceHelper::getHelper();
+                PreferenceHelper* helper = PreferenceHelper::getHelper();
                 emit helper->triggerError("10103");
                 m_theme = "Default";
                 m_themeResource = getDefaultThemeResource();

@@ -10,11 +10,11 @@ PreferenceController::PreferenceController(PreferenceView* preferenceView, Prefe
     connect(m_preferenceView->m_preferenceMap.preferenceComboboxMap["theme"], &QComboBox::currentTextChanged, this, &PreferenceController::applyThemeRequest);
     connect(m_preferenceView->m_preferenceMap.preferenceLineEditMap["retentionPeriod"], &QLineEdit::editingFinished, [&]()
         {
-            preferenceHelper::getHelper()->setpreferenceValue("retentionPeriod", m_preferenceView->m_preferenceMap.preferenceLineEditMap["retentionPeriod"]->text());
+            PreferenceHelper::getHelper()->setpreferenceValue("retentionPeriod", m_preferenceView->m_preferenceMap.preferenceLineEditMap["retentionPeriod"]->text());
         });
     connect(m_preferenceView->m_preferenceMap.preferenceComboboxMap["recycleBin"], &QComboBox::currentTextChanged, [&](QString value)
         {
-            preferenceHelper::getHelper()->setpreferenceValue("recycleBin", value);
+            PreferenceHelper::getHelper()->setpreferenceValue("recycleBin", value);
             if (value == "on") 
                 m_preferenceView->m_preferenceMap.preferenceLineEditMap["retentionPeriod"]->setEnabled(true);
             else

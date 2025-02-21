@@ -26,6 +26,9 @@ public:
     const int getSuitableHeight() { return m_pageSuitableHeight + 50; };
     void fadeIn();
 
+signals:
+    void memoInformationPrepared(Memo memo);
+
 private:
     friend class MemoSettingController;
     int m_pageNum = 0;
@@ -34,15 +37,17 @@ private:
     int m_maxPageNum = 3;
 	int m_pageSuitableHeight = 10;
     Memo m_memo;
-    QScrollArea* m_area;
-    QGraphicsOpacityEffect* m_effect;
     QVBoxLayout* m_layout;
     QWidget* m_baseWidget;
     QVBoxLayout* m_baselayout;
     QWidget* m_templateWidget;
+    QGraphicsOpacityEffect* m_templateWidgetEffect;
     QHBoxLayout* m_templateWidgetLayout;
     QLabel* m_templateTitle;
     QPushButton* m_templateButton;
+    QPushButton* m_saveButton;
+    QScrollArea* m_area;
+    QGraphicsOpacityEffect* m_areaEffect;
     QWidget* m_contentWidget;
     QHBoxLayout* m_contentWidgetLayout;
     QMap<MemoSettingItemType, QWidget*> m_memoContentMap = {};
@@ -53,5 +58,6 @@ private:
     void enableGraphicEffect();
 	void disableGraphicEffect();
     void paintEvent(QPaintEvent* event) override;
+    void check();
 };
 

@@ -1,29 +1,27 @@
-#include "Assistance_preferenceHelper.h"
+#include "Assistance_PreferenceHelper.h"
 
-preferenceHelper::preferenceHelper()
+PreferenceHelper::PreferenceHelper()
     : QObject()
 {
-    connect(this, &preferenceHelper::triggerError, this, &preferenceHelper::dealError);
+    connect(this, &PreferenceHelper::triggerError, this, &PreferenceHelper::dealError);
     verifyAndLoadpreference();
 }
 
 
-preferenceHelper* preferenceHelper::getHelper() 
+PreferenceHelper* PreferenceHelper::getHelper() 
 {
-	static preferenceHelper helper;
+	static PreferenceHelper helper;
     return &helper;
 }
 
-void preferenceHelper::setHugou(QWidget* hugou) 
+void PreferenceHelper::setHugou(QWidget* hugou) 
 { 
     m_hugou = hugou;
     for (QPair<QString, QString>& error : m_errorList)
-    {
         FloatingNoteManager::getManager()->raiseFloatingNote(FloatingNote::Error, error.first, error.second);
-    }
 }
 
-void preferenceHelper::verifyAndLoadpreference()
+void PreferenceHelper::verifyAndLoadpreference()
 {
     if (!verifyConfINIExist()) return;
     QStringList confINIList = m_confINI.allKeys();
@@ -58,14 +56,14 @@ void preferenceHelper::verifyAndLoadpreference()
 }
 
 // 从ini配置文件读取
-QString preferenceHelper::readpreference(QString key)
+QString PreferenceHelper::readpreference(QString key)
 {
     if (!verifyConfINIExist()) return "notExist";
     return m_confINI.value(key, "invalid").toString();
 }
 
 // 从映射表读取
-bool preferenceHelper::getpreferenceValue(QString key, QString& value)
+bool PreferenceHelper::getpreferenceValue(QString key, QString& value)
 {
     if (m_preferenceMap.contains(key))
     {
@@ -77,20 +75,20 @@ bool preferenceHelper::getpreferenceValue(QString key, QString& value)
 }
 
 // 写入映射表
-void preferenceHelper::setpreferenceValue(QString key, QString value)
+void PreferenceHelper::setpreferenceValue(QString key, QString value)
 {
     m_preferenceMap[key] = value;
     if (writepreference(key, value)) m_isChanged = true;
 }
 
-bool preferenceHelper::writepreference(QString key, QString value)
+bool PreferenceHelper::writepreference(QString key, QString value)
 {
     if (!verifyConfINIExist()) return false;
     m_confINI.setValue(key, value);
     return true;
 }
 
-void preferenceHelper::syncpreference()
+void PreferenceHelper::syncpreference()
 {
     if (m_isChanged)
     {
@@ -100,7 +98,7 @@ void preferenceHelper::syncpreference()
 }
 
 // 槽函数
-void preferenceHelper::dealError(QString errorCode, QString otherInfo)
+void PreferenceHelper::dealError(QString errorCode, QString otherInfo)
 {
     QSettings errorCodeINI("Configuration/errorCode.ini", QSettings::IniFormat);
     QSettings solutionINI("Configuration/solution.ini", QSettings::IniFormat);
@@ -110,7 +108,7 @@ void preferenceHelper::dealError(QString errorCode, QString otherInfo)
     else m_errorList.append(qMakePair(content, subcontent));
 }
 
-bool preferenceHelper::verifyConfINIExist()
+bool PreferenceHelper::verifyConfINIExist()
 {
     if (!QFile("Configuration/conf.ini").exists())
     {
@@ -120,7 +118,7 @@ bool preferenceHelper::verifyConfINIExist()
     return true;
 }
 
-//bool preferenceHelper::verifyConfINIInvalid()
+//bool PreferenceHelper::verifyConfINIInvalid()
 //{
 //    if (!QFile("conf.ini").exists())
 //    {

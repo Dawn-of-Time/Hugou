@@ -4,7 +4,8 @@ MemoSettingView::MemoSettingView(QWidget* parent, Memo memo)
 	:QWidget(parent), m_memo(memo)
 {
 	setupUi();
-	hide();
+	m_templateWidget->hide();
+	m_area->hide();
 }
 
 void MemoSettingView::setupUi()
@@ -12,11 +13,6 @@ void MemoSettingView::setupUi()
 	// ×ÖÌåÇåµ¥
 	QFont templateTitleFont = QFont("NeverMind", 12, QFont::Medium);
 	QFont templateButtonFont = QFont("NeverMind", 10, QFont::DemiBold);
-
-	m_effect = new QGraphicsOpacityEffect(this);
-	m_effect->setOpacity(0);
-	this->setGraphicsEffect(m_effect);
-	m_effect->setEnabled(false);
 
 	m_layout = new QVBoxLayout(this);
 	m_layout->setContentsMargins(41, 0, 0, 0);
@@ -30,6 +26,10 @@ void MemoSettingView::setupUi()
 
 	m_templateWidget = new QWidget(m_baseWidget);
 	m_templateWidget->setFixedHeight(25);
+	m_templateWidgetEffect = new QGraphicsOpacityEffect(m_templateWidget);
+	m_templateWidgetEffect->setOpacity(0);
+	m_templateWidget->setGraphicsEffect(m_templateWidgetEffect);
+	m_templateWidgetEffect->setEnabled(false);
 	m_templateWidgetLayout = new QHBoxLayout(m_templateWidget);
 	m_templateWidgetLayout->setContentsMargins(0, 0, 0, 0);
 	m_templateWidgetLayout->setSpacing(10);
@@ -40,15 +40,24 @@ void MemoSettingView::setupUi()
 	m_templateButton->setFixedHeight(24);
 	m_templateButton->setFont(templateButtonFont);
 	m_templateButton->setCursor(Qt::PointingHandCursor);
+	m_saveButton = new QPushButton("Save", m_templateWidget);
+	m_saveButton->setFixedHeight(24);
+	m_saveButton->setFont(templateButtonFont);
+	m_saveButton->setCursor(Qt::PointingHandCursor);
 
 	m_templateWidgetLayout->addWidget(m_templateTitle);
 	m_templateWidgetLayout->addWidget(m_templateButton);
 	m_templateWidgetLayout->addStretch();
+	m_templateWidgetLayout->addWidget(m_saveButton);
 
 	m_area = new QScrollArea(m_baseWidget);
 	m_area->setObjectName("scrollArea");
 	m_area->setStyleSheet("QWidget #scrollArea { background-color: transparent}");
 	m_area->setWidgetResizable(true);
+	m_areaEffect = new QGraphicsOpacityEffect(m_area);
+	m_areaEffect->setOpacity(0);
+	m_area->setGraphicsEffect(m_areaEffect);
+	m_areaEffect->setEnabled(false);
 
 	m_contentWidget = new QWidget(m_area);
 	m_contentWidgetLayout = new QHBoxLayout(m_contentWidget);
@@ -60,7 +69,6 @@ void MemoSettingView::setupUi()
 		addMemoSettingItem(itemType);
 
 	m_area->setWidget(m_contentWidget);
-	//m_area->setMaximumHeight(getSuitableHeight());
 
 	m_baselayout->setAlignment(Qt::AlignLeft);
 	m_baselayout->addWidget(m_templateWidget);
@@ -97,6 +105,7 @@ void MemoSettingView::applyGeneralStyle(MemoTemplate memoTemplate)
 		"padding-left: 10px; "
 		"padding-right: 10px"
 	).arg(color.name()));
+	m_saveButton->setStyleSheet(m_templateButton->styleSheet());
 }
 
 QWidget* MemoSettingView::addMemoSettingItem(MemoSettingItemType itemType)
@@ -169,23 +178,39 @@ void MemoSettingView::generateNewPage()
 
 void MemoSettingView::enableGraphicEffect()
 {
-	m_effect->setEnabled(true);
+	m_templateWidgetEffect->setEnabled(true);
+	m_areaEffect->setEnabled(true);
 }
 
 void MemoSettingView::disableGraphicEffect()
 {
-	m_effect->setEnabled(false);
+	m_templateWidgetEffect->setEnabled(false);
+	m_areaEffect->setEnabled(false);
 }
 
 void MemoSettingView::fadeIn()
 {
 	enableGraphicEffect();
-	QPropertyAnimation* fadeInAnimation = new QPropertyAnimation(m_effect, "opacity", this);
-	fadeInAnimation->setStartValue(0);
-	fadeInAnimation->setEndValue(1);
-	fadeInAnimation->setDuration(500);
-	connect(fadeInAnimation, &QPropertyAnimation::finished, this, &MemoSettingView::disableGraphicEffect);
-	fadeInAnimation->start(QPropertyAnimation::DeleteWhenStopped);
+	m_templateWidget->show();
+	m_area->show();
+	QParallelAnimationGroup* group = new QParallelAnimationGroup;
+	QPropertyAnimation* templateWidgetFadeInAnimation = new QPropertyAnimation(m_templateWidgetEffect, "opacity", m_templateWidget);
+	templateWidgetFadeInAnimation->setStartValue(0);
+	templateWidgetFadeInAnimation->setEndValue(1);
+	templateWidgetFadeInAnimation->setDuration(200);
+	QPropertyAnimation* areaFadeInAnimation = new QPropertyAnimation(m_areaEffect, "opacity", m_area);
+	areaFadeInAnimation->setStartValue(0);
+	areaFadeInAnimation->setEndValue(1);
+	areaFadeInAnimation->setDuration(200);
+	group->addAnimation(templateWidgetFadeInAnimation);
+	group->addAnimation(areaFadeInAnimation);
+	connect(group, &QParallelAnimationGroup::finished, this, &MemoSettingView::disableGraphicEffect);
+	group->start(QParallelAnimationGroup::DeleteWhenStopped);
+}
+
+void MemoSettingView::check()
+{
+
 }
 
 void MemoSettingView::paintEvent(QPaintEvent* event) {

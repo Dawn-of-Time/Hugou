@@ -21,7 +21,8 @@
     <ClCompile Include="Assistance\Assistance_PictureHelper.cpp" />
     <ClCompile Include="Card\Card.cpp" />
     <ClCompile Include="Card\Card_MonthOverview.cpp" />
-    <ClCompile Include="CloseWhenLeaveWidget.cpp" />
+    <ClCompile Include="PopupWidget.cpp" />
+    <ClCompile Include="View\CloseWhenLeaveWidget.cpp" />
     <ClCompile Include="DoubleClickedToEditButton.cpp" />
     <ClCompile Include="View\ComboBox.cpp" />
     <ClCompile Include="View\CheckBox.cpp" />
@@ -50,7 +51,6 @@
     <ClCompile Include="View\View_GlobalTop.cpp" />
     <ClCompile Include="Model\Model_Hugou.cpp" />
     <ClCompile Include="View\FadeEffectButton.cpp" />
-    <ClCompile Include="Assistance\IconTextButtonHoverWatcher.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="View\View_Hugou.cpp" />
     <ClCompile Include="View\View_Preference.cpp" />
@@ -61,6 +61,7 @@
     <ClCompile Include="View\View_Welcome.cpp" />
     <ClCompile Include="View\View_TaskSetting.cpp" />
     <ClCompile Include="View\View_MemoSetting.cpp" />
+    <ClCompile Include="View_MemoTypeConfig.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Assistance\Include\ButtonHoverWatcher.h" />
@@ -69,10 +70,12 @@
     <QtMoc Include="Assistance\Include\Assistance_ComboboxWheelWatcher.h" />
   </ItemGroup>
   <ItemGroup>
+    <QtMoc Include="PopupWidget.h" />
+    <QtMoc Include="View_MemoTypeConfig.h" />
     <QtMoc Include="Controller\Include\Controller_MemoSetting.h" />
     <QtMoc Include="View\Include\MemoSettingItem.h" />
     <QtMoc Include="View\Include\CheckBox.h" />
-    <QtMoc Include="CloseWhenLeaveWidget.h" />
+    <QtMoc Include="View\Include\CloseWhenLeaveWidget.h" />
     <ClInclude Include="DoubleClickedToEditButton.h" />
     <ClInclude Include="View\Include\ComboBox.h" />
     <ClInclude Include="Model\Include\Model_MemoSetting.h" />
@@ -123,6 +126,8 @@
     <None Include="Configuration\conf.ini" />
     <None Include="Configuration\errorCode.ini" />
     <None Include="Configuration\solution.ini" />
+    <None Include="Resource\etc\qt.conf" />
+    <None Include="Resource\qt\etc\qt.conf" />
     <None Include="Resource\theme\Global\floatingNote.qss" />
     <None Include="Resource\theme\Global\floatingNotePanel.qss" />
     <None Include="Resource\theme\Global\globalTop.qss" />

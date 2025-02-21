@@ -34,5 +34,5 @@ bool Database::exec(QSqlQuery query)
 
 void Database::dealError(QString errorText)
 {
-	emit preferenceHelper::getHelper()->triggerError("20000", errorText);
+	emit PreferenceHelper::getHelper()->triggerError("20000", errorText);
 }

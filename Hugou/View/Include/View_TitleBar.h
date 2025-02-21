@@ -10,7 +10,6 @@
 #include "ButtonHoverWatcher.h"
 #include "Assistance_PictureHelper.h"
 
-
 QT_BEGIN_NAMESPACE
 
 class HugouView;
@@ -32,12 +31,12 @@ signals:
 private:
     friend class HugouView;
     QHBoxLayout* m_titleLayout;
-    QLabel* m_appIcon;
+    QPushButton* m_appIcon;
     QLabel* m_appName;
     QLabel* m_leftDragZone;
     QWidget* m_AIChatWidget;
     QHBoxLayout* m_AIChatWidgetLayout;
-    QLabel* m_AIChatIcon;
+    QPushButton* m_AIChatIcon;
     QLineEdit* m_AIChatLineEdit;
     QLabel* m_rightDragZone;
     QWidget* m_userWidget;
@@ -50,7 +49,6 @@ private:
     //ButtonHoverWatcher* scaledButtonHoverWatcher;
 
     void setupUi();
-
     //void paintEvent(QPaintEvent* event) override;
 };
 

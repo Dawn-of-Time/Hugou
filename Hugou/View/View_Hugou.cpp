@@ -43,7 +43,7 @@ void HugouView::setupUi()
     this->setObjectName("hugou");
     this->setMinimumSize(minimumMainWindowWidth, minimumMainWindowHeight);
     this->resize(mainWindowWidth, mainWindowHeight);
-    this->setWindowIcon(QIcon(":/icon/Hugou_48.png"));
+    this->setWindowIcon(QIcon(":/icon/Hugou.ico"));
 
     // 2 主布局
     m_generalLayout = new QVBoxLayout(this);
@@ -91,7 +91,7 @@ void HugouView::setupUi()
     m_stackedWidget->addWidget(m_scheduleView);
     m_stackedWidget->addWidget(m_preferenceView);
     m_stackedWidget->setCurrentWidget(m_scheduleView);
-    
+
     m_stackedWidgetLayout->addWidget(m_stackedWidget);
 
     m_asideBarAndStackedLayout->addWidget(m_asideBarView);
@@ -243,7 +243,7 @@ void HugouView::brighten()
 
 void HugouView::closeHugou()
 {
-    preferenceHelper::getHelper()->syncpreference();
+    PreferenceHelper::getHelper()->syncpreference();
     this->close();
 }
 
@@ -356,13 +356,13 @@ void HugouView::changeEvent(QEvent* event) {
     if (event->type() == QEvent::WindowStateChange) {
         switch (windowState()) {
         case Qt::WindowMaximized: {
-            m_titleBarView->m_scaleButton->setIcon(QIcon(":/icon/restore_black.png"));
-            int border = GetSystemMetrics(SM_CXSIZEFRAME) + edgeWidth;
+            m_titleBarView->m_scaleButton->setIcon(QIcon(":/icon/restore_black.ico"));
+            int border = GetSystemMetrics(SM_CXSIZEFRAME);
             setContentsMargins(border, border, border, border);
             break;
         }
         case Qt::WindowNoState:
-            m_titleBarView->m_scaleButton->setIcon(QIcon(":/icon/maximum_black.png"));
+            m_titleBarView->m_scaleButton->setIcon(QIcon(":/icon/maximum_black.ico"));
             setContentsMargins(0, 0, 0, 0);
             break;
         default:
@@ -385,7 +385,7 @@ void HugouView::resizeEvent(QResizeEvent* event)
 
     // 设置页表单
     m_preferenceView->adjustSizeHint();
-    
+
     m_floatingNotePanel->updateUi();
     m_darkenWidget->resize(this->width(), this->height() - titleFrameHeight);
     m_globalTopView->updateUi(this);
@@ -400,4 +400,3 @@ void HugouView::resizeEvent(QResizeEvent* event)
         m_stackedWidget->setCurrentIndex(m_objectiveStackedWidgetIndex);
     }
 }
-
