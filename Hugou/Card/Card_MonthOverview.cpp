@@ -102,7 +102,7 @@ void MonthOverviewCard::setupUi()
             QPushButton* day = new QPushButton(week);
             day->setObjectName("day");
             day->setFont(monthContentFont);
-            day->setFixedSize(30, 20);
+            day->setFixedSize(30, 30);
             day->setStyleSheet("border-radius: 10px");
             weekLayout->addWidget(day);
             m_dayListForAMonth.append(day);
@@ -116,7 +116,7 @@ void MonthOverviewCard::setupUi()
     m_layout->addWidget(m_monthWidget);
 }
 
-void MonthOverviewCard::loadMonthView(QDate date)
+void MonthOverviewCard::loadMonthView(const QDate& date)
 {
     int year = date.year();
     int month = date.month();
@@ -200,16 +200,11 @@ void MonthOverviewCard::setYearAndMonth()
 
     m_title->disconnect();
     CloseWhenLeaveWidget* settingWidget = new CloseWhenLeaveWidget(this);
+    settingWidget->setFixedSize(255, 195);
     settingWidget->move(21, 46);
     settingWidget->setObjectName("yearAndMonthSettingWidget");
-    settingWidget->setStyleSheet("QWidget #yearAndMonthSettingWidget { background-color: white; border: 1px solid #377FED }");
+    settingWidget->setStyleSheet("QWidget #yearAndMonthSettingWidget { background-color: rgba(255, 255, 255, 0.98);  border-radius: 10px }");
     connect(m_title, &QPushButton::clicked, settingWidget, &CloseWhenLeaveWidget::close);
-    
-    QGraphicsDropShadowEffect* effect = new QGraphicsDropShadowEffect(settingWidget);
-    effect->setBlurRadius(20);
-    effect->setXOffset(0);
-    effect->setYOffset(6);
-    settingWidget->setGraphicsEffect(effect);
     
     QVBoxLayout* settingWidgetLayout = new QVBoxLayout(settingWidget);
     settingWidgetLayout->setContentsMargins(15, 15, 15, 15);
@@ -250,6 +245,7 @@ void MonthOverviewCard::setYearAndMonth()
     monthWidgetLayout->setHorizontalSpacing(15);
     monthWidgetLayout->setVerticalSpacing(3);
     int monthIndex = 1;
+    FadeEffectButton* currentMonthbutton;
     for (int row = 0; row < 3; row++)
     {
         for (int column = 0; column < 4; column++)
@@ -259,15 +255,17 @@ void MonthOverviewCard::setYearAndMonth()
             button->layout()->setContentsMargins(0, 0, 0, 0);
             button->setTextAlignment(Qt::AlignCenter);
             button->setBackgroundWidgetStyleSheet("background-color: rgba(0, 0, 255, 0.1); border-radius: 5px");
+            
             if (row * 4 + column == m_currentDate.month() - 1)  
             {
+                currentMonthbutton = button;
                 button->setObjectName("currentMonth");
                 button->setStyleSheet("QWidget #currentMonth{background-color: rgba(0, 0, 255, 0.1); border-radius: 5px}");
             }
             monthWidgetLayout->addWidget(button, row, column);
             connect(button, &FadeEffectButton::clicked, [=]()
                 {
-                    loadMonthView(QDate(m_currentDate.year(), m_monthMap[button->text()], m_currentDate.day()));
+                    loadMonthView(QDate(yearLineEdit->text().toInt(), m_monthMap[button->text()], m_currentDate.day()));
                     settingWidget->blockSignals(true);
                     m_title->disconnect();
                     connect(m_title, &FadeEffectButton::clicked, this, &MonthOverviewCard::setYearAndMonth);
@@ -283,15 +281,24 @@ void MonthOverviewCard::setYearAndMonth()
 
     connect(backButton, &QPushButton::clicked, [=]()
         {
-            yearLineEdit->setText(QString::number(yearLineEdit->text().toInt() - 1));
+            int year = yearLineEdit->text().toInt() - 1;
+            yearLineEdit->setText(QString::number(year));
+            if (year == m_currentDate.year()) currentMonthbutton->setStyleSheet("QWidget #currentMonth{background-color: rgba(0, 0, 255, 0.1); border-radius: 5px}");
+            else currentMonthbutton->setStyleSheet("QWidget #currentMonth{background-color: transparent; border-radius: 5px}");
         });
     connect(forwardButton, &QPushButton::clicked, [=]()
         {
-            yearLineEdit->setText(QString::number(yearLineEdit->text().toInt() + 1));
+            int year = yearLineEdit->text().toInt() + 1;
+            yearLineEdit->setText(QString::number(year));
+            if (year == m_currentDate.year()) currentMonthbutton->setStyleSheet("QWidget #currentMonth{background-color: rgba(0, 0, 255, 0.1); border-radius: 5px}");
+            else currentMonthbutton->setStyleSheet("QWidget #currentMonth{background-color: transparent; border-radius: 5px}");
         });
     connect(yearLineEdit, &QLineEdit::editingFinished, [=]()
         {
-            loadMonthView(QDate(yearLineEdit->text().toInt(), m_currentDate.month(), m_currentDate.day()));
+            int year = yearLineEdit->text().toInt();
+            if (year == QDate::currentDate().year()) currentMonthbutton->setStyleSheet("QWidget #currentMonth{background-color: rgba(0, 0, 255, 0.1); border-radius: 5px}");
+            else currentMonthbutton->setStyleSheet("QWidget #currentMonth{background-color: transparent; border-radius: 5px}");
+            loadMonthView(QDate(year, m_currentDate.month(), m_currentDate.day()));
         });
     connect(settingWidget, &CloseWhenLeaveWidget::SignalClose, [=]() 
         {
@@ -300,9 +307,23 @@ void MonthOverviewCard::setYearAndMonth()
             loadMonthView(QDate(yearLineEdit->text().toInt(), m_currentDate.month(), m_currentDate.day()));
         });
 
-    QPropertyAnimation* animation = new QPropertyAnimation(settingWidget, "geometry");
-    animation->setStartValue(QRect(21, 46, 0, 0));
-    animation->setEndValue(QRect(21, 46, 255, 195));
+    QGraphicsDropShadowEffect* dropShadowEffect = new QGraphicsDropShadowEffect(settingWidget);
+    dropShadowEffect->setBlurRadius(20);
+    dropShadowEffect->setXOffset(0);
+    dropShadowEffect->setYOffset(6);
+    settingWidget->setGraphicsEffect(dropShadowEffect);
+
+    QGraphicsOpacityEffect* opacityEffect = new QGraphicsOpacityEffect(settingWidget);
+    opacityEffect->setOpacity(0);
+    settingWidget->setGraphicsEffect(opacityEffect);
+
+    QPropertyAnimation* animation = new QPropertyAnimation(opacityEffect, "opacity");
+    animation->setStartValue(0);
+    animation->setEndValue(1);
     animation->setDuration(200);
-    animation->start(QPropertyAnimation::DeleteWhenStopped);
+    connect(animation, &QPropertyAnimation::finished, [=]()
+        {
+            opacityEffect->setEnabled(false);
+        });
+    animation->start(QParallelAnimationGroup::DeleteWhenStopped);
 }

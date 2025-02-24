@@ -12,7 +12,7 @@
 #include <QFile>
 #include <math.h>
 #include <QTextLayout>
-#include "ButtonHoverWatcher.h"
+#include "Assistance_ButtonHoverWatcher.h"
 #include "Assistance_PreferenceHelper.h"
 #include "PreferenceItem.h"
 

@@ -3,7 +3,6 @@
 #include <QSqlDatabase>
 #include <QDebug>
 #include "Database.h"
-#include "Struct_Task.h"
 #include "Struct_Memo.h"
 #include "Controller_MemoSetting.h"
 
@@ -28,13 +27,5 @@ private:
     friend class ScheduleController;
     MemoSettingModel* m_memoSettingModel;
     QList<Memo> m_memoList = {};
-    void createMemoDatabase();
-    void createMemoTypeLabelDatabase();
-    void createMemoTypeDatabase();
-    void createAwardDatabase();
-    void createReferenceDatabase();
-    void createMemoAndAwardDatabase();
-    void createMemoAndReferenceDatabase();
-    void createMemoAndSubMemoDatabase();
 };
 

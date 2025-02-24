@@ -36,6 +36,7 @@ void FadeEffectButton::setGeneralStyle()
 	m_backgroundWidget->setGraphicsEffect(m_backgroundWidgetOpacityEffect);
 	m_backgroundWidgetOpacityEffectAnimation = new QPropertyAnimation(m_backgroundWidgetOpacityEffect, "opacity", m_backgroundWidget);
 	connect(m_backgroundWidgetOpacityEffectAnimation, &QPropertyAnimation::finished, this, &FadeEffectButton::disableGraphicsEffect);
+	disableGraphicsEffect();
 }
 
 void FadeEffectButton::setGeneralLayout()

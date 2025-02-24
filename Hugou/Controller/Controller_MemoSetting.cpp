@@ -10,10 +10,10 @@ MemoSettingController::~MemoSettingController()
 {
 }
 
-void MemoSettingController::applyTemplate(MemoTemplate memoTemplate)
+void MemoSettingController::applyTemplate(const MemoTemplate& memoTemplate)
 {
 	m_memoSettingView->applyGeneralStyle(memoTemplate);
-	for (MemoSettingItemType itemType : memoTemplate.templateContent)
+	for (const MemoSettingItemType& itemType : memoTemplate.templateContent)
 	{
 		QWidget* widget = m_memoSettingView->m_memoContentMap.value(itemType);
 		switch (itemType)
@@ -21,7 +21,8 @@ void MemoSettingController::applyTemplate(MemoTemplate memoTemplate)
 		case MemoSettingItemType::Type:
 		{
 			MemoTypeItem* item = qobject_cast<MemoTypeItem*>(widget);
-			for (MemoType memoType : m_memoSettingModel->m_typeList)
+			item->setPointer(&m_memoSettingModel->m_typeLabelList, &m_memoSettingModel->m_typeLabelMap, &m_memoSettingModel->m_typeList, &m_memoSettingModel->m_priorityTypeList);
+			for (const MemoType& memoType : m_memoSettingModel->m_priorityTypeList)
 				item->addMemoType(memoType);
 			break;
 		}

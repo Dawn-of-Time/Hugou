@@ -65,7 +65,7 @@ void MemoSettingView::setupUi()
 	m_contentWidgetLayout->setSpacing(20);
 	m_contentWidgetLayout->setAlignment(Qt::AlignLeft);
 	generateNewPage();
-	for (MemoSettingItemType itemType : m_memo.memoTemplate.templateContent)
+	for (const MemoSettingItemType& itemType : m_memo.memoTemplate.templateContent)
 		addMemoSettingItem(itemType);
 
 	m_area->setWidget(m_contentWidget);

@@ -243,7 +243,7 @@ void HugouView::brighten()
 
 void HugouView::closeHugou()
 {
-    PreferenceHelper::getHelper()->syncpreference();
+    PreferenceHelper::getHelper()->syncPreference();
     this->close();
 }
 

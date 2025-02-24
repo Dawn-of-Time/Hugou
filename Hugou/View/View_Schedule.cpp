@@ -104,7 +104,7 @@ void ScheduleView::generateMemos(QList<Memo> memoList)
 {
     QFont memoContentFont = QFont("NeverMind", 14, QFont::Medium);
     QFont memoSubContentFont = QFont("NeverMind", 12, QFont::Normal);
-    for (const Memo memo : memoList)
+    for (const Memo& memo : memoList)
     {
         QWidget* memoWidget = new QWidget(m_memoListWidget);
         QVBoxLayout* memoWidgetLayout = new QVBoxLayout(memoWidget);

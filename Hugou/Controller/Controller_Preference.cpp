@@ -10,11 +10,11 @@ PreferenceController::PreferenceController(PreferenceView* preferenceView, Prefe
     connect(m_preferenceView->m_preferenceMap.preferenceComboboxMap["theme"], &QComboBox::currentTextChanged, this, &PreferenceController::applyThemeRequest);
     connect(m_preferenceView->m_preferenceMap.preferenceLineEditMap["retentionPeriod"], &QLineEdit::editingFinished, [&]()
         {
-            PreferenceHelper::getHelper()->setpreferenceValue("retentionPeriod", m_preferenceView->m_preferenceMap.preferenceLineEditMap["retentionPeriod"]->text());
+            PreferenceHelper::getHelper()->setPreferenceValue("retentionPeriod", m_preferenceView->m_preferenceMap.preferenceLineEditMap["retentionPeriod"]->text());
         });
     connect(m_preferenceView->m_preferenceMap.preferenceComboboxMap["recycleBin"], &QComboBox::currentTextChanged, [&](QString value)
         {
-            PreferenceHelper::getHelper()->setpreferenceValue("recycleBin", value);
+            PreferenceHelper::getHelper()->setPreferenceValue("recycleBin", value);
             if (value == "on") 
                 m_preferenceView->m_preferenceMap.preferenceLineEditMap["retentionPeriod"]->setEnabled(true);
             else
@@ -27,7 +27,7 @@ PreferenceController::~PreferenceController()
 	delete m_preferenceModel;
 }
 
-void PreferenceController::updateThemeComboboxValue(QString value)
+void PreferenceController::updateThemeComboboxValue(const QString& value)
 {
     m_preferenceView->m_preferenceMap.preferenceComboboxMap["themeBox"]->blockSignals(true);
     m_preferenceView->m_preferenceMap.preferenceComboboxMap["themeBox"]->setCurrentText(value);
@@ -46,7 +46,7 @@ void PreferenceController::preferenceContentListWidgetSrollRequest(QTreeWidgetIt
     m_preferenceView->m_preferenceContentListWidget->scrollToItem(m_preferenceView->m_preferenceContentListWidget->item(row), QAbstractItemView::PositionAtTop);
 }
 
-void PreferenceController::applyThemeRequest(QString theme)
+void PreferenceController::applyThemeRequest(const QString& theme)
 {
     emit SignalApplyTheme(theme);
 }

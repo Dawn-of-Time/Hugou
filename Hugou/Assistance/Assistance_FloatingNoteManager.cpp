@@ -22,7 +22,7 @@ FloatingNoteManager* FloatingNoteManager::getManager()
     return &manager;
 }
 
-void FloatingNoteManager::raiseFloatingNote(FloatingNote::Type type, QString content, QString subcontent)
+void FloatingNoteManager::raiseFloatingNote(FloatingNote::NoteType type, const QString& content, const QString& subcontent)
 {
     // 生成浮动消息
     FloatingNote* floatingNote = new FloatingNote(m_hugou);

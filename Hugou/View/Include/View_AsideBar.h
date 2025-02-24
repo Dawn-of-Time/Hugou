@@ -9,8 +9,6 @@
 #include <QFont>
 #include "Const_Geometry.h"
 #include "FadeEffectButton.h"
-#include "ButtonHoverWatcher.h"
-#include "Var.h"
 
 class AsideBarView : public QWidget
 {

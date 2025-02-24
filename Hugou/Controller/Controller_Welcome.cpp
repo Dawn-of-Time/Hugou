@@ -4,5 +4,5 @@ WelcomeController::WelcomeController(WelcomeView* welcomeView, WelcomeModel* wel
     : QObject()
 {
     m_welcomeView = welcomeView;
-    m_welcomeView = welcomeView;
+    m_welcomeModel = welcomeModel;
 }

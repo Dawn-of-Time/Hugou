@@ -118,7 +118,7 @@ void PreferenceView::formContentList()
 
     // ÉèÖÃÏîÂß¼­
     QString value;
-    PreferenceHelper::getHelper()->getpreferenceValue("recycleBin", value);
+    PreferenceHelper::getHelper()->getPreferenceValue("recycleBin", value);
     if (value == "on")
         m_preferenceMap.preferenceLineEditMap["retentionPeriod"]->setEnabled(true);
     else
@@ -242,7 +242,7 @@ void PreferenceView::adjustSizeHint()
 {
     if (m_preferenceMap.hintItemLabelMap.size())
     {
-        for (QListWidgetItem* const &item : m_preferenceMap.hintItemLabelMap.keys()) {
+        for (QListWidgetItem* item : m_preferenceMap.hintItemLabelMap.keys()) {
             QLabel* label = m_preferenceMap.hintItemLabelMap.value(item);
             QFontMetrics fontMetrics(label->font());
             int newHeight = fontMetrics.boundingRect(QRect(0, 0, label->width(), fontMetrics.height()), Qt::TextWordWrap, label->text()).height();

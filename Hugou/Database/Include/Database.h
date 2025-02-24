@@ -14,10 +14,18 @@ class Database :
 public:
     Database();
     bool open();
-    static bool exec(QSqlQuery query);
+    static bool exec(QSqlQuery& query);
 
 private:
     QSqlDatabase m_database;
-    static void dealError(QString errorText);
+    static void raiseError(const QString& errorText);
+    void createMemoDatabase();
+    void createMemoTypeLabelDatabase();
+    void createMemoTypeDatabase();
+    void createAwardDatabase();
+    void createReferenceDatabase();
+    void createMemoAndAwardDatabase();
+    void createMemoAndReferenceDatabase();
+    void createMemoAndSubMemoDatabase();
 };
 

@@ -4,7 +4,6 @@
 #include <QBitmap>
 #include <QPainter> 
 #include <QDebug>
-#include "Var.h"
 
 class Assistance_PictureHelper :
     public QObject

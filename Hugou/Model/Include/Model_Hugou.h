@@ -8,7 +8,6 @@
 #include <dwmapi.h>
 #include <thread>
 #include <chrono>
-#include "Var.h"
 #include "Assistance_PreferenceHelper.h"
 #include "Model_Schedule.h"
 #include "Model_preference.h"

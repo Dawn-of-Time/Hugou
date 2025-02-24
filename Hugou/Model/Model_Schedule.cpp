@@ -2,154 +2,12 @@
 
 ScheduleModel::ScheduleModel()
 {
-	// 创建数据表
-	createMemoTypeLabelDatabase();
-	createMemoTypeDatabase();
-
-	createMemoDatabase();
-	createAwardDatabase();
-	createReferenceDatabase();
-	createMemoAndAwardDatabase();
-	createMemoAndReferenceDatabase();
-	createMemoAndSubMemoDatabase();
-
 	m_memoSettingModel = new MemoSettingModel();
 }
 
 ScheduleModel::~ScheduleModel()
 {
 	delete m_memoSettingModel;
-}
-
-void ScheduleModel::createMemoDatabase()
-{
-	QSqlQuery creatQuery;
-	creatQuery.prepare(
-		"CREATE TABLE IF NOT EXISTS memo("
-		"ID                   INTEGER      NOT NULL PRIMARY KEY AUTOINCREMENT, "
-		"Sketch               VARCHAR(255) NOT NULL, "
-		"Template             VARCHAR(255) NOT NULL, "
-		"Type                 INTEGER      NOT NULL, "
-		"Status               BIT      DEFAULT 0, "
-		"PostponeFlag         BIT      DEFAULT 0, "
-		"TimePeriod_F         DATETIME DEFAULT NULL, "
-		"TimePeriod_L         DATETIME DEFAULT NULL, "
-		"TimePoint            DATETIME DEFAULT NULL, "
-		"ImportanceAndUrgency TINYINT  DEFAULT 0, "
-		"Detail               TEXT     DEFAULT NULL, "
-		"RetentionPeriod      TINYINT  DEFAULT -1, "
-		"HasSubMemo           BIT      DEFAULT 0, "
-		"HasAward             BIT      DEFAULT 0, "
-		"HasReference         BIT      DEFAULT 0, "
-		"FOREIGN KEY(Type) REFERENCES type(ID)"
-		");"
-	);
-	Database::exec(creatQuery);
-}
-
-void ScheduleModel::createMemoTypeLabelDatabase()
-{
-	QSqlQuery creatQuery;
-	creatQuery.prepare(
-		"CREATE TABLE IF NOT EXISTS memotype_label("
-		"ID     INTEGER      NOT NULL PRIMARY KEY AUTOINCREMENT, "
-		"Name   VARCHAR(255) NOT NULL "
-		");"
-	);
-	Database::exec(creatQuery);
-}
-
-void ScheduleModel::createMemoTypeDatabase()
-{
-	QSqlQuery creatQuery;
-	creatQuery.prepare(
-		"CREATE TABLE IF NOT EXISTS memotype("
-		"ID     INTEGER      NOT NULL PRIMARY KEY AUTOINCREMENT, "
-		"Name   VARCHAR(255) NOT NULL, "
-		"Color  VARCHAR(7)   NOT NULL, "
-		"Label  INTEGER      NOT NULL, "
-		"FOREIGN KEY(Label) REFERENCES memotype_label(ID)"
-		");"
-	);
-	Database::exec(creatQuery);
-}
-
-void ScheduleModel::createAwardDatabase()
-{
-	QSqlQuery creatQuery;
-	creatQuery.prepare(
-		"CREATE TABLE IF NOT EXISTS award("
-		"ID              INTEGER      NOT NULL PRIMARY KEY AUTOINCREMENT, "
-		"Sketch          VARCHAR(255) NOT NULL, "
-		"Status          BIT      DEFAULT 0, "
-		"TimePeriod_F    DATETIME DEFAULT NULL, "
-		"TimePeriod_L    DATETIME DEFAULT NULL, "
-		"TimePoint       DATETIME DEFAULT NULL, "
-		"Detail          TEXT     DEFAULT NULL, "
-		"RetentionPeriod TINYINT  DEFAULT -1 "
-		");"
-	);
-	Database::exec(creatQuery);
-}
-
-void ScheduleModel::createReferenceDatabase()
-{
-	QSqlQuery creatQuery;
-	creatQuery.prepare(
-		"CREATE TABLE IF NOT EXISTS reference("
-		"ID              INTEGER      NOT NULL PRIMARY KEY AUTOINCREMENT, "
-		"Sketch          VARCHAR(255) NOT NULL, "
-		"Type            TINYINT      NOT NULL, "
-		"Link            TEXT         NOT NULL, "
-		"RetentionPeriod TINYINT  DEFAULT -1 "
-		");"
-	);
-	Database::exec(creatQuery);
-}
-
-void ScheduleModel::createMemoAndAwardDatabase()
-{
-	QSqlQuery creatQuery;
-	creatQuery.prepare(
-		"CREATE TABLE IF NOT EXISTS memo_award("
-		"MemoID     INTEGER  NOT NULL, "
-		"AwardID    INTEGER  NOT NULL, "
-		"PRIMARY KEY(MemoID, AwardID),"
-		"FOREIGN KEY(MemoID) REFERENCES memo(ID),"
-		"FOREIGN KEY(AwardID) REFERENCES award(ID)"
-		");"
-	);
-	Database::exec(creatQuery);
-}
-
-void ScheduleModel::createMemoAndReferenceDatabase()
-{
-	QSqlQuery creatQuery;
-	creatQuery.prepare(
-		"CREATE TABLE IF NOT EXISTS memo_reference("
-		"MemoID         INTEGER  NOT NULL, "
-		"ReferenceID    INTEGER  NOT NULL, "
-		"PRIMARY KEY(MemoID, ReferenceID),"
-		"FOREIGN KEY(MemoID) REFERENCES memo(ID),"
-		"FOREIGN KEY(ReferenceID) REFERENCES reference(ID)"
-		");"
-	);
-	Database::exec(creatQuery);
-}
-
-void ScheduleModel::createMemoAndSubMemoDatabase()
-{
-	QSqlQuery creatQuery;
-	creatQuery.prepare(
-		"CREATE TABLE IF NOT EXISTS memo_submemo("
-		"MemoID       INTEGER  NOT NULL, "
-		"SubMemoID    INTEGER  NOT NULL, "
-		"PRIMARY KEY(MemoID, SubMemoID),"
-		"FOREIGN KEY(MemoID) REFERENCES memo(ID),"
-		"FOREIGN KEY(SubMemoID) REFERENCES memo(ID)"
-		");"
-	);
-	Database::exec(creatQuery);
 }
 
 void ScheduleModel::addMemo(Memo& memo)
@@ -309,11 +167,11 @@ void ScheduleModel::readMemoDatabase()
 void ScheduleModel::deleteMemoRequest(int ID)
 {
 	QString recycleBin;
-	PreferenceHelper::getHelper()->getpreferenceValue("recycleBin", recycleBin);
+	PreferenceHelper::getHelper()->getPreferenceValue("recycleBin", recycleBin);
 	if (recycleBin == "on")
 	{
 		QString retentionPeriod;
-		PreferenceHelper::getHelper()->getpreferenceValue("retentionPeriod", retentionPeriod);
+		PreferenceHelper::getHelper()->getPreferenceValue("retentionPeriod", retentionPeriod);
 		updateMemo(ID, "retentionPeriod", retentionPeriod);
 	}
 	else deleteMemo(ID);

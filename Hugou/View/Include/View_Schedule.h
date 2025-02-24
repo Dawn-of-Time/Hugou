@@ -12,7 +12,6 @@
 #include <QDate>
 #include <cmath>
 #include <QCheckBox>
-#include "Controller_TaskSetting.h"
 #include "Card_MonthOverview.h"
 #include "View_MemoSetting.h"
 #include "Struct_Memo.h"

@@ -56,7 +56,7 @@ void ComboboxItem::generatePreferenceItem(QListWidget* preferenceContentListWidg
     label->setStyleSheet(style.first);
     QComboBox* comboBox = new QComboBox(label);
     QString value;
-    PreferenceHelper::getHelper()->getpreferenceValue(m_name, value);
+    PreferenceHelper::getHelper()->getPreferenceValue(m_name, value);
     comboBox->setObjectName(this->m_name);
     comboBox->move(20, 0);
     if (this->m_list.isEmpty()) comboBox->addItems({ "(No options)" });
@@ -76,7 +76,7 @@ void LineEditItem::generatePreferenceItem(QListWidget* preferenceContentListWidg
     QListWidgetItem* PreferenceItem = new QListWidgetItem(preferenceContentListWidget);
     QPair<QString, QFont> style = itemStyleMap[qMakePair(Level::Content, ItemType::LineEditType)];
     QString value;
-    PreferenceHelper::getHelper()->getpreferenceValue(m_name, value);
+    PreferenceHelper::getHelper()->getPreferenceValue(m_name, value);
     QLineEdit* lineEdit = new QLineEdit(value);
     lineEdit->setStyleSheet(style.first);
     lineEdit->move(20, 0);

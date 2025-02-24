@@ -14,6 +14,9 @@ FloatingNotePanel::FloatingNotePanel(QWidget* parent) :
 
 void FloatingNotePanel::setupUi()
 {
+    // ×ÖÌåÇåµ¥
+    const QFont floatingNotePanelButtonFont = QFont("Roboto", 14, QFont::Bold);
+
     this->setObjectName("floatingNotePanel");
     this->setGeometry(0, titleFrameHeight, mainWindowWidth, mainWindowHeight - titleFrameHeight);
     m_floatingNotePanelLayout = new QVBoxLayout(this);

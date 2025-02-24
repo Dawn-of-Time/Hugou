@@ -1,6 +1,5 @@
 ﻿#pragma once
 #include "Assistance_ThemeManager.h"
-#include "ButtonHoverWatcher.h"
 #include "Const_DefaultTheme.h"
 #include "View_FloatingNotePanel.h"
 #include "View_AsideBar.h"

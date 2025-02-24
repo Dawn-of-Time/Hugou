@@ -95,7 +95,7 @@ void MemoTypeItem::addMemoType(MemoType memoType)
 	// ×ÖÌåÇåµ¥
 	QFont labelFont = QFont("NeverMind", 10, QFont::Normal);
 
-	if (m_count <= 4)
+	if (m_count < 5)
 	{
 		QPushButton* memoTypeWidget = new QPushButton(m_content);
 		memoTypeWidget->setFixedSize(36, 60);
@@ -120,9 +120,21 @@ void MemoTypeItem::addMemoType(MemoType memoType)
 	}
 }
 
+void MemoTypeItem::setPointer(QList<MemoTypeLabel>* typeLabelList, QMap<int, QList<MemoType>>* typeLabelMap, QList<MemoType>* typeList, QList<MemoType>* priorityTypeList)
+{
+	m_typeLabelList = typeLabelList;
+	m_typeLabelMap = typeLabelMap;
+	m_typeList = typeList;
+	m_priorityTypeList = priorityTypeList;
+}
+
 void MemoTypeItem::showMemoTypeConfigView()
 {
 	MemoTypeConfigView* view = new MemoTypeConfigView();
+	for (QList<MemoType>::iterator it = m_priorityTypeList->begin(); it != m_priorityTypeList->end(); ++it)
+		view->addPriorityType(it);
+	for (QList<MemoTypeLabel>::iterator it = m_typeLabelList->begin(); it != m_typeLabelList->end(); ++it)
+		view->addTypeLabelAndType(it->name, &(m_typeLabelMap->find(it->ID).value()));
 	view->show();
 }
 

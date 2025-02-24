@@ -11,6 +11,7 @@
 #include <QLineEdit>
 #include <QIntValidator>
 #include <QPropertyAnimation>
+#include <QParallelAnimationGroup>
 #include "FadeEffectButton.h"
 
 
@@ -57,7 +58,7 @@ private:
         {"Dec",  12}
     };
     void setupUi();
-    void loadMonthView(QDate date);
+    void loadMonthView(const QDate& date);
     void goBackAMonth();
     void goForwardAMonth();
     void goBackToToday();

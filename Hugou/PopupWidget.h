@@ -4,7 +4,7 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QPushButton>
-#include "ButtonHoverWatcher.h"
+#include "Assistance_ButtonHoverWatcher.h"
 #include "Const_Geometry.h"
 #include <Windows.h>
 #include <windowsx.h>

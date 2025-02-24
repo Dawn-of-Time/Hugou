@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Var.h"
 #include "View_Preference.h"
 #include "Model_Preference.h"
 #include "Assistance_PreferenceHelper.h"
@@ -13,7 +12,7 @@ class PreferenceController : public QObject
 public:
     PreferenceController(PreferenceView* preferenceView, PreferenceModel* preferenceModel);
 	~PreferenceController();
-    void updateThemeComboboxValue(QString value);        // 通过程序修改值，不触发相关槽函数
+    void updateThemeComboboxValue(const QString& value);        // 通过程序修改值，不触发相关槽函数
     bool m_userChanged = true;
 
 signals:
@@ -22,7 +21,7 @@ signals:
 protected slots:
     void preferenceTreeItemExpandOrCollapseRequest(QTreeWidgetItem* item, int column);
     void preferenceContentListWidgetSrollRequest(QTreeWidgetItem* item, int column);
-    void applyThemeRequest(QString theme);
+    void applyThemeRequest(const QString& theme);
 
 private:
     PreferenceView* m_preferenceView;

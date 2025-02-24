@@ -29,6 +29,12 @@ FloatingNote::~FloatingNote()
 
 void FloatingNote::setupUi()
 {
+	// 字体清单
+	const QFont signFont = QFont("NeverMind", 16);
+	const QFont timekeepingLabelFont = QFont("NeverMind", 16);
+	const QFont floatingNoteButtonFont = QFont("NeverMind", 12, QFont::Bold);
+	const QFont contentFont = QFont("NeverMind", 12);
+
 	// 主体
 	this->setFixedWidth(floatingNoteWidth);
 	this->setObjectName("floatingNote");
@@ -140,7 +146,7 @@ void FloatingNote::updateUI()
 	m_noButton->setHidden(true);
 	m_dealLaterButton->setHidden(true);
 	// Dialog
-	if (m_type == Type::Dialog) {
+	if (m_type == NoteType::Dialog) {
 		m_noButton->setHidden(false);
 	}
 	// 根据内容调整控件大小

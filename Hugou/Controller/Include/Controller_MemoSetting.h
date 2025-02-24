@@ -11,7 +11,7 @@ class MemoSettingController :
 public:
     MemoSettingController(MemoSettingView* memoSettingView, MemoSettingModel* memoSettingModel);
     ~MemoSettingController();
-    void applyTemplate(MemoTemplate memoTemplate);
+    void applyTemplate(const MemoTemplate& memoTemplate);
 
 private:
     MemoSettingView* m_memoSettingView;

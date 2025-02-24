@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Var.h"
 #include "View_Welcome.h"
 #include "Model_Welcome.h"
 #include "Assistance_PreferenceHelper.h"

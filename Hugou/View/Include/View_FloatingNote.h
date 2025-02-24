@@ -13,7 +13,6 @@
 #include <QVBoxLayout>
 #include <QFile>
 #include "Const_Geometry.h"
-#include "Const_Font.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -23,7 +22,7 @@ class FloatingNote :
     Q_OBJECT
 
 public:
-    enum Type
+    enum NoteType
     {
         Success,
         Information,
@@ -32,7 +31,7 @@ public:
         Error
     };
 
-    const std::map<Type, QString> m_typeText =
+    const std::map<NoteType, QString> m_typeText =
     {
         {Success, "Success"},
         {Information, "Information"},
@@ -50,13 +49,13 @@ public:
 
     QPoint m_floatingNoteHiddenPos;
     QPoint m_floatingNoteShownPos;
-    Type m_type = Success;
+    NoteType m_type = Success;
 
     FloatingNote(QWidget* HugouClass);
     ~FloatingNote();
 
     void updateUI();
-    inline void setType(Type type) { this->m_type = type; };
+    inline void setType(NoteType type) { this->m_type = type; };
     inline void setContent(QString content) { this->m_content = content; };
     inline void setSubcontent(QString subcontent) { this->m_subcontent = subcontent; };
     inline void setHiddenPos(QPoint hiddenPos) { m_floatingNoteHiddenPos = hiddenPos; }
@@ -96,7 +95,7 @@ private:
     QTimer* m_updateTimer;
     QElapsedTimer* m_timer;
 
-    const std::map<Type, QPixmap> m_typeIcon =
+    const std::map<NoteType, QPixmap> m_typeIcon =
     {
         {Success, QPixmap(":/icon/success.ico")},
         {Information, QPixmap(":/icon/information.ico")},

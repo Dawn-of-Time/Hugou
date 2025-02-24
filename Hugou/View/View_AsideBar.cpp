@@ -17,7 +17,7 @@ void AsideBarView::setupUi()
     m_asideBarLayout->setSpacing(6);
    
     int index = 0;
-    for (QString s : asideBarList)
+    for (const QString& s : asideBarList)
     {
         if (s.isEmpty())
             m_asideBarLayout->addSpacing(24);

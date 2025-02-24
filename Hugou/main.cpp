@@ -4,7 +4,6 @@
 #include "View_Hugou.h"
 #include "Model_Hugou.h"
 #include "Controller_Hugou.h"
-#include "Var.h"
 #include "Database.h"
 #include <QtWidgets/QApplication>
 #include <QFontDatabase>
@@ -20,8 +19,7 @@ int main(int argc, char* argv[])
     QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
     QApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
     
-    // 初始化全局变量
-    Var::getVar();
+    qputenv("QT_SCALE_FACTOR", QString::number(0.9).toLatin1());
 
     QApplication a(argc, argv);
     // 注册qml

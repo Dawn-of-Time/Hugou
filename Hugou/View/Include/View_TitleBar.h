@@ -7,7 +7,7 @@
 #include <QLineEdit>
 #include "Const_Geometry.h"
 #include "View_FloatingNote.h"
-#include "ButtonHoverWatcher.h"
+#include "Assistance_ButtonHoverWatcher.h"
 #include "Assistance_PictureHelper.h"
 
 QT_BEGIN_NAMESPACE

@@ -23,6 +23,21 @@ struct MemoTemplate
     QList<MemoSettingItemType> templateContent;
 };
 
+struct MemoTypeLabel
+{
+    int ID = -1;
+    QString name = "";
+};
+
+struct MemoType
+{
+    int ID = -1;
+    QString name = "";
+    QColor color = QColor();
+    MemoTypeLabel label;
+    int priority = 0;
+};
+
 const MemoTemplate defaultTemplate = MemoTemplate
 {
     "Default",
@@ -30,14 +45,9 @@ const MemoTemplate defaultTemplate = MemoTemplate
     { Type, Time, ImportanceAndUrgency, Detail, SubMemo, Award, Reference }
 };
 
-struct MemoType
-{
-    QString name;
-    QColor color;
-};
-
 struct Memo
 {
+    int ID = -1;
     QString sketch = "";
     int memoType = 0;
     MemoTemplate memoTemplate = defaultTemplate;
@@ -55,5 +65,4 @@ struct Memo
     QList<int> subMemo = {};
     QList<int> award = {};
     QList<int> reference = {};
-    int ID = -1;
 };

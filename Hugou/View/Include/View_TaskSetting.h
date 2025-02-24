@@ -6,7 +6,6 @@
 #include <QFile>
 #include <QPropertyAnimation>
 #include "FadeEffectButton.h"
-#include "Struct_Task.h"
 
 class TaskSettingController;
 

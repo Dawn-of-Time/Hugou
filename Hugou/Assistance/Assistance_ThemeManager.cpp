@@ -16,7 +16,7 @@ QString ThemeManager::getTheme()
     {
         PreferenceHelper* helper = PreferenceHelper::getHelper();
         QString theme;
-        if (helper->getpreferenceValue("theme", theme))
+        if (helper->getPreferenceValue("theme", theme))
             m_theme = theme;
         else m_theme = "Default";
     }
@@ -59,7 +59,7 @@ void ThemeManager::applyTheme(ThemeResource* themeResource, bool consistentFlag)
 {
     // 若不为第一次加载，那么需要执行动画。
     if (!consistentFlag)  emit SignalUpdateThemeComboboxValue(m_theme);
-    PreferenceHelper::getHelper()->setpreferenceValue("theme", m_theme);
+    PreferenceHelper::getHelper()->setPreferenceValue("theme", m_theme);
     m_globalTopView->disconnect();
     connect(m_globalTopView, &GlobalTopView::fadeInFinished, [=]()
         {
@@ -68,12 +68,12 @@ void ThemeManager::applyTheme(ThemeResource* themeResource, bool consistentFlag)
         });
     connect(m_globalTopView, &GlobalTopView::fadeOutFinished, [=]()
         {
-            FloatingNoteManager::getManager()->raiseFloatingNote(FloatingNote::Type::Success, successNoteMap["10000"] + m_theme + ".");
+            emit PreferenceHelper::getHelper()->trigger(FloatingNote::Success, 10000, m_theme + ".");
         });
     startToApplyThemeResource(m_theme);
 }
 
-void ThemeManager::startToApplyThemeResource(QString theme)
+void ThemeManager::startToApplyThemeResource(const QString& theme)
 {
     m_globalTopView->setSource("qrc:/qml/themeApplyMedia.qml");
     m_globalTopView->setHint(tr("Upcoming theme: ") + theme);
@@ -112,7 +112,7 @@ void LoadThemeResourceThread::run()
         if (m_theme != "Default")
         {
             PreferenceHelper* helper = PreferenceHelper::getHelper();
-            emit helper->triggerError("10100");
+            emit helper->trigger(FloatingNote::Error, 10100);
             m_theme = "Default";
             m_themeResource = getDefaultThemeResource();
             m_isConsistent = false;
@@ -124,7 +124,7 @@ void LoadThemeResourceThread::run()
         if (m_theme != "Default")
         {
             PreferenceHelper* helper = PreferenceHelper::getHelper();
-            emit helper->triggerError("10101");
+            emit helper->trigger(FloatingNote::Error, 10101);
             m_theme = "Default";
             m_themeResource = getDefaultThemeResource();
             m_isConsistent = false;
@@ -141,7 +141,7 @@ void LoadThemeResourceThread::run()
             if (m_theme != "Default")
             {
                 PreferenceHelper* helper = PreferenceHelper::getHelper();
-                emit helper->triggerError("10103");
+                emit helper->trigger(FloatingNote::Error, 10103);
                 m_theme = "Default";
                 m_themeResource = getDefaultThemeResource();
                 m_isConsistent = false;

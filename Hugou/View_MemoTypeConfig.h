@@ -1,5 +1,6 @@
 #pragma once
 #include "PopupWidget.h"
+#include "Struct_Memo.h"
 
 class MemoTypeConfigView :
     public PopupWidget
@@ -8,6 +9,8 @@ class MemoTypeConfigView :
 
 public:
     MemoTypeConfigView(QWidget* parent = nullptr);
+    void addPriorityType(MemoType* memoType);
+    void addTypeLabelAndType(QString labelName, QList<MemoType>* typeList);
 
 private:
     QWidget* m_centralWidget;

@@ -62,7 +62,7 @@
     <ClCompile Include="View\View_AsideBar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Assistance\ButtonHoverWatcher.cpp">
+    <ClCompile Include="Assistance\Assistance_ButtonHoverWatcher.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Assistance\Assistance_ComboboxWheelWatcher.cpp">
@@ -98,13 +98,7 @@
     <ClCompile Include="View\View_TitleBar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Include\Var.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="View\View_Schedule.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Controller\Controller_AsideBar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="View\View_Hugou.cpp">
@@ -146,16 +140,10 @@
     <ClCompile Include="View\View_TaskSetting.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Controller\Controller_TaskSetting.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Model\Model_TaskSetting.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Assistance\Assistance_PictureHelper.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Assistance\Assistance_AsideBarGenerator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Card\Card_MonthOverview.cpp">
@@ -196,7 +184,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="Assistance\Include\ButtonHoverWatcher.h">
+    <QtMoc Include="Assistance\Include\Assistance_ButtonHoverWatcher.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="Assistance\Include\Assistance_ComboboxWheelWatcher.h">
@@ -220,9 +208,6 @@
     <QtMoc Include="View\Include\FadeEffectButton.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="Assistance\Include\IconTextButtonHoverWatcher.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <QtMoc Include="Assistance\Include\Assistance_PreferenceHelper.h">
       <Filter>Header Files</Filter>
     </QtMoc>
@@ -242,9 +227,6 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="View\Include\View_AsideBar.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="Controller\Include\Controller_AsideBar.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="View\Include\View_Preference.h">
@@ -269,9 +251,6 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="View\Include\View_TaskSetting.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="Controller\Include\Controller_TaskSetting.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="Controller\Include\Controller_MemoSetting.h">
@@ -300,9 +279,6 @@
     <ClInclude Include="Include\Const_Geometry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Var.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="View\Include\View_Welcome.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -318,25 +294,16 @@
     <ClInclude Include="Include\Const_Preference.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Const_Text.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="View\Include\PreferenceItem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Model\Include\Model_Schedule.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Struct_Task.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Model\Include\Model_TaskSetting.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Assistance\Include\Assistance_PictureHelper.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Assistance\Include\Assistance_AsideBarGenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Card\Include\Card_MonthOverview.h">
@@ -360,8 +327,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Configuration\conf.ini" />
-    <None Include="Configuration\errorCode.ini" />
-    <None Include="Configuration\solution.ini" />
     <None Include="Resource\theme\Global\floatingNote.qss" />
     <None Include="Resource\theme\Global\floatingNotePanel.qss" />
     <None Include="Resource\theme\Global\globalTop.qss" />

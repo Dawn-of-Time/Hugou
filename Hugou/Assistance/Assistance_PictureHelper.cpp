@@ -2,7 +2,6 @@
 
 QPixmap Assistance_PictureHelper::cropPixmapIntoCircle(QPixmap& pixmap, int diameter)
 {
-    //qreal factor = Var::getVar()->getScale();
     int width = pixmap.width();
     int height = pixmap.height();
     diameter = qMin(diameter, qMin(width, height));

@@ -1,21 +1,21 @@
-#include "ButtonHoverWatcher.h"
+#include "Assistance_ButtonHoverWatcher.h"
 
-ButtonHoverWatcher::ButtonHoverWatcher(QString default_res, QString hover_res, QObject* parent) :
+ButtonHoverWatcher::ButtonHoverWatcher(const QString& default_res, const QString& hover_res, QObject* parent) :
     QObject(parent)
 {
     this->default_res = default_res;
     this->hover_res = hover_res;
 }
 
-ButtonHoverWatcher::ButtonHoverWatcher(QLabel* backgroundLabel, QString default_color, QString hover_color, QObject* parent)
+ButtonHoverWatcher::ButtonHoverWatcher(QLabel* backgroundLabel, const QString& default_color, const QString& hover_color, QObject* parent)
 {
     this->backgroundLabel = backgroundLabel;
     this->default_color = default_color;
     this->hover_color = hover_color;
 }
 
-ButtonHoverWatcher::ButtonHoverWatcher(QString default_res, QString hover_res, 
-    QLabel* backgroundLabel, QString default_color, QString hover_color, QObject* parent)
+ButtonHoverWatcher::ButtonHoverWatcher(const QString& default_res, const QString& hover_res,
+    QLabel* backgroundLabel, const QString& default_color, const QString& hover_color, QObject* parent)
 {
     this->default_res = default_res;
     this->hover_res = hover_res;
@@ -24,7 +24,7 @@ ButtonHoverWatcher::ButtonHoverWatcher(QString default_res, QString hover_res,
     this->hover_color = hover_color;
 }
 
-ButtonHoverWatcher::ButtonHoverWatcher(QPoint startPos, QPoint endPos, Direction direction, QObject* parent)
+ButtonHoverWatcher::ButtonHoverWatcher(const QPoint& startPos, const QPoint& endPos, Direction direction, QObject* parent)
 {
     this->startPos = startPos;
     this->endPos = endPos;
@@ -78,7 +78,7 @@ bool ButtonHoverWatcher::eventFilter(QObject* watched, QEvent* event)
     return false;
 }
 
-void ButtonHoverWatcher::setResource(QString default_res, QString hover_res)
+void ButtonHoverWatcher::setResource(const QString& default_res, const QString& hover_res)
 {
     this->default_res = default_res;
     this->hover_res = hover_res;

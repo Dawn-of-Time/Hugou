@@ -42,6 +42,7 @@ class MemoTypeItem :
 public:
     MemoTypeItem(QWidget* parent = nullptr);
     void addMemoType(MemoType memoType);
+    void setPointer(QList<MemoTypeLabel>* typeLabelList, QMap<int, QList<MemoType>>* typeLabelMap, QList<MemoType>* typeList, QList<MemoType>* priorityTypeList);
 
 private:
     int m_count = 0;
@@ -49,7 +50,12 @@ private:
     QWidget* m_typeListWidget;
     QHBoxLayout* m_typeListWidgetLayout;
     QPushButton* m_addTypeButton;
-    QList<QWidget*> m_memoTypeWidgetList;
+    QList<QWidget*> m_memoTypeWidgetList = {};
+    QMap<int, MemoTypeLabel>* m_labelMap;
+    QMap<int, QList<MemoType>>* m_typeLabelMap;
+    QList<MemoTypeLabel>* m_typeLabelList;
+    QList<MemoType>* m_typeList;
+    QList<MemoType>* m_priorityTypeList;
     void setupUi();
     void showMemoTypeConfigView();
 };

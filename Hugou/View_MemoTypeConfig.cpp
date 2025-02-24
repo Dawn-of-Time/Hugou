@@ -53,3 +53,34 @@ void MemoTypeConfigView::setupUi()
 	m_layout->addWidget(m_priorityDisplayWidget);
 	m_layout->addWidget(m_typeRepoWidget);
 }
+
+void MemoTypeConfigView::addPriorityType(MemoType* memoType)
+{
+	// ×ÖÌåÇåµ¥
+	QFont labelFont = QFont("NeverMind", 10, QFont::Normal);
+
+	QWidget* priorityDisplayMemoTypeWidget = new QWidget(m_priorityDisplayContent);
+	priorityDisplayMemoTypeWidget->setFixedSize(36, 60);
+	QVBoxLayout* priorityDisplayMemoTypeWidgetLayout = new QVBoxLayout(priorityDisplayMemoTypeWidget);
+	priorityDisplayMemoTypeWidgetLayout->setContentsMargins(0, 0, 0, 0);
+	priorityDisplayMemoTypeWidgetLayout->setSpacing(4);
+	QLabel* icon = new QLabel(priorityDisplayMemoTypeWidget);
+	icon->setAlignment(Qt::AlignCenter);
+	icon->setFixedSize(36, 36);
+	icon->setStyleSheet(QString("background-color: %1; border-radius: 5px").arg(memoType->color.name()));
+	QLabel* label = new QLabel(memoType->name, priorityDisplayMemoTypeWidget);
+	label->setAlignment(Qt::AlignHCenter);
+	label->setFixedSize(36, 20);
+	label->setFont(labelFont);
+
+	priorityDisplayMemoTypeWidgetLayout->setAlignment(Qt::AlignHCenter);
+	priorityDisplayMemoTypeWidgetLayout->addWidget(icon);
+	priorityDisplayMemoTypeWidgetLayout->addWidget(label);
+
+	m_priorityDisplayContentLayout->addWidget(priorityDisplayMemoTypeWidget);
+}
+
+void MemoTypeConfigView::addTypeLabelAndType(QString labelName, QList<MemoType>* typeList)
+{
+
+}

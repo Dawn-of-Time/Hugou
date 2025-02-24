@@ -23,7 +23,7 @@ public:
     ~ThemeManager();
     QString getTheme();
     void loadThemeResource(QString theme = "");
-    void startToApplyThemeResource(QString theme);
+    void startToApplyThemeResource(const QString& theme);
     void applyThemeResource(ThemeResource* themeResource);
     void endToApplyThemeResourceFinished();
     
@@ -52,7 +52,7 @@ class LoadThemeResourceThread :
 public:
     LoadThemeResourceThread() { };
     void run() override;
-    inline void setTheme(QString theme) { m_theme = theme; }
+    inline void setTheme(const QString& theme) { m_theme = theme; }
     inline ThemeResource* getThemeResource() { return m_themeResource; };
     inline bool getConsistentFlag() { return m_isConsistent; }
 
