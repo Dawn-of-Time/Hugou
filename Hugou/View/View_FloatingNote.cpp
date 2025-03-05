@@ -1,4 +1,4 @@
-﻿#include "View_FloatingNote.h"
+﻿#include "View/Include/View_FloatingNote.h"
 
 FloatingNote::FloatingNote(QWidget* HugouClass) :
 	QWidget(HugouClass)
@@ -58,9 +58,11 @@ void FloatingNote::setupUi()
 	m_signLayout->setSpacing(10);
 	m_signLayout->setContentsMargins(0, 0, 0, 0);
 	// 标志图标与文字
-	m_signIcon = new QLabel(m_signZone);
+	m_signIcon = new QPushButton(m_signZone);
 	m_signIcon->setObjectName("signIcon");
 	m_signIcon->setFixedSize(QSize(25, 25));
+	m_signIcon->setIconSize(QSize(25, 25));
+	m_signIcon->setAttribute(Qt::WA_TransparentForMouseEvents);
 	m_signTitle = new QLabel(m_signZone);
 	m_signTitle->setObjectName("signTitle");
 	m_signTitle->setFont(signFont);
@@ -135,7 +137,7 @@ void FloatingNote::setupUi()
 
 void FloatingNote::updateUI()
 {
-	m_signIcon->setPixmap(m_typeIcon.at(m_type).scaled(QSize(25, 25), Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+	m_signIcon->setIcon(m_typeIcon.at(m_type));
 	m_signTitle->setText(m_typeText.at(m_type));
 	m_contentZone->setText(m_content);
 	if (!m_subcontent.isEmpty())
@@ -185,7 +187,7 @@ void FloatingNote::SlotTimekeeping()
 	else if (hours > 0) m_timekeepingLabel->setText(QString("%1h%2min ago").arg(hours).arg(minutes, 0, 10));
 }
 
-void FloatingNote::SlotButtonClicked(Feedback feedback)
+void FloatingNote::SlotButtonClicked(const Feedback& feedback)
 {
 	// 一次分类：立即处理/稍后处理
 	if (feedback == Feedback::DealLater) emit SignalDealLater(this);

@@ -176,10 +176,43 @@
     <ClCompile Include="View\CloseWhenLeaveWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="View_MemoTypeConfig.cpp">
+    <ClCompile Include="View\View_MemoTypeConfig.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PopupWidget.cpp">
+    <ClCompile Include="View\PopupWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu\Menu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu\MenuItem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu\LineEditMenuItem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu\ColorPaletteMenuItem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Assistance\Assistance_DragFilter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="View\MemoTypeWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="View\MemoWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Card\Card_Weather.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Assistance\Assistance_LocationHelper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Assistance\Assistance_MessegeHelper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Assistance\Assistance_NetworkHelper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -268,10 +301,37 @@
     <QtMoc Include="View\Include\CloseWhenLeaveWidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="PopupWidget.h">
+    <QtMoc Include="View\Include\PopupWidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="View_MemoTypeConfig.h">
+    <QtMoc Include="View\Include\View_MemoTypeConfig.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Menu\Include\Menu.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Menu\Include\ColorPaletteMenuItem.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Assistance\Include\Assistance_DragFilter.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Menu\Include\MenuItem.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Menu\Include\LineEditMenuItem.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="View\Include\MemoWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Assistance\Include\Assistance_MessegeHelper.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Assistance\Include\Assistance_LocationHelper.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Assistance\Include\Assistance_NetworkHelper.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -282,13 +342,7 @@
     <ClInclude Include="View\Include\View_Welcome.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Const_SuccessNote.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Include\Const_Font.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Const_DefaultTheme.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Include\Const_Preference.h">
@@ -322,6 +376,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DoubleClickedToEditButton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Global_Hugou.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="View\Include\MemoTypeWidget.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Card\Include\Card_Weather.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

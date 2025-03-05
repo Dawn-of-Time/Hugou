@@ -1,4 +1,4 @@
-#include "Assistance_ThemeManager.h"
+#include "Assistance/Include/Assistance_ThemeManager.h"
 
 ThemeManager::ThemeManager(QWidget* hugou, QWidget* asideBarView, QWidget* preferenceView, GlobalTopView* globalTopView)
     : QObject(), m_hugou(hugou), m_asideBarView(asideBarView), m_preferenceView(preferenceView), m_globalTopView(globalTopView)
@@ -68,7 +68,7 @@ void ThemeManager::applyTheme(ThemeResource* themeResource, bool consistentFlag)
         });
     connect(m_globalTopView, &GlobalTopView::fadeOutFinished, [=]()
         {
-            emit PreferenceHelper::getHelper()->trigger(FloatingNote::Success, 10000, m_theme + ".");
+            emit MessegeHelper::getHelper()->trigger(FloatingNote::Success, 10000, m_theme + ".");
         });
     startToApplyThemeResource(m_theme);
 }
@@ -111,8 +111,7 @@ void LoadThemeResourceThread::run()
         // Default主题文件是否存在和是否有效都不触发错误。其主题内容被硬编码到程序中。但是，如果有该主题的文件，就使用该主题文件的内容。
         if (m_theme != "Default")
         {
-            PreferenceHelper* helper = PreferenceHelper::getHelper();
-            emit helper->trigger(FloatingNote::Error, 10100);
+            emit MessegeHelper::getHelper()->trigger(FloatingNote::Error, 10100);
             m_theme = "Default";
             m_themeResource = getDefaultThemeResource();
             m_isConsistent = false;
@@ -123,8 +122,7 @@ void LoadThemeResourceThread::run()
     {
         if (m_theme != "Default")
         {
-            PreferenceHelper* helper = PreferenceHelper::getHelper();
-            emit helper->trigger(FloatingNote::Error, 10101);
+            emit MessegeHelper::getHelper()->trigger(FloatingNote::Error, 10101);
             m_theme = "Default";
             m_themeResource = getDefaultThemeResource();
             m_isConsistent = false;
@@ -140,8 +138,7 @@ void LoadThemeResourceThread::run()
         {
             if (m_theme != "Default")
             {
-                PreferenceHelper* helper = PreferenceHelper::getHelper();
-                emit helper->trigger(FloatingNote::Error, 10103);
+                emit MessegeHelper::getHelper()->trigger(FloatingNote::Error, 10103);
                 m_theme = "Default";
                 m_themeResource = getDefaultThemeResource();
                 m_isConsistent = false;

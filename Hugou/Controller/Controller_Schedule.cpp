@@ -1,11 +1,20 @@
-#include "Controller_Schedule.h"
+#include "Controller/Include/Controller_Schedule.h"
 
 ScheduleController::ScheduleController(ScheduleView* scheduleView, ScheduleModel* scheduleModel)
 	:QObject(), m_scheduleView(scheduleView), m_scheduleModel(scheduleModel)
 {
 	readAndGenerateMemos();
+	for (QObject* object : m_scheduleView->m_memoListWidget->children())
+	{
+		if (MemoWidget* memoWidget = qobject_cast<MemoWidget*>(object))
+		{
+			MemoSettingController* memoSettingController = new MemoSettingController(
+				memoWidget->getMemoSettingView(), m_scheduleModel->m_memoSettingModel
+			);
+			m_memoSettingControllerList.append(memoSettingController);
+		}
+	}
 	connect(m_scheduleView->m_monthViewSwitchButton, &QPushButton::clicked, m_scheduleView, &ScheduleView::switchToMonthView);
-	connect(m_scheduleView->m_addMemoBriefWidget, &QPushButton::clicked, this, &ScheduleController::addMemo);
 }
 
 ScheduleController::~ScheduleController()
@@ -18,15 +27,7 @@ ScheduleController::~ScheduleController()
 void ScheduleController::readAndGenerateMemos()
 {
 	m_scheduleModel->readMemoDatabase();
-	m_scheduleView->generateMemos(m_scheduleModel->m_memoList);
-}
-
-void ScheduleController::addMemo()
-{
-	FadeEffectButton* memoBriefWidget = qobject_cast<FadeEffectButton*>(sender());
-	MemoSettingController* memoSettingController = new MemoSettingController(
-		m_scheduleView->m_memoSettingMap[memoBriefWidget], m_scheduleModel->m_memoSettingModel
-	);
-	m_scheduleView->showMemoSetting(memoBriefWidget);
-	m_memoSettingControllerList.append(memoSettingController);
+	for (Memo& memo : m_scheduleModel->m_memoList)
+		m_scheduleView->generateMemo(memo);
+	m_scheduleView->addAddMemoWidget();
 }

@@ -1,4 +1,4 @@
-#include "CloseWhenLeaveWidget.h"
+#include "View/Include/CloseWhenLeaveWidget.h"
 
 CloseWhenLeaveWidget::CloseWhenLeaveWidget(QWidget* parent)
 	:QWidget(parent)

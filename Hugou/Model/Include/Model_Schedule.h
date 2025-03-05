@@ -2,9 +2,10 @@
 #include <QObject>
 #include <QSqlDatabase>
 #include <QDebug>
-#include "Database.h"
-#include "Struct_Memo.h"
-#include "Controller_MemoSetting.h"
+#include "Database/Include/Database.h"
+#include "Include/Struct_Memo.h"
+#include "Controller/Include/Controller_MemoSetting.h"
+#include "Assistance/Include/Assistance_PreferenceHelper.h"
 
 class ScheduleController;
 

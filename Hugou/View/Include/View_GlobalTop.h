@@ -1,6 +1,5 @@
 #pragma once
-#include "Const_Geometry.h"
-#include "Const_Font.h"
+#include "Include/Const_Geometry.h"
 #include <QLabel>
 #include <QFile>
 #include <QVBoxLayout>
@@ -22,8 +21,8 @@ public:
 	~GlobalTopView();
 	void fadeIn();
 	void fadeOut();
-	void setSource(QString filename);
-	void setHint(QString hint);
+	void setSource(const QString& filename);
+	void setHint(const QString& hint);
 	void removeSource();
 	void updateUi(QWidget* Hugou);
 

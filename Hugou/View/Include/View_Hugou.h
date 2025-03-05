@@ -1,6 +1,5 @@
 ﻿#pragma once
-#include "Assistance_ThemeManager.h"
-#include "Const_DefaultTheme.h"
+#include "Assistance/Include/Assistance_ThemeManager.h"
 #include "View_FloatingNotePanel.h"
 #include "View_AsideBar.h"
 #include "View_GlobalTop.h"
@@ -16,6 +15,9 @@
 #include <QGraphicsEffect>
 #include <Windows.h>
 #include <windowsx.h>
+#include <QFontDatabase>
+#include <QQmlEngine>
+#include <QDir>
 
 QT_BEGIN_NAMESPACE
 
@@ -69,8 +71,8 @@ private:
     QPropertyAnimation* m_stackedSwitchFadeInAnimation = nullptr;
     QPropertyAnimation* m_stackedSwitchFadeOutAnimation = nullptr;
     void changeStackedWidget(int index);
-    QRect customScale(Area area, QRect currentMainWindowGeometry, QPoint change);
-    Area getArea(QPoint mousePos);
+    QRect customScale(const Area& area, const QRect& currentMainWindowGeometry, const QPoint& change);
+    Area getArea(const QPoint& mousePos);
     void setupUi();
     void enableGraphicsEffect();
     void disableGraphicsEffect();

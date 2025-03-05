@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "View_FloatingNote.h"
+#include "View/Include/View_FloatingNote.h"
 #include <list>
 #include <QString>
 #include <QStringList>

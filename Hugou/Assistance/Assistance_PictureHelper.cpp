@@ -1,4 +1,4 @@
-#include "Assistance_PictureHelper.h"
+#include "Assistance/Include/Assistance_PictureHelper.h"
 
 QPixmap Assistance_PictureHelper::cropPixmapIntoCircle(QPixmap& pixmap, int diameter)
 {

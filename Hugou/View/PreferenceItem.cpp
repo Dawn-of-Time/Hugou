@@ -1,4 +1,4 @@
-#include "PreferenceItem.h"
+#include "View/Include/PreferenceItem.h"
 
 void LabelTitleItem::generatePreferenceItem(QListWidget* preferenceContentListWidget, PreferenceMap& PreferenceMap)
 {
@@ -59,8 +59,8 @@ void ComboboxItem::generatePreferenceItem(QListWidget* preferenceContentListWidg
     PreferenceHelper::getHelper()->getPreferenceValue(m_name, value);
     comboBox->setObjectName(this->m_name);
     comboBox->move(20, 0);
-    if (this->m_list.isEmpty()) comboBox->addItems({ "(No options)" });
-    else comboBox->addItems(this->m_list);
+    if (m_list.isEmpty()) comboBox->addItems({ "(No options)" });
+    else comboBox->addItems(m_list);
     comboBox->setCurrentText(value);
     comboBox->setFont(style.second);
     comboBox->setFixedSize(300, 30);

@@ -2,8 +2,7 @@
 #include <QLabel>
 #include <QFile>
 #include <QVBoxLayout>
-#include "View_FloatingNote.h"
-#include "Const_Geometry.h"
+#include "View/Include/View_FloatingNote.h"
 
 class FloatingNotePanel :
     public QWidget
@@ -41,6 +40,6 @@ private:
     QList<QPushButton*> m_floatingNoteButtonList;
 
     void setupUi();
-    void updateProperty(int buttonIndex);
+    void updateProperty(const int buttonIndex);
 };
 

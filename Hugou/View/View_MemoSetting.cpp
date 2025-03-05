@@ -1,11 +1,12 @@
-#include "View_MemoSetting.h"
+#include "View/Include/View_MemoSetting.h"
 
-MemoSettingView::MemoSettingView(QWidget* parent, Memo memo)
+MemoSettingView::MemoSettingView(QWidget* parent, Memo* memo)
 	:QWidget(parent), m_memo(memo)
 {
 	setupUi();
 	m_templateWidget->hide();
-	m_area->hide();
+	m_contentWidget->hide();
+	setMinimumHeight(0);
 }
 
 void MemoSettingView::setupUi()
@@ -15,15 +16,14 @@ void MemoSettingView::setupUi()
 	QFont templateButtonFont = QFont("NeverMind", 10, QFont::DemiBold);
 
 	m_layout = new QVBoxLayout(this);
-	m_layout->setContentsMargins(41, 0, 0, 0);
+	m_layout->setContentsMargins(41, 0, 5, 0);
 
 	m_baseWidget = new QWidget(this);
 	m_layout->addWidget(m_baseWidget);
 
 	m_baselayout = new QVBoxLayout(m_baseWidget);
-	m_baselayout->setContentsMargins(20, 10, 20, 10);
 	m_baselayout->setSpacing(5);
-
+	m_baselayout->setContentsMargins(20, 0, 20, 0);
 	m_templateWidget = new QWidget(m_baseWidget);
 	m_templateWidget->setFixedHeight(25);
 	m_templateWidgetEffect = new QGraphicsOpacityEffect(m_templateWidget);
@@ -50,34 +50,22 @@ void MemoSettingView::setupUi()
 	m_templateWidgetLayout->addStretch();
 	m_templateWidgetLayout->addWidget(m_saveButton);
 
-	m_area = new QScrollArea(m_baseWidget);
-	m_area->setObjectName("scrollArea");
-	m_area->setStyleSheet("QWidget #scrollArea { background-color: transparent}");
-	m_area->setWidgetResizable(true);
-	m_areaEffect = new QGraphicsOpacityEffect(m_area);
-	m_areaEffect->setOpacity(0);
-	m_area->setGraphicsEffect(m_areaEffect);
-	m_areaEffect->setEnabled(false);
-
-	m_contentWidget = new QWidget(m_area);
+	m_contentWidget = new QWidget(m_baseWidget);
 	m_contentWidgetLayout = new QHBoxLayout(m_contentWidget);
 	m_contentWidgetLayout->setContentsMargins(0, 0, 0, 0);
 	m_contentWidgetLayout->setSpacing(20);
 	m_contentWidgetLayout->setAlignment(Qt::AlignLeft);
-	generateNewPage();
-	for (const MemoSettingItemType& itemType : m_memo.memoTemplate.templateContent)
-		addMemoSettingItem(itemType);
-
-	m_area->setWidget(m_contentWidget);
+	m_contentWidgetEffect = new QGraphicsOpacityEffect(m_contentWidget);
+	m_contentWidgetEffect->setOpacity(0);
+	m_contentWidget->setGraphicsEffect(m_contentWidgetEffect);
+	m_contentWidgetEffect->setEnabled(false);
 
 	m_baselayout->setAlignment(Qt::AlignLeft);
 	m_baselayout->addWidget(m_templateWidget);
-	m_baselayout->addWidget(m_area);
-
-	setMaximumHeight(25 + getSuitableHeight());
+	m_baselayout->addWidget(m_contentWidget);
 }
 
-void MemoSettingView::applyGeneralStyle(MemoTemplate memoTemplate)
+void MemoSettingView::applyGeneralStyle(const MemoTemplate& memoTemplate)
 {
 	QColor color = memoTemplate.color;
 	QString colorRGBAString = QString("rgba(%1, %2, %3, 0.2)").arg(color.red()).arg(color.green()).arg(color.blue());
@@ -108,65 +96,32 @@ void MemoSettingView::applyGeneralStyle(MemoTemplate memoTemplate)
 	m_saveButton->setStyleSheet(m_templateButton->styleSheet());
 }
 
-QWidget* MemoSettingView::addMemoSettingItem(MemoSettingItemType itemType)
+void MemoSettingView::addMemoSettingItemToLayout(QWidget* widget)
 {
-	QWidget* widget = nullptr;
-	switch (itemType)
+	int height = widget->height();  // 即将加入的控件的高度
+	// 将当前页面已经占用的高度拟加上即将加入的控件的高度：
+	// 如果超过了当前页面的最大高度，则生成新的页面；
+	// 否则，将控件加入当前页面。
+	if (m_occupiedHeight + height > m_maxPageHeight)
 	{
-	case MemoSettingItemType::Type:
-		widget = new MemoTypeItem();
-		break;
-	case MemoSettingItemType::Time:
-		widget = new MemoTimeItem();
-		break;
-	case MemoSettingItemType::ImportanceAndUrgency:
-		widget = new MemoImportanceAndUrgencyItem();
-		break;
-	case MemoSettingItemType::Detail:
-		widget = new MemoDetailItem();
-		break;
-	case MemoSettingItemType::SubMemo:
-		widget = new MemoSubMemoItem();
-		break;
-	case MemoSettingItemType::Award:
-		widget = new MemoAwardItem();
-		break;
-	case MemoSettingItemType::Reference:
-		widget = new MemoReferenceItem();
-		break;
-	default:
-		break;
+		m_occupiedHeight = 20 + height;
+		generateNewPage();
 	}
-	if (widget)
+	else
 	{
-		m_memoContentMap.insert(itemType, widget);
-		int height = widget->height();  // 即将加入的控件的高度
-		// 将当前页面已经占用的高度拟加上即将加入的控件的高度：
-		// 如果超过了当前页面的最大高度，则生成新的页面；
-		// 否则，将控件加入当前页面。
-		if (m_occupiedHeight + height > m_maxPageHeight)
-		{
-			m_occupiedHeight = 10 + height;
-			generateNewPage();
-		}
-		else
-		{
-			m_occupiedHeight = m_occupiedHeight + height + 10;	// 控件之间的间距为10
-			if (m_occupiedHeight > m_pageSuitableHeight)
-				m_pageSuitableHeight = m_occupiedHeight;
-		}
-		widget->setParent(m_pageList.last());
-		m_pageList.last()->layout()->addWidget(widget);
+		m_occupiedHeight = m_occupiedHeight + height + 10;	// 控件之间的间距为10
+		if (m_occupiedHeight > m_pageSuitableHeight)
+			m_pageSuitableHeight = m_occupiedHeight;
 	}
-	return widget;
+	widget->setParent(m_pageList.last());
+	m_pageList.last()->layout()->addWidget(widget);
 }
 
 void MemoSettingView::generateNewPage()
 {
 	m_pageNum++;
 	QWidget* newPage = new QWidget(m_contentWidget);
-	newPage->setObjectName(QString("page%1").arg(m_pageNum));
-	newPage->setFixedWidth(324);
+	newPage->setFixedWidth(330);
 	newPage->setMaximumHeight(m_maxPageHeight);
 	QVBoxLayout* newPageLayout = new QVBoxLayout(newPage);
 	newPageLayout->setContentsMargins(10, 10, 10, 10);
@@ -179,33 +134,57 @@ void MemoSettingView::generateNewPage()
 void MemoSettingView::enableGraphicEffect()
 {
 	m_templateWidgetEffect->setEnabled(true);
-	m_areaEffect->setEnabled(true);
+	m_contentWidgetEffect->setEnabled(true);
 }
 
 void MemoSettingView::disableGraphicEffect()
 {
 	m_templateWidgetEffect->setEnabled(false);
-	m_areaEffect->setEnabled(false);
+	m_contentWidgetEffect->setEnabled(false);
 }
 
-void MemoSettingView::fadeIn()
+QParallelAnimationGroup* MemoSettingView::fadeIn()
 {
-	enableGraphicEffect();
+	m_baselayout->setContentsMargins(20, 10, 20, 10);
 	m_templateWidget->show();
-	m_area->show();
+	m_contentWidget->show();
+	enableGraphicEffect();
 	QParallelAnimationGroup* group = new QParallelAnimationGroup;
 	QPropertyAnimation* templateWidgetFadeInAnimation = new QPropertyAnimation(m_templateWidgetEffect, "opacity", m_templateWidget);
 	templateWidgetFadeInAnimation->setStartValue(0);
 	templateWidgetFadeInAnimation->setEndValue(1);
-	templateWidgetFadeInAnimation->setDuration(200);
-	QPropertyAnimation* areaFadeInAnimation = new QPropertyAnimation(m_areaEffect, "opacity", m_area);
-	areaFadeInAnimation->setStartValue(0);
-	areaFadeInAnimation->setEndValue(1);
-	areaFadeInAnimation->setDuration(200);
+	templateWidgetFadeInAnimation->setDuration(100);
+	QPropertyAnimation* contentWidgetFadeInAnimation = new QPropertyAnimation(m_contentWidgetEffect, "opacity", m_contentWidget);
+	contentWidgetFadeInAnimation->setStartValue(0);
+	contentWidgetFadeInAnimation->setEndValue(1);
+	contentWidgetFadeInAnimation->setDuration(100);
 	group->addAnimation(templateWidgetFadeInAnimation);
-	group->addAnimation(areaFadeInAnimation);
+	group->addAnimation(contentWidgetFadeInAnimation);
 	connect(group, &QParallelAnimationGroup::finished, this, &MemoSettingView::disableGraphicEffect);
-	group->start(QParallelAnimationGroup::DeleteWhenStopped);
+	return group;
+}
+
+QParallelAnimationGroup* MemoSettingView::fadeOut()
+{
+	enableGraphicEffect();
+	QParallelAnimationGroup* group = new QParallelAnimationGroup;
+	QPropertyAnimation* templateWidgetFadeOutAnimation = new QPropertyAnimation(m_templateWidgetEffect, "opacity", m_templateWidget);
+	templateWidgetFadeOutAnimation->setStartValue(1);
+	templateWidgetFadeOutAnimation->setEndValue(0);
+	templateWidgetFadeOutAnimation->setDuration(100);
+	QPropertyAnimation* contentWidgetFadeOutAnimation = new QPropertyAnimation(m_contentWidgetEffect, "opacity", m_contentWidget);
+	contentWidgetFadeOutAnimation->setStartValue(1);
+	contentWidgetFadeOutAnimation->setEndValue(0);
+	contentWidgetFadeOutAnimation->setDuration(100);
+	group->addAnimation(templateWidgetFadeOutAnimation);
+	group->addAnimation(contentWidgetFadeOutAnimation);
+	connect(group, &QParallelAnimationGroup::finished, [this]()
+		{
+			m_baselayout->setContentsMargins(20, 0, 20, 0);
+			m_templateWidget->hide();
+			m_contentWidget->hide();
+		});
+	return group;
 }
 
 void MemoSettingView::check()

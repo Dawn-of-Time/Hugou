@@ -8,9 +8,9 @@
 #include <dwmapi.h>
 #include <thread>
 #include <chrono>
-#include "Assistance_PreferenceHelper.h"
-#include "Model_Schedule.h"
-#include "Model_preference.h"
+#include "Assistance/Include/Assistance_PreferenceHelper.h"
+#include "Model/Include/Model_Schedule.h"
+#include "Model/Include/Model_preference.h"
 
 class HugouController;
 

@@ -1,4 +1,4 @@
-#include "FadeEffectButton.h"
+#include "View/Include/FadeEffectButton.h"
 
 FadeEffectButton::FadeEffectButton(QWidget* parent) :
 	QPushButton(parent)
@@ -6,7 +6,7 @@ FadeEffectButton::FadeEffectButton(QWidget* parent) :
 	setGeneralStyle();
 }
 
-FadeEffectButton::FadeEffectButton(QIcon icon, QSize iconSize, QString text, QFont font, QWidget* parent) :
+FadeEffectButton::FadeEffectButton(const QIcon& icon, const QSize& iconSize, const QString& text, const QFont& font, QWidget* parent) :
 	QPushButton(parent)
 {
 	setGeneralStyle();
@@ -14,14 +14,14 @@ FadeEffectButton::FadeEffectButton(QIcon icon, QSize iconSize, QString text, QFo
 	addTextZone(text, font);
 }
 
-FadeEffectButton::FadeEffectButton(QIcon icon, QSize iconSize, QWidget* parent) :
+FadeEffectButton::FadeEffectButton(const QIcon& icon, const QSize& iconSize, QWidget* parent) :
 	QPushButton(parent)
 {
 	setGeneralStyle();
 	addIconZone(icon, iconSize);
 }
 
-FadeEffectButton::FadeEffectButton(QString text, QFont font, QWidget* parent) :
+FadeEffectButton::FadeEffectButton(const QString& text, const QFont& font, QWidget* parent) :
 	QPushButton(parent)
 {
 	setGeneralStyle();
@@ -47,7 +47,7 @@ void FadeEffectButton::setGeneralLayout()
 	m_buttonLayout->setAlignment(Qt::AlignVCenter);
 }
 
-void FadeEffectButton::addTextZone(QString text, QFont font)
+void FadeEffectButton::addTextZone(const QString& text, const QFont& font)
 {
 	if (!m_buttonLayout) setGeneralLayout();
 	m_textZone = new QLabel(text, this);
@@ -55,7 +55,7 @@ void FadeEffectButton::addTextZone(QString text, QFont font)
 	m_buttonLayout->addWidget(m_textZone);
 }
 
-void FadeEffectButton::addIconZone(QIcon icon, QSize iconSize)
+void FadeEffectButton::addIconZone(const QIcon& icon, const QSize& iconSize)
 {
 	if (!m_buttonLayout) setGeneralLayout();
 	m_iconZone = new QPushButton(this);
@@ -74,17 +74,17 @@ QString FadeEffectButton::text()
 	else return "";
 }
 
-void FadeEffectButton::setIcon(QIcon icon)
+void FadeEffectButton::setIcon(const QIcon& icon)
 {
 	if (m_iconZone) m_iconZone->setIcon(icon);
 };
 
-void FadeEffectButton::setIconSize(QSize iconSize)
+void FadeEffectButton::setIconSize(const QSize& iconSize)
 {
 	if (m_iconZone) m_iconZone->setIconSize(iconSize);
 };
 
-void FadeEffectButton::setText(QString text)
+void FadeEffectButton::setText(const QString& text)
 {
 	if (m_textZone)
 	{
@@ -101,7 +101,7 @@ void FadeEffectButton::setTextAlignment(Qt::Alignment alignment)
 		m_textZone->setAlignment(alignment);
 }
 
-void FadeEffectButton::setFont(QFont font)
+void FadeEffectButton::setFont(const QFont& font)
 {
 	if (m_textZone) m_textZone->setFont(font); 
 	else addTextZone("", font);

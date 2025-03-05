@@ -1,6 +1,6 @@
 #pragma once
 #include "Card.h"
-#include "CloseWhenLeaveWidget.h"
+#include "View/Include/CloseWhenLeaveWidget.h"
 #include <QWidget>
 #include <QHBoxLayout>
 #include <QList>
@@ -12,7 +12,7 @@
 #include <QIntValidator>
 #include <QPropertyAnimation>
 #include <QParallelAnimationGroup>
-#include "FadeEffectButton.h"
+#include "View/Include/FadeEffectButton.h"
 
 
 class MonthOverviewCard :

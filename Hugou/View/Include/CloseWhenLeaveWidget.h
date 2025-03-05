@@ -9,7 +9,7 @@ class CloseWhenLeaveWidget :
     Q_OBJECT
 
 public:
-    CloseWhenLeaveWidget(QWidget* parent);
+    CloseWhenLeaveWidget(QWidget* parent = nullptr);
 
 signals:
     void SignalClose();

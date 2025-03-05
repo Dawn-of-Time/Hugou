@@ -1,11 +1,12 @@
 #pragma once
-#include "Assistance_PreferenceHelper.h"
-#include "Assistance_ThemeManager.h"
-#include "Controller_Preference.h"
-#include "Controller_Schedule.h"
-#include "Assistance_FloatingNoteManager.h"
-#include "Model_Hugou.h"
-#include "View_Hugou.h"
+#include "Assistance/Include/Assistance_PreferenceHelper.h"
+#include "Assistance/Include/Assistance_MessegeHelper.h"
+#include "Assistance/Include/Assistance_ThemeManager.h"
+#include "Controller/Include/Controller_Preference.h"
+#include "Controller/Include/Controller_Schedule.h"
+#include "Assistance/Include/Assistance_FloatingNoteManager.h"
+#include "Model/Include/Model_Hugou.h"
+#include "View/Include/View_Hugou.h"
 
 class HugouController : public QObject
 {

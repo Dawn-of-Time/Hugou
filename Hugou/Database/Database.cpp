@@ -1,4 +1,4 @@
-#include "Database.h"
+#include "Database/Include/Database.h"
 
 Database::Database()
 	:QObject()
@@ -206,5 +206,5 @@ bool Database::exec(QSqlQuery& query)
 
 void Database::raiseError(const QString& errorText)
 {
-	emit PreferenceHelper::getHelper()->trigger(FloatingNote::Error, 20000, errorText);
+	emit MessegeHelper::getHelper()->trigger(FloatingNote::Error, 20000, errorText);
 }

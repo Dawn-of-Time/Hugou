@@ -1,4 +1,4 @@
-﻿#include "Controller_Welcome.h"
+﻿#include "Controller/Include/Controller_Welcome.h"
 
 WelcomeController::WelcomeController(WelcomeView* welcomeView, WelcomeModel* welcomeModel)
     : QObject()

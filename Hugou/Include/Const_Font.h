@@ -12,5 +12,3 @@ const QFont buttonFont = QFont("Roboto", 12);
 const QFont tableHeaderFont = QFont("Roboto", 14, QFont::Bold);
 const QFont tableContentFont = QFont("Roboto", 12, QFont::Medium);
 const QFont tableSubcontentFont = QFont("Roboto", 10);
-// 全局顶层
-const QFont hintFont = QFont("Roboto", 18, QFont::Normal);

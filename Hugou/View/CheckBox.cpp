@@ -1,4 +1,4 @@
-#include "CheckBox.h"
+#include "View/Include/CheckBox.h"
 
 CheckBox::CheckBox(QWidget* parent, Status status)
 	:QPushButton(parent), m_status(status)
@@ -12,11 +12,12 @@ CheckBox::CheckBox(QWidget* parent, Status status)
 	m_layout->setSpacing(0);
 	m_layout->setAlignment(Qt::AlignCenter);
 	
-	m_icon = new QLabel(this);
+	m_icon = new QPushButton(this);
 	m_icon->setFixedSize(20, 20);
 	m_icon->setStyleSheet("background-color: #4F5E71");
-	m_icon->setPixmap(QPixmap(":/icon/tick_white.ico"));
-	m_icon->setAlignment(Qt::AlignCenter);
+	m_icon->setIcon(QPixmap(":/icon/tick_white.ico"));
+	m_icon->setIconSize(QSize(20, 20));
+	m_icon->setAttribute(Qt::WA_TransparentForMouseEvents);
 
 	m_effect = new QGraphicsOpacityEffect(m_icon);
 	if (m_status == Status::Checked)

@@ -1,4 +1,4 @@
-﻿#include "Controller_Hugou.h"
+﻿#include "Controller/Include/Controller_Hugou.h"
 
 HugouController::HugouController(HugouView* hugouView, HugouModel* hugouModel)
     : QObject(), m_hugouView(hugouView), m_hugouModel(hugouModel)
@@ -6,8 +6,8 @@ HugouController::HugouController(HugouView* hugouView, HugouModel* hugouModel)
     m_preferenceController = new PreferenceController(hugouView->m_preferenceView, hugouModel->m_preferenceModel);
     m_scheduleController = new ScheduleController(hugouView->m_scheduleView, hugouModel->m_scheduleModel);
 
-    // 为PreferenceHelper指定Hugou。
-    PreferenceHelper::getHelper()->setHugou(m_hugouView);
+    // 为MessegeHelper指定模式。
+    MessegeHelper::getHelper()->setMode(MessegeHelper::UIPreparedMode);
 
     m_themeManager = new ThemeManager(m_hugouView, m_hugouView->m_asideBarView, m_hugouView->m_preferenceView, m_hugouView->m_globalTopView);
     

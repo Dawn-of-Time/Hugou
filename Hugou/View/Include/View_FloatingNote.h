@@ -12,7 +12,7 @@
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QFile>
-#include "Const_Geometry.h"
+#include "Include/Const_Geometry.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -55,21 +55,21 @@ public:
     ~FloatingNote();
 
     void updateUI();
-    inline void setType(NoteType type) { this->m_type = type; };
-    inline void setContent(QString content) { this->m_content = content; };
-    inline void setSubcontent(QString subcontent) { this->m_subcontent = subcontent; };
-    inline void setHiddenPos(QPoint hiddenPos) { m_floatingNoteHiddenPos = hiddenPos; }
-    inline void setShownPos(QPoint shownPos) { m_floatingNoteShownPos = shownPos; }
+    inline void setType(const NoteType& type) { this->m_type = type; };
+    inline void setContent(const QString& content) { this->m_content = content; };
+    inline void setSubcontent(const QString& subcontent) { this->m_subcontent = subcontent; };
+    inline void setHiddenPos(const QPoint& hiddenPos) { m_floatingNoteHiddenPos = hiddenPos; }
+    inline void setShownPos(const QPoint shownPos) { m_floatingNoteShownPos = shownPos; }
     QPropertyAnimation* raiseNote();
     QPropertyAnimation* dropNote();
 
 signals:
-    void SignalButtonClicked(Feedback feedback);
+    void SignalButtonClicked(const Feedback& feedback);
     void SignalDealNow(FloatingNote* floatingNote);
     void SignalDealLater(FloatingNote* floatingNote);
 
 protected slots:
-    void SlotButtonClicked(Feedback feedback);
+    void SlotButtonClicked(const Feedback& feedback);
     void SlotTimekeeping();
 
 private:
@@ -81,7 +81,7 @@ private:
     QVBoxLayout* m_floatingNoteLayout;
     QVBoxLayout* m_floatingNoteFrameLayout;
     QHBoxLayout* m_signLayout;
-    QLabel* m_signIcon;
+    QPushButton* m_signIcon;
     QLabel* m_signTitle;
     QLabel* m_timekeepingLabel;
     QHBoxLayout* m_buttonLayout;
@@ -95,13 +95,13 @@ private:
     QTimer* m_updateTimer;
     QElapsedTimer* m_timer;
 
-    const std::map<NoteType, QPixmap> m_typeIcon =
+    const std::map<NoteType, QIcon> m_typeIcon =
     {
-        {Success, QPixmap(":/icon/success.ico")},
-        {Information, QPixmap(":/icon/information.ico")},
-        {Dialog, QPixmap(":/icon/dialog.ico")},
-        {Warning, QPixmap(":/icon/warning.ico")},
-        {Error, QPixmap(":/icon/error.ico")}
+        {Success, QIcon(":/icon/success.ico")},
+        {Information, QIcon(":/icon/information.ico")},
+        {Dialog, QIcon(":/icon/dialog.ico")},
+        {Warning, QIcon(":/icon/warning.ico")},
+        {Error, QIcon(":/icon/error.ico")}
     };
 
     void setupUi();

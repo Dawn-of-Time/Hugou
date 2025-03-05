@@ -1,4 +1,4 @@
-#include "View_FloatingNotePanel.h"
+#include "View/Include/View_FloatingNotePanel.h"
 
 FloatingNotePanel::FloatingNotePanel(QWidget* parent) :
 	QWidget(parent)
@@ -90,7 +90,7 @@ void FloatingNotePanel::setupUi()
     styleFile.close();
 }
 
-void FloatingNotePanel::updateProperty(int buttonIndex)
+void FloatingNotePanel::updateProperty(const int buttonIndex)
 {
     m_floatingNoteButtonList[buttonIndex]->setProperty("status", "current");
     for (QPushButton* button : m_floatingNoteButtonList)

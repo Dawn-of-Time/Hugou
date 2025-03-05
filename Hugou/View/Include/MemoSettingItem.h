@@ -1,6 +1,7 @@
 #pragma once
-#include "Struct_Memo.h"
-#include "View_MemoTypeConfig.h"
+#include "Include/Struct_Memo.h"
+#include "View/Include/View_MemoTypeConfig.h"
+#include "MemoTypeWidget.h"
 #include <QGraphicsEffect>
 #include <QLabel>
 #include <QLineEdit>
@@ -40,22 +41,22 @@ class MemoTypeItem :
 {
     Q_OBJECT
 public:
-    MemoTypeItem(QWidget* parent = nullptr);
-    void addMemoType(MemoType memoType);
-    void setPointer(QList<MemoTypeLabel>* typeLabelList, QMap<int, QList<MemoType>>* typeLabelMap, QList<MemoType>* typeList, QList<MemoType>* priorityTypeList);
+    MemoTypeItem(const QList<MemoTypeLabel*>& typeLabelList, QMap<int, QList<MemoType*>>& typeLabelMap, QList<MemoType*>& typeList, QWidget* parent = nullptr);
+    void addMemoType(MemoType& memoType);
 
 private:
+    QMap<int, QList<MemoType*>>& m_typeLabelMap;
+    const QList<MemoTypeLabel*>& m_typeLabelList;
+    QList<MemoType*>& m_typeList;
     int m_count = 0;
+    QMap<MemoType*, MemoTypeWidget*> m_memoTypeWidgetMap;
+    QList<MemoType*> m_priorityTypeList;
+    QMap<MemoType*, MemoType*> m_oldNewPriorityDisplayMemoTypeMap = {};
+    QMap<MemoType*, MemoType*> m_oldNewMemoTypeMap = {};
     QHBoxLayout* m_contentLayout;
     QWidget* m_typeListWidget;
     QHBoxLayout* m_typeListWidgetLayout;
     QPushButton* m_addTypeButton;
-    QList<QWidget*> m_memoTypeWidgetList = {};
-    QMap<int, MemoTypeLabel>* m_labelMap;
-    QMap<int, QList<MemoType>>* m_typeLabelMap;
-    QList<MemoTypeLabel>* m_typeLabelList;
-    QList<MemoType>* m_typeList;
-    QList<MemoType>* m_priorityTypeList;
     void setupUi();
     void showMemoTypeConfigView();
 };

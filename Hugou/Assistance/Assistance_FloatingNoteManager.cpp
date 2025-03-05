@@ -1,4 +1,4 @@
-﻿#include "Assistance_FloatingNoteManager.h"
+﻿#include "Assistance/Include/Assistance_FloatingNoteManager.h"
 
 FloatingNoteManager::FloatingNoteManager() :
     QObject()

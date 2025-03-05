@@ -7,8 +7,8 @@
 #include <QPainter>
 #include <QBitmap>
 #include <QFont>
-#include "Const_Geometry.h"
-#include "FadeEffectButton.h"
+#include "Include/Const_Geometry.h"
+#include "View/Include/FadeEffectButton.h"
 
 class AsideBarView : public QWidget
 {
@@ -29,6 +29,7 @@ private:
         AsideButton,
         Stretch
     };
+    // ÒÔ¿Õ×Ö·û´®·Ö¸ôÕÂ(Chapter)
     const QStringList asideBarList =
     {
         tr("Plan"),
@@ -67,7 +68,7 @@ private:
         {tr("Preference"), qMakePair(ItemType::AsideButton, QStringList({":/icon/preference_default.ico", ":/icon/preference_current.ico"}))}
     };
     void setupUi();
-    QLabel* generateTitle(QString titleText);
-    FadeEffectButton* generateButton(QString buttonText);
+    QLabel* generateTitle(const QString& titleText);
+    FadeEffectButton* generateButton(const QString& buttonText);
     void switchOverStackedWidget();
 };

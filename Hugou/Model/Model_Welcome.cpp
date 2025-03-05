@@ -1,4 +1,4 @@
-﻿#include "Model_Welcome.h"
+﻿#include "Model/Include/Model_Welcome.h"
 
 WelcomeModel::WelcomeModel()
     : QObject()

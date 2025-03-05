@@ -1,4 +1,4 @@
-﻿#include "Controller_preference.h"
+﻿#include "Controller/Include/Controller_preference.h"
 
 PreferenceController::PreferenceController(PreferenceView* preferenceView, PreferenceModel* preferenceModel)
     : QObject(), m_preferenceView(preferenceView), m_preferenceModel(preferenceModel)

@@ -1,4 +1,4 @@
-#include "View_TitleBar.h"
+#include "View/Include/View_TitleBar.h"
 
 TitleBarView::TitleBarView(QWidget* parent) :
     QWidget(parent)
@@ -114,12 +114,12 @@ void TitleBarView::setupUi()
     styleFile.close();
 }
 
-bool TitleBarView::isOnMaxButton(QPoint windowPos)
+bool TitleBarView::isOnMaxButton(const QPoint& windowPos)
 {
     return QRect(m_scaleButton->mapTo(this->parentWidget(), QPoint(0, 0)), m_scaleButton->size()).contains(windowPos);
 }
 
-bool TitleBarView::isOnDragZone(QPoint windowPos)
+bool TitleBarView::isOnDragZone(const QPoint& windowPos)
 {
     return QRect(m_leftDragZone->mapTo(this->parentWidget(), QPoint(0, 0)), m_leftDragZone->size()).contains(windowPos) ||
         QRect(m_rightDragZone->mapTo(this->parentWidget(), QPoint(0, 0)), m_rightDragZone->size()).contains(windowPos);

@@ -77,5 +77,6 @@
         <file>icon/application_repo_default.ico</file>
         <file>icon/forward_schedule_viewSwitchBar.ico</file>
         <file>qt/etc/qt.conf</file>
+        <file>icon/recall.ico</file>
     </qresource>
 </RCC>

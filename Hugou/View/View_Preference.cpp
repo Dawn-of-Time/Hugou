@@ -1,4 +1,4 @@
-#include "View_Preference.h"
+#include "View/Include/View_Preference.h"
 
 PreferenceView::PreferenceView(QWidget* parent) :
 	QWidget(parent)
@@ -33,7 +33,7 @@ void PreferenceView::setupUi()
     m_searchLineEdit->setFixedHeight(30);
     m_searchLineEdit->setObjectName("searchLineEdit");
     m_searchLineEdit->setPlaceholderText(searchText);
-    m_searchLineEdit->setFont(QFont("Hind Siliguri", 13));
+    m_searchLineEdit->setFont(QFont("NeverMind", 13));
     QPalette searchPalette = m_searchLineEdit->palette();
     searchPalette.setColor(searchPalette.PlaceholderText, QColor("#cccccc"));
     m_searchButton = new QPushButton(m_searchLineEdit);
@@ -51,10 +51,10 @@ void PreferenceView::setupUi()
     m_preferenceTreeWidget = new QTreeWidget(m_preferenceTreeStackedWidget);
     m_preferenceTreeWidget->setHeaderHidden(true);
     formTree();
-    m_preferenceTreeWidget->setFont(QFont("Hind Siliguri", 13));
+    m_preferenceTreeWidget->setFont(QFont("NeverMind", 13));
     m_searchpreferenceNullLabel = new QLabel("No matches were found.", m_preferenceTreeStackedWidget);
     m_searchpreferenceNullLabel->setVisible(false); // 默认不显示“未找到匹配项”
-    m_searchpreferenceNullLabel->setFont(QFont("Hind Siliguri", 13));
+    m_searchpreferenceNullLabel->setFont(QFont("NeverMind", 13));
     m_searchpreferenceNullLabel->setAlignment(Qt::AlignTop);
     m_preferenceTreeStackedWidget->addWidget(m_preferenceTreeWidget);
     m_preferenceTreeStackedWidget->addWidget(m_searchpreferenceNullLabel);

@@ -4,7 +4,7 @@
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QDir>
-#include "Assistance_PreferenceHelper.h"
+#include "Assistance/Include/Assistance_MessegeHelper.h"
 
 class Database :
     public QObject

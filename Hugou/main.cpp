@@ -1,16 +1,14 @@
-﻿#include "View_Welcome.h"
-#include "Model_Welcome.h"
-#include "Controller_Welcome.h"
-#include "View_Hugou.h"
-#include "Model_Hugou.h"
-#include "Controller_Hugou.h"
-#include "Database.h"
+﻿#include "View/Include/View_Welcome.h"
+#include "Model/Include/Model_Welcome.h"
+#include "Controller/Include/Controller_Welcome.h"
+#include "View/Include/View_Hugou.h"
+#include "Model/Include/Model_Hugou.h"
+#include "Controller/Include/Controller_Hugou.h"
+#include "Database/Include/Database.h"
 #include <QtWidgets/QApplication>
-#include <QFontDatabase>
-#include <QQmlEngine>
-#include <QDir>
+#include <QToolTip>
 #include "vld.h"
-
+#include "Include/Global_Hugou.h"
 
 int main(int argc, char* argv[])
 {
@@ -22,20 +20,14 @@ int main(int argc, char* argv[])
     qputenv("QT_SCALE_FACTOR", QString::number(0.9).toLatin1());
 
     QApplication a(argc, argv);
-    // 注册qml
-    qmlRegisterType<HugouView>("HugouModules", 1, 0, "Hugou");
-    // 字体载入
-    QString fontDir = "Resource/font";
-    QDir dir(fontDir);
-    QStringList files = dir.entryList(QDir::Files);
-    foreach(const QString & fileName, files) {
-        QString filePath = dir.absoluteFilePath(fileName);
-        QFontDatabase::addApplicationFont(filePath);
-    }
+    a.setEffectEnabled(Qt::UI_AnimateTooltip, false);
+    QToolTip::setFont(QFont("NeverMind", 10, QFont::Bold));
+    
     // 创建数据库
     Database db;
     // 读取配置
     PreferenceHelper* helper = PreferenceHelper::getHelper();
+
     // 检查是否是首次登录
     //if (helper->preferenceMap["firstBoot"] == "true")
     //{
@@ -50,6 +42,7 @@ int main(int argc, char* argv[])
     HugouModel hugouModel;
     HugouView hugouView;
     HugouController hugouController(&hugouView, &hugouModel);
+    globalHugou = &hugouView;
     hugouView.show();
     return a.exec();
 }

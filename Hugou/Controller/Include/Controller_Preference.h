@@ -1,8 +1,8 @@
 #pragma once
 
-#include "View_Preference.h"
-#include "Model_Preference.h"
-#include "Assistance_PreferenceHelper.h"
+#include "View/Include/View_Preference.h"
+#include "Model/Include/Model_Preference.h"
+#include "Assistance/Include/Assistance_PreferenceHelper.h"
 
 class PreferenceController : public QObject
 {

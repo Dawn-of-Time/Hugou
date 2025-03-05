@@ -1,4 +1,6 @@
-#include "MemoSettingItem.h"
+#include "View/Include/MemoSettingItem.h"
+
+extern QWidget* globalHugou;
 
 MemoSettingItem::MemoSettingItem(QWidget* parent)
 	:QWidget(parent)
@@ -31,14 +33,21 @@ void MemoSettingItem::setupUi()
 	m_titleLayout->addStretch();
 
 	m_content = new QWidget(this);
+	m_content->setObjectName("memoSettingItemContent");
+	m_content->setStyleSheet("QWidget #memoSettingItemContent{background-color: rgba(255, 255, 255, 0.5); border-radius: 10px}");
 
 	m_itemLayout->addWidget(m_titleWidget);
 	m_itemLayout->addWidget(m_content);
 }
 
-MemoTypeItem::MemoTypeItem(QWidget* parent)
-	:MemoSettingItem(parent)
+MemoTypeItem::MemoTypeItem(const QList<MemoTypeLabel*>& typeLabelList, QMap<int, QList<MemoType*>>& typeLabelMap, QList<MemoType*>& typeList, QWidget* parent)
+	:MemoSettingItem(parent), m_typeLabelList(typeLabelList), m_typeLabelMap(typeLabelMap), m_typeList(typeList)
 {
+	for (MemoType* memoType: typeList)
+		if (memoType->priority) m_priorityTypeList.append(memoType);
+	std::sort(m_priorityTypeList.begin(), m_priorityTypeList.end(), [](MemoType* m1, MemoType* m2) {
+		return std::tie(m1->priority) < std::tie(m2->priority);
+		});
 	setupUi();
 	connect(m_addTypeButton, &QPushButton::clicked, this, &MemoTypeItem::showMemoTypeConfigView);
 }
@@ -60,6 +69,9 @@ void MemoTypeItem::setupUi()
 	m_typeListWidgetLayout->setContentsMargins(0, 0, 0, 0);
 	m_typeListWidgetLayout->setSpacing(10);
 
+	for (MemoType* memoType : m_priorityTypeList)
+		addMemoType(*memoType);
+
 	QWidget* spacer = new QWidget(m_content);
 	spacer->setFixedSize(2, 45);
 	spacer->setStyleSheet("background-color: black");
@@ -71,7 +83,7 @@ void MemoTypeItem::setupUi()
 	addTypeButtonLayout->setContentsMargins(0, 0, 0, 0);
 	addTypeButtonLayout->setSpacing(4);
 	QPushButton* icon = new QPushButton(m_addTypeButton);
-	icon->setFixedSize(36, 36);
+	icon->setFixedSize(40, 40);
 	icon->setStyleSheet("background-color: #EAF9FE; border-radius: 5px; border: none");
 	icon->setIcon(QIcon(":/icon/preference_default.ico"));
 	icon->setIconSize(QSize(16, 16));
@@ -90,52 +102,41 @@ void MemoTypeItem::setupUi()
 	m_contentLayout->addWidget(m_addTypeButton);
 }
 
-void MemoTypeItem::addMemoType(MemoType memoType)
+void MemoTypeItem::addMemoType(MemoType& memoType)
 {
 	// ×ÖÌåÇåµ¥
 	QFont labelFont = QFont("NeverMind", 10, QFont::Normal);
 
 	if (m_count < 5)
 	{
-		QPushButton* memoTypeWidget = new QPushButton(m_content);
-		memoTypeWidget->setFixedSize(36, 60);
-		QVBoxLayout* memoTypeWidgetLayout = new QVBoxLayout(memoTypeWidget);
-		memoTypeWidgetLayout->setContentsMargins(0, 0, 0, 0);
-		memoTypeWidgetLayout->setSpacing(4);
-		QLabel* icon = new QLabel(memoTypeWidget);
-		icon->setAlignment(Qt::AlignCenter);
-		icon->setFixedSize(36, 36);
-		icon->setStyleSheet(QString("background-color: %1; border-radius: 5px").arg(memoType.color.name()));
-		QLabel* label = new QLabel(memoType.name, memoTypeWidget);
-		label->setAlignment(Qt::AlignHCenter);
-		label->setFixedSize(36, 20);
-		label->setFont(labelFont);
-
-		memoTypeWidgetLayout->setAlignment(Qt::AlignHCenter);
-		memoTypeWidgetLayout->addWidget(icon);
-		memoTypeWidgetLayout->addWidget(label);
-
+		MemoTypeWidget* memoTypeWidget = new MemoTypeWidget(memoType, m_content);
 		m_typeListWidgetLayout->addWidget(memoTypeWidget);
 		m_count++;
+		m_memoTypeWidgetMap.insert(&memoType, memoTypeWidget);
 	}
-}
-
-void MemoTypeItem::setPointer(QList<MemoTypeLabel>* typeLabelList, QMap<int, QList<MemoType>>* typeLabelMap, QList<MemoType>* typeList, QList<MemoType>* priorityTypeList)
-{
-	m_typeLabelList = typeLabelList;
-	m_typeLabelMap = typeLabelMap;
-	m_typeList = typeList;
-	m_priorityTypeList = priorityTypeList;
 }
 
 void MemoTypeItem::showMemoTypeConfigView()
 {
-	MemoTypeConfigView* view = new MemoTypeConfigView();
-	for (QList<MemoType>::iterator it = m_priorityTypeList->begin(); it != m_priorityTypeList->end(); ++it)
-		view->addPriorityType(it);
-	for (QList<MemoTypeLabel>::iterator it = m_typeLabelList->begin(); it != m_typeLabelList->end(); ++it)
-		view->addTypeLabelAndType(it->name, &(m_typeLabelMap->find(it->ID).value()));
+	MemoTypeConfigView* view = new MemoTypeConfigView(m_oldNewPriorityDisplayMemoTypeMap);
+	for (MemoType* memoType : m_priorityTypeList)
+		view->addPriorityType(*memoType);
+	for (MemoTypeLabel* memoTypeLabel : m_typeLabelList)
+		view->addTypeLabelAndType(memoTypeLabel->name, m_typeLabelMap[memoTypeLabel->ID]);
+		
+	connect(view, &MemoTypeConfigView::SignalClose, [&]()
+		{
+			for (QMap<MemoType*, MemoType*>::iterator it = m_oldNewPriorityDisplayMemoTypeMap.begin(); it != m_oldNewPriorityDisplayMemoTypeMap.end(); it++)
+			{
+				m_memoTypeWidgetMap[it.key()]->updateUi(*it.value());
+				it.key()->name = it.value()->name;
+				it.key()->color = it.value()->color;
+			}
+			qDeleteAll(m_oldNewPriorityDisplayMemoTypeMap);
+			m_oldNewPriorityDisplayMemoTypeMap.clear();
+		});
 	view->show();
+	view->move(globalHugou->pos() + QPoint((globalHugou->width() - view->width()) / 2, (globalHugou->height() - view->height()) / 2));
 }
 
 MemoTimeItem::MemoTimeItem(QWidget* parent)
@@ -179,7 +180,7 @@ void MemoTimeItem::setupUi()
 	m_off->setAttribute(Qt::WA_TransparentForMouseEvents);
 	m_moreButton = new QPushButton(m_reminderWidget);
 	m_moreButton->setFixedSize(25, 25);
-	m_moreButton->setIconSize(QSize(25, 25));
+	m_moreButton->setIconSize(QSize(16, 16));
 	m_moreButton->setIcon(QIcon(":/icon/more.ico"));
 	m_moreButton->setStyleSheet("border: none; background-color: transparent");
 	m_moreButtonEffect = new QGraphicsOpacityEffect(m_moreButton);
@@ -198,8 +199,6 @@ void MemoTimeItem::setupUi()
 	m_contentLayout->setAlignment(Qt::AlignHCenter);
 	
 	m_dateWidget = new QWidget(m_content);
-	m_dateWidget->setObjectName("dateWidget");
-	m_dateWidget->setStyleSheet("QWidget #dateWidget{background-color: rgba(255, 255, 255, 0.5); border-radius: 10px}");
 	m_dateWidget->setFixedSize(300, 250);
 	m_dateWidgetLayout = new QVBoxLayout(m_dateWidget);
 	m_dateWidgetLayout->setContentsMargins(10, 10, 10, 10);
@@ -285,7 +284,6 @@ void MemoTimeItem::setupUi()
 	m_timeWidget = new QWidget(m_content);
 	m_timeWidget->setObjectName("timeWidget");
 	m_timeWidget->setFixedHeight(55);
-	m_timeWidget->setStyleSheet("QWidget #timeWidget {border: 2px dotted #377FED}");
 	m_timeWidgetLayout = new QHBoxLayout(m_timeWidget);
 	m_timeWidgetLayout->setContentsMargins(3, 0, 3, 0);
 	m_timeWidgetLayout->setSpacing(5);
@@ -502,11 +500,11 @@ void MemoTimeItem::switchReminder()
 		QPropertyAnimation* moveAnimation = new QPropertyAnimation(m_reminderButton, "pos", this);
 		moveAnimation->setStartValue(m_reminderButton->pos());
 		moveAnimation->setEndValue(QPoint(25, 0));
-		moveAnimation->setDuration(200);
+		moveAnimation->setDuration(400);
 		QPropertyAnimation* fadeOutAnimation = new QPropertyAnimation(m_moreButtonEffect, "opacity", this);
 		fadeOutAnimation->setStartValue(1);
 		fadeOutAnimation->setEndValue(0);
-		fadeOutAnimation->setDuration(200);
+		fadeOutAnimation->setDuration(400);
 		m_animationGroup->addAnimation(fadeOutAnimation);
 		m_animationGroup->addAnimation(moveAnimation);
 	}
@@ -517,11 +515,11 @@ void MemoTimeItem::switchReminder()
 		QPropertyAnimation* moveAnimation = new QPropertyAnimation(m_reminderButton, "pos", this);
 		moveAnimation->setStartValue(m_reminderButton->pos());
 		moveAnimation->setEndValue(QPoint(0, 0));
-		moveAnimation->setDuration(200);
+		moveAnimation->setDuration(400);
 		QPropertyAnimation* fadeInAnimation = new QPropertyAnimation(m_moreButtonEffect, "opacity", this);
 		fadeInAnimation->setStartValue(0);
 		fadeInAnimation->setEndValue(1);
-		fadeInAnimation->setDuration(200);
+		fadeInAnimation->setDuration(400);
 		m_animationGroup->addAnimation(moveAnimation);
 		m_animationGroup->addAnimation(fadeInAnimation);
 	}
@@ -744,7 +742,6 @@ void MemoDetailItem::setupUi()
 	setMinimumHeight(80);
 
 	m_title->setText("Detail");
-	m_content->setStyleSheet("border-radius: 10px; background-color: rgba(255, 255, 255, 0.5)");
 	m_contentLayout = new QVBoxLayout(m_content);
 	m_contentLayout->setContentsMargins(12, 5, 12, 5);
 	m_contentLayout->setSpacing(0);
@@ -753,7 +750,7 @@ void MemoDetailItem::setupUi()
 	m_detail->setAcceptRichText(false);
 	m_detail->setUndoRedoEnabled(true);
 	m_detail->setFont(detailFont);
-	m_detail->setStyleSheet("background-color: transparent");
+	m_detail->setStyleSheet("background-color: transparent; border: none");
 
 	m_contentLayout->addWidget(m_detail);
 }
@@ -774,8 +771,6 @@ void MemoSubMemoItem::setupUi()
 	setMinimumHeight(60);
 
 	m_title->setText("SubMemo");
-	m_content->setObjectName("subMemoContent");
-	m_content->setStyleSheet("QWidget #subMemoContent {border-radius: 10px; background-color: rgba(255, 255, 255, 0.5)}");
 	m_contentLayout = new QVBoxLayout(m_content);
 	m_contentLayout->setContentsMargins(12, 5, 12, 5);
 	m_contentLayout->setSpacing(10);

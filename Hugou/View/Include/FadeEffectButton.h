@@ -15,16 +15,16 @@ class FadeEffectButton :
 
 public:
 	FadeEffectButton(QWidget* parent);
-	FadeEffectButton(QIcon icon, QSize iconSize, QString text, QFont font, QWidget* parent);
-	FadeEffectButton(QIcon icon, QSize iconSize, QWidget* parent);
-	FadeEffectButton(QString text, QFont font, QWidget* parent);
+	FadeEffectButton(const QIcon& icon, const QSize& iconSize, const QString& text, const QFont& font, QWidget* parent);
+	FadeEffectButton(const QIcon& icon, const QSize& iconSize, QWidget* parent);
+	FadeEffectButton(const QString& text, const QFont& font, QWidget* parent);
 
 	QString text();
-	void setIcon(QIcon icon);
-	void setIconSize(QSize size);
-	void setText(QString text);
+	void setIcon(const QIcon& icon);
+	void setIconSize(const QSize& size);
+	void setText(const QString& text);
 	void setTextAlignment(Qt::Alignment alignment);
-	void setFont(QFont font);
+	void setFont(const QFont& font);
 	inline void setStatus(bool isActive) { m_status = isActive; }
 	void setFixedSize(int w, int h);
 	void setFixedHeight(int h);
@@ -43,8 +43,8 @@ private:
 
 	void setGeneralLayout();
 	void setGeneralStyle();
-	void addTextZone(QString text, QFont font);
-	void addIconZone(QIcon icon, QSize iconSize);
+	void addTextZone(const QString& text, const QFont& font);
+	void addIconZone(const QIcon& icon, const QSize& iconSize);
 	void enableGraphicsEffect();
 	void disableGraphicsEffect();
 	void enterEvent(QEnterEvent* event) override;

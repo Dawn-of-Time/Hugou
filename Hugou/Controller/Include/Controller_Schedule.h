@@ -1,8 +1,8 @@
 #pragma once
 #include <QObject>
-#include "View_Schedule.h"
-#include "Model_Schedule.h"
-#include "Controller_MemoSetting.h"
+#include "View/Include/View_Schedule.h"
+#include "Model/Include/Model_Schedule.h"
+#include "Controller/Include/Controller_MemoSetting.h"
 
 class ScheduleController :
     public QObject
@@ -19,6 +19,5 @@ private:
     ScheduleModel* m_scheduleModel;
     MemoSettingController* m_memoSettingController;
 	QList<MemoSettingController*> m_memoSettingControllerList;
-    void addMemo();
 };
 

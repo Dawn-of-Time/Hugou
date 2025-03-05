@@ -1,3 +1,4 @@
+#pragma once
 #include <QPushButton>
 #include <QPainter>
 #include <QPainterPath>
@@ -5,6 +6,7 @@
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QGraphicsEffect>
+#include "Include/Const_Geometry.h"
 
 class CheckBox : public QPushButton {
     Q_OBJECT
@@ -22,7 +24,7 @@ private:
     Status m_status;
     QPropertyAnimation* m_animation;
     QVBoxLayout* m_layout;
-    QLabel* m_icon;
+    QPushButton* m_icon;
     QGraphicsOpacityEffect* m_effect;
     void changeStatus();
     void enableGraphicsEffect();

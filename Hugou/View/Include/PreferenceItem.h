@@ -7,9 +7,9 @@
 #include <QWidgetAction>
 #include <QComboBox>
 #include <QValidator>
-#include "Assistance_ButtonHoverWatcher.h"
-#include "Assistance_PreferenceHelper.h"
-#include "Assistance_ComboboxWheelWatcher.h"
+#include "Assistance/Include/Assistance_ButtonHoverWatcher.h"
+#include "Assistance/Include/Assistance_PreferenceHelper.h"
+#include "Assistance/Include/Assistance_ComboboxWheelWatcher.h"
 
 class PreferenceItem
 {
@@ -56,7 +56,7 @@ class LabelTitleItem : public PreferenceItem
 public:
     QString text;
     Level level;
-    LabelTitleItem(QString text, Level level)
+    LabelTitleItem(const QString& text, const Level& level)
         : text(text), level(level) {
         itemType = ItemType::LabelTitleType;
     };
@@ -67,7 +67,7 @@ class LabelHintItem : public PreferenceItem
 {
 public:
     QString content;
-    LabelHintItem(QString content) : content(content) { itemType = ItemType::LabelHintType; };
+    LabelHintItem(const QString& content) : content(content) { itemType = ItemType::LabelHintType; };
     void generatePreferenceItem(QListWidget* preferenceContentListWidget, PreferenceMap& PreferenceMap) override;
 };
 
@@ -90,7 +90,7 @@ class ComboboxItem : public PreferenceItem
 public:
     QString m_name;
     QStringList m_list;
-    ComboboxItem(QString name, QStringList list)
+    ComboboxItem(const QString& name, const QStringList& list)
         : m_name(name), m_list(list) {
         itemType = ItemType::ComboboxType;
     };
@@ -102,7 +102,7 @@ class LineEditItem : public PreferenceItem
 public:
     QString m_name;
     QValidator* m_validator;
-    LineEditItem(QString name, QValidator* validator = nullptr) 
+    LineEditItem(const QString& name, QValidator* validator = nullptr)
         : m_name(name), m_validator(validator){
         itemType = ItemType::LineEditType;
     };
@@ -114,7 +114,7 @@ class LineEditWithTrailingButtonItem : public PreferenceItem
 public:
     QPushButton* button;
     QString buttonName;
-    LineEditWithTrailingButtonItem(QPushButton* button, QString buttonName)
+    LineEditWithTrailingButtonItem(QPushButton* button, const QString& buttonName)
         : button(button), buttonName(buttonName) {
         itemType = ItemType::LineEditWithTrailingButtonType;
     };

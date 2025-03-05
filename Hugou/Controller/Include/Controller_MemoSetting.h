@@ -1,7 +1,7 @@
 #pragma once
 #include <QObject>
-#include "Model_MemoSetting.h"
-#include "View_MemoSetting.h"
+#include "Model/Include/Model_MemoSetting.h"
+#include "View/Include/View_MemoSetting.h"
 
 class MemoSettingController :
     public QObject
@@ -12,6 +12,7 @@ public:
     MemoSettingController(MemoSettingView* memoSettingView, MemoSettingModel* memoSettingModel);
     ~MemoSettingController();
     void applyTemplate(const MemoTemplate& memoTemplate);
+    void addMemoSettingItem(const MemoSettingItemType& itemType);
 
 private:
     MemoSettingView* m_memoSettingView;

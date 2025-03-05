@@ -1,4 +1,4 @@
-#include "Assistance_ButtonHoverWatcher.h"
+#include "Assistance/Include/Assistance_ButtonHoverWatcher.h"
 
 ButtonHoverWatcher::ButtonHoverWatcher(const QString& default_res, const QString& hover_res, QObject* parent) :
     QObject(parent)
@@ -7,29 +7,29 @@ ButtonHoverWatcher::ButtonHoverWatcher(const QString& default_res, const QString
     this->hover_res = hover_res;
 }
 
-ButtonHoverWatcher::ButtonHoverWatcher(QLabel* backgroundLabel, const QString& default_color, const QString& hover_color, QObject* parent)
-{
-    this->backgroundLabel = backgroundLabel;
-    this->default_color = default_color;
-    this->hover_color = hover_color;
-}
-
-ButtonHoverWatcher::ButtonHoverWatcher(const QString& default_res, const QString& hover_res,
-    QLabel* backgroundLabel, const QString& default_color, const QString& hover_color, QObject* parent)
-{
-    this->default_res = default_res;
-    this->hover_res = hover_res;
-    this->backgroundLabel = backgroundLabel;
-    this->default_color = default_color;
-    this->hover_color = hover_color;
-}
-
-ButtonHoverWatcher::ButtonHoverWatcher(const QPoint& startPos, const QPoint& endPos, Direction direction, QObject* parent)
-{
-    this->startPos = startPos;
-    this->endPos = endPos;
-    this->direction = direction;
-}
+//ButtonHoverWatcher::ButtonHoverWatcher(QLabel* backgroundLabel, const QString& default_color, const QString& hover_color, QObject* parent)
+//{
+//    this->backgroundLabel = backgroundLabel;
+//    this->default_color = default_color;
+//    this->hover_color = hover_color;
+//}
+//
+//ButtonHoverWatcher::ButtonHoverWatcher(const QString& default_res, const QString& hover_res,
+//    QLabel* backgroundLabel, const QString& default_color, const QString& hover_color, QObject* parent)
+//{
+//    this->default_res = default_res;
+//    this->hover_res = hover_res;
+//    this->backgroundLabel = backgroundLabel;
+//    this->default_color = default_color;
+//    this->hover_color = hover_color;
+//}
+//
+//ButtonHoverWatcher::ButtonHoverWatcher(const QPoint& startPos, const QPoint& endPos, Direction direction, QObject* parent)
+//{
+//    this->startPos = startPos;
+//    this->endPos = endPos;
+//    this->direction = direction;
+//}
 
 ButtonHoverWatcher::~ButtonHoverWatcher()
 {}

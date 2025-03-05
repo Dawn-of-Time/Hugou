@@ -27,6 +27,10 @@ struct MemoTypeLabel
 {
     int ID = -1;
     QString name = "";
+
+    bool operator!=(const MemoTypeLabel& other) const {
+        return ID != other.ID || name != other.name;
+    }
 };
 
 struct MemoType
@@ -36,13 +40,13 @@ struct MemoType
     QColor color = QColor();
     MemoTypeLabel label;
     int priority = 0;
-};
 
-const MemoTemplate defaultTemplate = MemoTemplate
-{
-    "Default",
-    QColor("#377FED"),
-    { Type, Time, ImportanceAndUrgency, Detail, SubMemo, Award, Reference }
+    bool operator<(const MemoType& other) const {
+        return ID < other.ID;
+    }
+    bool operator!=(const MemoType& other) const {
+        return ID != other.ID || name != other.name || color != other.color || label != other.label || priority != other.priority;
+    }
 };
 
 struct Memo
@@ -50,7 +54,12 @@ struct Memo
     int ID = -1;
     QString sketch = "";
     int memoType = 0;
-    MemoTemplate memoTemplate = defaultTemplate;
+    MemoTemplate memoTemplate = MemoTemplate
+    {
+        "Default",
+        QColor("#377FED"),
+        { Type, Time, ImportanceAndUrgency, Detail, SubMemo, Award, Reference }
+    };
     bool status = false;
     bool postponeFlag = false;
     QDateTime timePeriod_f = QDateTime();

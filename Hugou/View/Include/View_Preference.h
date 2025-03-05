@@ -12,11 +12,9 @@
 #include <QFile>
 #include <math.h>
 #include <QTextLayout>
-#include "Assistance_ButtonHoverWatcher.h"
-#include "Assistance_PreferenceHelper.h"
+#include "Assistance/Include/Assistance_ButtonHoverWatcher.h"
+#include "Assistance/Include/Assistance_PreferenceHelper.h"
 #include "PreferenceItem.h"
-
-QT_BEGIN_NAMESPACE
 
 class PreferenceController;
 
@@ -58,22 +56,22 @@ private:
         new LabelTitleItem("Appearance", PreferenceItem::Level::Second),
         new LabelTitleItem("Theme", PreferenceItem::Level::Third),
         new ComboboxItem("theme", preferenceValueMap["theme"]),
-        new LabelHintItem("I will be launching the theme preview feature in the near future."),
+        new LabelHintItem(tr("I will be launching the theme preview feature in the near future.")),
         new SectionSpaceItem(),
         new LabelTitleItem("Country/Region", PreferenceItem::Level::Second),
         new LabelTitleItem("Language", PreferenceItem::Level::Third),
         new ComboboxItem("language", preferenceValueMap["language"]),
-        new LabelHintItem("More and more languages are getting support. The language currently in the pipeline is: Chinese."),
+        new LabelHintItem(tr("More and more languages are getting support. The language currently in the pipeline is: Chinese.")),
         new ChapterSpaceItem(),
 
         new LabelTitleItem("Task", PreferenceItem::Level::First),
         new LabelTitleItem("Recycle Bin", PreferenceItem::Level::Second),
         new LabelTitleItem("Enable", PreferenceItem::Level::Third),
         new ComboboxItem("recycleBin", preferenceValueMap["recycleBin"]),
-        new LabelHintItem("Enable this feature: When you delete a task, it will be moved to the recycle bin and completely destroyed after retention period."),
+        new LabelHintItem(tr("Enable this feature: When you delete a task, it will be moved to the recycle bin and completely destroyed after retention period.")),
         new LabelTitleItem("Retention Period", PreferenceItem::Level::Third),
         new LineEditItem("retentionPeriod", new QIntValidator(1, 30)),
-        new LabelHintItem("Set the number of days you expect to retain. Limit it to 1-30."),
+        new LabelHintItem(tr("Set the number of days you expect to retain. Limit it to 1-30.")),
         new ChapterSpaceItem()
     };
 
@@ -86,5 +84,3 @@ private:
     void switchOverSearchButton(bool msg);
     void showEvent(QShowEvent* event) override;
 };
-
-QT_END_NAMESPACE

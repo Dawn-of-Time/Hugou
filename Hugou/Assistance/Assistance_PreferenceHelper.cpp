@@ -1,24 +1,15 @@
-#include "Assistance_PreferenceHelper.h"
+#include "Assistance/Include/Assistance_PreferenceHelper.h"
 
 PreferenceHelper::PreferenceHelper()
     : QObject()
 {
-    connect(this, &PreferenceHelper::trigger, this, &PreferenceHelper::deal);
     verifyAndLoadpreference();
 }
-
 
 PreferenceHelper* PreferenceHelper::getHelper() 
 {
 	static PreferenceHelper helper;
     return &helper;
-}
-
-void PreferenceHelper::setHugou(QWidget* hugou) 
-{ 
-    m_hugou = hugou;
-    for (const QPair<FloatingNote::NoteType, QPair<QString, QString>>& note : m_noteList)
-        FloatingNoteManager::getManager()->raiseFloatingNote(note.first, note.second.first, note.second.second);
 }
 
 void PreferenceHelper::verifyAndLoadpreference()
@@ -51,8 +42,9 @@ void PreferenceHelper::verifyAndLoadpreference()
         }
         else m_preferenceMap.insert(key, value);
     }
-    if (!integralityFlag) emit trigger(FloatingNote::Error, 10001);
-    if (!validityFlag) emit trigger(FloatingNote::Error, 10002);
+
+    if (!integralityFlag) emit MessegeHelper::getHelper()->trigger(FloatingNote::Error, 10001);
+    if (!validityFlag) emit MessegeHelper::getHelper()->trigger(FloatingNote::Error, 10002);
 }
 
 // 从ini配置文件读取
@@ -97,44 +89,11 @@ void PreferenceHelper::syncPreference()
     }
 }
 
-// 槽函数
-void PreferenceHelper::deal(FloatingNote::NoteType type, int code, const QString& otherInfo)
-{
-    QString content = "";
-    QString subcontent = "";
-    switch (type)
-    {
-    case FloatingNote::Success:
-    {
-        content = successCodeMap.value(code, {""});
-        subcontent = otherInfo;
-        break;
-    }
-    case FloatingNote::Information:
-        break;
-    case FloatingNote::Dialog:
-        break;
-    case FloatingNote::Warning:
-        break;
-    case FloatingNote::Error:
-    {
-        QStringList list = errorCodeMap.value(code, { "Unknown error code.",  "No solution found." });
-        content = list[0] + "(Error Code: " + QString::number(code) + ")";
-        subcontent = list[1] + otherInfo;
-        break;
-    }
-    default:
-        break;
-    }
-    if (m_hugou) FloatingNoteManager::getManager()->raiseFloatingNote(type, content, subcontent);
-    else m_noteList.append(qMakePair(type, qMakePair(content, subcontent)));
-}
-
 bool PreferenceHelper::verifyConfINIExist()
 {
     if (!QFile("Configuration/conf.ini").exists())
     {
-        emit trigger(FloatingNote::Error, 10000);
+        emit MessegeHelper::getHelper()->trigger(FloatingNote::Error, 10000);
         return false;
     }
     return true;

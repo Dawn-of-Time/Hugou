@@ -18,9 +18,20 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Assistance\Assistance_PictureHelper.cpp" />
+    <ClCompile Include="Assistance\Assistance_DragFilter.cpp" />
+    <ClCompile Include="Assistance\Assistance_LocationHelper.cpp" />
+    <ClCompile Include="Assistance\Assistance_MessegeHelper.cpp" />
+    <ClCompile Include="Assistance\Assistance_NetworkHelper.cpp" />
     <ClCompile Include="Card\Card.cpp" />
     <ClCompile Include="Card\Card_MonthOverview.cpp" />
-    <ClCompile Include="PopupWidget.cpp" />
+    <ClCompile Include="Card\Card_Weather.cpp" />
+    <ClCompile Include="View\MemoTypeWidget.cpp" />
+    <ClCompile Include="View\MemoWidget.cpp" />
+    <ClCompile Include="Menu\ColorPaletteMenuItem.cpp" />
+    <ClCompile Include="Menu\LineEditMenuItem.cpp" />
+    <ClCompile Include="Menu\Menu.cpp" />
+    <ClCompile Include="Menu\MenuItem.cpp" />
+    <ClCompile Include="View\PopupWidget.cpp" />
     <ClCompile Include="View\CloseWhenLeaveWidget.cpp" />
     <ClCompile Include="DoubleClickedToEditButton.cpp" />
     <ClCompile Include="View\ComboBox.cpp" />
@@ -57,7 +68,7 @@
     <ClCompile Include="View\View_Welcome.cpp" />
     <ClCompile Include="View\View_TaskSetting.cpp" />
     <ClCompile Include="View\View_MemoSetting.cpp" />
-    <ClCompile Include="View_MemoTypeConfig.cpp" />
+    <ClCompile Include="View\View_MemoTypeConfig.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Assistance\Include\Assistance_ButtonHoverWatcher.h" />
@@ -66,13 +77,25 @@
     <QtMoc Include="Assistance\Include\Assistance_ComboboxWheelWatcher.h" />
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="PopupWidget.h" />
-    <QtMoc Include="View_MemoTypeConfig.h" />
+    <QtMoc Include="View\Include\PopupWidget.h" />
+    <QtMoc Include="View\Include\View_MemoTypeConfig.h" />
     <QtMoc Include="Controller\Include\Controller_MemoSetting.h" />
     <QtMoc Include="View\Include\MemoSettingItem.h" />
     <QtMoc Include="View\Include\CheckBox.h" />
     <QtMoc Include="View\Include\CloseWhenLeaveWidget.h" />
+    <QtMoc Include="Menu\Include\ColorPaletteMenuItem.h" />
+    <QtMoc Include="Assistance\Include\Assistance_DragFilter.h" />
+    <QtMoc Include="Assistance\Include\Assistance_LocationHelper.h" />
+    <QtMoc Include="Assistance\Include\Assistance_MessegeHelper.h" />
+    <QtMoc Include="Assistance\Include\Assistance_NetworkHelper.h" />
+    <ClInclude Include="Card\Include\Card_Weather.h" />
     <ClInclude Include="DoubleClickedToEditButton.h" />
+    <QtMoc Include="Menu\Include\Menu.h" />
+    <ClInclude Include="Include\Global_Hugou.h" />
+    <QtMoc Include="Menu\Include\LineEditMenuItem.h" />
+    <QtMoc Include="Menu\Include\MenuItem.h" />
+    <ClInclude Include="View\Include\MemoTypeWidget.h" />
+    <QtMoc Include="View\Include\MemoWidget.h" />
     <ClInclude Include="View\Include\ComboBox.h" />
     <ClInclude Include="Model\Include\Model_MemoSetting.h" />
     <QtMoc Include="View\Include\View_MemoSetting.h" />
@@ -87,9 +110,7 @@
     <ClInclude Include="Card\Include\Card.h" />
     <ClInclude Include="Card\Include\Card_MonthOverview.h" />
     <ClInclude Include="Include\Const_Preference.h" />
-    <ClInclude Include="Include\Const_DefaultTheme.h" />
     <ClInclude Include="Include\Const_Font.h" />
-    <ClInclude Include="Include\Const_SuccessNote.h" />
     <ClInclude Include="Model\Include\Model_Schedule.h" />
     <QtMoc Include="Assistance\Include\Assistance_ThemeManager.h" />
     <ClInclude Include="Model\Include\Model_TaskSetting.h" />
@@ -241,8 +262,8 @@
     <Import Project="$(QtMsBuild)\qt_defaults.props" />
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
-    <QtInstall>6.7.2</QtInstall>
-    <QtModules>core;gui;qml;widgets;multimedia;multimediawidgets;printsupport;quickwidgets;sql</QtModules>
+    <QtInstall>6.8.2_msvc2022_64</QtInstall>
+    <QtModules>core;gui;network;qml;widgets;multimedia;multimediawidgets;printsupport;quickwidgets;sql;networkauth</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
@@ -265,7 +286,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <IncludePath>C:\Program Files %28x86%29\Visual Leak Detector\include;C:\Users\Dawn\Desktop\Hugou\Hugou\Card\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Database\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Assistance\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\View\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Model\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Controller\Include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Program Files %28x86%29\Visual Leak Detector\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <IncludePath>C:\Program Files %28x86%29\Visual Leak Detector\include;C:\Users\Dawn\Desktop\Hugou\Hugou\Assistance\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Database\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Card\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\View\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Model\Include;C:\Users\Dawn\Desktop\Hugou\Hugou\Controller\Include;$(IncludePath)</IncludePath>

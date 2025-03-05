@@ -1,8 +1,19 @@
-﻿#include "View_Hugou.h"
+﻿#include "View/Include/View_Hugou.h"
 
 HugouView::HugouView()
     : QWidget()
 {
+    // 注册qml
+    qmlRegisterType<HugouView>("HugouModules", 1, 0, "Hugou");
+    // 字体载入
+    QString fontDir = "Resource/font";
+    QDir dir(fontDir);
+    QStringList files = dir.entryList(QDir::Files);
+    foreach(const QString & fileName, files) {
+        QString filePath = dir.absoluteFilePath(fileName);
+        QFontDatabase::addApplicationFont(filePath);
+    }
+
     // --无边框窗口
     // 注：使用无边框窗口的一个目标是方便自定义标题栏。事实上，使用Qt::CustomizeWindowHint标志会更方便一些，
     //    因为Qt::FramelessWindowHint标志将会一并移出窗口边缘的拉伸效果，同时并不自带圆角效果。遗憾的是，
@@ -133,7 +144,7 @@ void HugouView::enableGraphicsEffect()
     m_stackedWidgetOpacityEffect->setEnabled(true);
 }
 
-HugouView::Area HugouView::getArea(QPoint mousePos)
+HugouView::Area HugouView::getArea(const QPoint& mousePos)
 {
     m_currentMainWindowGeometry = this->geometry();
     if (mousePos.y() >= 0 && mousePos.y() < edgeWidth)
@@ -160,7 +171,7 @@ HugouView::Area HugouView::getArea(QPoint mousePos)
     return NOTAREA;
 }
 
-QRect HugouView::customScale(Area area, QRect currentMainWindowGeometry, QPoint change)
+QRect HugouView::customScale(const Area& area, const QRect& currentMainWindowGeometry, const QPoint& change)
 {
     QRect newMainWindowGeometry = currentMainWindowGeometry;
     bool widthInvalid = (newMainWindowGeometry.width() < mainWindowWidth);
@@ -269,8 +280,7 @@ bool HugouView::nativeEvent(const QByteArray& eventType, void* message, qintptr*
     case WM_NCHITTEST:
     {
         *result = HTCLIENT;
-        // 为了获取到正确的全局鼠标位置，应将GET_X_LPARAM和GET_Y_LPARAM得到的结果除以缩放倍数。
-        QPoint globalPos = QPoint(GET_X_LPARAM(msg->lParam), GET_Y_LPARAM(msg->lParam)) / devicePixelRatio();
+        QPoint globalPos = QCursor::pos();
         QPoint windowPos = mapFromGlobal(globalPos);
 
         Area area = getArea(windowPos);

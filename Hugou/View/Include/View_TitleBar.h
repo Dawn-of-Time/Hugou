@@ -5,10 +5,9 @@
 #include <QLabel>
 #include <QFile>
 #include <QLineEdit>
-#include "Const_Geometry.h"
 #include "View_FloatingNote.h"
-#include "Assistance_ButtonHoverWatcher.h"
-#include "Assistance_PictureHelper.h"
+#include "Assistance/Include/Assistance_ButtonHoverWatcher.h"
+#include "Assistance/Include/Assistance_PictureHelper.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -20,8 +19,8 @@ class TitleBarView : public QWidget
 
 public:
     TitleBarView(QWidget* parent);
-    bool isOnMaxButton(QPoint windowPos);
-    bool isOnDragZone(QPoint windowPos);
+    bool isOnMaxButton(const QPoint& windowPos);
+    bool isOnDragZone(const QPoint& windowPos);
 
 signals:
     void SignalMinimizeButtonClicked();

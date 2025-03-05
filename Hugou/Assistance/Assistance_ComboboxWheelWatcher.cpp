@@ -1,4 +1,4 @@
-#include "Assistance_ComboboxWheelWatcher.h"
+#include "Assistance/Include/Assistance_ComboboxWheelWatcher.h"
 
 ComboboxWheelWatcher::ComboboxWheelWatcher(QObject* obj) :
     QObject(obj)

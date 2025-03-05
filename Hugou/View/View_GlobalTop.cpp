@@ -1,4 +1,4 @@
-#include "View_GlobalTop.h"
+#include "View/Include/View_GlobalTop.h"
 
 GlobalTopView::GlobalTopView(QWidget* parent) :
 	QWidget(parent)
@@ -16,6 +16,9 @@ GlobalTopView::~GlobalTopView()
 
 void GlobalTopView::setupUi()
 {
+    // ×ÖÌåÇåµ¥
+    const QFont hintFont = QFont("Roboto", 18, QFont::Normal);
+
     this->setObjectName("globalTop");
     this->setGeometry(0, 0, mainWindowWidth, mainWindowHeight);
     m_globalTopLayout = new QVBoxLayout(this);
@@ -83,14 +86,14 @@ void GlobalTopView::switchTop()
     }
 }
 
-void GlobalTopView::setSource(QString filename)
+void GlobalTopView::setSource(const QString& filename)
 {
     m_globalTopQuickWidget->engine()->clearComponentCache();
     m_globalTopQuickWidget->setSource(QUrl(filename));
     m_globalTopQuickWidget->show();
 }
 
-void GlobalTopView::setHint(QString hint)
+void GlobalTopView::setHint(const QString& hint)
 {
     m_globalTopHint->setText(hint);
 }
