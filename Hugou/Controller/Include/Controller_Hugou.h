@@ -1,10 +1,10 @@
 #pragma once
-#include "Assistance/Include/Assistance_PreferenceHelper.h"
-#include "Assistance/Include/Assistance_MessegeHelper.h"
-#include "Assistance/Include/Assistance_ThemeManager.h"
+#include "Utils/Include/Utils_ConfigurationHelper.h"
+#include "Utils/Include/Utils_MessegeHelper.h"
+#include "Utils/Include/Utils_ThemeManager.h"
 #include "Controller/Include/Controller_Preference.h"
 #include "Controller/Include/Controller_Schedule.h"
-#include "Assistance/Include/Assistance_FloatingNoteManager.h"
+#include "Utils/Include/Utils_FloatingNoteManager.h"
 #include "Model/Include/Model_Hugou.h"
 #include "View/Include/View_Hugou.h"
 

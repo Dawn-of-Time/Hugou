@@ -7,7 +7,7 @@ QFrame#floatingNoteFrame {
 
 
 QLabel#timekeepingLabel {
-	color: #85A5C3;
+	color: #4F5E71;
 }
 
 QLabel#contentZone 
@@ -16,6 +16,7 @@ QLabel#contentZone
 }
 
 QLabel#subcontentZone {
+	color: #4F5E71;
 	margin-left: 25px;
 }
 

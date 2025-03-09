@@ -6,8 +6,8 @@
 #include <QFile>
 #include <QLineEdit>
 #include "View_FloatingNote.h"
-#include "Assistance/Include/Assistance_ButtonHoverWatcher.h"
-#include "Assistance/Include/Assistance_PictureHelper.h"
+#include "Utils/Include/Utils_ButtonHoverWatcher.h"
+#include "Utils/Include/Utils_PictureHelper.h"
 
 QT_BEGIN_NAMESPACE
 

@@ -1,11 +1,11 @@
 #pragma once
-#include "PopupWidget.h"
-#include "Include/Struct_Memo.h"
-#include "Menu/Include/Menu.h"
-#include "Menu/Include/LineEditMenuItem.h"
-#include "Menu/Include/ColorPaletteMenuItem.h"
 #include "Database/Include/Database.h"
-#include "MemoTypeWidget.h"
+#include "Include/Struct_Memo.h"
+#include "Menu/Include/ColorPaletteMenuItem.h"
+#include "Menu/Include/LineEditMenuItem.h"
+#include "Menu/Include/Menu.h"
+#include "View/Widgets/Include/MemoTypeWidget.h"
+#include "Widgets/Include/PopupWidget.h"
 
 class MemoTypeConfigView :
     public PopupWidget

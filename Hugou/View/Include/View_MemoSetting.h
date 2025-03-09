@@ -9,7 +9,7 @@
 #include <QPropertyAnimation>
 #include <QScrollArea>
 #include "Include/Struct_Memo.h"
-#include "MemoSettingItem.h"
+#include "View/Widgets/Include/MemoSettingItem.h"
 
 class MemoSettingController;
 

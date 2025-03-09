@@ -8,7 +8,7 @@
 #include <QBitmap>
 #include <QFont>
 #include "Include/Const_Geometry.h"
-#include "View/Include/FadeEffectButton.h"
+#include "Widgets/Include/FadeEffectButton.h"
 
 class AsideBarView : public QWidget
 {

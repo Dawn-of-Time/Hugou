@@ -3,8 +3,25 @@
 WeatherCard::WeatherCard(QWidget* parent)
 	:Card(parent)
 {
+	ConfigurationHelper* helper = ConfigurationHelper::getHelper();
+	helper->getRecordValue("weathercard_observationTime", m_observationTime);
+	helper->getRecordValue("weathercard_temperature", m_temperature);
+	helper->getRecordValue("weathercard_sensibleTemperature", m_sensibleTemperature);
+	helper->getRecordValue("weathercard_icon", m_icon);
+	helper->getRecordValue("weathercard_weather", m_weather);
+	helper->getRecordValue("weathercard_wind360", m_wind360);
+	helper->getRecordValue("weathercard_windDirection", m_windDirection);
+	helper->getRecordValue("weathercard_windScale", m_windScale);
+	helper->getRecordValue("weathercard_windSpeed", m_windSpeed);
+	helper->getRecordValue("weathercard_humidity", m_humidity);
+	helper->getRecordValue("weathercard_precipitationLastHour", m_precipitationLastHour);
+	helper->getRecordValue("weathercard_pressure", m_pressure);
+	helper->getRecordValue("weathercard_visibility", m_visibility);
+	helper->getRecordValue("weathercard_cloud", m_cloud);
+	helper->getRecordValue("weathercard_dewPointTemperature", m_dewPointTemperature);
 	setupUi();
 	LocationHelper* locationHelper = LocationHelper::getHelper();
+	m_region = locationHelper->getRegion();
 
 	QTimer* timer = new QTimer(this);
 	connect(timer, &QTimer::timeout, [timer, locationHelper, this](){ tryToGetID(timer, locationHelper); });
@@ -74,6 +91,22 @@ void WeatherCard::tryToFetchData()
 					m_visibility = liveObject.value("vis").toString();
 					m_cloud = liveObject.value("cloud").toString();
 					m_dewPointTemperature = liveObject.value("dew").toString();
+					ConfigurationHelper* helper = ConfigurationHelper::getHelper();
+					helper->setRecordValue("weathercard_observationTime", m_observationTime);
+					helper->setRecordValue("weathercard_temperature", m_temperature);
+					helper->setRecordValue("weathercard_sensibleTemperature", m_sensibleTemperature);
+					helper->setRecordValue("weathercard_icon", m_icon);
+					helper->setRecordValue("weathercard_weather", m_weather);
+					helper->setRecordValue("weathercard_wind360", m_wind360);
+					helper->setRecordValue("weathercard_windDirection", m_windDirection);
+					helper->setRecordValue("weathercard_windScale", m_windScale);
+					helper->setRecordValue("weathercard_windSpeed", m_windSpeed);
+					helper->setRecordValue("weathercard_humidity", m_humidity);
+					helper->setRecordValue("weathercard_precipitationLastHour", m_precipitationLastHour);
+					helper->setRecordValue("weathercard_pressure", m_pressure);
+					helper->setRecordValue("weathercard_visibility", m_visibility);
+					helper->setRecordValue("weathercard_cloud", m_cloud);
+					helper->setRecordValue("weathercard_dewPointTemperature", m_dewPointTemperature);
 					updateUi();
 				}
 				reply->deleteLater();
@@ -104,7 +137,7 @@ void WeatherCard::setupUi()
 	m_address = new QLabel(m_region, m_titleWidget);
 	m_address->setFixedHeight(30);
 	m_address->setFont(addressFont);
-	m_recentUpdate = new QLabel("Recent Update:", m_titleWidget);
+	m_recentUpdate = new QLabel("Recent Update:" + (m_observationTime.isEmpty() ? "N/A" : m_observationTime.mid(11, 5)), m_titleWidget);
 	m_recentUpdate->setFixedHeight(30);
 	m_recentUpdate->setFont(recentUpdateFont);
 	m_titleWidgetLayout->addWidget(m_address);
@@ -117,11 +150,11 @@ void WeatherCard::setupUi()
 	m_weatherWidgetLayout->setContentsMargins(0, 0, 0, 0);
 	m_weatherWidgetLayout->setSpacing(20);
 	m_weatherWidgetLayout->setAlignment(Qt::AlignHCenter);
-	m_temperatureWidget = new QLabel(m_temperature, m_weatherWidget);
+	m_temperatureWidget = new QLabel((m_temperature.isEmpty() ? "N/A" : m_temperature) + "\u00B0C", m_weatherWidget);
 	m_temperatureWidget->setFixedSize(90, 40);
 	m_temperatureWidget->setFont(temperatureFont);
 	m_temperatureWidget->setAlignment(Qt::AlignCenter);
-	m_weatherNameWidget = new QLabel(m_weather, m_weatherWidget);
+	m_weatherNameWidget = new QLabel(m_weather.isEmpty() ? "N/A" : m_weather, m_weatherWidget);
 	m_weatherNameWidget->setFixedHeight(40);
 	m_weatherNameWidget->setFont(weatherNameFont);
 	m_weatherNameWidget->setAlignment(Qt::AlignCenter);
@@ -144,7 +177,7 @@ void WeatherCard::setupUi()
 	m_humidityTitleWidget->setFixedSize(80, 14);
 	m_humidityTitleWidget->setFont(informationTitleFont);
 	m_humidityTitleWidget->setAlignment(Qt::AlignHCenter);
-	m_humidityValueWidget = new QLabel(m_humidity, m_humidityWidget);
+	m_humidityValueWidget = new QLabel((m_humidity.isEmpty() ? "N/A" : m_humidity) + "%", m_humidityWidget);
 	m_humidityValueWidget->setFixedSize(80, 24);
 	m_humidityValueWidget->setFont(informationValueFont);
 	m_humidityValueWidget->setAlignment(Qt::AlignHCenter);
@@ -160,7 +193,7 @@ void WeatherCard::setupUi()
 	m_visibilityTitleWidget->setFixedSize(80, 14);
 	m_visibilityTitleWidget->setFont(informationTitleFont);
 	m_visibilityTitleWidget->setAlignment(Qt::AlignHCenter);
-	m_visibilityValueWidget = new QLabel(m_visibility, m_visibilityWidget);
+	m_visibilityValueWidget = new QLabel((m_visibility.isEmpty() ? "N/A" : m_visibility) + "km", m_visibilityWidget);
 	m_visibilityValueWidget->setFixedSize(80, 24);
 	m_visibilityValueWidget->setFont(informationValueFont);
 	m_visibilityValueWidget->setAlignment(Qt::AlignHCenter);
@@ -176,7 +209,7 @@ void WeatherCard::setupUi()
 	m_windTitleWidget->setFixedSize(80, 14);
 	m_windTitleWidget->setFont(informationTitleFont);
 	m_windTitleWidget->setAlignment(Qt::AlignHCenter);
-	m_windValueWidget = new QLabel(m_windScale, m_windWidget);
+	m_windValueWidget = new QLabel("Lv " + (m_windScale.isEmpty() ? "N/A" : m_windScale), m_windWidget);
 	m_windValueWidget->setFixedSize(80, 24);
 	m_windValueWidget->setFont(informationValueFont);
 	m_windValueWidget->setAlignment(Qt::AlignHCenter);

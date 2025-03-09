@@ -2,7 +2,7 @@
 
 #include "View/Include/View_Preference.h"
 #include "Model/Include/Model_Preference.h"
-#include "Assistance/Include/Assistance_PreferenceHelper.h"
+#include "Utils/Include/Utils_ConfigurationHelper.h"
 
 class PreferenceController : public QObject
 {

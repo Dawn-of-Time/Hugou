@@ -12,9 +12,9 @@
 #include <QFile>
 #include <math.h>
 #include <QTextLayout>
-#include "Assistance/Include/Assistance_ButtonHoverWatcher.h"
-#include "Assistance/Include/Assistance_PreferenceHelper.h"
-#include "PreferenceItem.h"
+#include "Utils/Include/Utils_ButtonHoverWatcher.h"
+#include "Utils/Include/Utils_ConfigurationHelper.h"
+#include "View/Widgets/Include/PreferenceItem.h"
 
 class PreferenceController;
 
@@ -55,19 +55,19 @@ private:
         new LabelTitleItem("Common", PreferenceItem::Level::First),
         new LabelTitleItem("Appearance", PreferenceItem::Level::Second),
         new LabelTitleItem("Theme", PreferenceItem::Level::Third),
-        new ComboboxItem("theme", preferenceValueMap["theme"]),
+        new ComboboxItem("theme", ConfigurationHelper::getHelper()->configurationValidValueMap["Preference"]["theme"]),
         new LabelHintItem(tr("I will be launching the theme preview feature in the near future.")),
         new SectionSpaceItem(),
         new LabelTitleItem("Country/Region", PreferenceItem::Level::Second),
         new LabelTitleItem("Language", PreferenceItem::Level::Third),
-        new ComboboxItem("language", preferenceValueMap["language"]),
+        new ComboboxItem("language", ConfigurationHelper::getHelper()->configurationValidValueMap["Preference"]["language"]),
         new LabelHintItem(tr("More and more languages are getting support. The language currently in the pipeline is: Chinese.")),
         new ChapterSpaceItem(),
 
         new LabelTitleItem("Task", PreferenceItem::Level::First),
         new LabelTitleItem("Recycle Bin", PreferenceItem::Level::Second),
         new LabelTitleItem("Enable", PreferenceItem::Level::Third),
-        new ComboboxItem("recycleBin", preferenceValueMap["recycleBin"]),
+        new ComboboxItem("recycleBin", ConfigurationHelper::getHelper()->configurationValidValueMap["Preference"]["recycleBin"]),
         new LabelHintItem(tr("Enable this feature: When you delete a task, it will be moved to the recycle bin and completely destroyed after retention period.")),
         new LabelTitleItem("Retention Period", PreferenceItem::Level::Third),
         new LineEditItem("retentionPeriod", new QIntValidator(1, 30)),

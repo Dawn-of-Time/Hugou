@@ -1,6 +1,7 @@
 #pragma once
 #include "Card.h"
-#include "Assistance/Include/Assistance_LocationHelper.h"
+#include "Utils/Include/Utils_LocationHelper.h"
+#include "Utils/Include/Utils_ConfigurationHelper.h"
 #include <QTimer>
 
 class WeatherCard :
@@ -13,21 +14,21 @@ private:
     QTimer* m_updateTimer;
     QString m_ID = "";
     QString m_region = "Unknown";
-    QString m_observationTime = "N/A";
-    QString m_temperature = "N/A";
-    QString m_sensibleTemperature = "N/A";
-    QString m_icon = "N/A";
-    QString m_weather = "N/A";
-    QString m_wind360 = "N/A";
-    QString m_windDirection = "N/A";
-    QString m_windScale = "N/A";
-    QString m_windSpeed = "N/A";
-    QString m_humidity = "N/A";
-    QString m_precipitationLastHour = "N/A";
-    QString m_pressure = "N/A";
-    QString m_visibility = "N/A";
-    QString m_cloud = "N/A";
-    QString m_dewPointTemperature = "N/A";
+    QString m_observationTime = "";
+    QString m_temperature = "";
+    QString m_sensibleTemperature = "";
+    QString m_icon = "";
+    QString m_weather = "";
+    QString m_wind360 = "";
+    QString m_windDirection = "";
+    QString m_windScale = "";
+    QString m_windSpeed = "";
+    QString m_humidity = "";
+    QString m_precipitationLastHour = "";
+    QString m_pressure = "";
+    QString m_visibility = "";
+    QString m_cloud = "";
+    QString m_dewPointTemperature = "";
 
     QVBoxLayout* m_layout;
     QWidget* m_titleWidget;

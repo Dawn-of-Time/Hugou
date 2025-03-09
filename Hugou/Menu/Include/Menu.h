@@ -4,7 +4,7 @@
 #include <QLabel>
 #include <QPushButton>
 #include "MenuItem.h"
-#include "Assistance/Include/Assistance_ButtonHoverWatcher.h"
+#include "Utils/Include/Utils_ButtonHoverWatcher.h"
 #include <Windows.h>
 #include <windowsx.h>
 #include <QMouseEvent>

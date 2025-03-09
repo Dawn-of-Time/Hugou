@@ -1,18 +1,18 @@
 #pragma once
 #include "Card.h"
-#include "View/Include/CloseWhenLeaveWidget.h"
-#include <QWidget>
-#include <QHBoxLayout>
-#include <QList>
-#include <QPushButton>
-#include <QLabel>
+#include "Widgets/Include/CloseWhenLeaveWidget.h"
+#include "Widgets/Include/FadeEffectButton.h"
 #include <QDate>
 #include <QGraphicsDropShadowEffect>
-#include <QLineEdit>
+#include <QHBoxLayout>
 #include <QIntValidator>
-#include <QPropertyAnimation>
+#include <QLabel>
+#include <QLineEdit>
+#include <QList>
 #include <QParallelAnimationGroup>
-#include "View/Include/FadeEffectButton.h"
+#include <QPropertyAnimation>
+#include <QPushButton>
+#include <QWidget>
 
 
 class MonthOverviewCard :

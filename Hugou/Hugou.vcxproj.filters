@@ -59,91 +59,91 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="View\View_AsideBar.cpp">
+    <ClCompile Include="View\Src\View_AsideBar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Assistance\Assistance_ButtonHoverWatcher.cpp">
+    <ClCompile Include="Utils\Src\Utils_ButtonHoverWatcher.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Assistance\Assistance_ComboboxWheelWatcher.cpp">
+    <ClCompile Include="Utils\Src\Utils_ComboboxWheelWatcher.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="View\View_FloatingNote.cpp">
+    <ClCompile Include="View\Src\View_FloatingNote.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Assistance\Assistance_FloatingNoteManager.cpp">
+    <ClCompile Include="Utils\Src\Utils_FloatingNoteManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="View\View_FloatingNotePanel.cpp">
+    <ClCompile Include="View\Src\View_FloatingNotePanel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="View\View_GlobalTop.cpp">
+    <ClCompile Include="View\Src\View_GlobalTop.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Model\Model_Hugou.cpp">
+    <ClCompile Include="Model\Src\Model_Hugou.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="View\FadeEffectButton.cpp">
+    <ClCompile Include="Widgets\Src\FadeEffectButton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="View\View_Preference.cpp">
+    <ClCompile Include="View\Src\View_Preference.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Assistance\Assistance_PreferenceHelper.cpp">
+    <ClCompile Include="Utils\Src\Utils_ConfigurationHelper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="View\View_TitleBar.cpp">
+    <ClCompile Include="View\Src\View_TitleBar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="View\View_Schedule.cpp">
+    <ClCompile Include="View\Src\View_Schedule.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="View\View_Hugou.cpp">
+    <ClCompile Include="View\Src\View_Hugou.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Controller\Controller_Hugou.cpp">
+    <ClCompile Include="Controller\Src\Controller_Hugou.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="View\View_Welcome.cpp">
+    <ClCompile Include="View\Src\View_Welcome.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Model\Model_Welcome.cpp">
+    <ClCompile Include="Model\Src\Model_Welcome.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Controller\Controller_Welcome.cpp">
+    <ClCompile Include="Controller\Src\Controller_Welcome.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Model\Model_Preference.cpp">
+    <ClCompile Include="Model\Src\Model_Preference.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Controller\Controller_Preference.cpp">
+    <ClCompile Include="Controller\Src\Controller_Preference.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="View\PreferenceItem.cpp">
+    <ClCompile Include="View\Widgets\Src\PreferenceItem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Model\Model_Schedule.cpp">
+    <ClCompile Include="Model\Src\Model_Schedule.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Controller\Controller_Schedule.cpp">
+    <ClCompile Include="Controller\Src\Controller_Schedule.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Assistance\Assistance_ThemeManager.cpp">
+    <ClCompile Include="Utils\Src\Utils_ThemeManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Database\Database.cpp">
+    <ClCompile Include="Database\Src\Database.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="View\View_TaskSetting.cpp">
+    <ClCompile Include="View\Src\View_TaskSetting.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Model\Model_TaskSetting.cpp">
+    <ClCompile Include="Model\Src\Model_TaskSetting.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Assistance\Assistance_PictureHelper.cpp">
+    <ClCompile Include="Utils\Src\Utils_PictureHelper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Card\Card_MonthOverview.cpp">
@@ -152,81 +152,81 @@
     <ClCompile Include="Card\Card.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="View\View_MemoSetting.cpp">
+    <ClCompile Include="View\Src\View_MemoSetting.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Model\Model_MemoSetting.cpp">
+    <ClCompile Include="Model\Src\Model_MemoSetting.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Controller\Controller_MemoSetting.cpp">
+    <ClCompile Include="Controller\Src\Controller_MemoSetting.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="View\MemoSettingItem.cpp">
+    <ClCompile Include="View\Widgets\Src\MemoSettingItem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="View\CheckBox.cpp">
+    <ClCompile Include="Widgets\Src\CheckBox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="View\ComboBox.cpp">
+    <ClCompile Include="Widgets\Src\ComboBox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DoubleClickedToEditButton.cpp">
+    <ClCompile Include="Widgets\Src\DoubleClickedToEditButton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="View\CloseWhenLeaveWidget.cpp">
+    <ClCompile Include="Widgets\Src\CloseWhenLeaveWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="View\View_MemoTypeConfig.cpp">
+    <ClCompile Include="View\Src\View_MemoTypeConfig.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="View\PopupWidget.cpp">
+    <ClCompile Include="Widgets\Src\PopupWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Menu\Menu.cpp">
+    <ClCompile Include="Menu\Src\Menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Menu\MenuItem.cpp">
+    <ClCompile Include="Menu\Src\MenuItem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Menu\LineEditMenuItem.cpp">
+    <ClCompile Include="Menu\Src\LineEditMenuItem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Menu\ColorPaletteMenuItem.cpp">
+    <ClCompile Include="Menu\Src\ColorPaletteMenuItem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Assistance\Assistance_DragFilter.cpp">
+    <ClCompile Include="Utils\Src\Utils_DragFilter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="View\MemoTypeWidget.cpp">
+    <ClCompile Include="View\Widgets\Src\MemoTypeWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="View\MemoWidget.cpp">
+    <ClCompile Include="View\Widgets\Src\MemoWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Card\Card_Weather.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Assistance\Assistance_LocationHelper.cpp">
+    <ClCompile Include="Utils\Src\Utils_LocationHelper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Assistance\Assistance_MessegeHelper.cpp">
+    <ClCompile Include="Utils\Src\Utils_MessegeHelper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Assistance\Assistance_NetworkHelper.cpp">
+    <ClCompile Include="Utils\Src\Utils_NetworkHelper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="Assistance\Include\Assistance_ButtonHoverWatcher.h">
+    <QtMoc Include="Utils\Include\Utils_ButtonHoverWatcher.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="Assistance\Include\Assistance_ComboboxWheelWatcher.h">
+    <QtMoc Include="Utils\Include\Utils_ComboboxWheelWatcher.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="View\Include\View_FloatingNote.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="Assistance\Include\Assistance_FloatingNoteManager.h">
+    <QtMoc Include="Utils\Include\Utils_FloatingNoteManager.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="View\Include\View_FloatingNotePanel.h">
@@ -238,10 +238,10 @@
     <QtMoc Include="Model\Include\Model_Hugou.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="View\Include\FadeEffectButton.h">
+    <QtMoc Include="Widgets\Include\FadeEffectButton.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="Assistance\Include\Assistance_PreferenceHelper.h">
+    <QtMoc Include="Utils\Include\Utils_ConfigurationHelper.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="Controller\Include\Controller_Hugou.h">
@@ -274,7 +274,7 @@
     <QtMoc Include="View\Include\View_Schedule.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="Assistance\Include\Assistance_ThemeManager.h">
+    <QtMoc Include="Utils\Include\Utils_ThemeManager.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="Controller\Include\Controller_Schedule.h">
@@ -283,25 +283,22 @@
     <QtMoc Include="Database\Include\Database.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="View\Include\View_TaskSetting.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <QtMoc Include="Controller\Include\Controller_MemoSetting.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="View\Include\View_MemoSetting.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="View\Include\MemoSettingItem.h">
+    <QtMoc Include="View\Widgets\Include\MemoSettingItem.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="View\Include\CheckBox.h">
+    <QtMoc Include="Widgets\Include\CheckBox.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="View\Include\CloseWhenLeaveWidget.h">
+    <QtMoc Include="Widgets\Include\CloseWhenLeaveWidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="View\Include\PopupWidget.h">
+    <QtMoc Include="Widgets\Include\PopupWidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="View\Include\View_MemoTypeConfig.h">
@@ -313,7 +310,7 @@
     <QtMoc Include="Menu\Include\ColorPaletteMenuItem.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="Assistance\Include\Assistance_DragFilter.h">
+    <QtMoc Include="Utils\Include\Utils_DragFilter.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="Menu\Include\MenuItem.h">
@@ -322,16 +319,16 @@
     <QtMoc Include="Menu\Include\LineEditMenuItem.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="View\Include\MemoWidget.h">
+    <QtMoc Include="View\Widgets\Include\MemoWidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="Assistance\Include\Assistance_MessegeHelper.h">
+    <QtMoc Include="Utils\Include\Utils_MessegeHelper.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="Assistance\Include\Assistance_LocationHelper.h">
+    <QtMoc Include="Utils\Include\Utils_LocationHelper.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="Assistance\Include\Assistance_NetworkHelper.h">
+    <QtMoc Include="Utils\Include\Utils_NetworkHelper.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -345,10 +342,7 @@
     <ClInclude Include="Include\Const_Font.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Const_Preference.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="View\Include\PreferenceItem.h">
+    <ClInclude Include="View\Widgets\Include\PreferenceItem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Model\Include\Model_Schedule.h">
@@ -357,7 +351,7 @@
     <ClInclude Include="Model\Include\Model_TaskSetting.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Assistance\Include\Assistance_PictureHelper.h">
+    <ClInclude Include="Utils\Include\Utils_PictureHelper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Card\Include\Card_MonthOverview.h">
@@ -372,19 +366,22 @@
     <ClInclude Include="Model\Include\Model_MemoSetting.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="View\Include\ComboBox.h">
+    <ClInclude Include="Widgets\Include\ComboBox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DoubleClickedToEditButton.h">
+    <ClInclude Include="Widgets\Include\DoubleClickedToEditButton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Include\Global_Hugou.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="View\Include\MemoTypeWidget.h">
+    <ClInclude Include="View\Widgets\Include\MemoTypeWidget.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Card\Include\Card_Weather.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="View\Include\View_TaskSetting.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

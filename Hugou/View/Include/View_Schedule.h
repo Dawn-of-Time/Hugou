@@ -16,8 +16,8 @@
 #include "Card/Include/Card_Weather.h"
 #include "View/Include/View_MemoSetting.h"
 #include "Include/Struct_Memo.h"
-#include "CheckBox.h"
-#include "MemoWidget.h"
+#include "Widgets/Include/CheckBox.h"
+#include "View/Widgets/Include/MemoWidget.h"
 
 class ScheduleView : public QWidget
 {

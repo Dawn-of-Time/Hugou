@@ -8,7 +8,7 @@
 #include <dwmapi.h>
 #include <thread>
 #include <chrono>
-#include "Assistance/Include/Assistance_PreferenceHelper.h"
+#include "Utils/Include/Utils_ConfigurationHelper.h"
 #include "Model/Include/Model_Schedule.h"
 #include "Model/Include/Model_preference.h"
 

@@ -21,4 +21,4 @@ const int minimumAsideBarHeight = minimumMainWindowHeight - titleFrameHeight;
 const int stackedWidgetWidth = titleFrameWidth;
 const int stackedWidgetHeight = minimumAsideBarHeight - titleFrameHeight;
 // 浮动消息
-const int floatingNoteWidth = 350;
+const int floatingNoteWidth = 400;
