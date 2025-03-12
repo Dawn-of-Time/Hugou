@@ -78,5 +78,6 @@
         <file>icon/forward_schedule_viewSwitchBar.ico</file>
         <file>qt/etc/qt.conf</file>
         <file>icon/recall.ico</file>
+        <file>icon/refresh.ico</file>
     </qresource>
 </RCC>

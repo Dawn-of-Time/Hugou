@@ -62,7 +62,7 @@ void ScheduleView::setupUi()
     m_viewSwitchBarLayout->addStretch();
 
     m_memoGeneralWidget = new QWidget(m_centralWidget);
-    m_memoGeneralWidget->setObjectName("memoWidget");
+    m_memoGeneralWidget->setObjectName("memoGeneralWidget");
     m_memoGeneralWidgetLayout = new QVBoxLayout(m_memoGeneralWidget);
     m_memoGeneralWidgetLayout->setContentsMargins(36, 16, 36, 16);
     m_memoGeneralWidgetLayout->setSpacing(18);
@@ -118,7 +118,7 @@ void ScheduleView::generateMemo(Memo& memo)
 
 void ScheduleView::addAddMemoWidget()
 {
-    MemoWidget* addMemoWidget = new MemoWidget(new Memo(), this);
+    MemoWidget* addMemoWidget = new MemoWidget(nullptr, this);
     m_memoListWidgetLayout->addWidget(addMemoWidget);
 }
 

@@ -153,11 +153,11 @@ QParallelAnimationGroup* MemoSettingView::fadeIn()
 	QPropertyAnimation* templateWidgetFadeInAnimation = new QPropertyAnimation(m_templateWidgetEffect, "opacity", m_templateWidget);
 	templateWidgetFadeInAnimation->setStartValue(0);
 	templateWidgetFadeInAnimation->setEndValue(1);
-	templateWidgetFadeInAnimation->setDuration(100);
+	templateWidgetFadeInAnimation->setDuration(300);
 	QPropertyAnimation* contentWidgetFadeInAnimation = new QPropertyAnimation(m_contentWidgetEffect, "opacity", m_contentWidget);
 	contentWidgetFadeInAnimation->setStartValue(0);
 	contentWidgetFadeInAnimation->setEndValue(1);
-	contentWidgetFadeInAnimation->setDuration(100);
+	contentWidgetFadeInAnimation->setDuration(300);
 	group->addAnimation(templateWidgetFadeInAnimation);
 	group->addAnimation(contentWidgetFadeInAnimation);
 	connect(group, &QParallelAnimationGroup::finished, this, &MemoSettingView::disableGraphicEffect);
@@ -171,11 +171,11 @@ QParallelAnimationGroup* MemoSettingView::fadeOut()
 	QPropertyAnimation* templateWidgetFadeOutAnimation = new QPropertyAnimation(m_templateWidgetEffect, "opacity", m_templateWidget);
 	templateWidgetFadeOutAnimation->setStartValue(1);
 	templateWidgetFadeOutAnimation->setEndValue(0);
-	templateWidgetFadeOutAnimation->setDuration(100);
+	templateWidgetFadeOutAnimation->setDuration(300);
 	QPropertyAnimation* contentWidgetFadeOutAnimation = new QPropertyAnimation(m_contentWidgetEffect, "opacity", m_contentWidget);
 	contentWidgetFadeOutAnimation->setStartValue(1);
 	contentWidgetFadeOutAnimation->setEndValue(0);
-	contentWidgetFadeOutAnimation->setDuration(100);
+	contentWidgetFadeOutAnimation->setDuration(300);
 	group->addAnimation(templateWidgetFadeOutAnimation);
 	group->addAnimation(contentWidgetFadeOutAnimation);
 	connect(group, &QParallelAnimationGroup::finished, [this]()

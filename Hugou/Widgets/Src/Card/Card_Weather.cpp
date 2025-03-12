@@ -1,4 +1,4 @@
-#include "Card/Include/Card_Weather.h"
+#include "Widgets/Include/Card/Card_Weather.h"
 
 WeatherCard::WeatherCard(QWidget* parent)
 	:Card(parent)
@@ -29,6 +29,7 @@ WeatherCard::WeatherCard(QWidget* parent)
 
 	m_updateTimer = new QTimer(this);
 	connect(m_updateTimer, &QTimer::timeout, this, &WeatherCard::tryToFetchData);
+	connect(m_refreshButton, &QPushButton::clicked, this, &WeatherCard::refresh);
 }
 
 void WeatherCard::tryToGetID(QTimer* timer, LocationHelper* locationHelper)
@@ -112,7 +113,26 @@ void WeatherCard::tryToFetchData()
 				reply->deleteLater();
 				manager->deleteLater();
 			}
+			if (m_refreshButtonAnimation->state() == QPropertyAnimation::Running)
+			{
+				m_refreshButtonAnimation->stop();
+				m_refreshButton->blockSignals(false);
+				m_refreshButtonEffect->setEnabled(false);
+			}
 		});
+}
+
+void WeatherCard::refresh()
+{
+	m_updateTimer->stop();
+	m_refreshButtonEffect->setEnabled(true);
+	m_refreshButtonAnimation->start();
+	m_refreshButton->blockSignals(true);
+	LocationHelper* locationHelper = LocationHelper::getHelper();
+	locationHelper->refresh();
+	QTimer* timer = new QTimer(this);
+	connect(timer, &QTimer::timeout, [timer, locationHelper, this]() { tryToGetID(timer, locationHelper); });
+	timer->start(1000);
 }
 
 void WeatherCard::setupUi()
@@ -133,16 +153,32 @@ void WeatherCard::setupUi()
 	m_titleWidget->setFixedHeight(30);
 	m_titleWidgetLayout = new QHBoxLayout(m_titleWidget);
 	m_titleWidgetLayout->setContentsMargins(5, 0, 5, 0);
-	m_titleWidgetLayout->setSpacing(0);
+	m_titleWidgetLayout->setSpacing(5);
 	m_address = new QLabel(m_region, m_titleWidget);
 	m_address->setFixedHeight(30);
 	m_address->setFont(addressFont);
 	m_recentUpdate = new QLabel("Recent Update:" + (m_observationTime.isEmpty() ? "N/A" : m_observationTime.mid(11, 5)), m_titleWidget);
 	m_recentUpdate->setFixedHeight(30);
 	m_recentUpdate->setFont(recentUpdateFont);
+	m_refreshButton = new QPushButton(m_titleWidget);
+	m_refreshButton->setFixedSize(20, 30);
+	m_refreshButton->setIcon(QIcon(":/icon/refresh.ico"));
+	m_refreshButton->setIconSize(QSize(18, 18));
+	m_refreshButton->setCursor(Qt::PointingHandCursor);
+	m_refreshButtonEffect = new QGraphicsOpacityEffect(m_refreshButton);
+	m_refreshButtonEffect->setOpacity(1);
+	m_refreshButton->setGraphicsEffect(m_refreshButtonEffect);
+	m_refreshButtonEffect->setEnabled(false);
+	m_refreshButtonAnimation = new QPropertyAnimation(m_refreshButtonEffect, "opacity", m_refreshButton);
+	m_refreshButtonAnimation->setStartValue(1);
+	m_refreshButtonAnimation->setKeyValueAt(0.5, 0);
+	m_refreshButtonAnimation->setEndValue(1);
+	m_refreshButtonAnimation->setDuration(1500);
+	m_refreshButtonAnimation->setLoopCount(-1);
 	m_titleWidgetLayout->addWidget(m_address);
 	m_titleWidgetLayout->addStretch();
 	m_titleWidgetLayout->addWidget(m_recentUpdate);
+	m_titleWidgetLayout->addWidget(m_refreshButton);
 
 	m_weatherWidget = new QWidget(this);
 	m_weatherWidget->setFixedHeight(40);

@@ -12,9 +12,11 @@ class MemoWidget :
 
 public:
     MemoWidget(Memo* memo, QWidget* parent);
+    ~MemoWidget();
     MemoSettingView* getMemoSettingView() { return m_memoSetting; };
 
 private:
+    bool m_addMode = false;
     Memo* m_memo;
     QPropertyAnimation* m_memoSettingExpandAnimation;
     QPropertyAnimation* m_memoSettingCollapseAnimation;

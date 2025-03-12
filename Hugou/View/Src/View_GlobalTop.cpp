@@ -4,9 +4,6 @@ GlobalTopView::GlobalTopView(QWidget* parent) :
 	QWidget(parent)
 {
     setupUi();
-    m_effect = new QGraphicsOpacityEffect(this);
-    m_effect->setOpacity(0);
-    this->setGraphicsEffect(m_effect);
 }
 
 GlobalTopView::~GlobalTopView()
@@ -20,7 +17,11 @@ void GlobalTopView::setupUi()
     const QFont hintFont = QFont("Roboto", 18, QFont::Normal);
 
     this->setObjectName("globalTop");
-    this->setGeometry(0, 0, mainWindowWidth, mainWindowHeight);
+    m_effect = new QGraphicsOpacityEffect(this);
+    m_effect->setOpacity(0);
+    this->setGraphicsEffect(m_effect);
+    m_effect->setEnabled(false);
+
     m_globalTopLayout = new QVBoxLayout(this);
     m_globalTopLayout->setSpacing(0);
     m_globalTopQuickWidget = new QQuickWidget(this);
@@ -48,17 +49,19 @@ void GlobalTopView::setupUi()
 void GlobalTopView::fadeIn()
 {
     this->setHidden(false);
+    m_effect->setEnabled(true);
     QPropertyAnimation* animation = new QPropertyAnimation(m_effect, "opacity", this);
     animation->setStartValue(0);
     animation->setEndValue(1);
     animation->setEasingCurve(QEasingCurve::Linear);
     animation->setDuration(700);
-    connect(animation, &QPropertyAnimation::finished, [&]() { emit fadeInFinished(); });
+    connect(animation, &QPropertyAnimation::finished, [&]() { emit SignalFadeInFinished(); m_effect->setEnabled(false); });
     animation->start(QAbstractAnimation::DeleteWhenStopped);
 }
 
 void GlobalTopView::fadeOut()
 {
+    m_effect->setEnabled(true);
     QPropertyAnimation* animation = new QPropertyAnimation(m_effect, "opacity", this);
     animation->setStartValue(1);
     animation->setEndValue(0);
@@ -66,8 +69,9 @@ void GlobalTopView::fadeOut()
     animation->setDuration(700);
     connect(animation, &QPropertyAnimation::finished, [&]() {
         this->setHidden(true);
+        m_effect->setEnabled(false);
         removeSource();
-        emit fadeOutFinished();
+        emit SignalFadeOutFinished();
         });
     animation->start(QAbstractAnimation::DeleteWhenStopped);
 }
@@ -86,6 +90,13 @@ void GlobalTopView::switchTop()
     }
 }
 
+void GlobalTopView::loadResourceBinding(ResourceBinding* binding)
+{
+    m_binding = binding;
+    setSource(binding->qmlFileName);
+    setHint(binding->hint);
+}
+
 void GlobalTopView::setSource(const QString& filename)
 {
     m_globalTopQuickWidget->engine()->clearComponentCache();
@@ -101,9 +112,6 @@ void GlobalTopView::setHint(const QString& hint)
 void GlobalTopView::removeSource()
 {
     m_globalTopQuickWidget->setSource(QUrl());
-}
-
-void GlobalTopView::updateUi(QWidget* Hugou)
-{
-    this->setGeometry(0, 0, Hugou->width(), Hugou->height());
+    delete m_binding;
+    m_binding = nullptr;
 }

@@ -1,7 +1,7 @@
 ﻿#include "Controller/Include/Controller_preference.h"
 
-PreferenceController::PreferenceController(PreferenceView* preferenceView, PreferenceModel* preferenceModel)
-    : QObject(), m_preferenceView(preferenceView), m_preferenceModel(preferenceModel)
+PreferenceController::PreferenceController(PreferenceView* preferenceView, PreferenceModel* preferenceModel, QObject* parent)
+    : QObject(parent), m_preferenceView(preferenceView), m_preferenceModel(preferenceModel)
 {
     connect(m_preferenceView->m_searchLineEdit, &QLineEdit::textChanged, m_preferenceView, &PreferenceView::checkIsLineEditNull);
     connect(m_preferenceView->m_searchButton, &QPushButton::clicked, m_preferenceView, &PreferenceView::searchpreference);

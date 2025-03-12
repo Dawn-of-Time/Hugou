@@ -1,4 +1,4 @@
-#include "View/Include/CheckBox.h"
+#include "Widgets/Include/CheckBox.h"
 
 CheckBox::CheckBox(QWidget* parent, Status status)
 	:QPushButton(parent), m_status(status)

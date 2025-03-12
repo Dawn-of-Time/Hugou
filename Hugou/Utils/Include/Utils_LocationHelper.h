@@ -19,6 +19,7 @@ public:
     LocationResuorceStatus status() { return m_status; };
     QString getID() { return m_ID; };
     QString getRegion() { return m_region; }
+    void refresh();
 
 private:
     LocationResuorceStatus m_status = LocationResuorceStatus::NotPrepared;

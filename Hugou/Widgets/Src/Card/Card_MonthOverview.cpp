@@ -1,4 +1,4 @@
-#include "Card/Include/Card_MonthOverview.h"
+#include "Widgets/Include/Card/Card_MonthOverview.h"
 
 MonthOverviewCard::MonthOverviewCard(QWidget* parent)
     :Card(parent)
@@ -24,12 +24,12 @@ void MonthOverviewCard::setupUi()
     m_titleWidget = new QWidget(this);
     m_titleWidget->setFixedHeight(30);
     m_titleWidgetLayout = new QHBoxLayout(m_titleWidget);
-    m_titleWidgetLayout->setContentsMargins(8, 0, 8, 0);
+    m_titleWidgetLayout->setContentsMargins(5, 0, 5, 0);
     m_titleWidgetLayout->setSpacing(0);
     m_title = new FadeEffectButton("", titleFont, m_titleWidget);
     m_title->setFixedSize(176, 30);
     m_title->layout()->setContentsMargins(0, 0, 0, 0);
-    m_title->setBackgroundWidgetStyleSheet("background-color: rgba(0, 0, 255, 0.1)");
+    m_title->setBackgroundWidgetStyleSheet("background-color: rgba(0, 0, 255, 0.1); border-radius: 5px");
     m_actionWidget = new QWidget(m_titleWidget);
     m_actionWidget->setFixedWidth(92);
     m_actionWidgetLayout = new QHBoxLayout(m_actionWidget);

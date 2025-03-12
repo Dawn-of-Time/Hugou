@@ -32,13 +32,13 @@ public:
 
     const QMap<QPair<Level, ItemType>, QPair<QString, QFont>> itemStyleMap =
     {
-        {qMakePair(Level::First, ItemType::LabelTitleType), qMakePair("QLabel {border-width: 0 0 0 5px; border-style: solid; border-color: black; padding-left: 2px}", QFont("Hind Siliguri", 22, QFont::Bold))},
-        {qMakePair(Level::Second, ItemType::LabelTitleType), qMakePair("QLabel {margin-left: 15px; margin-top: 5px; margin-bottom:5px}", QFont("Hind Siliguri", 16))},
-        {qMakePair(Level::Third, ItemType::LabelTitleType), qMakePair("QLabel {margin-left: 20px; margin-top: 5px; margin-bottom:5px;}", QFont("Hind Siliguri", 14, QFont::Light))},
-        {qMakePair(Level::Hint, ItemType::LabelHintType), qMakePair("QLabel {color: #696969; background-color: transparent}", QFont("Hind Siliguri", 12, QFont::Light))},
-        {qMakePair(Level::Content, ItemType::ComboboxType), qMakePair("QLabel {margin-left: 20px}", QFont("Hind Siliguri", 12, QFont::Light))},
-        {qMakePair(Level::Content, ItemType::LineEditType), qMakePair("QLineEdit {margin-left: 20px}", QFont("Hind Siliguri", 12, QFont::Light))}, 
-        {qMakePair(Level::Content, ItemType::LineEditWithTrailingButtonType), qMakePair("QLabel {margin-left: 20px}", QFont("Hind Siliguri", 12, QFont::Light))}
+        {qMakePair(Level::First, ItemType::LabelTitleType), qMakePair("QLabel {border-width: 0 0 0 5px; border-style: solid; border-color: black; padding-left: 2px}", QFont("NeverMind", 22, QFont::Bold))},
+        {qMakePair(Level::Second, ItemType::LabelTitleType), qMakePair("QLabel {margin-left: 15px; margin-top: 5px; margin-bottom:5px}", QFont("NeverMind", 16))},
+        {qMakePair(Level::Third, ItemType::LabelTitleType), qMakePair("QLabel {margin-left: 20px; margin-top: 5px; margin-bottom:5px;}", QFont("NeverMind", 14, QFont::Light))},
+        {qMakePair(Level::Hint, ItemType::LabelHintType), qMakePair("QLabel {color: #696969; background-color: transparent}", QFont("NeverMind", 12, QFont::Light))},
+        {qMakePair(Level::Content, ItemType::ComboboxType), qMakePair("QLabel {margin-left: 20px}", QFont("NeverMind", 12, QFont::Light))},
+        {qMakePair(Level::Content, ItemType::LineEditType), qMakePair("QLineEdit {margin-left: 20px}", QFont("NeverMind", 12, QFont::Light))}, 
+        {qMakePair(Level::Content, ItemType::LineEditWithTrailingButtonType), qMakePair("QLabel {margin-left: 20px}", QFont("NeverMind", 12, QFont::Light))}
     };
     const QMap<QString, QStringList> buttonIconMap =
     {

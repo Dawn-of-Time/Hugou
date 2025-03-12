@@ -3,8 +3,21 @@
 MemoWidget::MemoWidget(Memo* memo, QWidget* parent)
     :QWidget(parent), m_memo(memo)
 {
+    if (!m_memo)
+    {
+        m_memo = new Memo();
+        m_addMode = true;
+    }
     setupUi();
     connect(m_memoBriefWidget, &FadeEffectButton::clicked, this, &MemoWidget::showMemoSetting);
+}
+
+MemoWidget::~MemoWidget()
+{
+    if (m_addMode)
+    {
+        delete m_memo;
+    }
 }
 
 void MemoWidget::setupUi()
@@ -12,6 +25,10 @@ void MemoWidget::setupUi()
     // 字体清单
     QFont memoContentFont = QFont("NeverMind", 14, QFont::Medium);
     QFont memoSubContentFont = QFont("NeverMind", 12, QFont::Normal);
+
+    this->setObjectName("memoWidget");
+    this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    this->setStyleSheet("#memoWidget { background-color: #f1f0ed; border-radius: 10px }");
 
     m_layout = new QVBoxLayout(this);
     m_layout->setContentsMargins(0, 0, 0, 0);
@@ -22,6 +39,7 @@ void MemoWidget::setupUi()
     m_memoBriefWidget->setFixedHeight(60);
     m_memoBriefWidget->setCursor(Qt::PointingHandCursor);
     m_memoBriefWidget->setBackgroundWidgetStyleSheet("background-color: #EAF9FE; border-radius: 10px");
+    m_memoBriefWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     m_memoBriefWidgetLayout = new QHBoxLayout(m_memoBriefWidget);
     m_memoBriefWidgetLayout->setContentsMargins(0, 12, 0, 12);
     m_memoBriefWidgetLayout->setSpacing(8);
@@ -70,8 +88,8 @@ void MemoWidget::showMemoSetting()
     QPropertyAnimation* memoSettingExpandAnimation = new QPropertyAnimation(m_memoSetting, "minimumHeight");
     memoSettingExpandAnimation->setStartValue(0);
     memoSettingExpandAnimation->setEndValue(memoSettingHeight);
-    memoSettingExpandAnimation->setDuration(700);
-    memoSettingExpandAnimation->setEasingCurve(QEasingCurve::OutQuart);
+    memoSettingExpandAnimation->setDuration(400);
+    memoSettingExpandAnimation->setEasingCurve(QEasingCurve::OutCubic);
     connect(memoSettingExpandAnimation, &QPropertyAnimation::finished, [this]()
         {
             QParallelAnimationGroup* group = m_memoSetting->fadeIn();
@@ -92,8 +110,8 @@ void MemoWidget::hideMemoSetting()
         {
             QPropertyAnimation* memoSettingCollapseAnimation = new QPropertyAnimation(m_memoSetting, "minimumHeight");
             memoSettingCollapseAnimation->setEndValue(0);
-            memoSettingCollapseAnimation->setDuration(700);
-            memoSettingCollapseAnimation->setEasingCurve(QEasingCurve::OutQuart);
+            memoSettingCollapseAnimation->setDuration(400);
+            memoSettingCollapseAnimation->setEasingCurve(QEasingCurve::OutCubic);
             connect(memoSettingCollapseAnimation, &QPropertyAnimation::valueChanged, m_layout, &QVBoxLayout::update);
             connect(memoSettingCollapseAnimation, &QPropertyAnimation::valueChanged, [this]() { parentWidget()->update(); });  // 用于消除残影
             connect(memoSettingCollapseAnimation, &QPropertyAnimation::finished, m_memoSetting, &MemoSettingView::disableGraphicEffect);

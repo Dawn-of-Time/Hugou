@@ -9,6 +9,7 @@ class WeatherCard :
 {
 public:
     WeatherCard(QWidget* parent);
+    void refresh();
 
 private:
     QTimer* m_updateTimer;
@@ -36,6 +37,8 @@ private:
     QLabel* m_address;
     QLabel* m_recentUpdate;
     QPushButton* m_refreshButton;
+    QGraphicsOpacityEffect* m_refreshButtonEffect;
+    QPropertyAnimation* m_refreshButtonAnimation;
     QWidget* m_weatherWidget;
     QHBoxLayout* m_weatherWidgetLayout;
     QLabel* m_temperatureWidget;

@@ -10,7 +10,7 @@ class ScheduleController :
     Q_OBJECT
 
 public:
-    ScheduleController(ScheduleView* scheduleView, ScheduleModel* scheduleModel);
+    ScheduleController(ScheduleView* scheduleView, ScheduleModel* scheduleModel, QObject* parent);
     ~ScheduleController();
     void readAndGenerateMemos();
 

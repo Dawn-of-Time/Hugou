@@ -52,6 +52,7 @@ void FadeEffectButton::addTextZone(const QString& text, const QFont& font)
 	if (!m_buttonLayout) setGeneralLayout();
 	m_textZone = new QLabel(text, this);
 	m_textZone->setFont(font);
+	m_textZone->setContentsMargins(5, 0, 0, 0);
 	m_buttonLayout->addWidget(m_textZone);
 }
 
@@ -171,5 +172,10 @@ void FadeEffectButton::paintEvent(QPaintEvent* event) {
 }
 
 void FadeEffectButton::showEvent(QShowEvent* event) {
+	m_backgroundWidget->resize(this->size());
+}
+
+void FadeEffectButton::resizeEvent(QResizeEvent* event) {
+	QPushButton::resizeEvent(event);
 	m_backgroundWidget->resize(this->size());
 }

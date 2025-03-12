@@ -12,8 +12,8 @@
 #include <QDate>
 #include <cmath>
 #include <QCheckBox>
-#include "Card/Include/Card_MonthOverview.h"
-#include "Card/Include/Card_Weather.h"
+#include "Widgets/Include/Card/Card_MonthOverview.h"
+#include "Widgets/Include/Card/Card_Weather.h"
 #include "View/Include/View_MemoSetting.h"
 #include "Include/Struct_Memo.h"
 #include "Widgets/Include/CheckBox.h"

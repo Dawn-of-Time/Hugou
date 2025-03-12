@@ -11,7 +11,7 @@
 //    // ×ÖÌåÇåµ¥
 //    const QFont generalTitleFont = QFont("Roboto", 14, QFont::Medium);
 //    const QFont firstLevelTitleFont = QFont("Roboto", 12, QFont::Normal);
-//    const QFont secondLevellTitleFont = QFont("Hind Siliguri", 12, QFont::Thin);
+//    const QFont secondLevellTitleFont = QFont("NeverMind", 12, QFont::Thin);
 //
 //    this->setFixedSize(300, this->parentWidget()->height());
 //    m_taskSettingLayout = new QVBoxLayout(this);

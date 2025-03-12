@@ -1,41 +1,36 @@
 #include "Utils/Include/Utils_ThemeManager.h"
 
-ThemeManager::ThemeManager(QWidget* hugou, QWidget* asideBarView, QWidget* preferenceView, GlobalTopView* globalTopView)
-    : QObject(), m_hugou(hugou), m_asideBarView(asideBarView), m_preferenceView(preferenceView), m_globalTopView(globalTopView)
+ThemeManager::ThemeManager(QList<QWidget*> objectList, QObject* parent)
+    : QObject(parent)
 {
+    m_hugou = objectList[0];
+    m_asideBarView = objectList[1];
+    m_preferenceView = objectList[2];
+
+    QString theme;
+    if (ConfigurationHelper::getHelper()->getPreferenceValue("theme", theme)) m_theme = theme;
+    else m_theme = "Default";
+
     connect(this, &ThemeManager::SignalThemeResourcePrepared, this, &ThemeManager::applyThemeForStartup);
+
+    loadThemeResource(m_theme);
 }
 
 ThemeManager::~ThemeManager()
 {
 }
 
-QString ThemeManager::getTheme()
-{
-    if (m_theme.isEmpty())
-    {
-        ConfigurationHelper* helper = ConfigurationHelper::getHelper();
-        QString theme;
-        if (helper->getPreferenceValue("theme", theme))
-            m_theme = theme;
-        else m_theme = "Default";
-    }
-    return m_theme;
-}
-
 void ThemeManager::loadThemeResource(QString theme)
 {
-    if (theme.isEmpty()) theme = getTheme();
-    m_tempTheme = theme;    // m_tempTheme是目标主题（用户希望的
-    LoadThemeResourceThread* loadThemeResourceThread = new LoadThemeResourceThread;
+    m_tempTheme = theme;    // m_tempTheme是目标主题（用户希望的)
+    LoadThemeResourceThread* loadThemeResourceThread = new LoadThemeResourceThread(theme);
     connect(loadThemeResourceThread, &LoadThemeResourceThread::SignalThemeResourcePreparedInThread, [&](ThemeResource* themeResource, bool consistentFlag)
         {
             // 如果所希望应用的主题和主题资源一致，则将ThemeManager的m_theme变更为m_tempTheme。否则不变。
             if (consistentFlag) m_theme = m_tempTheme;
-            emit SignalThemeResourcePrepared(themeResource, consistentFlag);
+            emit SignalThemeResourcePrepared(themeResource);
         });
     connect(loadThemeResourceThread, &LoadThemeResourceThread::finished, loadThemeResourceThread, &LoadThemeResourceThread::deleteLater);
-    loadThemeResourceThread->setTheme(theme);
     // 下述线程一定能够得到可行的主题资源。
     loadThemeResourceThread->start();
 }
@@ -46,55 +41,52 @@ void ThemeManager::loadThemeResource(QString theme)
 // consistentFlag--希望应用的主题和加载的主题资源是否一致。如果不一致，则需要将preferenceComboboxMap["themeBox"]：
 // * 如果是第一次加载的情况，改为Default；
 // * 如果是后续手动变更的情况，则改为ThemeManager中通过getTheme得到的主题名称。
-void ThemeManager::applyThemeForStartup(ThemeResource* themeResource, bool consistentFlag)
+void ThemeManager::applyThemeForStartup(ThemeResource* themeResource)
 {
     // 若为第一次加载，那么无需播放动画，并且重新连接ThemeManager的信号和槽。
-    if (!consistentFlag) emit SignalUpdateThemeComboboxValue("Default");
     applyThemeResource(themeResource);
     disconnect();
     connect(this, &ThemeManager::SignalThemeResourcePrepared, this, &ThemeManager::applyTheme);
 }
 
-void ThemeManager::applyTheme(ThemeResource* themeResource, bool consistentFlag)
+void ThemeManager::applyTheme(ThemeResource* themeResource)
 {
     // 若不为第一次加载，那么需要执行动画。
-    if (!consistentFlag)  emit SignalUpdateThemeComboboxValue(m_theme);
-    ConfigurationHelper::getHelper()->setPreferenceValue("theme", m_theme);
-    m_globalTopView->disconnect();
-    connect(m_globalTopView, &GlobalTopView::fadeInFinished, [=]()
-        {
-            applyThemeResource(themeResource);
-            endToApplyThemeResourceFinished();
-        });
-    connect(m_globalTopView, &GlobalTopView::fadeOutFinished, [=]()
-        {
-            emit MessegeHelper::getHelper()->trigger(FloatingNote::Success, 10000, m_theme + ".");
-        });
-    startToApplyThemeResource(m_theme);
-}
-
-void ThemeManager::startToApplyThemeResource(const QString& theme)
-{
-    m_globalTopView->setSource("qrc:/qml/themeApplyMedia.qml");
-    m_globalTopView->setHint(tr("Upcoming theme: ") + theme);
-    m_globalTopView->fadeIn();
+    // 获取GlobalTop控制器使用权。
+    GlobalTopController* controller = GlobalTopController::getController();
+    if (controller->isAvailable())
+    {
+        m_globalTopUsagePermission = controller->use();
+        connect(controller, &GlobalTopController::SignalFadeInFinished, [this, themeResource]()
+            {
+                applyThemeResource(themeResource);
+            });
+        connect(this, &ThemeManager::SignalApplyThemeResourceFinished, controller, &GlobalTopController::fadeOutView);
+        connect(controller, &GlobalTopController::SignalFadeOutFinished, [this]()
+            {
+                ConfigurationHelper::getHelper()->setPreferenceValue("theme", m_theme);
+                emit MessegeHelper::getHelper()->trigger(FloatingNote::Success, 10000, m_theme + ".");
+                // 归还GlobalTop控制器使用权。
+                delete m_globalTopUsagePermission;
+            });
+        GlobalTopView::ResourceBinding* binding = new GlobalTopView::ResourceBinding();
+        binding->qmlFileName = "qrc:/qml/themeApplyMedia.qml";
+        binding->hint = tr("Upcoming theme: ") + m_theme;
+        controller->fadeInView(binding);
+    }
+    else qDebug() << "[HUGOU] ThemeManager: Can not use GlobalTopController.";
 }
 
 void ThemeManager::applyThemeResource(ThemeResource* themeResource)
 {
-
     QString generalStyleSheet = themeResource->generalStyleSheet;
     QString asideBarStyleSheet = themeResource->asideBarStyleSheet;
     QString preferenceStyleSheet = themeResource->preferenceStyleSheet;
     m_hugou->setStyleSheet(generalStyleSheet);
     m_asideBarView->setStyleSheet(asideBarStyleSheet);
     m_preferenceView->setStyleSheet(preferenceStyleSheet);
+    emit SignalApplyThemeResourceFinished();
     delete themeResource;
-}
-
-void ThemeManager::endToApplyThemeResourceFinished()
-{
-    m_globalTopView->fadeOut();
 }
 
 void LoadThemeResourceThread::run()
@@ -161,6 +153,36 @@ void LoadThemeResourceThread::run()
 ThemeResource* LoadThemeResourceThread::getDefaultThemeResource()
 {
     ThemeResource* themeResource = new ThemeResource{};
+    // 默认主题
+    const QString defaultGeneralStyleSheet =
+        QString("HugouView#hugou { background-color: #F0F4FD; }")
+        + QString("QWidget#asideBarAndStackedWidget { background-color: transparent; }")
+        + QString("QStackedWidget#stackedWidget { margin-bottom: 10px; margin-right: 10px; border-radius: 10px; background-color: rgba(255, 255, 255, 0.8);}");
+
+    const QString defaultAsideBarStyleSheet =
+        QString("QLabel { padding-left: 6px; color:#666666; background-color: transparent; }")
+        + QString("QLabel#userAvatar { padding: 0px; border-radius: 24px; border: none; color: balck; background-color: transparent;} ")
+        + QString("QLabel#userNickname { border: none; color: balck; background-color: transparent;} ")
+        + QString("QLabel#userID { border: none; color: balck; background-color: transparent;} ")
+        + QString("QPushButton[status=\"default\"] { border-radius: 10px; }")
+        + QString("QPushButton[status=\"default\"] > QLabel { padding: 0px; margin :0px; color: #434343; background-color: transparent; }")
+        + QString("QPushButton[status=\"current\"] { border-radius: 10px;}")
+        + QString("QPushButton[status=\"current\"] > QLabel { padding: 0px; margin :0px; color: #377FED; background-color: transparent; }");
+
+    const QString defaultpreferenceStyleSheet =
+        QString("QStackedWidget { background-color: transparent; border: none }")
+        + QString("QTreeWidget { background-color: transparent; border: none }")
+        + QString("QListWidget { background-color: transparent; border: none; outline: none; margin-left: 20px; margin-right: 12px; margin-top: 2px; margin-bottom: 2px }")
+        + QString("QListWidget::item:hover { background-color: transparent }")
+        + QString("QPushButton { border: none }")
+        + QString("QComboBox { border: none; border-radius: 5px; padding: 3px; background-color: #A2CBEE; }")
+        + QString("QComboBox:hover { background-color: #5591DC; }")
+        + QString("QComboBox QAbstractItemView { outline: none; margin-top: 5px; border-radius: 5px; background-color: #A2CBEE; }")
+        + QString("QComboBox QAbstractItemView::item:hover { padding: 3px; color: black; border-radius: 5px; background-color: #5591DC; }")
+        + QString("QComboBox QAbstractItemView::item:selected { padding: 3px; color: white; border-radius: 5px; background-color: #5591DC; }")
+        + QString("QComboBox::down-arrow { image: url(\":/icon/down_bla.ico\"); width: 20px; }")
+        + QString("QComboBox::drop-down { border: none; }");
+
     themeResource->generalStyleSheet = defaultGeneralStyleSheet;
     themeResource->asideBarStyleSheet = defaultAsideBarStyleSheet;
     themeResource->preferenceStyleSheet = defaultpreferenceStyleSheet;

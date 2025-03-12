@@ -8,8 +8,9 @@
 #include <QPainter>
 #include <QPropertyAnimation>
 #include <QScrollArea>
+#include <QGraphicsOpacityEffect>
 #include "Include/Struct_Memo.h"
-#include "View/Widgets/Include/MemoSettingItem.h"
+#include "Widgets/Include/MemoSettingItem/MemoSettingItem.h"
 
 class MemoSettingController;
 

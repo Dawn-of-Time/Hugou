@@ -95,12 +95,22 @@ void HugouView::setupUi()
     m_stackedSwitchFadeInAnimation->setEndValue(1);
     m_stackedSwitchFadeInAnimation->setDuration(200);
     connect(m_stackedSwitchFadeInAnimation, &QPropertyAnimation::finished, this, &HugouView::disableGraphicsEffect);
-    // --------堆叠控件：Schedule
     m_scheduleView = new ScheduleView(m_stackedWidget);
-    // --------堆叠控件：preference
+    //m_projectView = new ProjectView(m_stackedWidget);
+    //m_achievementView = new AchievementView(m_stackedWidget);
+    //m_documentView = new DocumentView(m_stackedWidget);
+    //m_applicationRepoView = new ApplicationRepoView(m_stackedWidget);
+    //m_extentionView = new ExtentionView(m_stackedWidget);
+    //m_recycleBinView = new RecycleBinView(m_stackedWidget);
     m_preferenceView = new PreferenceView(m_stackedWidget);
     m_stackedWidget->addWidget(m_scheduleView);
+    //m_stackedWidget->addWidget(m_achievementView);
+    //m_stackedWidget->addWidget(m_documentView);
+    //m_stackedWidget->addWidget(m_applicationRepoView);
+    //m_stackedWidget->addWidget(m_extentionView);
+    //m_stackedWidget->addWidget(m_recycleBinView);
     m_stackedWidget->addWidget(m_preferenceView);
+
     m_stackedWidget->setCurrentWidget(m_scheduleView);
 
     m_stackedWidgetLayout->addWidget(m_stackedWidget);
@@ -116,7 +126,7 @@ void HugouView::setupUi()
     m_darkenWidget->setObjectName("darkenWidget");
     m_darkenWidget->setGeometry(0, titleFrameHeight, mainWindowWidth, mainWindowHeight);
     m_darkenWidget->setHidden(true);
-    m_floatingNotePanel = new FloatingNotePanel(this);
+    //m_floatingNotePanel = new FloatingNotePanel(this);
     m_globalTopView = new GlobalTopView(this);
 
     retranslateUi();
@@ -396,9 +406,9 @@ void HugouView::resizeEvent(QResizeEvent* event)
     // 设置页表单
     m_preferenceView->adjustSizeHint();
 
-    m_floatingNotePanel->updateUi();
+    //m_floatingNotePanel->updateUi();
     m_darkenWidget->resize(this->width(), this->height() - titleFrameHeight);
-    m_globalTopView->updateUi(this);
+    m_globalTopView->setGeometry(m_asideBarAndStackedWidget->geometry());
 
     if (m_stackedSwitchFadeInAnimation->state() == QPropertyAnimation::Running ||
         m_stackedSwitchFadeOutAnimation->state() == QPropertyAnimation::Running)

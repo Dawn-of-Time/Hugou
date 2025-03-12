@@ -146,10 +146,10 @@
     <ClCompile Include="Utils\Src\Utils_PictureHelper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Card\Card_MonthOverview.cpp">
+    <ClCompile Include="Widgets\Src\Card\Card_MonthOverview.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Card\Card.cpp">
+    <ClCompile Include="Widgets\Src\Card\Card.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="View\Src\View_MemoSetting.cpp">
@@ -161,7 +161,7 @@
     <ClCompile Include="Controller\Src\Controller_MemoSetting.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="View\Widgets\Src\MemoSettingItem.cpp">
+    <ClCompile Include="Widgets\Src\MemoSettingItem\MemoSettingItem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Widgets\Src\CheckBox.cpp">
@@ -203,7 +203,7 @@
     <ClCompile Include="View\Widgets\Src\MemoWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Card\Card_Weather.cpp">
+    <ClCompile Include="Widgets\Src\Card\Card_Weather.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Utils\Src\Utils_LocationHelper.cpp">
@@ -213,6 +213,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Utils\Src\Utils_NetworkHelper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Widgets\Src\ToolTip.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Widgets\Src\MemoSettingItem\MemoTypeItem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Widgets\Src\MemoSettingItem\MemoTimeItem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Controller\Src\Controller_GlobalTop.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -289,7 +301,7 @@
     <QtMoc Include="View\Include\View_MemoSetting.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="View\Widgets\Include\MemoSettingItem.h">
+    <QtMoc Include="Widgets\Include\MemoSettingItem\MemoSettingItem.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="Widgets\Include\CheckBox.h">
@@ -331,6 +343,18 @@
     <QtMoc Include="Utils\Include\Utils_NetworkHelper.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="View\Widgets\Include\MemoTypeWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Widgets\Include\MemoSettingItem\MemoTypeItem.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Widgets\Include\MemoSettingItem\MemoTimeItem.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Controller\Include\Controller_GlobalTop.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Const_Geometry.h">
@@ -354,10 +378,10 @@
     <ClInclude Include="Utils\Include\Utils_PictureHelper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Card\Include\Card_MonthOverview.h">
+    <ClInclude Include="Widgets\Include\Card\Card_MonthOverview.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Card\Include\Card.h">
+    <ClInclude Include="Widgets\Include\Card\Card.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Include\Struct_Memo.h">
@@ -375,13 +399,13 @@
     <ClInclude Include="Include\Global_Hugou.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="View\Widgets\Include\MemoTypeWidget.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Card\Include\Card_Weather.h">
+    <ClInclude Include="Widgets\Include\Card\Card_Weather.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="View\Include\View_TaskSetting.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Widgets\Include\ToolTip.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,4 +1,4 @@
-#include "Card/Include/Card.h"
+#include "Widgets/Include/Card/Card.h"
 
 Card::Card(QWidget* parent)
 	:QWidget(parent)

@@ -57,6 +57,14 @@ void LocationHelper::getID(QNetworkReply* IDReply, QNetworkAccessManager* manage
 	else m_status = LocationResuorceStatus::Error;
 }
 
+void LocationHelper::refresh()
+{
+	m_status = LocationResuorceStatus::NotPrepared;
+	QNetworkAccessManager* manager = new QNetworkAccessManager(this);
+	QNetworkReply* provinceAndRegionReply = manager->get(QNetworkRequest(QUrl("https://whois.pconline.com.cn/ipJson.jsp?json=true")));
+	connect(provinceAndRegionReply, &QNetworkReply::finished, [this, provinceAndRegionReply, manager]() {getProvinceAndRegion(provinceAndRegionReply, manager); });
+}
+
 LocationHelper* LocationHelper::getHelper()
 {
 	static LocationHelper helper;

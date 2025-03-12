@@ -47,6 +47,12 @@ private:
     QStackedWidget* m_stackedWidget;
     QHBoxLayout* m_stackedWidgetLayout;
     ScheduleView* m_scheduleView;
+    // ProjectView* m_projectView;
+    // AchievementView* m_achievementView;
+    // DocumentView* m_documentView;
+    // ApplicationRepoView* m_applicationRepoView;
+    // ExtentionView* m_extentionView;
+    // RecycleBinView* m_recycleBinView;
     PreferenceView* m_preferenceView;
     QWidget* m_darkenWidget;
     FloatingNotePanel* m_floatingNotePanel;

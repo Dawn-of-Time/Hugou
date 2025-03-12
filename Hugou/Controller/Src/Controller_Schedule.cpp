@@ -1,7 +1,7 @@
 #include "Controller/Include/Controller_Schedule.h"
 
-ScheduleController::ScheduleController(ScheduleView* scheduleView, ScheduleModel* scheduleModel)
-	:QObject(), m_scheduleView(scheduleView), m_scheduleModel(scheduleModel)
+ScheduleController::ScheduleController(ScheduleView* scheduleView, ScheduleModel* scheduleModel, QObject* parent)
+	:QObject(parent), m_scheduleView(scheduleView), m_scheduleModel(scheduleModel)
 {
 	readAndGenerateMemos();
 	for (QObject* object : m_scheduleView->m_memoListWidget->children())

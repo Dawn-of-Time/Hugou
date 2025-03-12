@@ -10,32 +10,34 @@
 #include <QPropertyAnimation>
 #include <QQmlEngine>
 
+class GlobalTopController;
+
 class GlobalTopView
 	: public QWidget 
 {
 	Q_OBJECT
 
 public:
+	struct ResourceBinding
+	{
+		QString qmlFileName;
+		QString hint;
+	};
 	bool m_isTopShown = false;
 	GlobalTopView(QWidget* parent);
 	~GlobalTopView();
-	void fadeIn();
-	void fadeOut();
-	void setSource(const QString& filename);
-	void setHint(const QString& hint);
 	void removeSource();
 	void updateUi(QWidget* Hugou);
+	void switchTop();
+	void loadResourceBinding(ResourceBinding* binding);
 
 signals:
-	void fadeInFinished();
-	void fadeOutFinished();
-	void blurBackground();
-	void clearBackground();
-
-public slots:
-	void switchTop();
+	void SignalFadeInFinished();
+	void SignalFadeOutFinished();
 
 private:
+	friend class GlobalTopController;
+	ResourceBinding* m_binding = nullptr;
 	QGraphicsOpacityEffect* m_effect;
 	QVBoxLayout* m_globalTopLayout;
 	QQuickWidget* m_globalTopQuickWidget;
@@ -46,5 +48,9 @@ private:
 		QPainter painter(this);
 		painter.fillRect(rect(), QColor(240, 242, 243, 255));
 	}
+	void setSource(const QString& filename);
+	void setHint(const QString& hint);
+	void fadeIn();
+	void fadeOut();
 };
 

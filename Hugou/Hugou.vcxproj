@@ -17,14 +17,18 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Controller\Src\Controller_GlobalTop.cpp" />
+    <ClCompile Include="Widgets\Src\MemoSettingItem\MemoTimeItem.cpp" />
+    <ClCompile Include="Widgets\Src\MemoSettingItem\MemoTypeItem.cpp" />
+    <ClCompile Include="Widgets\Src\ToolTip.cpp" />
     <ClCompile Include="Utils\Src\Utils_PictureHelper.cpp" />
     <ClCompile Include="Utils\Src\Utils_DragFilter.cpp" />
     <ClCompile Include="Utils\Src\Utils_LocationHelper.cpp" />
     <ClCompile Include="Utils\Src\Utils_MessegeHelper.cpp" />
     <ClCompile Include="Utils\Src\Utils_NetworkHelper.cpp" />
-    <ClCompile Include="Card\Card.cpp" />
-    <ClCompile Include="Card\Card_MonthOverview.cpp" />
-    <ClCompile Include="Card\Card_Weather.cpp" />
+    <ClCompile Include="Widgets\Src\Card\Card.cpp" />
+    <ClCompile Include="Widgets\Src\Card\Card_MonthOverview.cpp" />
+    <ClCompile Include="Widgets\Src\Card\Card_Weather.cpp" />
     <ClCompile Include="View\Widgets\Src\MemoTypeWidget.cpp" />
     <ClCompile Include="View\Widgets\Src\MemoWidget.cpp" />
     <ClCompile Include="Menu\Src\ColorPaletteMenuItem.cpp" />
@@ -42,7 +46,7 @@
     <ClCompile Include="Controller\Src\Controller_Schedule.cpp" />
     <ClCompile Include="Controller\Src\Controller_MemoSetting.cpp" />
     <ClCompile Include="Database\Src\Database.cpp" />
-    <ClCompile Include="View\Widgets\Src\MemoSettingItem.cpp" />
+    <ClCompile Include="Widgets\Src\MemoSettingItem\MemoSettingItem.cpp" />
     <ClCompile Include="Model\Src\Model_Welcome.cpp" />
     <ClCompile Include="Model\Src\Model_Preference.cpp" />
     <ClCompile Include="Model\Src\Model_Schedule.cpp" />
@@ -80,7 +84,7 @@
     <QtMoc Include="Widgets\Include\PopupWidget.h" />
     <QtMoc Include="View\Include\View_MemoTypeConfig.h" />
     <QtMoc Include="Controller\Include\Controller_MemoSetting.h" />
-    <QtMoc Include="View\Widgets\Include\MemoSettingItem.h" />
+    <QtMoc Include="Widgets\Include\MemoSettingItem\MemoSettingItem.h" />
     <QtMoc Include="Widgets\Include\CheckBox.h" />
     <QtMoc Include="Widgets\Include\CloseWhenLeaveWidget.h" />
     <QtMoc Include="Menu\Include\ColorPaletteMenuItem.h" />
@@ -88,13 +92,17 @@
     <QtMoc Include="Utils\Include\Utils_LocationHelper.h" />
     <QtMoc Include="Utils\Include\Utils_MessegeHelper.h" />
     <QtMoc Include="Utils\Include\Utils_NetworkHelper.h" />
-    <ClInclude Include="Card\Include\Card_Weather.h" />
+    <QtMoc Include="Widgets\Include\MemoSettingItem\MemoTypeItem.h" />
+    <QtMoc Include="Widgets\Include\MemoSettingItem\MemoTimeItem.h" />
+    <QtMoc Include="Controller\Include\Controller_GlobalTop.h" />
+    <ClInclude Include="Widgets\Include\Card\Card_Weather.h" />
+    <ClInclude Include="Widgets\Include\ToolTip.h" />
     <ClInclude Include="Widgets\Include\DoubleClickedToEditButton.h" />
     <QtMoc Include="Menu\Include\Menu.h" />
     <ClInclude Include="Include\Global_Hugou.h" />
     <QtMoc Include="Menu\Include\LineEditMenuItem.h" />
     <QtMoc Include="Menu\Include\MenuItem.h" />
-    <ClInclude Include="View\Widgets\Include\MemoTypeWidget.h" />
+    <QtMoc Include="View\Widgets\Include\MemoTypeWidget.h" />
     <QtMoc Include="View\Widgets\Include\MemoWidget.h" />
     <ClInclude Include="Widgets\Include\ComboBox.h" />
     <ClInclude Include="Model\Include\Model_MemoSetting.h" />
@@ -107,8 +115,8 @@
     <QtMoc Include="Controller\Include\Controller_Schedule.h" />
     <QtMoc Include="Database\Include\Database.h" />
     <ClInclude Include="Utils\Include\Utils_PictureHelper.h" />
-    <ClInclude Include="Card\Include\Card.h" />
-    <ClInclude Include="Card\Include\Card_MonthOverview.h" />
+    <ClInclude Include="Widgets\Include\Card\Card.h" />
+    <ClInclude Include="Widgets\Include\Card\Card_MonthOverview.h" />
     <ClInclude Include="Include\Const_Font.h" />
     <ClInclude Include="Model\Include\Model_Schedule.h" />
     <QtMoc Include="Utils\Include\Utils_ThemeManager.h" />

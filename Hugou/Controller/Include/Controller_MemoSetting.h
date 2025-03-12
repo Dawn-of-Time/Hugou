@@ -2,6 +2,8 @@
 #include <QObject>
 #include "Model/Include/Model_MemoSetting.h"
 #include "View/Include/View_MemoSetting.h"
+#include "Widgets/Include/MemoSettingItem/MemoTypeItem.h"
+#include "Widgets/Include/MemoSettingItem/MemoTimeItem.h"
 
 class MemoSettingController :
     public QObject
