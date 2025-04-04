@@ -4,31 +4,78 @@
 #include <QPushButton>
 #include <QParallelAnimationGroup>
 #include <QLineEdit>
+#include <QButtonGroup>
 #include <QGraphicsOpacityEffect>
+#include <QStackedWidget>
 #include "Widgets/Include/FadeEffectButton.h"
-#include "Widgets/Include/CloseWhenLeaveWidget.h"
+#include "Widgets/Include/DateTimeSelector.h"
+#include "Widgets/Include/YearAndMonthSelector.h"
+#include "Widgets/Include/Menu/Menu.h"
+#include "Widgets/Include/Menu/SingleSelectionMenuItem.h"
+#include "Widgets/Include/Menu/DateTimeMenuItem.h"
 
 class MemoTimeItem :
     public MemoSettingItem
 {
     Q_OBJECT
 public:
-    enum TimeSelectMode
-    {
-        BeginMode,
-        EndMode
-    };
     MemoTimeItem(QWidget* parent = nullptr);
     ~MemoTimeItem();
     void loadMonthView(const QDate& date);
 
 private:
-    bool m_hasReminder = false;
-    TimeSelectMode m_timeSelectMode = TimeSelectMode::BeginMode;
-    QDate m_currentDate = QDate();
-    QPushButton* m_todayButton;
-    QPushButton* m_beginButton;
-    QPushButton* m_endButton;
+    enum TimeSelectMode
+    {
+        DefaultMode,
+        BeginMode,
+        EndMode
+    };
+    enum DayButtonStatus
+    {
+        NotSelectedAndNotThisMonth,
+        NotSelectedAndThisMonth,
+        SelectedAndNotThisMonth,
+        SelectedAndThisMonth
+    };
+    struct DayAttribution
+    {
+        bool isExisted;
+        int lowerBound;
+        int upperBound;
+    };
+    enum ReminderMode
+    {
+        Once,
+        Repeat
+    };
+    enum ReminderRepeatMode
+    {
+        EveryDay,
+        EveryWeek,
+        EveryMonth,
+        EveryYear,
+        Custom
+    };
+    struct Reminder
+    {
+        bool hasReminder = false;
+        QDateTime reminderDateTime = QDateTime();
+        ReminderMode mode = Once;
+        ReminderRepeatMode repeateMode = ReminderRepeatMode::EveryDay;
+    };
+    TimeSelectMode m_timeSelectMode = TimeSelectMode::DefaultMode;
+    QDate m_selectedDate = QDate();
+    DayAttribution m_lastMonth;
+    DayAttribution m_thisMonth;
+    DayAttribution m_nextMonth;
+    FadeEffectButton* m_todayButton;
+    FadeEffectButton* m_beginButton = nullptr;
+    FadeEffectButton* m_endButton = nullptr;
+    QDateTime m_beginDateTime = QDateTime();
+    QDateTime m_endDateTime = QDateTime();
+    QDate m_startDate;  // 月历初按钮的日期
+    QDate m_finishDate; // 月历末按钮的日期
+    Reminder m_reminder;
     QParallelAnimationGroup* m_animationGroup;
     QVBoxLayout* m_contentLayout;
     QWidget* m_reminderWidget;
@@ -48,48 +95,31 @@ private:
     QPushButton* m_forwardButton;
     QWidget* m_monthWidget;
     QVBoxLayout* m_monthWidgetLayout;
+    QButtonGroup* m_dayGroup;
     QWidget* m_weekdaysBar;
     QHBoxLayout* m_weekdaysBarLayout;
-    QWidget* m_beginWidget;
-    QWidget* m_beginAndEndWidget;
-    QWidget* m_endWidget;
     QLabel* m_beginLabel;
     QLabel* m_beginAndEndLabel;
     QLabel* m_endLabel;
     QWidget* m_timeWidget;
     QHBoxLayout* m_timeWidgetLayout;
-    QWidget* m_beginTimeWidget;
-    QVBoxLayout* m_beginTimeWidgetLayout;
-    QWidget* m_beginTimeYYYYMMDDWidget;
-    QHBoxLayout* m_beginTimeYYYYMMDDWidgetLayout;
-    QPushButton* m_beginTimeYearButton;
-    QPushButton* m_beginTimeMonthButton;
-    QPushButton* m_beginTimeDayButton;
-    QWidget* m_beginTimeHHMMWidget;
-    QHBoxLayout* m_beginTimeHHMMWidgetLayout;
-    QPushButton* m_beginTimeHourButton;
-    QPushButton* m_beginTimeMinuteButton;
+    DateTimeSelector* m_beginDateTimeSelector;
     QLabel* m_toLabel;
-    QWidget* m_endTimeWidget;
-    QVBoxLayout* m_endTimeWidgetLayout;
-    QWidget* m_endTimeYYYYMMDDWidget;
-    QHBoxLayout* m_endTimeYYYYMMDDWidgetLayout;
-    QPushButton* m_endTimeYearButton;
-    QPushButton* m_endTimeMonthButton;
-    QPushButton* m_endTimeDayButton;
-    QWidget* m_endTimeHHMMWidget;
-    QHBoxLayout* m_endTimeHHMMWidgetLayout;
-    QPushButton* m_endTimeHourButton;
-    QPushButton* m_endTimeMinuteButton;
+    DateTimeSelector* m_endDateTimeSelector;
+    
+    Menu* m_reminderMenu;
+    SingleSelectionMenuItem* m_reminderModeSelectionMenuItem;
+    DateTimeMenuItem* m_reminderDateTimeMenuItem;
+    SingleSelectionMenuItem* m_repeatModeSelectionMenuItem;
 
     QList<QPushButton*> m_weekIndexButtonListForAMonth = {};
-    QList<QPushButton*> m_dayListForAMonth = {};
     QList<QWidget*> m_weekListForAMonth = {};
+    QList<FadeEffectButton*> m_dayListForAMonth = {};
     QList<QString> m_monthNameList = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
     QMap<QString, int> m_monthMap =
     {
-        { "Jan", 1},
-        { "Feb", 2},
+        {"Jan", 1},
+        {"Feb", 2},
         {"Mar", 3},
         {"Apr", 4},
         {"May", 5},
@@ -99,17 +129,20 @@ private:
         {"Sep", 9},
         {"Oct", 10},
         {"Nov", 11},
-        {"Dec",  12}
+        {"Dec", 12}
     };
 
     void setupUi();
     void switchReminder();
+    void switchReminderMode(const QString& mode);
     void goBackAMonth();
     void goForwardAMonth();
     void goBackToToday();
     void setYearAndMonth();
+    void setBeginOrEnd();
+    void setReminder();
     void enableGraphicsEffect();
     void disableGraphicsEffect();
-    QPoint getLabelPos(QWidget* label, QPushButton* dayButton);
+    QPoint getLabelPos(QLabel* label, QPushButton* dayButton);
     void showEvent(QShowEvent* event) override;
 };

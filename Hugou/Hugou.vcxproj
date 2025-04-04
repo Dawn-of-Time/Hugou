@@ -18,6 +18,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Controller\Src\Controller_GlobalTop.cpp" />
+    <ClCompile Include="Widgets\Src\Menu\DateTimeMenuItem.cpp" />
+    <ClCompile Include="Widgets\Src\Menu\SingleSelectionMenuItem.cpp" />
+    <ClCompile Include="Widgets\Src\YearAndMonthSelector.cpp" />
+    <ClCompile Include="Widgets\Src\DateTimeSelector.cpp" />
     <ClCompile Include="Widgets\Src\MemoSettingItem\MemoTimeItem.cpp" />
     <ClCompile Include="Widgets\Src\MemoSettingItem\MemoTypeItem.cpp" />
     <ClCompile Include="Widgets\Src\ToolTip.cpp" />
@@ -31,10 +35,10 @@
     <ClCompile Include="Widgets\Src\Card\Card_Weather.cpp" />
     <ClCompile Include="View\Widgets\Src\MemoTypeWidget.cpp" />
     <ClCompile Include="View\Widgets\Src\MemoWidget.cpp" />
-    <ClCompile Include="Menu\Src\ColorPaletteMenuItem.cpp" />
-    <ClCompile Include="Menu\Src\LineEditMenuItem.cpp" />
-    <ClCompile Include="Menu\Src\Menu.cpp" />
-    <ClCompile Include="Menu\Src\MenuItem.cpp" />
+    <ClCompile Include="Widgets\Src\Menu\ColorPaletteMenuItem.cpp" />
+    <ClCompile Include="Widgets\Src\Menu\LineEditMenuItem.cpp" />
+    <ClCompile Include="Widgets\Src\Menu\Menu.cpp" />
+    <ClCompile Include="Widgets\Src\Menu\MenuItem.cpp" />
     <ClCompile Include="Widgets\Src\PopupWidget.cpp" />
     <ClCompile Include="Widgets\Src\CloseWhenLeaveWidget.cpp" />
     <ClCompile Include="Widgets\Src\DoubleClickedToEditButton.cpp" />
@@ -73,6 +77,7 @@
     <ClCompile Include="View\Src\View_TaskSetting.cpp" />
     <ClCompile Include="View\Src\View_MemoSetting.cpp" />
     <ClCompile Include="View\Src\View_MemoTypeConfig.cpp" />
+    <ClCompile Include="Widgets\Src\MemoSettingItem\MemoImportanceAndUrgencyItem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Utils\Include\Utils_ButtonHoverWatcher.h" />
@@ -81,13 +86,14 @@
     <QtMoc Include="Utils\Include\Utils_ComboboxWheelWatcher.h" />
   </ItemGroup>
   <ItemGroup>
+    <QtMoc Include="Widgets\Include\MemoSettingItem\MemoImportanceAndUrgencyItem.h" />
     <QtMoc Include="Widgets\Include\PopupWidget.h" />
     <QtMoc Include="View\Include\View_MemoTypeConfig.h" />
     <QtMoc Include="Controller\Include\Controller_MemoSetting.h" />
     <QtMoc Include="Widgets\Include\MemoSettingItem\MemoSettingItem.h" />
     <QtMoc Include="Widgets\Include\CheckBox.h" />
     <QtMoc Include="Widgets\Include\CloseWhenLeaveWidget.h" />
-    <QtMoc Include="Menu\Include\ColorPaletteMenuItem.h" />
+    <QtMoc Include="Widgets\Include\Menu\ColorPaletteMenuItem.h" />
     <QtMoc Include="Utils\Include\Utils_DragFilter.h" />
     <QtMoc Include="Utils\Include\Utils_LocationHelper.h" />
     <QtMoc Include="Utils\Include\Utils_MessegeHelper.h" />
@@ -95,13 +101,17 @@
     <QtMoc Include="Widgets\Include\MemoSettingItem\MemoTypeItem.h" />
     <QtMoc Include="Widgets\Include\MemoSettingItem\MemoTimeItem.h" />
     <QtMoc Include="Controller\Include\Controller_GlobalTop.h" />
+    <QtMoc Include="Widgets\Include\YearAndMonthSelector.h" />
+    <QtMoc Include="Widgets\Include\Menu\SingleSelectionMenuItem.h" />
+    <QtMoc Include="Widgets\Include\Menu\DateTimeMenuItem.h" />
+    <ClInclude Include="Widgets\Include\DateTimeSelector.h" />
     <ClInclude Include="Widgets\Include\Card\Card_Weather.h" />
     <ClInclude Include="Widgets\Include\ToolTip.h" />
     <ClInclude Include="Widgets\Include\DoubleClickedToEditButton.h" />
-    <QtMoc Include="Menu\Include\Menu.h" />
+    <QtMoc Include="Widgets\Include\Menu\Menu.h" />
     <ClInclude Include="Include\Global_Hugou.h" />
-    <QtMoc Include="Menu\Include\LineEditMenuItem.h" />
-    <QtMoc Include="Menu\Include\MenuItem.h" />
+    <QtMoc Include="Widgets\Include\Menu\LineEditMenuItem.h" />
+    <QtMoc Include="Widgets\Include\Menu\MenuItem.h" />
     <QtMoc Include="View\Widgets\Include\MemoTypeWidget.h" />
     <QtMoc Include="View\Widgets\Include\MemoWidget.h" />
     <ClInclude Include="Widgets\Include\ComboBox.h" />

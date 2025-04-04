@@ -9,7 +9,7 @@ class PreferenceModel : public QObject
     Q_OBJECT
 
 public:
-    PreferenceModel();
+    PreferenceModel(QObject* parent);
 
 private:
     friend class PreferenceController;

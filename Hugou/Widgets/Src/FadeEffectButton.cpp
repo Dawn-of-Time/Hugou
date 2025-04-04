@@ -30,6 +30,11 @@ FadeEffectButton::FadeEffectButton(const QString& text, const QFont& font, QWidg
 
 void FadeEffectButton::setGeneralStyle()
 {
+	setFlat(true);
+	setAutoFillBackground(false);
+	QPalette palette = this->palette();
+	palette.setColor(QPalette::Button, Qt::transparent);
+	this->setPalette(palette);
 	m_backgroundWidget = new QWidget(this);
 	m_backgroundWidgetOpacityEffect = new QGraphicsOpacityEffect(m_backgroundWidget);
 	m_backgroundWidgetOpacityEffect->setOpacity(0);
@@ -42,7 +47,7 @@ void FadeEffectButton::setGeneralStyle()
 void FadeEffectButton::setGeneralLayout()
 {
 	m_buttonLayout = new QHBoxLayout(this);
-	m_buttonLayout->setContentsMargins(20, 10, 20, 10);
+	m_buttonLayout->setContentsMargins(0, 0, 0, 0);
 	m_buttonLayout->setSpacing(10);
 	m_buttonLayout->setAlignment(Qt::AlignVCenter);
 }
@@ -52,7 +57,8 @@ void FadeEffectButton::addTextZone(const QString& text, const QFont& font)
 	if (!m_buttonLayout) setGeneralLayout();
 	m_textZone = new QLabel(text, this);
 	m_textZone->setFont(font);
-	m_textZone->setContentsMargins(5, 0, 0, 0);
+	m_textZone->setContentsMargins(0, 0, 0, 0);
+	m_textZone->setAlignment(Qt::AlignCenter);
 	m_buttonLayout->addWidget(m_textZone);
 }
 
@@ -87,12 +93,7 @@ void FadeEffectButton::setIconSize(const QSize& iconSize)
 
 void FadeEffectButton::setText(const QString& text)
 {
-	if (m_textZone)
-	{
-		m_textZone->setText(text);
-		m_textZone->adjustSize();
-		this->adjustSize();
-	}
+	if (m_textZone) m_textZone->setText(text);
 	else addTextZone(text, QFont());
 }
 
@@ -118,6 +119,22 @@ void FadeEffectButton::setFixedHeight(int h)
 {
 	QPushButton::setFixedHeight(h);
 	m_backgroundWidget->setFixedHeight(h);
+}
+
+void FadeEffectButton::setContentsMargins(int left, int top, int right, int bottom)
+{
+	if (!m_buttonLayout) setGeneralLayout();
+	m_buttonLayout->setContentsMargins(left, top, right, bottom);
+}
+
+void FadeEffectButton::setTextColor(const QColor& color)
+{
+	if (m_textZone)
+	{
+		QPalette palette;
+		palette.setColor(QPalette::ButtonText, color);
+		m_textZone->setPalette(palette);
+	}
 }
 
 void FadeEffectButton::enableGraphicsEffect()
@@ -168,6 +185,17 @@ void FadeEffectButton::paintEvent(QPaintEvent* event) {
     QStyleOption opt;
     opt.initFrom(this);
     QPainter painter(this);
+	if (m_hasPainterPath)
+	{
+		painter.setRenderHint(QPainter::Antialiasing);
+		if (m_hasGradient) painter.fillPath(m_painterPath, m_gradient);
+		else painter.fillPath(m_painterPath, m_baseColor);
+	}
+	else
+	{
+		if (m_hasGradient) painter.fillRect(rect(), m_gradient);
+		else painter.fillRect(rect(), m_baseColor);
+	}
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &painter, this);
 }
 

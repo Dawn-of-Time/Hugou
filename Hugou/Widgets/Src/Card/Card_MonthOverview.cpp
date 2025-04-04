@@ -28,8 +28,8 @@ void MonthOverviewCard::setupUi()
     m_titleWidgetLayout->setSpacing(0);
     m_title = new FadeEffectButton("", titleFont, m_titleWidget);
     m_title->setFixedSize(176, 30);
-    m_title->layout()->setContentsMargins(0, 0, 0, 0);
     m_title->setBackgroundWidgetStyleSheet("background-color: rgba(0, 0, 255, 0.1); border-radius: 5px");
+    m_title->setTextAlignment(Qt::AlignLeft);
     m_actionWidget = new QWidget(m_titleWidget);
     m_actionWidget->setFixedWidth(92);
     m_actionWidgetLayout = new QHBoxLayout(m_actionWidget);
@@ -166,12 +166,12 @@ void MonthOverviewCard::loadMonthView(const QDate& date)
     if (year == QDate::currentDate().year() && month == QDate::currentDate().month())
     {
         m_todayButton = m_dayListForAMonth[QDate(year, month, 1).dayOfWeek() + date.day() - 2];
-        m_todayButton->setStyleSheet("background-color: #AEE4FD; border-radius: 10px");
+        m_todayButton->setStyleSheet("background-color: #AEE4FD; border-radius: 10px; color: black");
         m_backToTodayButton->hide();
     }
     else
     {
-        m_todayButton->setStyleSheet("background-color: transparent; border-radius: 10px");
+        m_todayButton->setStyleSheet("background-color: transparent; border-radius: 10px; color: #ACB1C6");
         m_backToTodayButton->show();
     }  
     m_currentDate.setDate(year, month, date.day());

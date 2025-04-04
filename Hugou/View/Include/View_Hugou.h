@@ -29,15 +29,37 @@ class HugouView : public QWidget
 
 public:
     HugouView();
-
-protected slots:
     void scale();
     void darken();
     void brighten();
     void closeHugou();
+    void applyThemeResource(const QMap<ThemeRole, QString>& themeResourceMap);
+
+signals:
+    void SignalApplyThemeResourceFinished();
 
 private:
     friend class HugouController;
+    enum Area
+    {
+        TOPLEFT,
+        TOP,
+        TOPRIGHT,
+        LEFT,
+        RIGHT,
+        BOTTOMLEFT,
+        BOTTOM,
+        BOTTOMRIGHT,
+        DRAGZONE,
+        NOTAREA
+    };
+    Area m_area = NOTAREA;
+    QRect m_currentMainWindowGeometry;
+    QGraphicsOpacityEffect* m_stackedWidgetOpacityEffect;
+    QPropertyAnimation* m_stackedSwitchFadeInAnimation = nullptr;
+    QPropertyAnimation* m_stackedSwitchFadeOutAnimation = nullptr;
+    QMap<ThemeRole, QWidget*> m_themeRoleViewMap;
+    int m_objectiveStackedWidgetIndex = 0; // 暂存目标索引，用于动画被打断时。
     QVBoxLayout* m_generalLayout;
     QWidget* m_asideBarAndStackedWidget;
     QHBoxLayout* m_asideBarAndStackedLayout;
@@ -57,25 +79,6 @@ private:
     QWidget* m_darkenWidget;
     FloatingNotePanel* m_floatingNotePanel;
     GlobalTopView* m_globalTopView;
-    enum Area
-    {
-        TOPLEFT,
-        TOP,
-        TOPRIGHT,
-        LEFT,
-        RIGHT,
-        BOTTOMLEFT,
-        BOTTOM,
-        BOTTOMRIGHT,
-        DRAGZONE,
-        NOTAREA
-    };
-    Area m_area = NOTAREA;
-    QRect m_currentMainWindowGeometry;
-    QGraphicsOpacityEffect* m_stackedWidgetOpacityEffect;
-    int m_objectiveStackedWidgetIndex = 0; // 暂存目标索引，用于动画被打断时。
-    QPropertyAnimation* m_stackedSwitchFadeInAnimation = nullptr;
-    QPropertyAnimation* m_stackedSwitchFadeOutAnimation = nullptr;
     void changeStackedWidget(int index);
     QRect customScale(const Area& area, const QRect& currentMainWindowGeometry, const QPoint& change);
     Area getArea(const QPoint& mousePos);
@@ -92,6 +95,7 @@ private:
     bool nativeEvent(const QByteArray& eventType, void* message, qintptr* result) override;
     void changeEvent(QEvent* event) override;
     void resizeEvent(QResizeEvent* event) override;
+    void paintEvent(QPaintEvent* event) override;
 
     // 完全由qt实现的窗口边缘拉伸办法。
     //bool event(QEvent* event)

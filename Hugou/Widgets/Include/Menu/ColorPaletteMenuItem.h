@@ -98,7 +98,7 @@ class ColorPaletteMenuItem :
     Q_OBJECT
 
 public:
-    ColorPaletteMenuItem(const QString& title, QWidget* parent = nullptr);
+    ColorPaletteMenuItem(const QString& title, QWidget* menu);
     void setColor(const QString& colorHex);
     void recall() override;
     QString save() override;

@@ -1,7 +1,7 @@
-#include "Menu/Include/LineEditMenuItem.h"
+#include "Widgets/Include/Menu/LineEditMenuItem.h"
 
-LineEditMenuItem::LineEditMenuItem(const QString& title, QWidget* parent)
-	:MenuItem(title, parent)
+LineEditMenuItem::LineEditMenuItem(const QString& title, QWidget* menu)
+	:MenuItem(title, menu)
 {
 	setupUi();
 }

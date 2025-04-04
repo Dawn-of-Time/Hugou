@@ -1,10 +1,9 @@
-#include "Menu/Include/Menu.h"
+#include "Widgets/Include/Menu/Menu.h"
 
 Menu::Menu(QWidget* parent)
 	:QWidget(parent)
 {
 	setWindowFlags(Qt::Window);
-	setAttribute(Qt::WA_DeleteOnClose);
 	setAttribute(Qt::WA_TranslucentBackground);
 	setupUi();
 	connect(m_saveButton, &QPushButton::clicked, this, &Menu::save);
@@ -24,7 +23,7 @@ void Menu::setupUi()
 	this->setStyleSheet("QWidget #menu {background-color: white; border-radius: 5px; border: 1px solid #ACB1C6}");
 
 	m_layout = new QVBoxLayout(this);
-	m_layout->setContentsMargins(5, 0, 5, 0);
+	m_layout->setContentsMargins(5, 5, 5, 5);
 	m_layout->setSpacing(0);
 
 	m_titleBar = new QWidget(this);
@@ -66,7 +65,7 @@ void Menu::setupUi()
 
 	m_centralWidget = new QWidget(this);
 	m_centralWidgetLayout = new QVBoxLayout(m_centralWidget);
-	m_centralWidgetLayout->setContentsMargins(5, 5, 5, 5);
+	m_centralWidgetLayout->setContentsMargins(5, 0, 5, 0);
 	m_centralWidgetLayout->setSpacing(5);
 
 	m_layout->addWidget(m_titleBar);
@@ -75,8 +74,14 @@ void Menu::setupUi()
 
 void Menu::addMenuItem(MenuItem* item) 
 { 
+	if (m_centralWidgetLayout->count() != 0)
+	{
+		QWidget* spacer = new QWidget(m_centralWidget);
+		spacer->setFixedHeight(2);
+		spacer->setStyleSheet("background-color: #ACB1C6");
+		m_centralWidgetLayout->addWidget(spacer);
+	}
 	m_centralWidgetLayout->addWidget(item);
-	this->adjustSize();
 }
 
 void Menu::save()

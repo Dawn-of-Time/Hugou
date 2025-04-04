@@ -1,7 +1,7 @@
-#include "Menu/Include/ColorPaletteMenuItem.h"
+#include "Widgets/Include/Menu/ColorPaletteMenuItem.h"
 
-ColorPaletteMenuItem::ColorPaletteMenuItem(const QString& title, QWidget* parent)
-	:MenuItem(title, parent)
+ColorPaletteMenuItem::ColorPaletteMenuItem(const QString& title, QWidget* menu)
+	:MenuItem(title, menu)
 {
 	setupUi();
     setCentralWidget(m_widget);

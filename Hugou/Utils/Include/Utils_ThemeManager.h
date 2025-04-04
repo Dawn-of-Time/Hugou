@@ -4,14 +4,16 @@
 #include "Utils_MessegeHelper.h"
 #include <QObject>
 #include <QThread>
+#include <QApplication>
 
 QT_BEGIN_NAMESPACE
 
-struct ThemeResource
+enum ThemeRole
 {
-    QString generalStyleSheet = "";
-    QString asideBarStyleSheet = "";
-    QString preferenceStyleSheet = "";
+    General,
+    AsideBar,
+    Preference,
+    Schedule
 };
 
 class ThemeManager :
@@ -20,26 +22,27 @@ class ThemeManager :
     Q_OBJECT
 
 public:
-    ThemeManager(QList<QWidget*> objectList, QObject* parent);
-    ~ThemeManager();
+    static ThemeManager* getManager();
     void loadThemeResource(QString theme = "");
-    void applyThemeResource(ThemeResource* themeResource);
+    QString& getStyleSheet(const ThemeRole& themeRole);
     
 signals:
-    void SignalThemeResourcePrepared(ThemeResource* themeResource);
+    void SignalThemeResourcePrepared();
     void SignalApplyThemeResourceFinished();
+    void SignalApplyThemeResource(const QMap<ThemeRole, QString>& themeResourceMap);
 
 private:
     friend class LoadThemeResourceThread;
     QString m_tempTheme = "";
     QString m_theme = "";
-    QWidget* m_hugou;
-    QWidget* m_asideBarView;
-    QWidget* m_preferenceView;
-    ThemeResource* m_themeResource;
+    QMap<ThemeRole, QString> m_themeResourceMap;
+    QMap<ThemeRole, QString> m_cacheMap;
     GlobalTopController::UsageGuard* m_globalTopUsagePermission;
-    void applyThemeForStartup(ThemeResource* themeResource);
-    void applyTheme(ThemeResource* themeResource);
+    ThemeManager();
+    ThemeManager(const ThemeManager&) = delete;
+    ThemeManager& operator=(const ThemeManager&) = delete;
+    void applyThemeForStartup();
+    void applyTheme();
 };
 
 class LoadThemeResourceThread :
@@ -48,17 +51,39 @@ class LoadThemeResourceThread :
     Q_OBJECT
 
 public:
-    LoadThemeResourceThread(const QString& theme) : m_theme(theme) { };
+    LoadThemeResourceThread(const QString& theme) : m_theme(theme){ };
     void run() override;
 
 signals:
-    void SignalThemeResourcePreparedInThread(ThemeResource* themeResource, bool consistentFlag);
+    void SignalThemeResourcePreparedInThread(QMap<ThemeRole, QString> themeResourceMap, bool consistentFlag, QMap<ThemeRole, QString> cacheMap = {});
 
 private:
+    enum ThemeResourceLoadMode
+    {
+        DeleteAfterLoading,     // 首次加载后，将样式表删除
+        CacheAfterLoading,      // 首次加载后，将样式表缓存
+    };
     QString m_theme;
-    ThemeResource* m_themeResource = new ThemeResource{};
+    QString m_themeResource;
+    QStringList m_fileNameList = { "general", "asideBar", "schedule"};
+    QMap<QString, ThemeRole> m_themeRoleMap =
+    {
+        {"general", ThemeRole::General},
+        {"asideBar", ThemeRole::AsideBar},
+        {"preference", ThemeRole::Preference},
+        {"schedule", ThemeRole::Schedule},
+    };
+    QMap<ThemeRole, ThemeResourceLoadMode> m_themeResourceLoadModeMap =
+    {
+        {ThemeRole::General, ThemeResourceLoadMode::DeleteAfterLoading},
+        {ThemeRole::AsideBar, ThemeResourceLoadMode::CacheAfterLoading},
+        {ThemeRole::Preference, ThemeResourceLoadMode::DeleteAfterLoading},
+        {ThemeRole::Schedule, ThemeResourceLoadMode::DeleteAfterLoading}
+    };
+    QMap<ThemeRole, QString> m_themeResourceMap;
+    QMap<ThemeRole, QString> m_cacheMap;
     bool m_isConsistent = true;
-    static ThemeResource* getDefaultThemeResource();
+    static QString getDefaultThemeResource(const ThemeRole& themeRole);
 };
 
 

@@ -1,9 +1,9 @@
 #pragma once
 #include "Database/Include/Database.h"
 #include "Include/Struct_Memo.h"
-#include "Menu/Include/ColorPaletteMenuItem.h"
-#include "Menu/Include/LineEditMenuItem.h"
-#include "Menu/Include/Menu.h"
+#include "Widgets/Include/Menu/ColorPaletteMenuItem.h"
+#include "Widgets/Include/Menu/LineEditMenuItem.h"
+#include "Widgets/Include/Menu/Menu.h"
 #include "View/Widgets/Include/MemoTypeWidget.h"
 #include "Widgets/Include/PopupWidget.h"
 
@@ -39,6 +39,10 @@ private:
     QLabel* m_typeRepoTitle;
     QWidget* m_typeRepoContent;
     QVBoxLayout* m_typeRepoContentLayout;
+    Menu* m_memoTypeMenu;
+    LineEditMenuItem* m_lineEditMenuItem;
+    ColorPaletteMenuItem* m_colorPaletteMenuItem;
+
     void setupUi();
     void showMemoTypeMenu(MemoTypeWidget* memoTypeWidget, const QPoint& shownPos);
 };

@@ -182,16 +182,16 @@
     <ClCompile Include="Widgets\Src\PopupWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Menu\Src\Menu.cpp">
+    <ClCompile Include="Widgets\Src\Menu\Menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Menu\Src\MenuItem.cpp">
+    <ClCompile Include="Widgets\Src\Menu\MenuItem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Menu\Src\LineEditMenuItem.cpp">
+    <ClCompile Include="Widgets\Src\Menu\LineEditMenuItem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Menu\Src\ColorPaletteMenuItem.cpp">
+    <ClCompile Include="Widgets\Src\Menu\ColorPaletteMenuItem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Utils\Src\Utils_DragFilter.cpp">
@@ -225,6 +225,21 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Controller\Src\Controller_GlobalTop.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Widgets\Src\DateTimeSelector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Widgets\Src\YearAndMonthSelector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Widgets\Src\Menu\SingleSelectionMenuItem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Widgets\Src\Menu\DateTimeMenuItem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Widgets\Src\MemoSettingItem\MemoImportanceAndUrgencyItem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -316,19 +331,19 @@
     <QtMoc Include="View\Include\View_MemoTypeConfig.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="Menu\Include\Menu.h">
+    <QtMoc Include="Widgets\Include\Menu\Menu.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="Menu\Include\ColorPaletteMenuItem.h">
+    <QtMoc Include="Widgets\Include\Menu\ColorPaletteMenuItem.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="Utils\Include\Utils_DragFilter.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="Menu\Include\MenuItem.h">
+    <QtMoc Include="Widgets\Include\Menu\MenuItem.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="Menu\Include\LineEditMenuItem.h">
+    <QtMoc Include="Widgets\Include\Menu\LineEditMenuItem.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="View\Widgets\Include\MemoWidget.h">
@@ -353,6 +368,18 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="Controller\Include\Controller_GlobalTop.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Widgets\Include\YearAndMonthSelector.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Widgets\Include\Menu\SingleSelectionMenuItem.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Widgets\Include\Menu\DateTimeMenuItem.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Widgets\Include\MemoSettingItem\MemoImportanceAndUrgencyItem.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -406,6 +433,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Widgets\Include\ToolTip.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Widgets\Include\DateTimeSelector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -63,6 +63,13 @@ void MemoTypeConfigView::setupUi()
 
 	m_layout->addWidget(m_priorityDisplayWidget);
 	m_layout->addWidget(m_typeRepoWidget);
+
+	m_memoTypeMenu = new Menu(this);
+	m_lineEditMenuItem = new LineEditMenuItem("Name", m_memoTypeMenu);
+	m_colorPaletteMenuItem = new ColorPaletteMenuItem("Color", m_memoTypeMenu);
+	m_memoTypeMenu->addMenuItem(m_lineEditMenuItem);
+	m_memoTypeMenu->addMenuItem(m_colorPaletteMenuItem);
+	m_memoTypeMenu->hide();
 }
 
 void MemoTypeConfigView::close()
@@ -141,13 +148,9 @@ void MemoTypeConfigView::addTypeLabelAndType(const QString& labelName, QList<Mem
 
 void MemoTypeConfigView::showMemoTypeMenu(MemoTypeWidget* memoTypeWidget, const QPoint& shownPos)
 {
-	memoTypeWidget->blockSignals(true);
-	MemoType& memoType = memoTypeWidget->getMemo();
-	Menu* menu = new Menu(this);
-	LineEditMenuItem* lineEditMenuItem = new LineEditMenuItem("Name", menu);
-	lineEditMenuItem->setText(memoType.name);
-	ColorPaletteMenuItem* colorPaletteMenuItem = new ColorPaletteMenuItem("Color", menu);
-	colorPaletteMenuItem->setColor(memoType.color.name());
+	MemoType& memoType = memoTypeWidget->getMemoType();
+	m_lineEditMenuItem->setText(memoType.name);
+	m_colorPaletteMenuItem->setColor(memoType.color.name());
 	// 保存有两个步骤：
 	// 步骤一：当MemoTypeMenu关闭时，此时需要做：
 	//       1.判别是否需要更新Ui，若需要，则更新涉及到的MemoTypeWidget的Ui；
@@ -156,7 +159,8 @@ void MemoTypeConfigView::showMemoTypeMenu(MemoTypeWidget* memoTypeWidget, const 
 	//       1.更新涉及到的MemoSetting的Ui；
 	//       2.从数据库层面修改MemoType。
 	// 这里是步骤一。
-	connect(menu, &Menu::SignalSaved, [&](QMap<QString, QString> resultMap)
+	disconnect(m_memoTypeMenu, &Menu::SignalSaved, nullptr, nullptr);
+	connect(m_memoTypeMenu, &Menu::SignalSaved, [&](QMap<QString, QString> resultMap)
 		{
 			MemoType* newType = new MemoType{ memoType.ID, memoType.name, memoType.color, memoType.label, memoType.priority };
 			newType->name = resultMap["Name"];
@@ -180,11 +184,9 @@ void MemoTypeConfigView::showMemoTypeMenu(MemoTypeWidget* memoTypeWidget, const 
 				if (memoType.priority) if (m_oldNewPriorityDisplayMemoTypeMap.contains(&memoType)) m_oldNewPriorityDisplayMemoTypeMap.remove(&memoType);
 				if (m_oldNewMemoTypeMap.contains(&memoType)) m_oldNewMemoTypeMap.remove(&memoType);
 			}
-			memoTypeWidget->blockSignals(false);
+			m_memoTypeMenu->close();
 		});
-	menu->addMenuItem(lineEditMenuItem);
-	menu->addMenuItem(colorPaletteMenuItem);
-	menu->move(shownPos);
-	menu->show();
-	menu->raise();
+	m_memoTypeMenu->move(shownPos);
+	m_memoTypeMenu->show();
+	m_memoTypeMenu->raise();
 }

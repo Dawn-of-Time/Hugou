@@ -1,7 +1,7 @@
-#include "Menu/Include/MenuItem.h"
+#include "Widgets/Include/Menu/MenuItem.h"
 
-MenuItem::MenuItem(const QString& title, QWidget* parent)
-	:QWidget(parent), m_title(title)
+MenuItem::MenuItem(const QString& title, QWidget* menu)
+	:QWidget(menu), m_title(title)
 {
 	setupUi();
 	m_titleLabel->setText(title);
@@ -18,11 +18,13 @@ void MenuItem::setupUi()
 	m_layout->setSpacing(5);
 
 	m_titleWidget = new QWidget(this);
+	m_titleWidget->setFixedHeight(24);
 	m_titleWidgetLayout = new QHBoxLayout(m_titleWidget);
 	m_titleWidgetLayout->setContentsMargins(0, 0, 0, 0);
 
 	m_titleLabel = new QLabel(m_titleWidget);
 	m_titleLabel->setFont(titleFont);
+	m_titleLabel->setFixedHeight(24);
 	m_recallButton = new QPushButton(m_titleWidget);
 	m_recallButton->setFixedSize(24, 24);
 	m_recallButton->setIcon(QIcon(":/icon/recall.ico"));
@@ -37,5 +39,9 @@ void MenuItem::setupUi()
 
 void MenuItem::setCentralWidget(QWidget* widget)
 {
+	if (m_centralWidget) 
+		m_layout->removeWidget(m_centralWidget);
 	m_layout->addWidget(widget);
+	m_centralWidget = widget;
+	adjustSize();
 }

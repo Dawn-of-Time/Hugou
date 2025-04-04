@@ -42,15 +42,18 @@ void LocationHelper::getID(QNetworkReply* IDReply, QNetworkAccessManager* manage
 	{
 		QJsonDocument jsonDocument = QJsonDocument::fromJson(data.toUtf8());
 		QJsonObject jsonObject = jsonDocument.object();
-		QJsonArray jsonArray = jsonObject.value("location").toArray();
-		QJsonObject locationObject = jsonArray[0].toObject();
-		m_region = locationObject.value("name").toString();
-		m_ID = locationObject.value("id").toString();
-		ConfigurationHelper* helper = ConfigurationHelper::getHelper();
-		helper->setRecordValue("location_ID", m_ID);
-		helper->setRecordValue("location_region", m_region);
-		QNetworkReply* geoReply = manager->get(QNetworkRequest(QUrl("https://ipapi.co/json/")));
-		m_status = LocationResuorceStatus::Prepared;
+		if (jsonObject.value("code").toString() == "200")
+		{
+			QJsonArray jsonArray = jsonObject.value("location").toArray();
+			QJsonObject locationObject = jsonArray[0].toObject();
+			m_region = locationObject.value("name").toString();
+			m_ID = locationObject.value("id").toString();
+			ConfigurationHelper* helper = ConfigurationHelper::getHelper();
+			helper->setRecordValue("location_ID", m_ID);
+			helper->setRecordValue("location_region", m_region);
+			QNetworkReply* geoReply = manager->get(QNetworkRequest(QUrl("https://ipapi.co/json/")));
+			m_status = LocationResuorceStatus::Prepared;
+		}
 		IDReply->deleteLater();
 		manager->deleteLater();
 	}

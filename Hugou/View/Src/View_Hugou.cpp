@@ -37,6 +37,21 @@ HugouView::HugouView()
     );
     // 为FloatingNoteManager指定Hugou
     FloatingNoteManager::getManager()->setHugou(this);
+
+    m_themeRoleViewMap =
+    {
+        {ThemeRole::General, this},
+        {ThemeRole::AsideBar, m_asideBarView},
+        {ThemeRole::Preference, m_preferenceView},
+        {ThemeRole::Schedule, m_scheduleView}
+    };
+}
+
+void HugouView::applyThemeResource(const QMap<ThemeRole, QString>& themeResourceMap)
+{
+    for (QMap<ThemeRole, QString>::const_iterator it = themeResourceMap.begin(); it != themeResourceMap.end(); it++)
+        m_themeRoleViewMap[it.key()]->setStyleSheet(it.value());
+    emit SignalApplyThemeResourceFinished();
 }
 
 void HugouView::scale()
@@ -419,4 +434,11 @@ void HugouView::resizeEvent(QResizeEvent* event)
         disableGraphicsEffect();
         m_stackedWidget->setCurrentIndex(m_objectiveStackedWidgetIndex);
     }
+}
+
+void HugouView::paintEvent(QPaintEvent* event) {
+    QStyleOption opt;
+    opt.initFrom(this);
+    QPainter painter(this);
+    style()->drawPrimitive(QStyle::PE_Widget, &opt, &painter, this);
 }

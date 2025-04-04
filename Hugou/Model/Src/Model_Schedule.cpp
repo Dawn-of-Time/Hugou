@@ -1,13 +1,9 @@
 #include "Model/Include/Model_Schedule.h"
 
-ScheduleModel::ScheduleModel()
+ScheduleModel::ScheduleModel(QObject* parent)
+	:QObject(parent)
 {
-	m_memoSettingModel = new MemoSettingModel();
-}
-
-ScheduleModel::~ScheduleModel()
-{
-	delete m_memoSettingModel;
+	m_memoSettingModel = new MemoSettingModel(parent);
 }
 
 void ScheduleModel::addMemo(Memo& memo)

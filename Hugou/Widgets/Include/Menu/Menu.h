@@ -3,7 +3,7 @@
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QPushButton>
-#include "MenuItem.h"
+#include "Widgets/Include/Menu/MenuItem.h"
 #include "Utils/Include/Utils_ButtonHoverWatcher.h"
 #include <Windows.h>
 #include <windowsx.h>
@@ -12,6 +12,8 @@
 #include <QStyleOption>
 #include <QPainter>
 #include <QApplication>
+
+class MenuItem;
 
 class Menu :
     public QWidget

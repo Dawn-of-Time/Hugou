@@ -52,5 +52,7 @@ private:
 
 	FloatingNoteManager();
 	~FloatingNoteManager();
+	FloatingNoteManager(const FloatingNoteManager&) = delete;
+	FloatingNoteManager& operator=(const FloatingNoteManager&) = delete;
 	void popupFloatingNote();
 };

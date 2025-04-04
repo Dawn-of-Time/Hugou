@@ -1,6 +1,7 @@
 #include "Model/Include/Model_MemoSetting.h"
 
-MemoSettingModel::MemoSettingModel()
+MemoSettingModel::MemoSettingModel(QObject* parent)
+	:QObject(parent)
 {
 	readMemoTypeLabelData();
 	readMemoTypeData();

@@ -1,5 +1,5 @@
 ﻿#include "Model/Include/Model_Preference.h"
 
-PreferenceModel::PreferenceModel()
-    : QObject()
+PreferenceModel::PreferenceModel(QObject* parent)
+    : QObject(parent)
 {}

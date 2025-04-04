@@ -21,5 +21,4 @@ private:
     HugouModel* m_hugouModel;
     PreferenceController* m_preferenceController;
     ScheduleController* m_scheduleController;
-    ThemeManager* m_themeManager;
 };

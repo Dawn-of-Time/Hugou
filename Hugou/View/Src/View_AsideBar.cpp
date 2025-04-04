@@ -1,4 +1,6 @@
 #include "View/Include/View_AsideBar.h"
+#include <QEvent>
+#include <QApplication>
 
 AsideBarView::AsideBarView(QWidget* parent) :
 	QWidget(parent) 
@@ -40,6 +42,10 @@ void AsideBarView::setupUi()
     }
     m_asideBarButtonList[0]->setIcon(QPixmap(m_asideBarItemIconMap["Schedule"].second[1]));
     m_asideBarButtonList[0]->setProperty("status", "current");
+    QLinearGradient gradient(m_asideBarButtonList[0]->rect().topLeft(), m_asideBarButtonList[0]->rect().topRight());
+    gradient.setColorAt(0, QColor("#104FB9"));
+    gradient.setColorAt(1, QColor("#468DFA"));
+    m_asideBarButtonList[0]->setGradient(gradient);
     m_asideBarButtonList[0]->setStatus(false);
 }
 
@@ -58,12 +64,17 @@ QLabel* AsideBarView::generateTitle(const QString& titleText)
 FadeEffectButton* AsideBarView::generateButton(const QString& titleText)
 {
     // ×ÖÌåÇåµ¥
-    QFont ASIDEBAR_BUTTON_FONT = QFont("NeverMind", 11, QFont::Normal);
+    QFont asideBarButtonFont = QFont("NeverMind", 11, QFont::Normal);
 
-    FadeEffectButton* button = new FadeEffectButton(QIcon(m_asideBarItemIconMap[titleText].second[0]), QSize(16, 16), titleText, ASIDEBAR_BUTTON_FONT, this);
+    FadeEffectButton* button = new FadeEffectButton(QIcon(m_asideBarItemIconMap[titleText].second[0]), QSize(16, 16), titleText, asideBarButtonFont, this);
     button->setFixedSize(226, 36);
-    button->setBackgroundWidgetStyleSheet("background-color: rgba(0, 0, 255, 0.1); border-radius: 18px;");
+    button->setBackgroundWidgetStyleSheet("background-color: rgba(0, 0, 255, 0.1); border-radius: 10px;");
+    button->setContentsMargins(20, 10, 20, 10);
+    button->setTextAlignment(Qt::AlignLeft);
     button->setProperty("status", "default");
+    QPainterPath path;
+    path.addRoundedRect(button->rect(), 10, 10);
+    button->setPainterPath(path);
     button->setStatus(true);
     m_asideBarButtonList.append(button);
     connect(button, &QPushButton::clicked, this, &AsideBarView::switchOverStackedWidget);
@@ -81,6 +92,10 @@ void AsideBarView::switchOverStackedWidget()
         {
             button->setIcon(QIcon(m_asideBarItemIconMap[button->text()].second[1]));
             button->setProperty("status", "current");
+            QLinearGradient gradient(button->rect().topLeft(), button->rect().topRight());
+            gradient.setColorAt(0, QColor("#104FB9"));
+            gradient.setColorAt(1, QColor("#468DFA"));
+            button->setGradient(gradient);
             button->setStatus(false);
             stackedWidgetIndex = index;
         }
@@ -88,10 +103,18 @@ void AsideBarView::switchOverStackedWidget()
         {
             button->setIcon(QIcon(m_asideBarItemIconMap[button->text()].second[0]));
             button->setProperty("status", "default");
+            button->setGradient(QGradient());
             button->setStatus(true);
             index++;
         }
     }
-    this->setStyleSheet(this->styleSheet());
+    this->setStyleSheet(ThemeManager::getManager()->getStyleSheet(ThemeRole::AsideBar));
     emit SignalChangeStackedWidget(stackedWidgetIndex);
+}
+
+void AsideBarView::paintEvent(QPaintEvent* event) {
+    QStyleOption opt;
+    opt.initFrom(this);
+    QPainter painter(this);
+    style()->drawPrimitive(QStyle::PE_Widget, &opt, &painter, this);
 }

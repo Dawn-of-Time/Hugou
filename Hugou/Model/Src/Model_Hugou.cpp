@@ -3,6 +3,6 @@
 HugouModel::HugouModel()
     : QObject()
 {
-    m_preferenceModel = new PreferenceModel();
-    m_scheduleModel = new ScheduleModel();
+    m_preferenceModel = new PreferenceModel(this);
+    m_scheduleModel = new ScheduleModel(this);
 }

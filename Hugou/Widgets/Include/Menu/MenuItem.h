@@ -10,11 +10,11 @@ class MenuItem :
 {
     Q_OBJECT
 public:
-    MenuItem(const QString& title, QWidget* parent = nullptr);
+    MenuItem(const QString& title, QWidget* menu);
     void setCentralWidget(QWidget* widget);
     void disableRecallFunction() { m_recallButton->hide(); };
     QString name() { return m_title;  };
-    virtual void recall() = 0;
+    virtual void recall() {};
     virtual QString save() = 0;
 
 private:
@@ -24,6 +24,7 @@ private:
     QHBoxLayout* m_titleWidgetLayout;
     QLabel* m_titleLabel;
     QPushButton* m_recallButton;
+    QWidget* m_centralWidget = nullptr;
     void setupUi();
 };
 

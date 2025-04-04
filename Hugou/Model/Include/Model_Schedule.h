@@ -13,8 +13,7 @@ class ScheduleModel :
     public QObject
 {
 public:
-    ScheduleModel();
-    ~ScheduleModel();
+    ScheduleModel(QObject* parent);
     void addMemo(Memo& memo);   // 添加后，更新结构体中的ID
     void addMemoAndAwardRelation(int memoID, int awardID);
     void addMemoAndReferenceRelation(int memoID, int referenceID);

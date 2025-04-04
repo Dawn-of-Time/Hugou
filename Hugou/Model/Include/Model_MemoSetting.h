@@ -7,7 +7,7 @@ class MemoSettingModel :
     public QObject
 {
 public:
-    MemoSettingModel();
+    MemoSettingModel(QObject* parent);
     ~MemoSettingModel();
 
 private:

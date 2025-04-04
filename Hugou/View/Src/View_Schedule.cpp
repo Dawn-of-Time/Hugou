@@ -104,10 +104,6 @@ void ScheduleView::setupUi()
     m_cardWidgetLayout->addWidget(monthOverviewCard);
     m_cardWidgetLayout->addWidget(weatherCard);
     m_cardWidgetLayout->addStretch();
-    QFile styleFile(":/theme/Default/schedule.qss");
-    styleFile.open(QIODeviceBase::ReadOnly);
-    this->setStyleSheet(styleFile.readAll());
-    styleFile.close();
 }
 
 void ScheduleView::generateMemo(Memo& memo)

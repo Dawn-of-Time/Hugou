@@ -9,6 +9,7 @@
 #include <QFont>
 #include "Include/Const_Geometry.h"
 #include "Widgets/Include/FadeEffectButton.h"
+#include "Utils/Include/Utils_ThemeManager.h"
 
 class AsideBarView : public QWidget
 {
@@ -22,6 +23,7 @@ signals:
 
 private:
     QVBoxLayout* m_asideBarLayout;
+    QLinearGradient m_currentGradient;
     QList<FadeEffectButton*> m_asideBarButtonList;
 
     enum class ItemType {
@@ -71,4 +73,6 @@ private:
     QLabel* generateTitle(const QString& titleText);
     FadeEffectButton* generateButton(const QString& buttonText);
     void switchOverStackedWidget();
+
+    void paintEvent(QPaintEvent* event) override;
 };

@@ -4,6 +4,7 @@
 #include "View/Include/View_MemoSetting.h"
 #include "Widgets/Include/MemoSettingItem/MemoTypeItem.h"
 #include "Widgets/Include/MemoSettingItem/MemoTimeItem.h"
+#include "Widgets/Include/MemoSettingItem/MemoImportanceAndUrgencyItem.h"
 
 class MemoSettingController :
     public QObject

@@ -19,7 +19,7 @@ public:
     MemoTypeWidget(MemoType& memoType, QWidget* parent);
     void updateUi(const MemoType& newType);
     void setStatus(bool status = true);
-    MemoType& getMemo() { return m_memoType; }
+    MemoType& getMemoType() { return m_memoType; }
 
 private:
     bool m_status = false;

@@ -7,6 +7,7 @@
 #include <QPropertyAnimation>
 #include <QStyleOption>
 #include <QPainter>
+#include <QPainterPath>
 
 class FadeEffectButton :
 	public QPushButton
@@ -29,6 +30,12 @@ public:
 	void setFixedSize(int w, int h);
 	void setFixedHeight(int h);
 	void setBackgroundWidgetStyleSheet(QString styleSheet) { m_backgroundWidget->setStyleSheet(styleSheet); }
+	void setContentsMargins(int left, int top, int right, int bottom);
+	void setGradient(QGradient gradient) { m_hasGradient = true; m_gradient = gradient; };
+	void setPainterPath(QPainterPath painterPath) { m_hasPainterPath = true; m_painterPath = painterPath; };
+	void setTextColor(const QColor& color);
+	void setBaseColor(const QColor& color) { m_baseColor = color; };
+
 	QHBoxLayout* layout() { return m_buttonLayout; };
 
 private:
@@ -40,6 +47,12 @@ private:
 	QPropertyAnimation* m_backgroundWidgetOpacityEffectAnimation;
 	bool m_status = true;
 	bool m_isMouseOver = false;
+	bool m_hasGradient = false;
+	bool m_hasPainterPath = false;
+	QGradient m_gradient;
+	QPainterPath m_painterPath;
+	QColor m_textColor = Qt::black;
+	QColor m_baseColor = Qt::transparent;
 
 	void setGeneralLayout();
 	void setGeneralStyle();

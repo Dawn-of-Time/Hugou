@@ -1,16 +1,16 @@
 /* …Ë÷√“≥ */
-QStackedWidget {
+PreferenceView QStackedWidget {
     background-color: transparent;
     border: none
 }
 
-QTreeWidget {
+PreferenceView QTreeWidget {
     background-color: transparent;
     border: none
 }
- 
 
-QListWidget {
+
+PreferenceView QListWidget {
     background-color: transparent;
     border: none;
     outline: none;
@@ -20,56 +20,56 @@ QListWidget {
     margin-bottom: 2px
 }
 
-    QListWidget::item:hover {
-        background-color: transparent
-    }
+PreferenceView QListWidget::item:hover {
+    background-color: transparent
+}
 
-QPushButton {
+PreferenceView QPushButton {
     border: none
 }
 
-QComboBox {
+PreferenceView QComboBox {
     border: none;
     border-radius: 5px;
     padding: 3px;
     background-color: #E0F0FF;
 }
 
-    QComboBox:hover {
-        background-color: #E0E5FF;
-    }
+PreferenceView QComboBox:hover {
+    background-color: #E0E5FF;
+}
 
-    QComboBox QAbstractItemView {
-        outline: none;
-        margin-top: 5px;
-        border-radius: 5px;
-        background-color: #E0F0FF;
-    }
+PreferenceView QComboBox QAbstractItemView {
+    outline: none;
+    margin-top: 5px;
+    border-radius: 5px;
+    background-color: #E0F0FF;
+}
 
-        QComboBox QAbstractItemView::item:hover {
-            padding: 3px;
-            color: black;
-            border-radius: 5px;
-            background-color: #E0E5FF;
-        }
+PreferenceView QComboBox QAbstractItemView::item:hover {
+    padding: 3px;
+    color: black;
+    border-radius: 5px;
+    background-color: #E0E5FF;
+}
 
-        QComboBox QAbstractItemView::item:selected {
-            padding: 3px;
-            color: black;
-            border-radius: 5px;
-            background-color: #E0E5FF;
-        }
+PreferenceView QComboBox QAbstractItemView::item:selected {
+    padding: 3px;
+    color: black;
+    border-radius: 5px;
+    background-color: #E0E5FF;
+}
 
-QComboBox::down-arrow {
+PreferenceView QComboBox::down-arrow {
     image: url(":/icon/down_bla.png");
     width: 20px;
-}  
+}
 
-QComboBox::drop-down {
+PreferenceView QComboBox::drop-down {
     border: none;
 }
 
-QLineEdit {
+PreferenceView QLineEdit {
     border: none;
     border-radius: 5px;
     padding: 3px;
